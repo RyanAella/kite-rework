@@ -1,0 +1,6 @@
+
+# IDE Specific files/directories
+.vscode
+
+# Automatically Generated Files
+generated/
