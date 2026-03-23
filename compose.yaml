@@ -1,0 +1,7 @@
+name: kiteRework
+
+services:
+  staticpage:
+    build: ./
+    ports: 
+      - "8080:80"
