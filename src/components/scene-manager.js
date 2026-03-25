@@ -1,4 +1,4 @@
-import "./sceens/start-scene.js";
+import "./scenes/start-scene.js";
 
 
 class SceneManager extends HTMLElement {
@@ -21,7 +21,9 @@ class SceneManager extends HTMLElement {
   }
 
   switch_scene(event) {
-    console.log("Registered switch_scene event");
+    const sceneName = event.detail?.scene;
+    console.log(`Registered switch_scene event: Switching to "${sceneName}"`);
+
     if (event.detail && typeof event.detail.scene === 'string') {
       const newScene = document.createElement(event.detail.scene);
       this.replaceChildren(newScene);

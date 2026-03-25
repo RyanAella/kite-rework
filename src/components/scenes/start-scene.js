@@ -9,7 +9,7 @@ class StartScene extends HTMLElement {
     const sm = document.querySelector('scene-manager');
     sm.dispatchEvent(new CustomEvent("sm-switch-scene", {
       detail: {
-        scene : "example-component"
+        scene : "novel-selector"
       }
     }));
   }
