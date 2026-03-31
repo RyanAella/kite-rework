@@ -8,7 +8,9 @@ class SpaMain extends HTMLElement {
 
   connectedCallback() {
     const sceneManager = document.createElement("scene-manager");
+    this.classList.add("flex", "justify-self-center", "justify-center", "h-dvh", "w-1/3");
     this.appendChild(sceneManager);
+
   }
 }
 

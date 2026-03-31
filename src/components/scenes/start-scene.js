@@ -4,6 +4,15 @@ class StartScene extends HTMLElement {
   }
 
   connectedCallback() {
+<<<<<<< HEAD
+    console.log("Starting");
+    this.dispatchEvent(new CustomEvent("sm-switch-scene", {
+      detail: {
+        scene : "novel-selector"
+      },
+      bubbles : true
+    }));
+=======
     console.log("Starting Scene loaded");
 
     // html body
@@ -41,6 +50,7 @@ class StartScene extends HTMLElement {
         console.error("Scene Manager not found!");
       }
     });
+>>>>>>> main
   }
 }
 
