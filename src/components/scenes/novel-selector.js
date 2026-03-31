@@ -1,22 +1,16 @@
 class NovelSelector extends HTMLElement {
-    connectedCallback() {
+    
+    async connectedCallback() {
 
         console.log("Added New Novel Selector Component");
 
-        // Novel map
-        const availableNovels = [
-            { id: 'buero-anmieten', title: 'Büro anmieten' },
-            { id: 'eltern-informieren', title: 'Eltern informieren' },
-            { id: 'honorar-verhandeln', title: 'Honorar verhandeln' },
-            { id: 'interview-abklaren', title: 'Interview abklären' },
-            { id: 'investor-ueberzeugen', title: 'Investor überzeugen' },
-            { id: 'kredit-beantragen', title: 'Kredit beantragen' },
-            { id: 'notarin-telefonieren', title: 'Mit Notarin telefonieren' }
-        ];
+        let response = await fetch("../../assets/novels.json");
+        let data = await response.json();
+        this.novels = data['visualNovels'];
 
         // HTML for the list
-        const novelItemsHtml = availableNovels.map(novel => `
-            <div data-id="${novel.id}" 
+        const novelItemsHtml = this.novels.map(novel => `
+            <div data-id="${novel.name}" 
                  class="novel-item group w-full text-center py-4 cursor-pointer hover:bg-gray-50 transition-colors border-b border-black last:border-b-0">
                 <span class="text-xl font-medium text-gray-900 group-hover:text-blue-600 tracking-tight">
                     ${novel.title}
@@ -37,7 +31,7 @@ class NovelSelector extends HTMLElement {
                         ${novelItemsHtml}
                     </div>
 
-                </div>
+                </div> 
             </div>
         `;
 
@@ -57,8 +51,10 @@ class NovelSelector extends HTMLElement {
                 // switching to a scene
                 this.dispatchEvent(new CustomEvent("sm-switch-scene", {
                     detail: { 
-                        scene: "start-scene" 
-                        // novelId: novelId (probably needed?)
+                        scene: "novel-scene",
+                        args: {
+                            novel: this.novels.find(novel => novel.name === novelId)
+                        }
                     },
                     bubbles: true,
                     composed: true  

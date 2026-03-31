@@ -1,4 +1,6 @@
 import "./scenes/start-scene.js";
+import "./scenes/novel-scene.js";
+import "./scenes/novel-selector.js";
 
 
 class SceneManager extends HTMLElement {
@@ -26,6 +28,7 @@ class SceneManager extends HTMLElement {
 
     if (event.detail && typeof event.detail.scene === 'string') {
       const newScene = document.createElement(event.detail.scene);
+      newScene.args = event.detail.args;
       this.replaceChildren(newScene);
     }
   }
