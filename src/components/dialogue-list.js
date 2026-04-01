@@ -21,11 +21,7 @@ class DialogueList extends HTMLElement {
   // Provide input variable to distinguish between message sender to adjust message color and position (left/right)
   showMessage(text) {
     const messageBox = document.createElement('div');
-<<<<<<< HEAD
-    const baseClasses = "max-w-[80%] px-4 py-3 rounded-xl leading-relaxed break-words animate-fade-in text-white";
-=======
     const baseClasses = "max-w-[80%] leading-relaxed break-words text-white bg-cyan-700 p-4 rounded-lg text-base text-left";
->>>>>>> main
 
     // if() {
     //     messageBox.className = `${baseClasses} self-start bg-kite-green rounded-bl-sm`;

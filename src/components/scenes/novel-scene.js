@@ -43,11 +43,7 @@ class NovelScene extends HTMLElement {
     const background = document.createElement('div');
     background.style.backgroundImage = 'url(' + backgroundImage.src + ')';
     background.id = '#background';
-<<<<<<< HEAD
-    background.classList.add("bg-[url("+ backgroundImage.src +"]", "bg-cover", "bg-center");
-=======
     background.classList.add("pointer-events-auto", "bg-[url("+ backgroundImage.src +"]", "bg-cover", "bg-center", "min-h-64");
->>>>>>> main
     this.appendChild(background);
   }
 
