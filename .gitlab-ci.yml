@@ -1,0 +1,30 @@
+# The Docker image that will be used to build your app
+image: alpine:latest
+pages:
+  stage: deploy
+  script:
+    - mkdir -p /tmp/build_assets
+    - cp -r . /tmp/build_assets/
+
+    - if [ "$CI_COMMIT_BRANCH" = "$CI_DEFAULT_BRANCH" ]; then
+        mkdir -p public;
+        cp -r /tmp/build_assets/* public/;
+      else
+        mkdir -p public/review/$CI_COMMIT_REF_SLUG;
+        cp -r /tmp/build_assets/* public/review/$CI_COMMIT_REF_SLUG/;
+      fi
+  artifacts:
+    paths:
+      - public
+  rules:
+  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    variables:
+      ENV_NAME: "production"
+      ENV_URL: $CI_PAGES_URL
+  - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+    variables:
+      ENV_NAME: "review/$CI_COMMIT_REF_NAME"
+      ENV_URL: $CI_PAGES_URL/review/$CI_COMMIT_REF_SLUG
+  environment:
+    name: $ENV_NAME
+    url: $ENV_URL

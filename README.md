@@ -2,10 +2,9 @@
 
 ## Getting started
 
-To visit the testing website of Kite Rework please download the Docker Desktop Application under https://www.docker.com/products/docker-desktop/.
+*Important:* you have to push your first commit if your branch is new because your environment will first then be created automatically
 
-Please open now a terminal type the command *npx @tailwindcss/cli -i ./style.css -o ./generated/tailwind.css --watch* to start the creating of the tailwind css file in the background 
+1. Open the team-04 project on Gitlab
 
-After that you can clone the repo and type into the terminal *docker compose up*.
+2. Go to Operate/Environments. On your test environment named review/*your branch name you want to test* you have to select on the right side the *Open* button.
 
-The container will start and will display the page under http://localhost:8080.
