@@ -3,5 +3,4 @@
 .vscode
 
 # Automatically Generated Files
-generated/
 node_modules/

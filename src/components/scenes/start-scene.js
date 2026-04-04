@@ -11,7 +11,7 @@ class StartScene extends HTMLElement {
           <div class="flex flex-col items-center justify-center min-h-screen font-sans bg-[#0d264f]">
             
             <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-white flex items-center justify-center shadow-2xl mb-12">
-              <img src="/assets/textures/icons-and-logos/Logo_Kite.png" alt="Kite Emblem" class="object-contain w-full h-full">
+              <img src="assets/textures/icons-and-logos/Logo_Kite.png" alt="Kite Emblem" class="object-contain w-full h-full">
             </div>
 
             <h1 class="text-8xl md:text-9xl font-black text-white lowercase tracking-tighter mb-16">
