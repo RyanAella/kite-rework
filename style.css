@@ -1,5 +1,24 @@
 @import "tailwindcss" source(none);
 
+@layer utilities {
+  .spa-main-style {
+    @apply aspect-1/2 max-w-screen max-h-screen outline-5 outline-white;
+    @media (max-aspect-ratio: 1/2) {
+      @apply w-screen;
+    }
+    @media (min-aspect-ratio: 1/2) {
+      @apply h-screen;
+    }
+  }
+
+  .bg-blue {
+    @apply bg-[url(assets/Images/SceneBase/Background_Blue.png)]
+  }
+
+  .bg-blue-ud {
+    @apply bg-[url(assets/Images/SceneBase/Background_Blue_upside_down.png)]
+  }
+}
 
 @source inline("pointer-events-auto");
 @source inline("start");
