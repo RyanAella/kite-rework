@@ -10,9 +10,8 @@ class NovelSelector extends HTMLElement {
 
         // HTML for the list
         const novelItemsHtml = this.novels.map(novel => `
-            <div data-id="${novel.name}" 
-                 class="novel-item group w-full text-center py-4 cursor-pointer hover:bg-gray-50 transition-colors border-b border-black last:border-b-0">
-                <span class="text-xl font-medium text-gray-900 group-hover:text-blue-600 tracking-tight">
+            <div data-id="${novel.name}" class="novel-item w-full text-center py-8 transition-colors border-b-4 border-[#0b1a2d]">
+                <span class="select-none text-5xl font-semibold text-gray-900 tracking-tight">
                     ${novel.title}
                 </span>
             </div>
@@ -20,16 +19,14 @@ class NovelSelector extends HTMLElement {
 
         // base structure
         this.innerHTML = `
-            <div class="flex flex-col items-center justify-center min-h-screen bg-blue-50/30 font-sans">
-                <div class="w-full max-w-md bg-white/80 p-6 rounded-sm shadow-sm">
+            <div class="flex flex-col items-center justify-center h-full w-full bg-bright bg-cover">
+                <div class="w-full h-full p-15">
                     
-                    <h1 class="text-2xl font-bold text-center mb-8 tracking-[0.2em] text-slate-800">
+                    <h1 class="select-none text-5xl font-semibold text-center mt-5 mb-20 tracking-tight text-[#0b1a2d]">
                         NOVELS
                     </h1>
                     
-                    <div class="border-t border-black">
-                        ${novelItemsHtml}
-                    </div>
+                    ${novelItemsHtml}
 
                 </div> 
             </div>
