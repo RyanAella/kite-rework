@@ -1,3 +1,5 @@
+import '../headers/closing-header.js';
+
 class NovelSelector extends HTMLElement {
     
     async connectedCallback() {
@@ -20,6 +22,7 @@ class NovelSelector extends HTMLElement {
         // base structure
         this.innerHTML = `
             <div class="flex flex-col items-center justify-center h-full w-full bg-bright bg-cover">
+                <closing-header></closing-header>
                 <div class="w-full h-full p-15">
                     
                     <h1 class="select-none text-5xl font-semibold text-center mt-5 mb-20 tracking-tight text-[#0b1a2d]">
@@ -31,7 +34,6 @@ class NovelSelector extends HTMLElement {
                 </div> 
             </div>
         `;
-
         this.addEventListeners();
     }
 

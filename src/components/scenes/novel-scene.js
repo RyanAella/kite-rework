@@ -1,4 +1,5 @@
 import "../dialogue-list.js"
+import "../headers/back-header.js"
 
 class NovelScene extends HTMLElement {
   
@@ -28,6 +29,9 @@ class NovelScene extends HTMLElement {
 
     let events = this.novel['novelEvents'];
     this.currentEvent = events[0];
+
+    const header = document.createElement("back-header");
+    this.prepend(header);
 
     this.createBackground();
 
@@ -155,7 +159,10 @@ class NovelScene extends HTMLElement {
     }
     return false;
   }
+
 }
+
+
 
 customElements.define("novel-scene", NovelScene);
 

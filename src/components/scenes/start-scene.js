@@ -18,6 +18,7 @@ class StartScene extends HTMLElement {
           </div>
         `;
 
+
     // event listener for the button
     const btn = this.querySelector('#start-btn'); // selecting button
     btn.addEventListener('click', () => {
