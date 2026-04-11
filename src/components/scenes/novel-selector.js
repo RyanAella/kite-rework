@@ -1,4 +1,5 @@
 import '../headers/closing-header.js';
+import '../footer.js';
 
 class NovelSelector extends HTMLElement {
     
@@ -30,7 +31,7 @@ class NovelSelector extends HTMLElement {
                     </h1>
                     
                     ${novelItemsHtml}
-
+                <main-footer></main-footer>
                 </div> 
             </div>
         `;
