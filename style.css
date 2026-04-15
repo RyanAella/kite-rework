@@ -23,6 +23,44 @@
     @apply bg-[url(assets/Images/SceneBase/Background_Bright.png)]
   }
 
+  /* Verbirgt die visuelle Repräsentation, erhält aber den Touch-/Maus-Scroll-Vektor */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* Internet Explorer und Legacy Edge */
+      scrollbar-width: none;     /* Firefox (W3C Standard) */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;             /* Chrome, Safari und Opera */
+  }
+
+  @keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  }
+
+  .animate-breathe {
+    animation: breathe 1s ease-in-out infinite;
+  }
+
+  @keyframes popInBounce {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    45% {
+      opacity: 1;
+      transform: scaleX(1.03) scaleY(1);  
+    }
+    75% {
+      transform: scaleX(0.7) scaleY(1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .animate-pop-in {
+    animation: popInBounce 0.4s forwards;
+  }
   .bg-panorama {
     @apply bg-[url(assets/Images/FoundersBubble/Panorama.png)]
   }
@@ -49,6 +87,11 @@
 
 /* Element Sizes */
 
+@source inline("h-23 h-64 h-85 h-160 h-1/2 h-full h-screen");
+@source inline("min-h-64 min-h-0 min-h-screen");
+
+@source inline("w-81 w-160 w-170 w-full");
+@source inline("max-w-[80%] max-w-[90%] max-w-md");
 @source inline("h-0 h-5 h-15 h-23 h-64 h-85 h-160 h-full h-screen");
 @source inline("min-h-64 min-h-screen");
 
@@ -72,15 +115,18 @@
 
 
 /* Flexbox */
-@source inline("flex flex-1 flex-col items-center justify-center");
+@source inline("flex flex-1 flex-col items-center justify-center justify-start");
 @source inline("gap-2.5 gap-4");
-@source inline("self-start self-end");
+@source inline("self-start self-end self-center");
 
 @source inline("overflow-y-auto");
+@source inline("rounded-xl");
 
 
 
 /* Backgrounds */
+@source inline("bg-blue-50/30 bg-cyan-700 bg-white bg-white/80 bg-[#0e7f90] bg-[#393a39] bg-[#0c447f]");
+@source inline("bg-cover");
 @source inline("bg-blue-50/30 bg-cyan-700 bg-white bg-white/80");
 @source inline("bg-cover bg-contain");
 @source inline("bg-center");
@@ -94,6 +140,7 @@
 /* Texts */
 
 @source inline("text-center text-left");
+@source inline("text-base text-lg text-xl text-2xl text-3xl text-4xl text-5xl");
 @source inline("text-base text-2xl text-3xl text-4xl text-5xl");
 @source inline("text-white text-slate-800 text-gray-900 text-[#0b1a2d]");
 
@@ -106,15 +153,23 @@
 
 @source inline("tracking-tight tracking-tighter tracking-[0.2em] tracking-[0.3em]");
 
+@source inline("select-none");
+
 /* Misc */
 
-@source inline("transition-colors");
+@source inline("transition-colors transition-all transition-transform");
 
-@source inline("duration-200");
+@source inline("opacity-100");
+
+@source inline("duration-200 duration-200 duration-500");
 
 @source inline("last:border-b-0");
 
 @source inline("empty:hidden");
+
+@source inline("cursor-pointer");
+
+@source inline("rounded-2xl rounded-full");
 
 @source inline("hover:bg-gray-100");
 @source inline("hover:bg-white");
@@ -122,3 +177,40 @@
 @source inline("md:h-80");
 @source inline("md:w-80");
 @source inline("md:text-9xl");
+@source inline("shrink-0");
+@source inline("basis-1/2");
+@source inline("opacity-0");
+@source inline("translate-y-2");
+@source inline("overflow-hidden");
+@source inline("scroll-smooth");
+@source inline("mt-auto");
+@source inline("justify-end");
+@source inline("grid");
+@source inline("col-start-1");
+@source inline("row-start-1");
+@source inline("invisible");
+@source inline("ease-out");
+@source inline("scale-95");
+@source inline("scale-100");
+@source inline("relative");
+@source inline("overflow-hidden");
+@source inline("absolute");
+@source inline("top-1/2");
+@source inline("left-1/2");
+@source inline("-translate-x-1/2");
+@source inline("-translate-y-1/2");
+@source inline("translate-y-0");
+@source inline("w-0");
+@source inline("h-0");
+@source inline("w-[250%]");
+@source inline("aspect-square");
+@source inline("z-0");
+@source inline("z-10");
+@source inline("group");
+@source inline("group-hover:text-[#0c447f]");
+@source inline("animate-breathe");
+@source inline("scale-x-0");
+@source inline("scale-x-100");
+@source inline("origin-center");
+@source inline("origin-bottom");
+@source inline("inset-0");

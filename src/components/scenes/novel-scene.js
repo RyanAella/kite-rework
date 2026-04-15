@@ -6,7 +6,7 @@ class NovelScene extends HTMLElement {
   constructor() {
     super();
     this.dialogueList = document.createElement("dialogue-list");
-    this.dialogueList.classList.add("h-screen");
+    this.dialogueList.classList.add("h-1/2", "shrink-0", "flex", "flex-col", "w-full", "overflow-hidden", "min-h-0");
   }
 
   novel = {};
@@ -21,7 +21,7 @@ class NovelScene extends HTMLElement {
     //Event Setup
     this.addEventListener("user-confirmation", (event) => { this.userConfirmation(event)});
 
-    this.classList.add("flex", "flex-col", "items-center", "justify-center", "min-h-screen", "bg-blue-50/30", "font-sans");
+    this.classList.add("flex", "flex-col", "items-center", "justify-center", "h-full", "bg-blue-50/30", "font-sans", "overflow-hidden");
 
     console.log(this.dialogueList);
 
@@ -47,11 +47,11 @@ class NovelScene extends HTMLElement {
     const background = document.createElement('div');
     background.style.backgroundImage = 'url(' + backgroundImage.src + ')';
     background.id = '#background';
-    background.classList.add("pointer-events-auto", "bg-[url("+ backgroundImage.src +"]", "bg-cover", "bg-center", "min-h-64");
+    background.classList.add("pointer-events-auto", "bg-[url("+ backgroundImage.src +"]", "bg-cover", "bg-center", "flex-1", "w-full", "flex", "flex-col", "justify-start", "overflow-hidden");
     this.appendChild(background);
   }
 
-  resolveCurrentEvent() {
+  async resolveCurrentEvent() {
     switch(this.currentEvent['eventType']) {
       case 1: //Set Background Event
 
@@ -67,13 +67,13 @@ class NovelScene extends HTMLElement {
         break;
 
       case 4: //Show Message Event
-        this.dialogueList.showMessage(this.currentEvent['text']);
+        await this.dialogueList.showMessage(this.currentEvent['text'], false,  this.currentEvent['character']);
         break;
       case 5: //Add Choice Event
         this.currentChoices.push(this.currentEvent);
         break;
       case 6: //Show Choices Event
-        this.dialogueList.showChoices(this.currentChoices);
+        await this.dialogueList.showChoices(this.currentChoices);
         return;
       case 7: //End Novel Event
 
@@ -91,8 +91,8 @@ class NovelScene extends HTMLElement {
         break;
 
       case 10: //Gpt Promt Event
-
         console.log("GPT Promt Event");
+        await new Promise(r => setTimeout(r, 4000));
         this.dispatchEvent(new CustomEvent("sm-switch-scene", {
           detail: {
             scene : "novel-selector"
@@ -124,11 +124,11 @@ class NovelScene extends HTMLElement {
         console.log(`Unknown event with Id ${this.currentEvent['id']}`);
     }
     this.nextNovel();
-    this.resolveCurrentEvent();
+    await this.resolveCurrentEvent();
   }
 
 
-  userConfirmation(choice) {
+  async userConfirmation(choice) {
     // Only accept user Confirmation, if the current event is 
     if(this.currentEvent['eventType'] != 6) {
       console.log(`Invalid State --- novel-scene.userConfirmation ${this.currentEvent['eventType']}`);
@@ -140,7 +140,7 @@ class NovelScene extends HTMLElement {
     this.switchTo(this.currentChoices[choice['detail']['choiceIndex']]['onChoice']);
     
     this.currentChoices = [];
-    this.resolveCurrentEvent();
+    await this.resolveCurrentEvent();
 
   }
 

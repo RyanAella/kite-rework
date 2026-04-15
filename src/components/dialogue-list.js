@@ -2,62 +2,130 @@ class DialogueList extends HTMLElement {
   
   constructor() {
     super();
+    this.renderQueue = Promise.resolve();
   }
 
   connectedCallback() {
     this.renderMessageBox();
 
+    this.scrollContainer = this.querySelector('.scroll-container');
     this.messageContainer = this.querySelector('.message-container');
     this.choiceContainer = this.querySelector('.choice-container');
+
+    this.initDragScroll();
   }
 
   renderMessageBox() {
     this.innerHTML = `
-      <div class="message-container flex-1 overflow-y-auto flex flex-col p-5 gap-4"></div>
-      <div class="choice-container flex flex-col gap-2.5 p-5 empty:hidden"></div>
+      <div class="scroll-container no-scrollbar h-full w-full overflow-y-auto scroll-auto flex flex-col p-5">
+        <div class="message-container mt-auto flex flex-col gap-4 shrink-0 select-none"></div>
+        <div class="choice-container flex flex-col gap-2.5 p-5 empty:hidden shrink-0"></div>
+      </div>
     `;
   }
 
-  // Provide input variable to distinguish between message sender to adjust message color and position (left/right)
-  showMessage(text) {
-    const messageBox = document.createElement('div');
-    const baseClasses = "max-w-[80%] leading-relaxed break-words text-white bg-cyan-700 p-4 rounded-lg text-base text-left";
+  async showMessage(text, isUser = false, characterId) {
+    this.renderQueue = this.renderQueue.then(() => {
+      return new Promise((resolve) => {
+        const messageBox = document.createElement('div');
+        const baseClasses = "leading-relaxed text-white p-5 rounded-2xl text-3xl text-left grid origin-bottom animate-pop-in";
 
-    // if() {
-    //     messageBox.className = `${baseClasses} self-start bg-kite-green rounded-bl-sm`;
-    // } else {
-    //   messageBox.className = `${baseClasses} self-end bg-kite-blue rounded-br-sm`;
-    // }
+        if(isUser || characterId == 1) {
+          console.log("ID -> " + characterId);
+          messageBox.className = `${baseClasses} max-w-[90%] self-end bg-[#0c447f]`;
+        } else if(characterId >= 5 && characterId <= 12) {
+          console.log("ID -> " + characterId);
+          messageBox.className = `${baseClasses} max-w-[90%] self-start bg-[#393a39]`;
+        } else {
+          messageBox.className = `${baseClasses} w-full self-center bg-[#0e7f90]`;
+        }
 
-    messageBox.className = baseClasses
+        const invisibleBox = document.createElement('span');
+        invisibleBox.className = "invisible col-start-1 row-start-1";
+        invisibleBox.textContent = text;
 
-    messageBox.textContent = text;
-    this.messageContainer.appendChild(messageBox);
-    this.scrollToBottom();
+        const typewriterBox = document.createElement('span');
+        typewriterBox.className = "col-start-1 row-start-1";
+        typewriterBox.textContent = '';
+
+        messageBox.appendChild(invisibleBox);
+        messageBox.appendChild(typewriterBox);
+        this.messageContainer.appendChild(messageBox);
+
+        requestAnimationFrame(() => {
+            this.scrollToBottom();
+
+            let charIndex = 0;
+            const typeInterval = setInterval(async () => {
+            if (charIndex < text.length) {
+              typewriterBox.textContent += text.charAt(charIndex);
+              charIndex++;
+            } else {
+              clearInterval(typeInterval);
+              await new Promise(r => setTimeout(r, 750));
+              resolve();
+            }
+          }, 21);
+        });
+      })
+    })
+    return this.renderQueue;
   }
 
   showChoices(arrayOfChoices) {
-    this.choiceContainer.innerHTML = '';
+    this.renderQueue = this.renderQueue.then(() => {
+      return new Promise((resolve) => {
+        this.choiceContainer.innerHTML = '';
 
-    arrayOfChoices.forEach((choiceObj, index) => {
-      const choiceButton = document.createElement('button');
+        arrayOfChoices.forEach((choiceObj, index) => {
+          const choiceButton = document.createElement('button');
 
-      choiceButton.className = "bg-white border-2 border-gray-300 p-4 rounded-lg text-base cursor-pointer transition-colors duration-200 hover:bg-gray-100 text-left";
+          choiceButton.className = "overflow-hidden relative group scale-95 animate-pop-in bg-white p-5 rounded-2xl text-3xl cursor-pointer transition-colors duration-200 hover:bg-gray-100 text-left";
+          choiceButton.innerHTML = `<span class="relative z-10 transition-colors duration-300">${choiceObj.text}</span>`;
 
-      choiceButton.textContent = choiceObj.text;
+          choiceButton.addEventListener('animationend', (e) => {
+            if (e.animationName === 'popInBounce') {
+              choiceButton.classList.remove('animate-pop-in');
+              choiceButton.classList.add('animate-breathe');
+            }
+          })
 
-      choiceButton.addEventListener('click', () => {
-        this.handleChoiceSelection(index, choiceObj.text);
-      });
+          choiceButton.addEventListener('click', async (e) => {
+            const allButtons = this.choiceContainer.querySelectorAll('button');
+            allButtons.forEach(btn => {
+              btn.disabled = true;
+              btn.classList.remove('animate-breathe');
+            });
+            
+            const fillLayer = document.createElement('div');
+            fillLayer.className = "absolute rounded-2xl inset-0 origin-center scale-x-0 bg-[#0c447f] transition-transform duration-500 ease-out z-0";
+            choiceButton.appendChild(fillLayer);
 
-      this.choiceContainer.appendChild(choiceButton);
-    });
-    this.scrollToBottom();  
+            const textSpan = choiceButton.querySelector('span');
+            textSpan.classList.add('text-white');
+
+            requestAnimationFrame(() => {
+              fillLayer.classList.remove('scale-x-0');
+              fillLayer.classList.add('scale-x-100');
+            });
+
+            await new Promise(r => setTimeout(r, 750));
+            
+            this.handleChoiceSelection(index, choiceObj.text);
+          });
+
+          this.choiceContainer.appendChild(choiceButton);
+        });
+        this.scrollToBottom(); 
+        resolve();
+      })
+    }) 
+    return this.renderQueue;
   }
 
-  handleChoiceSelection(index, text) {
+  async handleChoiceSelection(index, text) {
     this.choiceContainer.innerHTML = '';
-    this.showMessage(text);
+    await this.showMessage(text, true);
     // Maybe change the information which is passed to the event listener 
     const event = new CustomEvent('user-confirmation', {
       detail: { choiceIndex: index },
@@ -68,7 +136,39 @@ class DialogueList extends HTMLElement {
 
   scrollToBottom() {
     requestAnimationFrame(() => {
-      this.messageContainer.scrollTop = this.messageContainer.scrollHeight;
+      requestAnimationFrame(() => {
+        this.scrollContainer.scrollTop = this.scrollContainer.scrollHeight;
+      });
+    })
+  }
+
+  initDragScroll() {
+    const scrollBox = this.scrollContainer;
+    let isDown = false;
+    let startY;
+    let scrollTop;
+
+    scrollBox.addEventListener('mousedown', (e) => {
+      isDown = true;
+      scrollBox.classList.add('active');
+      startY = e.pageY - scrollBox.offsetTop;
+      scrollTop = scrollBox.scrollTop;
+    });
+
+    scrollBox.addEventListener('mouseleave', () => {
+      isDown = false;
+    });
+
+    scrollBox.addEventListener('mouseup', () => {
+      isDown = false;
+    });
+
+    scrollBox.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault(); 
+      const y = e.pageY - scrollBox.offsetTop;
+      const move = (y - startY) * 3;
+      scrollBox.scrollTop = scrollTop - move;
     });
   }
 }
