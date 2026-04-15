@@ -1,6 +1,7 @@
 import "./scenes/start-scene.js";
 import "./scenes/novel-scene.js";
 import "./scenes/novel-selector.js";
+import "./scenes/novel-selector-sidebar.js";
 
 class SceneManager extends HTMLElement {
   
