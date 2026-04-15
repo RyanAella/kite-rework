@@ -13,9 +13,12 @@ export class ClosingHeader extends BaseHeader {
     super.setupEvents();
     const c = this.querySelector('#btn-close');
     if(c) {
-      c.onclick = () => this.dispatchEvent(new CustomEvent('sm-switch-scene', { 
-        detail: { scene: "start-scene" }, bubbles: true, composed: true 
-      }));
+      c.onclick = (event) => {
+        this.dispatchEvent(new CustomEvent('sm-switch-scene', { 
+          detail: { scene: "novel-selector" }, bubbles: true, composed: true 
+        }));
+        event.stopPropagation();
+      }
     }
   }
 }

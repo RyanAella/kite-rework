@@ -17,10 +17,26 @@
 
   .bg-blue-ud {
     @apply bg-[url(assets/Images/SceneBase/Background_Blue_upside_down.png)]
-  }
-
+  } 
+  
   .bg-bright {
     @apply bg-[url(assets/Images/SceneBase/Background_Bright.png)]
+  }
+
+  .bg-panorama {
+    @apply bg-[url(assets/Images/FoundersBubble/Panorama.png)]
+  }
+
+  .bg-panorama-landschaft {
+    @apply bg-[url(assets/Images/FoundersBubble/Panorama_Landschaft.png)]
+  }
+
+  .button-play {
+    @apply bg-[url(assets/Images/Buttons/button_play.png)]
+  }
+
+  .button-remember {
+    @apply bg-[url(assets/Images/Buttons/Button_Remeber.png)]
   }
 }
 
@@ -33,19 +49,22 @@
 
 /* Element Sizes */
 
-@source inline("h-23 h-64 h-85 h-160 h-full h-screen");
+@source inline("h-0 h-5 h-15 h-23 h-64 h-85 h-160 h-full h-screen");
 @source inline("min-h-64 min-h-screen");
 
-@source inline("w-81 w-160 w-170 w-full");
+@source inline("w-0 w-5 w-60 w-81 w-160 w-170 w-full");
 @source inline("max-w-[80%] max-w-md");
 
-@source inline("p-4 p-5 p-6 p-15");
+@source inline("p-4 p-5 p-6 p-8 p-15");
 @source inline("py-4 py-8");
+@source inline("pl-16");
 
 @source inline("border-2 border-5");
-@source inline("border-b border-b-4 border-t");
+@source inline("border-b border-b-4 border-b-60 border-t");
+@source inline("border-l-20 border-l-transparent");
+@source inline("border-r-20 border-r-transparent");
 @source inline("border-black border-white border-gray-300 border-[#0b1a2d]");
-@source inline("rounded-sm rounded-md rounded-lg");
+@source inline("rounded-sm rounded-md rounded-lg rounded-2xl");
 @source inline("rounded-br-sm rounded-bl-sm");
 
 @source inline("mt-5");
@@ -63,8 +82,11 @@
 
 /* Backgrounds */
 @source inline("bg-blue-50/30 bg-cyan-700 bg-white bg-white/80");
-@source inline("bg-cover");
+@source inline("bg-cover bg-contain");
 @source inline("bg-center");
+@source inline("bg-no-repeat");
+
+
 
 @source inline("object-contain");
 
@@ -72,7 +94,7 @@
 /* Texts */
 
 @source inline("text-center text-left");
-@source inline("text-base text-xl text-3xl text-4xl text-5xl");
+@source inline("text-base text-2xl text-3xl text-4xl text-5xl");
 @source inline("text-white text-slate-800 text-gray-900 text-[#0b1a2d]");
 
 @source inline("font-sans");
@@ -80,7 +102,7 @@
 
 @source inline("break-words");
 
-@source inline("leading-relaxed");
+@source inline("leading-relaxed leading-normal leading-12");
 
 @source inline("tracking-tight tracking-tighter tracking-[0.2em] tracking-[0.3em]");
 
@@ -95,3 +117,8 @@
 @source inline("empty:hidden");
 
 @source inline("hover:bg-gray-100");
+@source inline("hover:bg-white");
+@source inline("hover:text-[#0d264f]");
+@source inline("md:h-80");
+@source inline("md:w-80");
+@source inline("md:text-9xl");

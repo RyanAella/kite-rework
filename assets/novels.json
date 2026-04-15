@@ -4,6 +4,8 @@
             "name": "Einstieg",
             "title": "Mehr zu KITE",
             "description": "Hier kannst du den Einstiegs-Dialog erneut spielen.",
+            "novelColor": "#aa1c02",
+            "novelFrameColor": "#d04c03",
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -683,6 +685,8 @@
             "name": "Eltern",
             "title": "Eltern informieren",
             "description": "Du hast dich entschieden, ein Unternehmen zu gründen, und teilst das nun deinen Eltern mit.",
+            "novelColor": "#25650e",
+            "novelFrameColor": "#4c9a30",
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -1818,6 +1822,8 @@
             "name": "Honorar",
             "title": "Honorar verhandeln",
             "description": "Du bist in Kontakt mit einer Kundin gekommen. Nachdem geklärt wurde, dass deine angebotenen Leistungen zu den Anforderungen deines Gegenübers passen, geht es nun um die Honorarverhandlung.",
+            "novelColor": "#11454a",
+            "novelFrameColor": "#27727f",
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -4379,6 +4385,8 @@
             "name": "Investor",
             "title": "Investor überzeugen",
             "description": "Du triffst dich mit einem Angel Investor, der auf einer Pitch Night Interesse an deiner Innovation gezeigt hat und nun mehr erfahren möchte.",
+            "novelColor": "#35481a",
+            "novelFrameColor": "#3d8229",
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -5323,6 +5331,8 @@
             "name": "Kreditantrag",
             "title": "Kredit beantragen",
             "description": "Du hast heute einen Banktermin, um einen Kredit zu beantragen.",
+            "novelColor": "#0e1a2d",
+            "novelFrameColor": "#234169",
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -8126,6 +8136,8 @@
             "name": "Notarin",
             "title": "Mit Notarin telefonieren",
             "description": "Du rufst bei einer Notarin an, um einen Termin für deine Gründung auszumachen.",
+            "novelColor": "#2c144d",
+            "novelFrameColor": "#63458d",
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -8719,6 +8731,8 @@
             "name": "Presse",
             "title": "Interview abklären",
             "description": "Auf einer Veranstaltung stellst du deine Geschäftsidee vor und wirst danach von einer Journalistin angesprochen.",
+            "novelColor": "#4e2350",
+            "novelFrameColor": "#7e3b81",
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -10184,6 +10198,8 @@
             "name": "Vermieter",
             "title": "Büro anmieten",
             "description": "Du hast heute einen Termin für die Besichtigung von Büro-Räumen.",
+            "novelColor": "#640342",
+            "novelFrameColor": "#a52779",
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",

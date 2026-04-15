@@ -5,7 +5,7 @@ export class NavigationHeader extends BaseHeader {
   getLeftContent() {
     return `
       <button id="btn-nav" style="${this.btnStyle}" ${this.clickEffect}>
-        <img src="assets/Images/Buttons/burger_menu_4x.png" style="${this.imgStyle}"/>
+        <img src="assets/Images/Buttons/Burger_Menu_4x.png" style="${this.imgStyle}"/>
       </button>`;
   }
 
@@ -13,9 +13,12 @@ export class NavigationHeader extends BaseHeader {
     super.setupEvents();
     const n = this.querySelector('#btn-nav');
     if(n) {
-      n.onclick = () => this.dispatchEvent(new CustomEvent('sm-switch-scene', { 
-        detail: { scene: "novel-selector" }, bubbles: true, composed: true 
-      }));
+      n.onclick = (event) => {
+        this.dispatchEvent(new CustomEvent('sm-switch-scene', { 
+          detail: { scene: "novel-selector-sidebar" }, bubbles: true, composed: true 
+        }));
+        event.stopPropagation();
+      };
     }
   }
 }
