@@ -46,7 +46,6 @@
     --radius-xl: 0.75rem;
     --radius-2xl: 1rem;
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
-    --radius-2xl: 1rem;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -271,9 +270,6 @@
   .h-1\/2 {
     height: calc(1 / 2 * 100%);
   }
-  .h-0 {
-    height: calc(var(--spacing) * 0);
-  }
   .h-5 {
     height: calc(var(--spacing) * 5);
   }
@@ -439,9 +435,6 @@
   .rounded-full {
     border-radius: calc(infinity * 1px);
   }
-  .rounded-2xl {
-    border-radius: var(--radius-2xl);
-  }
   .rounded-lg {
     border-radius: var(--radius-lg);
   }
@@ -504,6 +497,12 @@
   .border-white {
     border-color: var(--color-white);
   }
+  .border-r-transparent {
+    border-right-color: transparent;
+  }
+  .border-l-transparent {
+    border-left-color: transparent;
+  }
   .bg-\[\#0c447f\] {
     background-color: #0c447f;
   }
@@ -512,11 +511,6 @@
   }
   .bg-\[\#393a39\] {
     background-color: #393a39;
-  .border-r-transparent {
-    border-right-color: transparent;
-  }
-  .border-l-transparent {
-    border-left-color: transparent;
   }
   .bg-blue-50\/30 {
     background-color: color-mix(in srgb, oklch(97% 0.014 254.604) 30%, transparent);
@@ -821,6 +815,18 @@
   .animate-pop-in {
     animation: popInBounce 0.4s forwards;
   }
+  .bg-panorama {
+    background-image: url(assets/Images/FoundersBubble/Panorama.png);
+  }
+  .bg-panorama-landschaft {
+    background-image: url(assets/Images/FoundersBubble/Panorama_Landschaft.png);
+  }
+  .button-play {
+    background-image: url(assets/Images/Buttons/button_play.png);
+  }
+  .button-remember {
+    background-image: url(assets/Images/Buttons/Button_Remeber.png);
+  }
 }
 @property --tw-translate-x {
   syntax: "*";
@@ -851,18 +857,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 1;
-  .bg-panorama {
-    background-image: url(assets/Images/FoundersBubble/Panorama.png);
-  }
-  .bg-panorama-landschaft {
-    background-image: url(assets/Images/FoundersBubble/Panorama_Landschaft.png);
-  }
-  .button-play {
-    background-image: url(assets/Images/Buttons/button_play.png);
-  }
-  .button-remember {
-    background-image: url(assets/Images/Buttons/Button_Remeber.png);
-  }
 }
 @property --tw-border-style {
   syntax: "*";
