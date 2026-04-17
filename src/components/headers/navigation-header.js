@@ -4,8 +4,8 @@ export class NavigationHeader extends BaseHeader {
   // Hamburger menu icon
   getLeftContent() {
     return `
-      <button id="btn-nav" style="${this.btnStyle}" ${this.clickEffect}>
-        <img src="assets/Images/Buttons/Burger_Menu_4x.png" style="${this.imgStyle}"/>
+      <button id="btn-nav" class="${this.btnClass}">
+        <img src="assets/Images/Buttons/Burger_Menu_4x.png" class="${this.imgClass}"/>
       </button>`;
   }
 

@@ -1,4 +1,5 @@
 import '../headers/navigation-header.js';
+import '../footer.js'
 
 const viewportSize = 1000;
 
@@ -67,7 +68,8 @@ class NovelSelector extends HTMLElement {
                     ${infoHex}
                 </svg>
             </div>
-        </div>`;
+        </div>
+        <main-footer active-scene="novel-selector"><main-footer>`;
 
         let hexes = this.querySelector('#novel-hexes').children;
         this.firstHexPos = new DOMMatrix(window.getComputedStyle(hexes[0]).transform).m41;

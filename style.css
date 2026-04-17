@@ -79,7 +79,7 @@
 }
 
 @source inline("pointer-events-none pointer-events-auto");
-@source inline("select-none");
+@source inline("select-none outline-none");
 
 
 /* @source inline("start");
@@ -95,15 +95,16 @@
 @source inline("h-0 h-5 h-15 h-23 h-64 h-85 h-160 h-full h-screen");
 @source inline("min-h-64 min-h-screen");
 
-@source inline("w-0 w-5 w-60 w-81 w-160 w-170 w-full");
+@source inline("w-0 w-5 w-15 w-60 w-81 w-160 w-170 w-full");
 @source inline("max-w-[80%] max-w-md");
 
-@source inline("p-4 p-5 p-6 p-8 p-15");
+@source inline("p-0 p-4 p-5 p-6 p-8 p-15");
+@source inline("px-15 px-60");
 @source inline("py-4 py-8");
 @source inline("pl-16");
 
-@source inline("border-2 border-5");
-@source inline("border-b border-b-4 border-b-60 border-t");
+@source inline("border-0 border-2 border-5");
+@source inline("border-b border-b-4 border-b-60 border-t border-white/10");
 @source inline("border-l-20 border-l-transparent");
 @source inline("border-r-20 border-r-transparent");
 @source inline("border-black border-white border-gray-300 border-[#0b1a2d]");
@@ -132,7 +133,7 @@
 @source inline("bg-cover bg-contain");
 @source inline("bg-center");
 @source inline("bg-no-repeat");
-
+@source inline("opacity-50 opacity-100");
 
 
 @source inline("object-contain");
@@ -215,3 +216,9 @@
 @source inline("origin-center");
 @source inline("origin-bottom");
 @source inline("inset-0");
+
+/* Footer specific sources */
+@source inline("h-48 w-full max-w-[1000px] w-15 h-15 px-15 gap-3 block absolute bottom-0 left-0 z-50 flex justify-between items-center box-border bg-slate-950 bg-transparent border-t border-white/10 opacity-70 opacity-100 text-white text-xl font-sans border-none p-0 outline-none transition-all duration-200 select-none pointer-events-none");
+
+/* Header specific Tailwind sources */
+@source inline("w-[1000px] w-full w-15 h-15 pt-[120px] px-[30px] pb-[20px] gap-[60px] gap-[15px] mt-[5px] bg-[#0B1A2D] bg-transparent text-white active:opacity-70 transition-opacity text-[32px] font-sans tracking-tight flex items-end items-center ml-auto box-border cursor-default border-none p-0 outline-none object-contain pointer-events-none");
