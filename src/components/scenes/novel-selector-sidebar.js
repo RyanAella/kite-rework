@@ -33,6 +33,7 @@ class NovelSelectorSidebar extends HTMLElement {
 
                 </div> 
             </div>
+            <main-footer active-scene="novel-selector"></main-footer>
         `;
 
         this.addEventListeners();

@@ -4,8 +4,8 @@ export class ClosingHeader extends BaseHeader {
   // Close / X icon
   getLeftContent() {
     return `
-      <button id="btn-close" style="${this.btnStyle}" ${this.clickEffect}>
-        <img src="assets/Images/Buttons/Close_2x.png" style="${this.imgStyle}" />
+      <button id="btn-close" class="${this.btnClass}">
+        <img src="assets/Images/Buttons/Close_2x.png" class="${this.imgClass}" />
       </button>`;
   }
 
