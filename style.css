@@ -127,6 +127,7 @@
 /* Backgrounds */
 @source inline("bg-blue-50/30 bg-cyan-700 bg-white bg-white/80 bg-[#0e7f90] bg-[#393a39] bg-[#0c447f]");
 @source inline("bg-cover");
+@source inline("bg-[length:100%_100%]");
 @source inline("bg-blue-50/30 bg-cyan-700 bg-white bg-white/80");
 @source inline("bg-cover bg-contain");
 @source inline("bg-center");
