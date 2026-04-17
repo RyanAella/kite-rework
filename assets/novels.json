@@ -6215,7 +6215,7 @@
             ]
         },
         {
-            "name": "Kreditantrag",
+            "name": "Bank",
             "title": "Kredit beantragen",
             "description": "Du hast heute einen Banktermin, um einen Kredit zu beantragen.",
             "novelColor": "#0e1a2d",

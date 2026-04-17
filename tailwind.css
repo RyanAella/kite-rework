@@ -530,6 +530,9 @@
       background-color: color-mix(in oklab, var(--color-white) 80%, transparent);
     }
   }
+  .bg-\[length\:100\%_100\%\] {
+    background-size: 100% 100%;
+  }
   .bg-contain {
     background-size: contain;
   }
