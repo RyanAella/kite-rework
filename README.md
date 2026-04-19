@@ -4,7 +4,7 @@
 
 *Important:* you have to push your first commit if your branch is new because your environment will first then be created automatically
 
-1. Download Node.js and install Tailwind in your project locally. After installing run *npx @tailwindcss/cli -i ./style.css -o ./tailwind.css* in the terminal under the repository directory.
+1. Download Node.js and install Tailwind in your project locally. After installing run *npx @tailwindcss/cli -i ./style.css -o ./app/tailwind.css* in the terminal under the repository directory.
 
 2. Open the team-04 project on Gitlab.
 

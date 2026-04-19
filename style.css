@@ -78,31 +78,39 @@
   }
 }
 
+/* General */
+
+@source inline("cursor-default");
 @source inline("pointer-events-none pointer-events-auto");
 @source inline("select-none outline-none");
+@source inline("invisible");
+@source inline("group");
 
+@source inline("relative absolute");
+@source inline("z-0 z-10 z-50");
+@source inline("origin-center origin-bottom");
+@source inline("inset-0");
 
-/* @source inline("start");
-@source inline("container"); */
+/* Element Positions */
+@source inline("bottom-0");
+@source inline("left-0");
 
 /* Element Sizes */
 
-@source inline("h-23 h-64 h-85 h-160 h-1/2 h-full h-screen");
-@source inline("min-h-64 min-h-0 min-h-screen");
-
-@source inline("w-81 w-160 w-170 w-full");
-@source inline("max-w-[80%] max-w-[90%] max-w-md");
-@source inline("h-0 h-5 h-15 h-23 h-64 h-85 h-160 h-full h-screen");
+@source inline("h-0 h-5 h-15 h-23 h-48 h-64 h-85 h-160 h-1/2 h-full h-screen");
 @source inline("min-h-64 min-h-screen");
 
-@source inline("w-0 w-5 w-15 w-60 w-81 w-160 w-170 w-full");
-@source inline("max-w-[80%] max-w-md");
+@source inline("w-0 w-5 w-15 w-60 w-81 w-160 w-170 w-[1000px] w-full");
+@source inline("max-w-[80%] max-w-[90%] max-w-md");
 
 @source inline("p-0 p-4 p-5 p-6 p-8 p-15");
-@source inline("px-15 px-60");
+@source inline("px-[30px] px-15 px-60");
 @source inline("py-4 py-8");
+@source inline("pt-30");
+@source inline("pb-5");
 @source inline("pl-16");
 
+@source inline("border-none");
 @source inline("border-0 border-2 border-5");
 @source inline("border-b border-b-4 border-b-60 border-t border-white/10");
 @source inline("border-l-20 border-l-transparent");
@@ -111,30 +119,47 @@
 @source inline("rounded-sm rounded-md rounded-lg rounded-2xl");
 @source inline("rounded-br-sm rounded-bl-sm");
 
-@source inline("mt-5");
+@source inline("mt-[5px] mt-5 mt-auto");
 @source inline("mb-8 mb-15 mb-20 mb-30");
+@source inline("ml-auto");
 
+@source inline("scale-95");
+@source inline("scale-100");
+@source inline("scale-x-0");
+@source inline("scale-x-100");
+
+@source inline("block");
+
+@source inline("box-border");
 
 /* Flexbox */
-@source inline("flex flex-1 flex-col items-center justify-center justify-start");
-@source inline("gap-2.5 gap-4");
+@source inline("flex flex-1 flex-col");
+@source inline("items-center items-end");
+@source inline("justify-center justify-start justify-between");
+@source inline("grid");
+@source inline("col-start-1");
+@source inline("row-start-1");
+@source inline("gap-2.5 gap-3 gap-[15px] gap-4 gap-15");
 @source inline("self-start self-end self-center");
-
+@source inline("shrink-0");
 @source inline("overflow-y-auto");
 @source inline("rounded-xl");
 
 
 
 /* Backgrounds */
-@source inline("bg-blue-50/30 bg-cyan-700 bg-white bg-white/80 bg-[#0e7f90] bg-[#393a39] bg-[#0c447f]");
+@source inline("bg-transparent");
+@source inline("bg-blue-50/30 bg-cyan-700 bg-white bg-white/80 bg-[#0e7f90] bg-[#393a39] bg-[#0c447f] bg-[#0B1A2D]");
 @source inline("bg-cover");
 @source inline("bg-[length:100%_100%]");
 @source inline("bg-blue-50/30 bg-cyan-700 bg-white bg-white/80");
 @source inline("bg-cover bg-contain");
 @source inline("bg-center");
 @source inline("bg-no-repeat");
-@source inline("opacity-50 opacity-100");
+@source inline("opacity-50 opacity-70 opacity-100");
+@source inline("active:opacity-70");
 
+@source inline("hover:bg-white hover:bg-gray-100");
 
 @source inline("object-contain");
 
@@ -142,8 +167,8 @@
 /* Texts */
 
 @source inline("text-center text-left");
-@source inline("text-base text-lg text-xl text-2xl text-3xl text-4xl text-5xl");
-@source inline("text-base text-2xl text-3xl text-4xl text-5xl");
+@source inline("text-base text-lg text-xl text-2xl text-3xl text-4xl text-5xl text-[32px]");
+
 @source inline("text-white text-slate-800 text-gray-900 text-[#0b1a2d]");
 
 @source inline("font-sans");
@@ -157,13 +182,16 @@
 
 @source inline("select-none");
 
+/* Animations */
+
+@source inline("ease-out");
+@source inline("animate-breathe");
+
 /* Misc */
 
-@source inline("transition-colors transition-all transition-transform");
+@source inline("transition-colors transition-all transition-transform transition-opacity");
 
-@source inline("opacity-100");
-
-@source inline("duration-200 duration-200 duration-500");
+@source inline("duration-200 duration-500");
 
 @source inline("last:border-b-0");
 
@@ -173,52 +201,4 @@
 
 @source inline("rounded-2xl rounded-full");
 
-@source inline("hover:bg-gray-100");
-@source inline("hover:bg-white");
-@source inline("hover:text-[#0d264f]");
-@source inline("md:h-80");
-@source inline("md:w-80");
-@source inline("md:text-9xl");
-@source inline("shrink-0");
-@source inline("basis-1/2");
-@source inline("opacity-0");
-@source inline("translate-y-2");
 @source inline("overflow-hidden");
-@source inline("scroll-smooth");
-@source inline("mt-auto");
-@source inline("justify-end");
-@source inline("grid");
-@source inline("col-start-1");
-@source inline("row-start-1");
-@source inline("invisible");
-@source inline("ease-out");
-@source inline("scale-95");
-@source inline("scale-100");
-@source inline("relative");
-@source inline("overflow-hidden");
-@source inline("absolute");
-@source inline("top-1/2");
-@source inline("left-1/2");
-@source inline("-translate-x-1/2");
-@source inline("-translate-y-1/2");
-@source inline("translate-y-0");
-@source inline("w-0");
-@source inline("h-0");
-@source inline("w-[250%]");
-@source inline("aspect-square");
-@source inline("z-0");
-@source inline("z-10");
-@source inline("group");
-@source inline("group-hover:text-[#0c447f]");
-@source inline("animate-breathe");
-@source inline("scale-x-0");
-@source inline("scale-x-100");
-@source inline("origin-center");
-@source inline("origin-bottom");
-@source inline("inset-0");
-
-/* Footer specific sources */
-@source inline("h-48 w-full max-w-[1000px] w-15 h-15 px-15 gap-3 block absolute bottom-0 left-0 z-50 flex justify-between items-center box-border bg-slate-950 bg-transparent border-t border-white/10 opacity-70 opacity-100 text-white text-xl font-sans border-none p-0 outline-none transition-all duration-200 select-none pointer-events-none");
-
-/* Header specific Tailwind sources */
-@source inline("w-[1000px] w-full w-15 h-15 pt-[120px] px-[30px] pb-[20px] gap-[60px] gap-[15px] mt-[5px] bg-[#0B1A2D] bg-transparent text-white active:opacity-70 transition-opacity text-[32px] font-sans tracking-tight flex items-end items-center ml-auto box-border cursor-default border-none p-0 outline-none object-contain pointer-events-none");

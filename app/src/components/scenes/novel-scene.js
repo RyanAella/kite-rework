@@ -6,7 +6,7 @@ class NovelScene extends HTMLElement {
   constructor() {
     super();
     this.dialogueList = document.createElement("dialogue-list");
-    this.dialogueList.classList.add("h-1/2", "shrink-0", "flex", "flex-col", "w-full", "overflow-hidden", "min-h-0");
+    this.dialogueList.classList.add("h-1/2", "shrink-0", "flex", "flex-col", "w-full", "overflow-hidden");
   }
 
   novel = {};

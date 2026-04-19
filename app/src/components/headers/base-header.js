@@ -17,13 +17,13 @@ export class BaseHeader extends HTMLElement {
   render() {
     this.innerHTML = `
       <header class="w-[1000px] bg-[#0B1A2D]">
-        <div class="flex items-end pt-[120px] px-[30px] pb-[20px] w-full box-border">
+        <div class="flex items-end pt-30 px-[30px] pb-5 w-full box-border">
           
           <div class="flex items-center">
             ${this.getLeftContent()}
           </div>
 
-          <div class="flex items-end gap-[60px] ml-auto">
+          <div class="flex items-end gap-15 ml-auto">
             <button id="btn-legal" class="${this.btnClass}">
               <img src="assets/Images/IconsAndLogos/Icon_Legal_Small.png" class="${this.imgClass}" />
             </button>
