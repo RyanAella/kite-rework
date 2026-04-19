@@ -6,7 +6,7 @@ class NovelSelectorSidebar extends HTMLElement {
 
         console.log("Added New Novel Selector Component");
 
-        let response = await fetch("assets/novels.json");
+        let response = await fetch("assets/json/novels.json");
         let data = await response.json();
         this.novels = data['visualNovels'];
 

@@ -4,7 +4,7 @@ pages:
   stage: deploy
   script:
     - mkdir -p /tmp/build_assets
-    - cp -r . /tmp/build_assets/
+    - cp -r ./app/. /tmp/build_assets/
     - mkdir -p public;
     - cp -r /tmp/build_assets/* public/;
   artifacts:

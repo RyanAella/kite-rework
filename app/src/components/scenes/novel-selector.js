@@ -35,7 +35,7 @@ class NovelSelector extends HTMLElement {
     }
     
     async loadNovels() {
-        let response = await fetch("assets/novels.json");
+        let response = await fetch("assets/json/novels.json");
         let data = await response.json();
         this.novels = data['visualNovels'];
     }
