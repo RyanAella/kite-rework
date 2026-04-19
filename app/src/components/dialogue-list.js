@@ -80,8 +80,8 @@ class DialogueList extends HTMLElement {
         arrayOfChoices.forEach((choiceObj, index) => {
           const choiceButton = document.createElement('button');
 
-          choiceButton.className = "overflow-hidden relative group scale-95 animate-pop-in bg-white p-5 rounded-2xl text-3xl cursor-pointer transition-colors duration-200 hover:bg-gray-100 text-left";
-          choiceButton.innerHTML = `<span class="relative z-10 transition-colors duration-300">${choiceObj.text}</span>`;
+          choiceButton.className = "grid grid-cols-1 grid-rows-1 scale-95 animate-pop-in bg-white rounded-2xl text-3xl cursor-pointer hover:bg-gray-100 text-left";
+          choiceButton.innerHTML = `<span class="z-10 p-5 transition-colors duration-300 col-start-1 row-start-1">${choiceObj.text}</span>`;
 
           choiceButton.addEventListener('animationend', (e) => {
             if (e.animationName === 'popInBounce') {
@@ -98,16 +98,11 @@ class DialogueList extends HTMLElement {
             });
             
             const fillLayer = document.createElement('div');
-            fillLayer.className = "absolute rounded-2xl inset-0 origin-center scale-x-0 bg-[#0c447f] transition-transform duration-500 ease-out z-0";
+            fillLayer.className = "h-full p-5 rounded-2xl bg-[#0c447f] transition z-0 col-start-1 row-start-1 animate-swipe-blue place-self-center";
             choiceButton.appendChild(fillLayer);
 
             const textSpan = choiceButton.querySelector('span');
             textSpan.classList.add('text-white');
-
-            requestAnimationFrame(() => {
-              fillLayer.classList.remove('scale-x-0');
-              fillLayer.classList.add('scale-x-100');
-            });
 
             await new Promise(r => setTimeout(r, 750));
             
