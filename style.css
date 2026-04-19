@@ -61,6 +61,20 @@
   .animate-pop-in {
     animation: popInBounce 0.4s forwards;
   }
+
+  @keyframes swipeBlue {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  .animate-swipe-blue {
+    animation: swipeBlue 0.5s ease-in-out forwards;
+  }
+
+
   .bg-panorama {
     @apply bg-[url(assets/Images/FoundersBubble/Panorama.png)]
   }
