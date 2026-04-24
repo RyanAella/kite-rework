@@ -17,9 +17,9 @@ class DialogueList extends HTMLElement {
 
   renderMessageBox() {
     this.innerHTML = `
-      <div class="scroll-container no-scrollbar h-full w-full overflow-y-auto scroll-auto flex flex-col p-5">
-        <div class="message-container mt-auto flex flex-col gap-4 shrink-0 select-none"></div>
-        <div class="choice-container flex flex-col gap-2.5 p-5 empty:hidden shrink-0"></div>
+      <div class="scroll-container no-scrollbar h-full w-full overflow-y-auto scroll-auto flex flex-col p-[2cqw]">
+        <div class="message-container mt-auto flex flex-col gap-[1.6cqw] shrink-0 select-none"></div>
+        <div class="choice-container flex flex-col gap-[1.3cqw] p-[2cqw] empty:hidden shrink-0"></div>
       </div>
     `;
   }
@@ -28,7 +28,7 @@ class DialogueList extends HTMLElement {
     this.renderQueue = this.renderQueue.then(() => {
       return new Promise((resolve) => {
         const messageBox = document.createElement('div');
-        const baseClasses = "leading-relaxed text-white p-5 rounded-2xl text-3xl text-left grid origin-bottom animate-pop-in";
+        const baseClasses = "leading-relaxed text-white p-[2cqw] rounded-[1.6cqw] text-[3cqw] text-left grid origin-bottom animate-pop-in";
 
         if(isUser || characterId == 1) {
           console.log("ID -> " + characterId);
@@ -80,8 +80,8 @@ class DialogueList extends HTMLElement {
         arrayOfChoices.forEach((choiceObj, index) => {
           const choiceButton = document.createElement('button');
 
-          choiceButton.className = "grid grid-cols-1 grid-rows-1 scale-95 animate-pop-in bg-white rounded-2xl text-3xl cursor-pointer hover:bg-gray-100 text-left";
-          choiceButton.innerHTML = `<span class="z-10 p-5 transition-colors duration-300 col-start-1 row-start-1">${choiceObj.text}</span>`;
+          choiceButton.className = "grid grid-cols-1 grid-rows-1 scale-95 animate-pop-in bg-white rounded-[1.6cqw] text-[3cqw] cursor-pointer hover:bg-gray-100 text-left";
+          choiceButton.innerHTML = `<span class="z-10 p-[2cqw] transition-colors duration-300 col-start-1 row-start-1">${choiceObj.text}</span>`;
 
           choiceButton.addEventListener('animationend', (e) => {
             if (e.animationName === 'popInBounce') {
@@ -98,7 +98,7 @@ class DialogueList extends HTMLElement {
             });
             
             const fillLayer = document.createElement('div');
-            fillLayer.className = "h-full p-5 rounded-2xl bg-[#0c447f] transition z-0 col-start-1 row-start-1 animate-swipe-blue place-self-center";
+            fillLayer.className = "h-full p-[2cqw] rounded-[1.6cqw] col-start-1 row-start-1 bg-[#0c447f] transition z-0 place-self-center animate-swipe-blue";
             choiceButton.appendChild(fillLayer);
 
             const textSpan = choiceButton.querySelector('span');

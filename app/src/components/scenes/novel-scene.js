@@ -21,7 +21,7 @@ class NovelScene extends HTMLElement {
     //Event Setup
     this.addEventListener("user-confirmation", (event) => { this.userConfirmation(event)});
 
-    this.classList.add("flex", "flex-col", "items-center", "justify-center", "h-full", "bg-blue-50/30", "font-sans", "overflow-hidden");
+    this.classList.add("flex", "flex-col", "items-center", "justify-center", "w-full", "h-full", "bg-blue-50/30", "font-sans", "overflow-hidden");
 
     console.log(this.dialogueList);
 
