@@ -10,11 +10,13 @@ class StartScene extends HTMLElement {
     this.innerHTML = `
           <div class="flex flex-col items-center justify-center h-full w-full bg-blue-ud bg-cover">
             
-            <img src="assets/Images/LoadingScreen/Kite_Logo_im_Kreis.png" alt="Kite Emblem" class="pointer-events-none select-none object-contain w-160 h-160 mb-15">
+            <img src="assets/Images/LoadingScreen/Kite_Logo_im_Kreis.png" alt="Kite Emblem" class="pointer-events-none select-none object-contain w-[64%] aspect-square mb-[6%]">
 
-            <img src="assets/Images/IconsAndLogos/Logo_Kite_Lettering_White.png" alt="Kite Text" class="pointer-events-none select-none object-contain w-170 h-85 mb-30">
+            <img src="assets/Images/IconsAndLogos/Logo_Kite_Lettering_White.png" alt="Kite Text" class="pointer-events-none select-none object-contain w-[68%] h-[17%] mb-[12%]">
 
-            <button id="start-btn" class="w-81 h-23 border-5 border-white text-white text-3xl rounded-md mb-20"> STARTEN
+            <button id="start-btn" class="w-[32.4%] h-[4.6%] border-[0.5cqw] border-white text-white flex items-center justify-center rounded-[0.6cqw] mb-[8%]">
+              <span class="text-[3cqw]">STARTEN</span>
+            </button>
           </div>
         `;
 

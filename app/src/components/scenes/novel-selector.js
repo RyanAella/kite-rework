@@ -37,7 +37,9 @@ class NovelSelector extends HTMLElement {
     async loadNovels() {
         let response = await fetch("assets/json/novels.json");
         let data = await response.json();
-        this.novels = data['visualNovels'];
+        const allNovels = data['visualNovels'];
+        this.einstiegNovel = allNovels.find(novel => novel.name === "Einstieg");
+        this.novels = allNovels.filter(novel => novel.name !== "Einstieg");
     }
 
     renderHTML() {
@@ -46,34 +48,28 @@ class NovelSelector extends HTMLElement {
             return `${this.createHex(counter*hexXDiff, counter++%2==0 ? hexYEven : hexYOdd, novel)}`;
         }).join('');
 
-        const infoHex = this.createHex(infoHexPos.x, infoHexPos.y, this.getNovel("Einstieg"), true);
+        const infoHex = this.createHex(infoHexPos.x, infoHexPos.y, this.einstiegNovel, true);
 
         // base structure
         this.innerHTML = 
         `<navigation-header></navigation-header>
-        <div id=bg-2 class="w-full h-full bg-panorama-landschaft">
-            <div id=bg-1 class="w-full h-full bg-panorama">
-                <svg viewBox="0 0 ${viewportSize} ${viewportSize}" class="w-full h-full">
-                    <g id=novel-hexes>
+        <div id=bg-2 class="w-full h-full bg-panorama-landschaft overflow-hidden bg-[length:auto_100%] bg-repeat-x">
+            <div id=bg-1 class="w-full h-full bg-panorama relative overflow-hidden bg-[length:auto_100%] bg-repeat-x">
+                <div id="novel-hexes" class="absolute inset-0 w-full h-full">
                     ${novelItemsHtml}
-                    </g>
-                    <foreignObject
-                        id = "bubble"
-                        x = "80" 
-                        y = "171"
-                        width = "840"
-                        height = "800"
-                    >
-                    </foreignObject>
-                    ${infoHex}
-                </svg>
+                </div>
+                
+                <div id="bubble" class="absolute left-[8cqw] top-[67.1cqw] w-[84cqw] pointer-events-auto z-50">
+                </div>
+
+                ${infoHex}
             </div>
         </div>
         <main-footer active-scene="novel-selector"><main-footer>`;
 
         let hexes = this.querySelector('#novel-hexes').children;
-        this.firstHexPos = new DOMMatrix(window.getComputedStyle(hexes[0]).transform).m41;
-        this.lastHexPos = new DOMMatrix(window.getComputedStyle(hexes[hexes.length - 1]).transform).m41;
+        this.firstHexPos = 0;
+        this.lastHexPos = (this.novels.length - 1) * hexXDiff;
     }
 
     moveElements = () => {
@@ -82,7 +78,7 @@ class NovelSelector extends HTMLElement {
         document.getElementById('bg-2').style = `background-position: ${bg2Scrolling + this.bg_pos * bg2ScrollingFactor}% 0%;`;
 
         let novelHexes = this.querySelector('#novel-hexes');
-        novelHexes.setAttribute("transform", `translate(${this.bg_pos*-hexScrollingFactor},0)`);
+        novelHexes.style.transform = `translateX(${this.bg_pos * -hexScrollingFactor / 10}cqw)`;
 
         const scaledFirstHexPos = (this.firstHexPos - (viewportSize-hexSizeX)/2) / hexScrollingFactor;
         const scaledLastHexPos = (this.lastHexPos - (viewportSize-hexSizeX)/2) / hexScrollingFactor;
@@ -127,45 +123,36 @@ class NovelSelector extends HTMLElement {
     }
     
     getNovel = (novelName) => {
+        if (novelName === "Einstieg") return this.einstiegNovel;
         return this.novels.find(novel => novel.name === novelName);
     }
     
     createHex = (posX, posY, novel, isInfo = false) => {
-        return `<g ${isInfo ? 'id="InfoHex"' : `data-id=${novel.name}`}
-                transform = translate(${posX},${posY})
+        const left = posX / 10;
+        const top = (posY / 10) + 50;
+        const w = 29.6; // 296/10
+        const h = 26.6; // 266/10
+
+        return `
+            <div ${isInfo ? 'id="InfoHex"' : `data-id="${novel.name}"`}
+                class="absolute flex items-center justify-center cursor-pointer"
+                style="left: ${left}cqw; top: ${top}cqw; width: ${w}cqw; height: ${h}cqw;"
             >
-            <path
-                d="
-                    M 96.5,0 
-                    L 209.5,0 
-                    Q 229.5,0 239.5,17.3
-                    L 296,115.7
-                    Q 306,133 296,150.3
-                    L 239.5,248.7
-                    Q 229.5,266 209.5,266
-                    L 96.5,266
-                    Q 76.5,266 66.5,248.7
-                    L 10,150.3
-                    Q 0,133 10,115.7
-                    L 66.5,17.3
-                    Q 76.5,0 96.5,0
-                Z" 
-                fill=${novel.novelColor} 
-                stroke=${novel.novelFrameColor}
-                stroke-width="12"
-            />
-            <foreignObject 
-                x = "30" 
-                y = "75"
-                width = "246"
-                height = "106"
-                class = "flex items-center">
-                <p class="flex items-center justify-center w-full h-full text-center text-white text-4xl leading-12 font-semibold select-none">
+                <svg viewBox="0 0 296 266" class="absolute inset-0 w-full h-full z-0 overflow-visible">
+                    <path
+                        d="M 96.5,0 L 209.5,0 Q 229.5,0 239.5,17.3 L 296,115.7 Q 306,133 296,150.3 L 239.5,248.7 Q 229.5,266 209.5,266 L 96.5,266 Q 76.5,266 66.5,248.7 L 10,150.3 Q 0,133 10,115.7 L 66.5,17.3 Q 76.5,0 96.5,0 Z" 
+                        fill="${novel.novelColor}" 
+                        stroke="${novel.novelFrameColor}"
+                        stroke-width="12"
+                        class="transition-colors duration-300"
+                    />
+                </svg>
+                
+                <div class="relative z-10 w-[80%] text-center text-white text-[3.6cqw] font-semibold select-none pointer-events-none">
                     ${novel.title}
-                </p>
-            </foreignObject>
-            </g>`
-        ;
+                </div>
+            </div>
+        `;
     }
 
     removeBubble = () => {
@@ -179,30 +166,30 @@ class NovelSelector extends HTMLElement {
             <div class="relative flex flex-col items-center max-w-lg font-sans">
                 
                 <!-- Die Sprechblasen-Spitze (SVG) -->
-                <div class="w-0 h-0 border-l-20 border-l-transparent border-r-20 border-r-transparent border-b-60"
+                <div class="w-0 h-0 border-l-[2cqw] border-l-transparent border-r-[2cqw] border-r-transparent border-b-[6cqw]"
                     style = "border-bottom-color: ${novel.novelColor}" 
                 ></div>
 
                 <!-- Hauptbox -->
                 <div id="bubble-box"
-                    class="text-white p-8 rounded-2xl w-full"
+                    class="text-white p-[5cqw] rounded-[1.6cqw] w-full"
                     style = "background-color: ${novel.novelColor}"
                 >
                     <!-- Text-Inhalt -->
-                    <p class="text-3xl font-semibold leading-normal mb-8 select-none">
+                    <p class="text-[3cqw] p-[3.2cqw] font-semibold leading-normal mb-[3.2cqw] select-none text-center">
                         ${novel.description}
                     </p>
 
                     <!-- Button-Leiste -->
-                    <div class="flex gap-4 justify-center mb-15">
+                    <div class="flex gap-[2.5cqw] justify-center mb-[2cqw]">
                         
-                        <div id="play-button" class="button-play bg-contain bg-no-repeat object-contain h-15 w-60 font-bold text-2xl pl-16 flex items-center select-none"
+                        <div id="play-button" class="button-play bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center select-none"
                             style="color:${novel.novelColor}"
                         >
                             SPIELEN
                         </div>
 
-                        <div id="remember-button" class="button-remember bg-contain bg-no-repeat object-contain h-15 w-60 font-bold text-2xl pl-16 flex items-center select-none"
+                        <div id="remember-button" class="button-remember bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center select-none"
                             style="color:${novel.novelColor}"
                         >
                             MERKEN
@@ -294,9 +281,10 @@ class NovelSelector extends HTMLElement {
                 if(event["activeHex"] == hex) {
                     path.setAttribute("stroke", novel.novelColor);
                     this.createBubble(novel);
-                    const matrix = new DOMMatrix(window.getComputedStyle(hex).transform);
-                    const hexPosition = matrix.m41;
-                    this.bubbleAnimation((hexPosition - (viewportSize-hexSizeX)/2) / hexScrollingFactor);
+                    const hexId = hex.getAttribute('data-id');
+                    const novelIndex = this.novels.findIndex(n => n.name === hexId);
+                    const logicalPosX = novelIndex * hexXDiff;
+                    this.bubbleAnimation((logicalPosX - (viewportSize-hexSizeX)/2) / hexScrollingFactor);
                 } else {
                     path.setAttribute("stroke", novel.novelFrameColor);
                 } 
