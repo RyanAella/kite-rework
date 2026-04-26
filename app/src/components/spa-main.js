@@ -8,16 +8,9 @@ class SpaMain extends HTMLElement {
 
   connectedCallback() {
 
-    this.classList.add("spa-main-style", "bg_blue_ud");
-    this.innerHTML = `
-          <div id="scene_manager_container" class="w-full h-full relative @container"></div>`
-
-      
-    const smc = this.querySelector('#scene_manager_container');
-
+    this.classList.add("spa-main-style", "bg_blue_ud", "overflow-hidden", "@container", "select-none");
     const sceneManager = document.createElement("scene-manager");
-    smc.appendChild(sceneManager);
-
+    this.appendChild(sceneManager);
   }
 }
 

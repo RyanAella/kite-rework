@@ -4,9 +4,9 @@ export class BackHeader extends BaseHeader {
   // Back arrow with "Zurück" label
   getLeftContent() {
     return `
-      <button id="btn-back" class="${this.btnClass} gap-[15px] items-center text-white">
+      <button id="btn-back" class="${this.btnClass} gap-[1.5cqw] items-center text-white">
         <img src="assets/Images/DropDown/Arrow_Left.png" class="${this.imgClass}" />
-        <span class="text-[32px] font-sans tracking-tight mt-[5px]">
+        <span class="text-[3.2cqw] font-sans tracking-tight mt-[0.5cqw]">
           Zurück
         </span>
       </button>`;

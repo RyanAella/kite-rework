@@ -2,8 +2,8 @@ export class BaseHeader extends HTMLElement {
   constructor() {
     super();
     // Shared Tailwind classes for buttons and images
-    this.btnClass = "bg-transparent border-none p-0 cursor-default flex outline-none transition-opacity active:opacity-70 select-none";
-    this.imgClass = "w-15 h-15 object-contain pointer-events-none";
+    this.btnClass = "bg-transparent flex outline-none transition-opacity active:opacity-70";
+    this.imgClass = "w-[6cqw] h-[6cqw] object-contain pointer-events-none";
   }
 
   connectedCallback() {
@@ -12,18 +12,19 @@ export class BaseHeader extends HTMLElement {
   }
 
   // Placeholder for specific content (to be overridden by subclasses)
-  getLeftContent() { return `<div class="w-1"></div>`; }
+  getLeftContent() { return `<div class="w-0"></div>`; }
 
   render() {
+    this.classList.add("w-full", "h-[20cqw]");
     this.innerHTML = `
-      <header class="w-[1000px] bg-[#0B1A2D]">
-        <div class="flex items-end pt-30 px-[30px] pb-5 w-full box-border">
+      <header class="w-full h-full bg-[#0B1A2D]">
+        <div class="flex items-end pt-[11cqw] px-[3cqw] pb-[2cqw] w-full box-border">
           
           <div class="flex items-center">
             ${this.getLeftContent()}
           </div>
 
-          <div class="flex items-end gap-15 ml-auto">
+          <div class="flex items-end gap-[6cqw] ml-auto">
             <button id="btn-legal" class="${this.btnClass}">
               <img src="assets/Images/IconsAndLogos/Icon_Legal_Small.png" class="${this.imgClass}" />
             </button>
@@ -53,8 +54,11 @@ export class BaseHeader extends HTMLElement {
     };
     
     if(s) s.onclick = (e) => {
-      e.stopPropagation(); 
-      console.log("Settings");
+      e.stopPropagation();
+      this.dispatchEvent(new CustomEvent('sm-switch-scene', { 
+        detail: { scene: "settings-scene" }, 
+        bubbles: true,  
+      }));
     };
   }
 }

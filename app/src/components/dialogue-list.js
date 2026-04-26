@@ -1,3 +1,5 @@
+import { addDragScrolling } from "../drag-scrolling.js";
+
 class DialogueList extends HTMLElement {
   
   constructor() {
@@ -12,13 +14,13 @@ class DialogueList extends HTMLElement {
     this.messageContainer = this.querySelector('.message-container');
     this.choiceContainer = this.querySelector('.choice-container');
 
-    this.initDragScroll();
+    addDragScrolling(this.scrollContainer);
   }
 
   renderMessageBox() {
     this.innerHTML = `
       <div class="scroll-container no-scrollbar h-full w-full overflow-y-auto scroll-auto flex flex-col p-[2cqw]">
-        <div class="message-container mt-auto flex flex-col gap-[1.6cqw] shrink-0 select-none"></div>
+        <div class="message-container mt-auto flex flex-col gap-[1.6cqw] shrink-0"></div>
         <div class="choice-container flex flex-col gap-[1.3cqw] p-[2cqw] empty:hidden shrink-0"></div>
       </div>
     `;
@@ -80,7 +82,7 @@ class DialogueList extends HTMLElement {
         arrayOfChoices.forEach((choiceObj, index) => {
           const choiceButton = document.createElement('button');
 
-          choiceButton.className = "grid grid-cols-1 grid-rows-1 scale-95 animate-pop-in bg-white rounded-[1.6cqw] text-[3cqw] cursor-pointer hover:bg-gray-100 text-left";
+          choiceButton.className = "grid grid-cols-1 grid-rows-1 scale-95 animate-pop-in bg-white rounded-[1.6cqw] text-[3cqw] hover:bg-gray-100 text-left";
           choiceButton.innerHTML = `<span class="z-10 p-[2cqw] transition-colors duration-300 col-start-1 row-start-1">${choiceObj.text}</span>`;
 
           choiceButton.addEventListener('animationend', (e) => {
@@ -135,36 +137,6 @@ class DialogueList extends HTMLElement {
         this.scrollContainer.scrollTop = this.scrollContainer.scrollHeight;
       });
     })
-  }
-
-  initDragScroll() {
-    const scrollBox = this.scrollContainer;
-    let isDown = false;
-    let startY;
-    let scrollTop;
-
-    scrollBox.addEventListener('mousedown', (e) => {
-      isDown = true;
-      scrollBox.classList.add('active');
-      startY = e.pageY - scrollBox.offsetTop;
-      scrollTop = scrollBox.scrollTop;
-    });
-
-    scrollBox.addEventListener('mouseleave', () => {
-      isDown = false;
-    });
-
-    scrollBox.addEventListener('mouseup', () => {
-      isDown = false;
-    });
-
-    scrollBox.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault(); 
-      const y = e.pageY - scrollBox.offsetTop;
-      const move = (y - startY) * 3;
-      scrollBox.scrollTop = scrollTop - move;
-    });
   }
 }
 

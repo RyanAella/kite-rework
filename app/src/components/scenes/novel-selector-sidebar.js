@@ -13,7 +13,7 @@ class NovelSelectorSidebar extends HTMLElement {
         // HTML for the list
         const novelItemsHtml = this.novels.map(novel => `
             <div data-id="${novel.name}" class="novel-item w-full text-center py-[3.2cqw] transition-colors border-b-[0.5cqw] border-[#0b1a2d]">
-                <span class="select-none text-[4.8cqw] font-semibold text-gray-900 tracking-tight">
+                <span class="text-[4.8cqw] font-semibold text-gray-900 tracking-tight">
                     ${novel.title}
                 </span>
             </div>
@@ -22,18 +22,18 @@ class NovelSelectorSidebar extends HTMLElement {
         // base structure
         this.innerHTML = `
             <div class="flex flex-col items-center justify-center h-full w-full bg-bright bg-cover">
-                <!-- <closing-header></closing-header> -->
-                <div class="w-full h-full p-[6cqw]">
+                <closing-header></closing-header>
+                <div class="w-full h-[160cqw] p-[6cqw]">
                     
-                    <h1 class="select-none text-[4.8cqw] font-semibold text-center mt-[2cqw] mb-[8cqw] tracking-tight text-[#0b1a2d]">
+                    <h1 class="text-[4.8cqw] font-semibold text-center mt-[2cqw] mb-[8cqw] tracking-tight text-[#0b1a2d]">
                         NOVELS
                     </h1>
                     
                     ${novelItemsHtml}
 
-                </div> 
+                </div>
+                <main-footer active-scene="novel-selector"></main-footer>
             </div>
-            <main-footer active-scene="novel-selector"></main-footer>
         `;
 
         this.addEventListeners();
