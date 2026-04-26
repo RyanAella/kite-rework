@@ -52,20 +52,23 @@ class NovelSelector extends HTMLElement {
 
         // base structure
         this.innerHTML = 
-        `<navigation-header></navigation-header>
-        <div id=bg-2 class="w-full h-full bg-panorama-landschaft overflow-hidden bg-[length:auto_100%] bg-repeat-x">
-            <div id=bg-1 class="w-full h-full bg-panorama relative overflow-hidden bg-[length:auto_100%] bg-repeat-x">
-                <div id="novel-hexes" class="absolute inset-0 w-full h-full">
-                    ${novelItemsHtml}
-                </div>
-                
-                <div id="bubble" class="absolute left-[8cqw] top-[67.1cqw] w-[84cqw] pointer-events-auto z-50">
-                </div>
+        `
+        <div class="flex flex-col">
+            <navigation-header></navigation-header>
+            <div id=bg-2 class="w-full h-[160cqw] bg-panorama-landschaft overflow-hidden bg-[length:auto_100%] bg-repeat-x">
+                <div id=bg-1 class="w-full h-full bg-panorama relative overflow-hidden bg-[length:auto_100%] bg-repeat-x">
+                    <div id="novel-hexes" class="absolute inset-0 w-full h-full">
+                        ${novelItemsHtml}
+                    </div>
+                    
+                    <div id="bubble" class="absolute left-[8cqw] top-[67.1cqw] w-[84cqw] pointer-events-auto z-50">
+                    </div>
 
-                ${infoHex}
+                    ${infoHex}
+                </div>
             </div>
-        </div>
-        <main-footer active-scene="novel-selector"><main-footer>`;
+            <main-footer active-scene="novel-selector"><main-footer>
+        </div>`;
 
         let hexes = this.querySelector('#novel-hexes').children;
         this.firstHexPos = 0;
@@ -135,7 +138,7 @@ class NovelSelector extends HTMLElement {
 
         return `
             <div ${isInfo ? 'id="InfoHex"' : `data-id="${novel.name}"`}
-                class="absolute flex items-center justify-center cursor-pointer"
+                class="absolute flex items-center justify-center"
                 style="left: ${left}cqw; top: ${top}cqw; width: ${w}cqw; height: ${h}cqw;"
             >
                 <svg viewBox="0 0 296 266" class="absolute inset-0 w-full h-full z-0 overflow-visible">
@@ -148,7 +151,7 @@ class NovelSelector extends HTMLElement {
                     />
                 </svg>
                 
-                <div class="relative z-10 w-[80%] text-center text-white text-[3.6cqw] font-semibold select-none pointer-events-none">
+                <div class="relative z-10 w-[80%] text-center text-white text-[3.6cqw] font-semibold pointer-events-none">
                     ${novel.title}
                 </div>
             </div>
@@ -176,20 +179,20 @@ class NovelSelector extends HTMLElement {
                     style = "background-color: ${novel.novelColor}"
                 >
                     <!-- Text-Inhalt -->
-                    <p class="text-[3cqw] p-[3.2cqw] font-semibold leading-normal mb-[3.2cqw] select-none text-center">
+                    <p class="text-[3cqw] p-[3.2cqw] font-semibold leading-normal mb-[3.2cqw] text-center">
                         ${novel.description}
                     </p>
 
                     <!-- Button-Leiste -->
                     <div class="flex gap-[2.5cqw] justify-center mb-[2cqw]">
                         
-                        <div id="play-button" class="button-play bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center select-none"
+                        <div id="play-button" class="button-play bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center"
                             style="color:${novel.novelColor}"
                         >
                             SPIELEN
                         </div>
 
-                        <div id="remember-button" class="button-remember bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center select-none"
+                        <div id="remember-button" class="button-remember bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center"
                             style="color:${novel.novelColor}"
                         >
                             MERKEN
