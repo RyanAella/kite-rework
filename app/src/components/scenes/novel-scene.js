@@ -1,5 +1,6 @@
 import "../dialogue-list.js"
 import "../headers/back-header.js"
+import "../headers/base-header.js"
 
 class NovelScene extends HTMLElement {
   
@@ -12,11 +13,11 @@ class NovelScene extends HTMLElement {
   novel = {};
   currentEvent = {};
   currentChoices = [];
-
   dialogueList;
 
   connectedCallback() {
     this.novel = this.args['novel']
+    let flag = this.args['needBaseHeader'];
     
     //Event Setup
     this.addEventListener("user-confirmation", (event) => { this.userConfirmation(event)});
@@ -30,8 +31,13 @@ class NovelScene extends HTMLElement {
     let events = this.novel['novelEvents'];
     this.currentEvent = events[0];
 
-    const header = document.createElement("back-header");
-    this.prepend(header);
+    if(flag) {
+      const header = document.createElement("base-header");
+      this.prepend(header);
+    } else {
+      const header = document.createElement("back-header");
+      this.prepend(header);
+    }
 
     this.createBackground();
 
