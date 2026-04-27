@@ -23,15 +23,27 @@ class StartScene extends HTMLElement {
 
     // event listener for the button
     const btn = this.querySelector('#start-btn'); // selecting button
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       
       const sm = document.querySelector('scene-manager');
       if (sm) {
-        sm.dispatchEvent(new CustomEvent("sm-switch-scene", {
-          detail: {
-            scene: "novel-selector"
-          }
-        }));
+        try {
+          const response = await fetch("assets/json/novels.json");
+          const data = await response.json();
+          const einstiegNovel = data.visualNovels.find(novel => novel.name === "Einstieg");
+
+          sm.dispatchEvent(new CustomEvent("sm-switch-scene", {
+            detail: {
+              scene: "novel-scene",
+              args: {
+                novel: einstiegNovel,
+                needBaseHeader: true,
+              }
+            }
+          }));
+        } catch (error) {
+          console.error("Error loading novels.json:", error);
+        }
       } else {
         console.error("Scene Manager not found!");
       }
