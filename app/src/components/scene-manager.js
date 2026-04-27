@@ -3,6 +3,10 @@ import "./scenes/settings-scene.js";
 import "./scenes/novel-scene.js";
 import "./scenes/novel-selector.js";
 import "./scenes/novel-selector-sidebar.js";
+import "./scenes/legal_information/legal-information-scene.js";
+import "./scenes/legal_information/dataprivacy-scene.js";
+import "./scenes/legal_information/imprint-scene.js";
+import "./scenes/legal_information/tos-scene.js";
 
 class SceneManager extends HTMLElement {
   
