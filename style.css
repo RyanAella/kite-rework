@@ -148,6 +148,7 @@
 @source inline("bottom-0");
 @source inline("left-0 right-0");
 @source inline("left-[8cqw]");
+@source inline("bottom-0");
 @source inline("top-[67.1cqw]");
 
 /* Element Sizes */
@@ -172,6 +173,20 @@
 @source inline("pb-2 pb-4 pb-5 pb-8 pb-10 pb-15 pb-48 pb-[0.8cqw] pb-[2cqw] pb-[3cqw] pb-[19.2cqw]");
 @source inline("pl-16 pl-[6.4cqw]");
 
+@source inline("w-0 w-full");
+@source inline("w-[32.4%] w-[64%] w-[68%] w-[80%] w-[90%]");
+@source inline("w-[6cqw] w-[24cqw] w-[30cqw] w-[40cqw] w-[80cqw] w-[84cqw] w-[85cqw]");
+@source inline("max-w-[90%] max-w-none");
+
+
+@source inline("p-[1cqw] p-[2cqw] pb-[3cqw] p-[3.2cqw] p-[5cqw] p-[6cqw] p-[12cqw]");
+@source inline("px-[3cqw] px-[5%]");
+@source inline("py-[3.2cqw]");
+@source inline("pt-[11cqw]");
+@source inline("pb-[2cqw]");
+@source inline("pl-[6.4cqw]");
+
+@source inline("border-[0.5cqw]  border-[0.2cqw]");
 @source inline("border border-none");
 @source inline("border-0 border-2 border-5 border-dashed");
 @source inline("border-b border-b-4 border-b-60 border-t border-white/10");
@@ -184,6 +199,10 @@
 @source inline("rounded rounded-sm rounded-md rounded-lg rounded-xl rounded-2xl rounded-full rounded-br-sm rounded-bl-sm");
 @source inline("rounded-[0.6cqw] rounded-[1.2cqw] rounded-[1.6cqw] rounded-[2cqw] rounded-[4cqw]");
 
+@source inline("mx-[10cqw] mx-auto");
+@source inline("mt-[0.5cqw] mt-[2cqw]");
+@source inline("mb-[5%] mb-[6%] mb-[8%] mb-[12%]");
+@source inline("mb-[2cqw] mb-[3cqw] mb-[3.2cqw] mb-[5cqw] mb-[8cqw] mb-[15cqw] mb-0");
 @source inline("mt-2 mt-4 mt-[5px] mt-5 mt-10 mt-12 mt-14 mt-15 mt-16 mt-20 mt-auto mt-[0.5cqw] mt-[2cqw] mt-[4.8cqw] mt-[5.6cqw] mt-[6cqw] mt-[8cqw]");
 @source inline("mb-2 mb-3 mb-4 mb-5 mb-6 mb-7 mb-8 mb-10 mb-12 mb-15 mb-20 mb-30 mb-auto");
 @source inline("mb-[1.6cqw] mb-[2cqw] mb-[2.4cqw] mb-[3cqw] mb-[3.2cqw] mb-[4.8cqw] mb-[5%] mb-[5cqw] mb-[6%] mb-[6cqw] mb-[8%] mb-[8cqw] mb-[12%] mb-[15cqw]");
@@ -217,7 +236,13 @@
 @source inline("hover:bg-gray-100");
 @source inline("opacity-50 opacity-60 opacity-70 opacity-90 opacity-100");
 
-@source inline("object-contain object-cover");
+@source inline("object-contain");
+@source inline("object-cover");
+
+/* Rendering */
+@source inline("isolate");
+@source inline("transform-gpu");
+@source inline("object-contain object-fill object-scale-down");
 
 
 /* Texts */
@@ -252,6 +277,32 @@
 @source inline("rounded-2xl rounded-full");
 @source inline("transition-all transition-colors transition-opacity");
 @source inline("bg-gradient-to-b from-white/40 to-transparent");
+
+@source inline("overflow-hidden");
+
+@source inline("aspect-square");
+@source inline("z-0");
+@source inline("z-10");
+@source inline("z-50");
+@source inline("group");
+@source inline("group-hover:text-[#0c447f]");
+@source inline("animate-breathe");
+@source inline("scale-x-0");
+@source inline("scale-x-100");
+@source inline("origin-center");
+@source inline("origin-bottom");
+@source inline("origin-left");
+@source inline("inset-0");
+@source inline("@container");
+
+
+
+
+
+
+
+
+
 
 /* Legal information scenes – cqw / container-relative spacing */
 @source inline("gap-[3.2cqw] gap-[4cqw]");

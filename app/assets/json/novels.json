@@ -6,6 +6,21 @@
             "description": "Hier kannst du den Einstiegs-Dialog erneut spielen.",
             "novelColor": "#aa1c02",
             "novelFrameColor": "#d04c03",
+            "interactiveObjects": [
+                {
+                    "id": "vordergrund_leiste",
+                    "x": 0,
+                    "y": null,
+                    "width": 1000,
+                    "height": 115,
+                    "zIndex": 45,
+                    "currentState": "default",
+                    "classes": "object-fill bottom-0",
+                    "states": {
+                        "default": "assets/Images/EventAnimations/Einstieg/Einstieg_Desk.png"
+                    }
+                }
+            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -799,6 +814,69 @@
             "description": "Du hast dich entschieden, ein Unternehmen zu gründen, und teilst das nun deinen Eltern mit.",
             "novelColor": "#25650e",
             "novelFrameColor": "#4c9a30",
+            "interactiveObjects": [
+                {
+                    "id": "wohnzimmer_lampe",
+                    "x": 0,
+                    "y": -370,
+                    "width": 1000,
+                    "height": 2000,
+                    "zIndex": 10,
+                    "classes": "object-cover pointer-events-auto",
+                    "currentState": "off",
+                    "states": {
+                        "off": "assets/Images/EventAnimations/ElternInformieren/BG_parents_light_off.png",
+                        "on": "assets/Images/EventAnimations/ElternInformieren/BG_parents_light_on.png"
+                    }
+                },
+                {
+                    "id": "tisch_vordergrund",
+                    "x": 0,
+                    "y": 1550,
+                    "width": 1000,
+                    "height": 600,
+                    "zIndex": 40,
+                    "classes": "object-fill pointer-events-none",
+                    "currentState": "default",
+                    "states": {
+                        "default": "assets/Images/EventAnimations/ElternInformieren/Eltern_Table.png"
+                    }
+                },
+                {
+                    "id": "teekanne_blau",
+                    "x": 320,
+                    "y": 1330,
+                    "width": 360,
+                    "height": 360,
+                    "zIndex": 45,
+                    "classes": "pointer-events-auto",
+                    "currentState": "idle",
+                    "interaction": "sequence",
+                    "states": {
+                        "idle": "assets/Images/EventAnimations/ElternInformieren/Jug_1.png",
+                        "steaming_1": "assets/Images/EventAnimations/ElternInformieren/Jug_2.png",
+                        "steaming_2": "assets/Images/EventAnimations/ElternInformieren/Jug_3.png", 
+                        "steaming_3": "assets/Images/EventAnimations/ElternInformieren/Jug_4.png"  
+                    }
+                },
+                {
+                    "id": "tasse_gruen",
+                    "x": 620,
+                    "y": 1300,
+                    "width": 380,
+                    "height": 440,
+                    "zIndex": 45,
+                    "classes": "pointer-events-auto",
+                    "currentState": "idle",
+                    "interaction": "sequence",
+                    "states": {
+                        "idle": "assets/Images/EventAnimations/ElternInformieren/Mug_G1.png",
+                        "steaming_1": "assets/Images/EventAnimations/ElternInformieren/Mug_G2.png",
+                        "steaming_2": "assets/Images/EventAnimations/ElternInformieren/Mug_G3.png",
+                        "steaming_3": "assets/Images/EventAnimations/ElternInformieren/Mug_G4.png" 
+                    }
+                }
+            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -2128,6 +2206,50 @@
             "description": "Du bist in Kontakt mit einer Kundin gekommen. Nachdem geklärt wurde, dass deine angebotenen Leistungen zu den Anforderungen deines Gegenübers passen, geht es nun um die Honorarverhandlung.",
             "novelColor": "#11454a",
             "novelFrameColor": "#27727f",
+            "interactiveObjects": [
+                {
+                    "id": "tisch",
+                    "x": 0,
+                    "y": null,
+                    "width": 1000,
+                    "height": 115,
+                    "zIndex": 45,
+                    "currentState": "default",
+                    "classes": "object-fill bottom-0",
+                    "states": {
+                        "default": "assets/Images/EventAnimations/HonorarVerhandeln/Table_FG.png"
+                    }
+                },
+                {
+                    "id": "schraenkchen",
+                    "x": 650,
+                    "y": 1510,
+                    "width": 350,
+                    "height": 175,
+                    "zIndex": 40,
+                    "currentState": "default",
+                    "classes": "object-fill",
+                    "states": {
+                        "default": "assets/Images/EventAnimations/HonorarVerhandeln/DrawerCabinet.png"
+                    }
+                },
+                {
+                    "id": "blumen_vase",
+                    "x": 745,
+                    "y": 1200,
+                    "width": 200,
+                    "height": 340,
+                    "zIndex": 41,
+                    "interaction": "sequence",
+                    "currentState": "frame_1",
+                    "classes": "pointer-events-auto",
+                    "states": {
+                        "frame_1": "assets/Images/EventAnimations/HonorarVerhandeln/Vase_1@4x.png",
+                        "frame_2": "assets/Images/EventAnimations/HonorarVerhandeln/Vase_2@4x.png",
+                        "frame_3": "assets/Images/EventAnimations/HonorarVerhandeln/Vase_3@4x.png"
+                    }
+                }
+            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -5118,6 +5240,24 @@
             "description": "Du triffst dich mit einem Angel Investor, der auf einer Pitch Night Interesse an deiner Innovation gezeigt hat und nun mehr erfahren möchte.",
             "novelColor": "#35481a",
             "novelFrameColor": "#3d8229",
+            "interactiveObjects": [
+                {
+                    "id": "pflanze",
+                    "x": 680,
+                    "y": 1200,
+                    "width": 350,
+                    "height": 500,
+                    "zIndex": 10,
+                    "interaction": "sequence",
+                    "currentState": "frame_1",
+                    "classes": "pointer-events-auto",
+                    "states": {
+                        "frame_1": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_1@4x.png",
+                        "frame_2": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_2@4x.png",
+                        "frame_3": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_3@4x.png"
+                    }
+                }
+            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -6220,6 +6360,57 @@
             "description": "Du hast heute einen Banktermin, um einen Kredit zu beantragen.",
             "novelColor": "#0e1a2d",
             "novelFrameColor": "#234169",
+            "interactiveObjects": [
+                {
+                    "id": "pflanze",
+                    "x": 680,
+                    "y": 1050,
+                    "width": 350,
+                    "height": 500,
+                    "zIndex": 10,
+                    "interaction": "sequence",
+                    "currentState": "frame_1",
+                    "classes": "pointer-events-auto",
+                    "states": {
+                        "frame_1": "assets/Images/EventAnimations/KreditBeantragen/Plant_1@4x.png",
+                        "frame_2": "assets/Images/EventAnimations/KreditBeantragen/Plant_2@4x.png",
+                        "frame_3": "assets/Images/EventAnimations/KreditBeantragen/Plant_3@4x.png"
+                    }
+                },
+                {
+                    "id": "vordergrund_leiste",
+                    "x": 0,
+                    "y": null,
+                    "width": 1000,
+                    "height": 115,
+                    "zIndex": 45,
+                    "currentState": "default",
+                    "classes": "object-fill bottom-0",
+                    "states": {
+                        "default": "assets/Images/EventAnimations/KreditBeantragen/Desk.png"
+                    }
+                },
+                {
+                    "id": "glas",
+                    "x": 35,
+                    "y": 1570,
+                    "width": 160,
+                    "height": 200,
+                    "zIndex": 50,
+                    "interaction": "sequence",
+                    "currentState": "frame_1",
+                    "classes": "pointer-events-auto",
+                    "states": {
+                        "frame_1": "assets/Images/EventAnimations/KreditBeantragen/Glass_1.png",
+                        "frame_2": "assets/Images/EventAnimations/KreditBeantragen/Glass_2.png",
+                        "frame_3": "assets/Images/EventAnimations/KreditBeantragen/Glass_3.png",
+                        "frame_4": "assets/Images/EventAnimations/KreditBeantragen/Glass_4.png",
+                        "frame_5": "assets/Images/EventAnimations/KreditBeantragen/Glass_5.png",
+                        "frame_6": "assets/Images/EventAnimations/KreditBeantragen/Glass_6.png",
+                        "frame_7": "assets/Images/EventAnimations/KreditBeantragen/Glass_7.png"
+                    }
+                }
+            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -9497,6 +9688,70 @@
             "description": "Du rufst bei einer Notarin an, um einen Termin für deine Gründung auszumachen.",
             "novelColor": "#2c144d",
             "novelFrameColor": "#63458d",
+            "interactiveObjects": [
+                {
+                    "id": "pflanze",
+                    "x": 680,
+                    "y": 1090,
+                    "width": 360,
+                    "height": 525,
+                    "zIndex": 15,
+                    "interaction": "sequence",
+                    "currentState": "frame_1",
+                    "classes": "pointer-events-auto",
+                    "states": {
+                        "frame_1": "assets/Images/EventAnimations/MitNotarinTelefonieren/Plant_1@4x.png",
+                        "frame_2": "assets/Images/EventAnimations/MitNotarinTelefonieren/Plant_2@4x.png",
+                        "frame_3": "assets/Images/EventAnimations/MitNotarinTelefonieren/Plant_3@4x.png"
+                    }
+                },
+                {
+                    "id": "vordergrund_leiste",
+                    "x": 0,
+                    "y": null,
+                    "width": 1000,
+                    "height": 115,
+                    "zIndex": 45,
+                    "currentState": "default",
+                    "classes": "object-fill bottom-0",
+                    "states": {
+                        "default": "assets/Images/EventAnimations/MitNotarinTelefonieren/Desk.png"
+                    }
+                },
+                {
+                    "id": "bücherregal",
+                    "x": 0,
+                    "y": 0,
+                    "width": 1000,
+                    "height": 1800,
+                    "zIndex": 10,
+                    "currentState": "default",
+                    "classes": "object-fill",
+                    "states": {
+                        "default": "assets/Images/EventAnimations/MitNotarinTelefonieren/Notarin_Cabinet.png"
+                    }
+                },
+                {
+                    "id": "glas",
+                    "x": 75,
+                    "y": 1600,
+                    "width": 160,
+                    "height": 200,
+                    "zIndex": 50,
+                    "interaction": "sequence",
+                    "currentState": "frame_1",
+                    "classes": "pointer-events-auto",
+                    "states": {
+                        "frame_1": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_1.png",
+                        "frame_2": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_2.png",
+                        "frame_3": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_3.png",
+                        "frame_4": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_4.png",
+                        "frame_5": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_5.png",
+                        "frame_6": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_6.png",
+                        "frame_7": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_7.png"
+                    }
+                }
+            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -10193,6 +10448,57 @@
             "description": "Auf einer Veranstaltung stellst du deine Geschäftsidee vor und wirst danach von einer Journalistin angesprochen.",
             "novelColor": "#4e2350",
             "novelFrameColor": "#7e3b81",
+            "interactiveObjects": [
+                {
+                    "id": "tisch",
+                    "x": -60,
+                    "y": 1675,
+                    "width": 1120,
+                    "height": 300,
+                    "zIndex": 45,
+                    "currentState": "default",
+                    "classes": "max-w-none",
+                    "states": {
+                        "default": "assets/Images/EventAnimations/InterviewAbklären/Presse_Desk.png"
+                    }
+                },  
+                {
+                    "id": "glas",
+                    "x": 180,
+                    "y": 1600,
+                    "width": 130,
+                    "height": 200,
+                    "zIndex": 50,
+                    "interaction": "sequence",
+                    "currentState": "frame_1",
+                    "classes": "pointer-events-auto",
+                    "states": {
+                        "frame_1": "assets/Images/EventAnimations/InterviewAbklären/Glass_1.png",
+                        "frame_2": "assets/Images/EventAnimations/InterviewAbklären/Glass_2.png",
+                        "frame_3": "assets/Images/EventAnimations/InterviewAbklären/Glass_3.png",
+                        "frame_4": "assets/Images/EventAnimations/InterviewAbklären/Glass_4.png",
+                        "frame_5": "assets/Images/EventAnimations/InterviewAbklären/Glass_5.png",
+                        "frame_6": "assets/Images/EventAnimations/InterviewAbklären/Glass_6.png",
+                        "frame_7": "assets/Images/EventAnimations/InterviewAbklären/Glass_7.png"
+                    }
+                },
+                {
+                    "id": "blumen_vase",
+                    "x": 415,
+                    "y": 1460,
+                    "width": 200,
+                    "height": 340,
+                    "zIndex": 50,
+                    "interaction": "sequence",
+                    "currentState": "frame_1",
+                    "classes": "pointer-events-auto",
+                    "states": {
+                        "frame_1": "assets/Images/EventAnimations/InterviewAbklären/Vase_1@4x.png",
+                        "frame_2": "assets/Images/EventAnimations/InterviewAbklären/Vase_2@4x.png",
+                        "frame_3": "assets/Images/EventAnimations/InterviewAbklären/Vase_3@4x.png"
+                    }
+                }
+            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -11905,6 +12211,24 @@
             "description": "Du hast heute einen Termin für die Besichtigung von Büro-Räumen.",
             "novelColor": "#640342",
             "novelFrameColor": "#a52779",
+            "interactiveObjects": [
+                {
+                    "id": "pflanze",
+                    "x": 105,
+                    "y": 1195,
+                    "width": 240,
+                    "height": 370,
+                    "zIndex": 10,
+                    "interaction": "sequence",
+                    "currentState": "frame_1",
+                    "classes": "pointer-events-auto",
+                    "states": {
+                        "frame_1": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_1@4x.png",
+                        "frame_2": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_2@4x.png",
+                        "frame_3": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_3@4x.png"
+                    }
+                }
+            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
