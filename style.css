@@ -110,6 +110,14 @@
   .button-remember {
     @apply bg-[url(assets/Images/Buttons/Button_Remeber.png)]
   }
+
+  .button-forget {
+    @apply bg-[url(assets/Images/Buttons/Button_Forget.png)]
+  }
+
+  .hex-remembered-bookmark {
+    @apply pointer-events-none absolute z-20 top-[1cqw] left-1/2 w-[8cqw] h-[8cqw] translate-x-[calc(-50%+3.5cqw)] bg-contain bg-no-repeat bg-top bg-[url(assets/Images/FoundersBubble/bookmark_sign.png)];
+  }
 }
 
 
@@ -279,6 +287,33 @@
 @source inline("bg-gradient-to-b from-white/40 to-transparent");
 
 @source inline("overflow-hidden");
+@source inline("scroll-smooth");
+@source inline("mt-auto");
+@source inline("justify-end");
+@source inline("grid");
+@source inline("grid-cols-1");
+@source inline("grid-rows-1");
+@source inline("col-start-1");
+@source inline("row-start-1");
+@source inline("invisible");
+@source inline("ease-out");
+@source inline("scale-95");
+@source inline("scale-100");
+@source inline("relative");
+@source inline("absolute");
+@source inline("top-1/2");
+@source inline("top-0 w-[7cqw] h-[7cqw] h-[8cqw] w-[8cqw]");
+@source inline("top-[1cqw]");
+@source inline("top-[67.1cqw]");
+@source inline("left-1/2");
+@source inline("left-[8cqw]");
+@source inline("translate-x-[calc(-50%+3.5cqw)]");
+@source inline("-translate-y-1/2");
+@source inline("translate-y-0");
+@source inline("w-0");
+@source inline("h-0");
+@source inline("w-[250%]");
+@source inline("aspect-square");
 
 @source inline("aspect-square");
 @source inline("z-0");
