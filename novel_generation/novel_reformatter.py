@@ -56,6 +56,8 @@ def transform_visual_novels(input_path, output_path):
                 
             if ev.get("text"): 
                 new_ev["text"] = ev["text"]
+
+            new_ev["expressionType"] = ev["expressionType"]
                 
             new_events.append(new_ev)
             

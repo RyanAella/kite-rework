@@ -1,7 +1,6 @@
+
 # IDE Specific files/directories
 .vscode
 
 # Automatically Generated Files
 node_modules/
-AGENT.md
-docs/

@@ -48,16 +48,10 @@ export class BaseHeader extends HTMLElement {
       header.onmousedown = (e) => e.stopPropagation();
     }
 
-    if (l) {
-      l.onclick = (e) => {
-        e.stopPropagation();
-        this.dispatchEvent(new CustomEvent("sm-switch-scene", {
-          detail: { scene: "legal-information-scene" },
-          bubbles: true,
-          composed: true,
-        }));
-      };
-    }
+    if(l) l.onclick = (e) => {
+      e.stopPropagation(); 
+      console.log("Legal");
+    };
     
     if(s) s.onclick = (e) => {
       e.stopPropagation();

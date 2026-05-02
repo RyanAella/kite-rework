@@ -20,9 +20,6 @@ const velocityDragFactor = 5;
 // This Variable does not influence the size of Hexagons, but is a representation of a Hexagons size for scrolling calculations
 const hexSizeX = 306;
 
-/** Same storage approach as settings-scene: sessionStorage survives refresh in this tab. */
-const REMEMBERED_NOVELS_STORAGE_KEY = 'rememberedNovels';
-
 class NovelSelector extends HTMLElement {
     
     bg_pos = 0;
@@ -30,48 +27,8 @@ class NovelSelector extends HTMLElement {
     startX; scrollLeft;
     scrollingVelocity = 0;
 
-    rememberedNovels = new Set();
-
-    isRemembered = (novelName) => this.rememberedNovels.has(novelName);
-
-    loadRememberedNovels() {
-        const raw = sessionStorage.getItem(REMEMBERED_NOVELS_STORAGE_KEY);
-        if (raw == null) {
-            return;
-        }
-        try {
-            const names = JSON.parse(raw);
-            if (!Array.isArray(names)) {
-                return;
-            }
-            const valid = new Set(this.novels.map((n) => n.name));
-            this.rememberedNovels = new Set(
-                names.filter((n) => typeof n === 'string' && valid.has(n)),
-            );
-        } catch {
-            /* ignore corrupt storage */
-        }
-    }
-
-    persistRememberedNovels() {
-        sessionStorage.setItem(
-            REMEMBERED_NOVELS_STORAGE_KEY,
-            JSON.stringify([...this.rememberedNovels]),
-        );
-    }
-
-    toggleRemembered = (novelName) => {
-        if (this.rememberedNovels.has(novelName)) {
-            this.rememberedNovels.delete(novelName);
-        } else {
-            this.rememberedNovels.add(novelName);
-        }
-        this.persistRememberedNovels();
-    }
-
     async connectedCallback() {
         await this.loadNovels();
-        this.loadRememberedNovels();
         this.renderHTML();
         this.addEventListeners();
         this.moveElements();
@@ -179,11 +136,6 @@ class NovelSelector extends HTMLElement {
         const w = 29.6; // 296/10
         const h = 26.6; // 266/10
 
-        // Remembered marker: .hex-remembered-bookmark uses bookmark_sign.png (not inside SVG)
-        const rememberedBookmark = (!isInfo && this.isRemembered(novel.name))
-            ? '<div class="hex-remembered-bookmark" role="presentation"></div>'
-            : '';
-
         return `
             <div ${isInfo ? 'id="InfoHex"' : `data-id="${novel.name}"`}
                 class="absolute flex items-center justify-center"
@@ -198,31 +150,12 @@ class NovelSelector extends HTMLElement {
                         class="transition-colors duration-300"
                     />
                 </svg>
-                ${rememberedBookmark}
-                <div class="relative z-10 w-[80%] text-center text-white text-[3.6cqw] font-semibold select-none pointer-events-none">
+                
+                <div class="relative z-10 w-[80%] text-center text-white text-[3.6cqw] font-semibold pointer-events-none">
                     ${novel.title}
                 </div>
             </div>
         `;
-    }
-
-    // Add or remove the hex bookmark (DOM matches createHex: after svg, before title)
-    refreshHexRememberBookmark = (novelName) => {
-        const hex = this.querySelector(`#novel-hexes [data-id="${CSS.escape(novelName)}"]`);
-        if (!hex) return;
-        hex.querySelector('.hex-remembered-bookmark')?.remove();
-        if (!this.isRemembered(novelName)) {
-            return;
-        }
-        const el = document.createElement('div');
-        el.className = 'hex-remembered-bookmark';
-        el.setAttribute('role', 'presentation');
-        const svg = hex.querySelector('svg');
-        if (svg) {
-            svg.insertAdjacentElement('afterend', el);
-        } else {
-            hex.appendChild(el);
-        }
     }
 
     removeBubble = () => {
@@ -232,27 +165,6 @@ class NovelSelector extends HTMLElement {
 
     createBubble = (novel) => {
         const bubble = document.getElementById('bubble');
-
-        // Remembered vs not: separate markup so we never mix class/label ternaries
-        let rememberButtonBlock;
-        if (this.isRemembered(novel.name)) {
-            rememberButtonBlock = `
-                <div id="remember-button"
-                    class="button-forget text-white bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center select-none cursor-pointer"
-                    style="color: #ffffff"
-                >
-                    GEMERKT
-                </div>`;
-        } else {
-            rememberButtonBlock = `
-                <div id="remember-button"
-                    class="button-remember bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center select-none cursor-pointer"
-                    style="color: ${novel.novelColor}"
-                >
-                    MERKEN
-                </div>`;
-        }
-
         bubble.innerHTML = `
             <div class="relative flex flex-col items-center max-w-lg font-sans">
                 
@@ -280,7 +192,11 @@ class NovelSelector extends HTMLElement {
                             SPIELEN
                         </div>
 
-                        ${rememberButtonBlock}
+                        <div id="remember-button" class="button-remember bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center"
+                            style="color:${novel.novelColor}"
+                        >
+                            MERKEN
+                        </div>
                     </div>
                 </div>
             </div>
@@ -313,27 +229,9 @@ class NovelSelector extends HTMLElement {
             }));
         });
 
-        this.querySelector('#remember-button').addEventListener('click', (event) => {
-            // Stop bubbling so the document handler doesn't close the bubble on toggle
-            event.stopPropagation();
-            this.toggleRemembered(novel.name);
-
-            // Modify button style based on remembered status
-            const btn = this.querySelector('#remember-button');
-            if (this.isRemembered(novel.name)) {
-                btn.classList.remove('button-remember');
-                btn.classList.add('button-forget', 'text-white');
-                btn.textContent = 'GEMERKT';
-                btn.style.color = '#ffffff';
-            } else {
-                btn.classList.remove('button-forget', 'text-white');
-                btn.classList.add('button-remember');
-                btn.textContent = 'MERKEN';
-                btn.style.color = novel.novelColor;
-            }
-
-            this.refreshHexRememberBookmark(novel.name);
-            console.log(`Novel "${novel.name}" remembered: ${this.isRemembered(novel.name)}`);
+        this.querySelector('#remember-button').addEventListener('click', () => {
+            //TODO: Adding funktionality for Novel Rememberence
+            console.log("Adding Novel to Remembered");
         });
     }
 
