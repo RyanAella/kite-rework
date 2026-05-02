@@ -1,5 +1,5 @@
-import "../../headers/back-header.js";
-import "../../footer.js";
+import "../../shared-components/headers/back-header.js";
+import "../../shared-components/footer.js";
 
 // Legal hub: entry point with links to Impressum, Datenschutz, Nutzungsbedingungen; footer inside z-10 column like settings.
 

@@ -1,4 +1,4 @@
-import { addDragScrolling } from "../drag-scrolling.js";
+import { addDragScrolling } from "../services/drag-scrolling.js";
 
 class DialogueList extends HTMLElement {
   

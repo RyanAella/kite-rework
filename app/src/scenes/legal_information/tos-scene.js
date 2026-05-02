@@ -1,6 +1,6 @@
 // Terms of use page: load nutzungsbedingungen from legal-content.json; shell uses drag-scrolling.js on main.
-import "../../headers/back-header.js";
-import "../../footer.js";
+import "../../shared-components/headers/back-header.js";
+import "../../shared-components/footer.js";
 import {
   attachLegalDragScroll,
   escapeHtml,
