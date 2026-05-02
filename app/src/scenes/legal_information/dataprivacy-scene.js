@@ -1,6 +1,6 @@
 // Datenschutz (privacy) page: JSON content; drag scroll + settings-style info popup.
-import "../../headers/back-header.js";
-import "../../footer.js";
+import "../../shared-components/headers/back-header.js";
+import "../../shared-components/footer.js";
 import { attachDataprivacyInfoPopup } from "./dataprivacy-info-popup.js";
 import {
   attachLegalDragScroll,

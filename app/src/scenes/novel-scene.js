@@ -1,6 +1,6 @@
-import "../dialogue-list.js"
-import "../headers/back-header.js"
-import "../headers/base-header.js"
+import "../shared-components/dialogue-list.js";
+import "../shared-components/headers/back-header.js";
+import "../shared-components/headers/base-header.js";
 
 class NovelScene extends HTMLElement {
   

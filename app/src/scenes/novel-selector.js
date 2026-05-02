@@ -1,5 +1,5 @@
-import '../headers/navigation-header.js';
-import '../footer.js'
+import '../shared-components/headers/navigation-header.js';
+import '../shared-components/footer.js';
 
 const viewportSize = 1000;
 
@@ -25,7 +25,7 @@ const REMEMBERED_NOVELS_STORAGE_KEY = 'rememberedNovels';
 
 class NovelSelector extends HTMLElement {
     
-    bg_pos = 0;
+    bgPos = 0;
     isDown = false;
     startX; scrollLeft;
     scrollingVelocity = 0;
@@ -119,25 +119,25 @@ class NovelSelector extends HTMLElement {
     }
 
     moveElements = () => {
-        //console.log(this.bg_pos);
-        document.getElementById('bg-1').style = `background-position: ${bg1Scrolling + this.bg_pos * bg1ScrollingFactor}% 0%;`;
-        document.getElementById('bg-2').style = `background-position: ${bg2Scrolling + this.bg_pos * bg2ScrollingFactor}% 0%;`;
+        //console.log(this.bgPos);
+        document.getElementById('bg-1').style = `background-position: ${bg1Scrolling + this.bgPos * bg1ScrollingFactor}% 0%;`;
+        document.getElementById('bg-2').style = `background-position: ${bg2Scrolling + this.bgPos * bg2ScrollingFactor}% 0%;`;
 
         let novelHexes = this.querySelector('#novel-hexes');
-        novelHexes.style.transform = `translateX(${this.bg_pos * -hexScrollingFactor / 10}cqw)`;
+        novelHexes.style.transform = `translateX(${this.bgPos * -hexScrollingFactor / 10}cqw)`;
 
         const scaledFirstHexPos = (this.firstHexPos - (viewportSize-hexSizeX)/2) / hexScrollingFactor;
         const scaledLastHexPos = (this.lastHexPos - (viewportSize-hexSizeX)/2) / hexScrollingFactor;
 
-        if(this.bg_pos < scaledFirstHexPos) {
-            this.scrollingVelocity = 30 + Math.abs(scaledFirstHexPos - this.bg_pos)/30;
-        } else if(this.bg_pos > scaledLastHexPos) {
-            this.scrollingVelocity = -(30 + Math.abs(scaledLastHexPos - this.bg_pos)/30);
+        if(this.bgPos < scaledFirstHexPos) {
+            this.scrollingVelocity = 30 + Math.abs(scaledFirstHexPos - this.bgPos)/30;
+        } else if(this.bgPos > scaledLastHexPos) {
+            this.scrollingVelocity = -(30 + Math.abs(scaledLastHexPos - this.bgPos)/30);
         }
 
         if(this.scrollingVelocity != 0 && !this.isDown) {
             console.log("Scrolling with velocity " + this.scrollingVelocity);
-            this.bg_pos += this.scrollingVelocity
+            this.bgPos += this.scrollingVelocity
             const velocityDrag = velocityDragFactor + Math.abs(this.scrollingVelocity/30)
             if(this.scrollingVelocity > 0) {
                 this.scrollingVelocity = this.scrollingVelocity >= velocityDrag ? this.scrollingVelocity - velocityDrag : 0
@@ -153,16 +153,16 @@ class NovelSelector extends HTMLElement {
 
         let frame = 0;
         let animationLength = 20;
-        let velocity = (destination - this.bg_pos)/animationLength;
+        let velocity = (destination - this.bgPos)/animationLength;
 
         const animate = () => {
-            this.bg_pos += velocity;
+            this.bgPos += velocity;
             this.moveElements();
 
             if (++frame < animationLength) {
                 requestAnimationFrame(animate);
             } else {
-                this.bg_pos = destination;
+                this.bgPos = destination;
             }
         }
         requestAnimationFrame(animate);
@@ -354,7 +354,7 @@ class NovelSelector extends HTMLElement {
             const x = event.pageX ?? event.changedTouches[0].screenX;
             const walk = (x - this.startX);
             this.startX = x;
-            this.bg_pos -= (walk*24.3);
+            this.bgPos -= (walk*24.3);
             this.scrollingVelocity = -(walk*24.3);
             console.log("Dragging with velocity " + this.scrollingVelocity);
             this.moveElements();
@@ -362,7 +362,7 @@ class NovelSelector extends HTMLElement {
 
         this.addEventListener("wheel", (e) => {
             console.log("Wheel Event " + e.deltaY);
-            this.bg_pos -= (e.deltaY + e.deltaX);
+            this.bgPos -= (e.deltaY + e.deltaX);
             this.scrollingVelocity = -(e.deltaY + e.deltaX);
             this.moveElements()
         });

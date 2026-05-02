@@ -1,4 +1,4 @@
-import '../headers/closing-header.js';
+import '../shared-components/headers/closing-header.js';
 
 class NovelSelectorSidebar extends HTMLElement {
     

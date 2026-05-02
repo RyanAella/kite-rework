@@ -1,6 +1,6 @@
 // Shared helpers for legal sub-pages: safe HTML from JSON, layout shell, Datenschutz toolbar, drag scroll.
 
-import { addDragScrolling } from "../../../drag-scrolling.js";
+import { addDragScrolling } from "../../services/drag-scrolling.js";
 
 // Link styling inside rendered legal paragraphs
 const MAIN_LINK_CLASS = "text-blue-700 underline break-words";
