@@ -1,24 +1,23 @@
 import "../dialogue-list.js"
-import "../character-box.js"
 import "../headers/back-header.js"
+import "../headers/base-header.js"
 
 class NovelScene extends HTMLElement {
   
   constructor() {
     super();
     this.dialogueList = document.createElement("dialogue-list");
-    this.dialogueList.classList.add("h-[84cqw]", "shrink-0", "flex", "flex-col", "w-full", "overflow-hidden");
-
+    this.dialogueList.classList.add("h-1/2", "shrink-0", "flex", "flex-col", "w-full", "overflow-hidden", "relative", "z-50");
   }
 
   novel = {};
   currentEvent = {};
   currentChoices = [];
-
   dialogueList;
 
   connectedCallback() {
     this.novel = this.args['novel']
+    let flag = this.args['needBaseHeader'];
     
     //Event Setup
     this.addEventListener("user-confirmation", (event) => { this.userConfirmation(event)});
@@ -32,12 +31,19 @@ class NovelScene extends HTMLElement {
     let events = this.novel['novelEvents'];
     this.currentEvent = events[0];
 
-    const header = document.createElement("back-header");
-    this.prepend(header);
+    if(flag) {
+      const header = document.createElement("base-header");
+      this.prepend(header);
+    } else {
+      const header = document.createElement("back-header");
+      this.prepend(header);
+    }
 
     this.createBackground();
 
     document.getElementById('background').appendChild(this.dialogueList);
+
+    this.renderInteractiveObjects();
 
     this.resolveCurrentEvent();
   }
@@ -49,13 +55,11 @@ class NovelScene extends HTMLElement {
     const background = document.createElement('div');
     background.style.backgroundImage = 'url(' + backgroundImage.src + ')';
     background.id = 'background';
-    background.classList.add("pointer-events-auto", "bg-[length:100%_100%]", "bg-no-repeat", "bg-center", "flex-1", "w-full", "flex", "flex-col", "items-center", "overflow-hidden");
+    background.classList.add("pointer-events-auto", "bg-[length:100%_100%]", "bg-no-repeat", "bg-center", "flex-1", "w-full", "flex", "flex-col", "justify-start", "overflow-hidden", "relative", "z-0");
     this.appendChild(background);
   }
 
   async resolveCurrentEvent() {
-    let character = this.querySelector(`#character-${this.currentEvent['character']}`)
-    if(character && this.currentEvent['expressionType'] != 0) character.updateCharacterExpression(this.currentEvent['expressionType']);
     switch(this.currentEvent['eventType']) {
       case 1: //Set Background Event
 
@@ -64,7 +68,6 @@ class NovelScene extends HTMLElement {
 
       case 2: //Character Join Event
         console.log("Character Join Event");
-        this.addCharacter();
         break;
       case 3: //Character Exit Event
 
@@ -165,12 +168,99 @@ class NovelScene extends HTMLElement {
     return false;
   }
 
-  addCharacter(event) {
-    if(this.currentEvent['eventType'] != 2) throw "Invalid Event Type"
-    const character = document.createElement("character-box");
-    character.id = `character-${this.currentEvent['character']}`;
-    this.querySelector('#background').appendChild(character);
-    character.characterJoins(this.novel['name']);
+  renderInteractiveObjects() {
+    // 1. Prüfen, ob die Novel überhaupt Objekte definiert hat
+    if (!this.novel['interactiveObjects'] || this.novel['interactiveObjects'].length === 0) {
+      console.log("Novel has no interactive objects defined");
+      return; 
+    }
+
+    // 2. Einen Container erschaffen, der über dem Hintergrund, aber unter dem UI liegt
+    const objectContainer = document.createElement('div');
+    objectContainer.id = 'interactive-objects-layer';
+    // pointer-events-none ist wichtig, damit Klicks ins Leere an den Hintergrund durchgereicht werden
+    objectContainer.className = 'absolute inset-0 w-full h-full pointer-events-none z-10';
+
+    // 3. Jedes Objekt aus der JSON iterieren und rendern
+    this.novel['interactiveObjects'].forEach(objConfig => {
+      
+      const imgObj = document.createElement('img');
+      imgObj.id = `obj-${objConfig.id}`;
+      imgObj.src = objConfig.states[objConfig.currentState];
+      imgObj.draggable = false;
+      
+      // Das Objekt selbst muss wieder klickbar sein (pointer-events-auto)
+      imgObj.className = `${objConfig.classes} absolute transition-opacity duration-300`;
+      
+      // Die etablierte Mathematik: 1000er Pixelwerte in cqw umrechnen
+      imgObj.style.left = `${objConfig.x / 10}cqw`;
+
+      if (typeof objConfig.y === 'number') {
+        console.log("y does not equal null");
+        imgObj.style.top = `${objConfig.y / 10}cqw`;
+      }
+      
+      imgObj.style.width = `${objConfig.width / 10}cqw`;
+      imgObj.style.height = `${objConfig.height / 10}cqw`;
+      
+      // Z-Index steuert, ob es hinter Charakteren (z.B. 10) oder im Vordergrund (z.B. 30) liegt
+      imgObj.style.zIndex = objConfig.zIndex;
+
+      // 4. Klick-Logik: Nur anbinden, wenn es mehr als einen Zustand gibt
+      const stateKeys = Object.keys(objConfig.states);
+      
+      if (stateKeys.length > 1) {
+        
+        imgObj.addEventListener('click', async (e) => {
+          e.stopPropagation(); 
+          
+          // Animations-Lock: Verhindert Flackern durch Spam-Klicks
+          if (imgObj.isAnimating) return;
+
+          if (objConfig.interaction === "sequence") {
+            
+            imgObj.isAnimating = true;
+
+            // Wir starten bei Index 1, da Index 0 das "idle" Bild ist, das wir schon sehen
+            for (let i = 1; i < stateKeys.length; i++) {
+              console.log("steaming...")
+              objConfig.currentState = stateKeys[i];
+              imgObj.src = objConfig.states[objConfig.currentState];
+              
+              // Delay: Pausiert die Schleife für 200 Millisekunden pro Bild
+              // (Passen Sie die 200 an, um die Animation schneller oder langsamer zu machen)
+              await new Promise(resolve => setTimeout(resolve, 400));
+            }
+
+            // Noch ein kurzes Delay auf dem letzten Frame, bevor es verschwindet
+            await new Promise(resolve => setTimeout(resolve, 400));
+
+            // Am Ende wieder zurück zum neutralen Anfangszustand (idle)
+            objConfig.currentState = stateKeys[0];
+            imgObj.src = objConfig.states[objConfig.currentState];
+
+            // Lock wieder aufheben
+            imgObj.isAnimating = false;
+
+          } else {
+            // STANDARD-TOGGLE LOGIK (z.B. für die Lampe)
+            const currentIndex = stateKeys.indexOf(objConfig.currentState);
+            const nextIndex = (currentIndex + 1) % stateKeys.length; 
+            
+            objConfig.currentState = stateKeys[nextIndex];
+            imgObj.src = objConfig.states[objConfig.currentState];
+          }
+          
+          console.log(`Objekt ${objConfig.id} wechselt zu Zustand: ${objConfig.currentState}`);
+        });
+      }
+
+      objectContainer.appendChild(imgObj);
+    });
+
+    // Den fertigen Container in den Hintergrund der Szene einhängen
+    const bgElement = this.querySelector('#background');
+    bgElement.appendChild(objectContainer);
   }
 
 }

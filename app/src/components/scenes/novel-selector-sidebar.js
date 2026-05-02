@@ -8,7 +8,7 @@ class NovelSelectorSidebar extends HTMLElement {
 
         let response = await fetch("assets/json/novels.json");
         let data = await response.json();
-        this.novels = data['visualNovels'];
+        this.novels = data['visualNovels'].filter(novel => novel.name != "Einstieg");
 
         // HTML for the list
         const novelItemsHtml = this.novels.map(novel => `
