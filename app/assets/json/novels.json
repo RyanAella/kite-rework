@@ -5,6 +5,7 @@
             "title": "Mehr zu KITE",
             "description": "Hier kannst du den Einstiegs-Dialog erneut spielen.",
             "novelColor": "#aa1c02",
+            "disablePauseMenu": true,
             "novelFrameColor": "#d04c03",
             "interactiveObjects": [
                 {

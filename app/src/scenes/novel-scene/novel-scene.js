@@ -1,6 +1,7 @@
-import "../shared-components/dialogue-list.js";
-import "../shared-components/headers/back-header.js";
-import "../shared-components/headers/base-header.js";
+import "../../shared-components/dialogue-list.js";
+import "../../shared-components/headers/back-header.js";
+import "../../shared-components/headers/base-header.js";
+import "./components/pause-pop-up.js";
 
 class NovelScene extends HTMLElement {
   
@@ -22,11 +23,15 @@ class NovelScene extends HTMLElement {
     //Event Setup
     this.addEventListener("user-confirmation", (event) => { this.userConfirmation(event)});
 
-    this.classList.add("flex", "flex-col", "items-center", "justify-center", "w-full", "h-full", "bg-blue-50/30", "font-sans", "overflow-hidden");
+    this.classList.add("flex", "flex-col", "items-center", "justify-center", "w-full", "h-full", "bg-blue-50/30", "font-sans", "overflow-hidden", "relative");
 
     console.log(this.dialogueList);
 
     console.log(this.novel);
+
+    this.pausePopUp = document.createElement("pause-pop-up");
+    this.pausePopUp.novel = this.novel;
+    this.appendChild(this.pausePopUp);
 
     let events = this.novel['novelEvents'];
     this.currentEvent = events[0];
@@ -36,6 +41,11 @@ class NovelScene extends HTMLElement {
       this.prepend(header);
     } else {
       const header = document.createElement("back-header");
+      header.addEventListener('sm-back', (e) => {
+        e.preventDefault(); 
+        e.stopPropagation();
+        this.pausePopUp.togglePauseMenu(true);
+      });
       this.prepend(header);
     }
 
