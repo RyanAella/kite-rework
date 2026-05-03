@@ -1,6 +1,7 @@
 import "../../shared-components/dialogue-list.js";
 import "../../shared-components/headers/back-header.js";
 import "../../shared-components/headers/base-header.js";
+import "./components/continue-pop-up.js"
 import "./components/pause-pop-up.js";
 
 class NovelScene extends HTMLElement {
@@ -55,7 +56,11 @@ class NovelScene extends HTMLElement {
 
     this.renderInteractiveObjects();
 
-    this.resolveCurrentEvent();
+    this.continuePopUp = document.createElement("continue-pop-up");
+    this.continuePopUp.novel = this.novel;
+    this.continuePopUp.novelScene = this;
+    this.appendChild(this.continuePopUp);
+    
   }
 
   createBackground() {
