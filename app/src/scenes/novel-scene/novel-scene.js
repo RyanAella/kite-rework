@@ -1,4 +1,6 @@
+
 import "../../shared-components/dialogue-list.js";
+import "../../shared-components/character-box.js";
 import "../../shared-components/headers/back-header.js";
 import "../../shared-components/headers/base-header.js";
 import "./components/continue-pop-up.js"
@@ -75,6 +77,11 @@ class NovelScene extends HTMLElement {
   }
 
   async resolveCurrentEvent() {
+    let allCharacters = Array.from(this.querySelectorAll('character-box'));
+    console.log(allCharacters);
+    let character = this.querySelector(`#character-${this.currentEvent['character']}`)
+    allCharacters.filter(c => c != character || this.currentEvent['eventType'] != 4).forEach(c => c.stopSpeaking());
+    if(character) character.updateCharacterExpression(this.currentEvent['expressionType']);
     switch(this.currentEvent['eventType']) {
       case 1: //Set Background Event
 
@@ -83,6 +90,7 @@ class NovelScene extends HTMLElement {
 
       case 2: //Character Join Event
         console.log("Character Join Event");
+        await this.addCharacter();
         break;
       case 3: //Character Exit Event
 
@@ -90,6 +98,7 @@ class NovelScene extends HTMLElement {
         break;
 
       case 4: //Show Message Event
+        try {character.startSpeaking();} catch {}
         await this.dialogueList.showMessage(this.currentEvent['text'], false,  this.currentEvent['character']);
         break;
       case 5: //Add Choice Event
@@ -194,7 +203,7 @@ class NovelScene extends HTMLElement {
     const objectContainer = document.createElement('div');
     objectContainer.id = 'interactive-objects-layer';
     // pointer-events-none ist wichtig, damit Klicks ins Leere an den Hintergrund durchgereicht werden
-    objectContainer.className = 'absolute inset-0 w-full h-full pointer-events-none z-10';
+    objectContainer.className = 'absolute inset-0 w-full h-full pointer-events-none';
 
     // 3. Jedes Objekt aus der JSON iterieren und rendern
     this.novel['interactiveObjects'].forEach(objConfig => {
@@ -277,6 +286,16 @@ class NovelScene extends HTMLElement {
     const bgElement = this.querySelector('#background');
     bgElement.appendChild(objectContainer);
   }
+
+
+  async addCharacter() {
+    if(this.currentEvent['eventType'] != 2) throw "Invalid Event Type"
+    const character = document.createElement("character-box");
+    character.id = `character-${this.currentEvent['character']}`;
+    this.querySelector('#background').appendChild(character);
+    await character.characterJoins(this.novel['name'], this.currentEvent['character']);
+  }
+
 
 }
 
