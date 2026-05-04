@@ -1,0 +1,76 @@
+{
+  "characters": [
+    {
+      "id": 2,
+      "name": null,
+      "positionX": 10,
+      "positionY": 75,
+      "glasses" : false,
+      "headset" : false
+    },
+    {
+      "id": 5,
+      "name": null,
+      "positionX": 12,
+      "positionY": 75,
+      "glasses" : false,
+      "headset" : false
+      },
+    {
+      "id": 6,
+      "name": null,
+      "positionX": 40,
+      "positionY": 78,
+      "glasses" : false,
+      "headset" : false
+    },
+    {
+      "id": 7,
+      "name": "Vater",
+      "positionX": 38,
+      "positionY": 73,
+      "glasses" : true,
+      "headset" : false
+    },
+    {
+      "id": 8,
+      "name": "Mutter",
+      "positionX": -13,
+      "positionY": 74,
+      "glasses" : false,
+      "headset" : false
+    },
+    {
+      "id": 9,
+      "name": null,
+      "positionX": -8,
+      "positionY": 75,
+      "glasses" : false,
+      "headset" : false
+    },
+    {
+      "id": 10,
+      "name": null,
+      "positionX": 5,
+      "positionY": 85,
+      "glasses" : false,
+      "headset" : true
+    },
+    {
+      "id": 11,
+      "name": null,
+      "positionX": 5,
+      "positionY": 75,
+      "glasses" : false,
+      "headset" : false
+    },
+    {
+      "id": 12,
+      "name": null,
+      "positionX": 2,
+      "positionY": 75,
+      "glasses" : false,
+      "headset" : false
+    }
+  ]
+}

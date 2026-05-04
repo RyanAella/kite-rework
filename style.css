@@ -63,6 +63,7 @@
     animation: swipeBlue 0.5s ease-in-out forwards;
   }
 
+
   @keyframes popInBounce {
     0% {
       opacity: 0;
@@ -70,7 +71,7 @@
     }
     45% {
       opacity: 1;
-      transform: scale(1.01);
+      transform: scale(1.01);  
     }
     75% {
       transform: scaleX(0.7) scaleY(1);
