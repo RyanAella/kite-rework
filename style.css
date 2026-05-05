@@ -97,15 +97,15 @@
     @apply bg-[url(assets/Images/Buttons/button_play.png)]
   }
 
-  .button-remember {
+  .button-bookmark {
     @apply bg-[url(assets/Images/Buttons/Button_Remeber.png)]
   }
 
-  .button-forget {
+  .button-unbookmark {
     @apply bg-[url(assets/Images/Buttons/Button_Forget.png)]
   }
 
-  .hex-remembered-bookmark {
+  .hex-bookmarked-marker {
     @apply pointer-events-none absolute z-20 top-[1cqw] left-1/2 w-[8cqw] h-[8cqw] translate-x-[calc(-50%+3.5cqw)] bg-contain bg-no-repeat bg-top bg-[url(assets/Images/FoundersBubble/bookmark_sign.png)];
   }
 }

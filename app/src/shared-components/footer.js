@@ -50,7 +50,7 @@ export class Footer extends HTMLElement {
             <span class="text-white text-[2cqw] font-sans">Archiv</span>
           </button>
 
-          <button id="foot-bookmark" data-scene="bookmarks" class="${this.btnClass}">
+          <button id="foot-bookmark" data-scene="bookmarks-scene" class="${this.btnClass}">
             <img src="assets/Images/Buttons/bookmark.png" class="${this.imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Gemerkt</span>
           </button>

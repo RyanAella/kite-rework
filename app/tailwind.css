@@ -244,6 +244,9 @@
   .mx-\[10cqw\] {
     margin-inline: 10cqw;
   }
+  .mx-auto {
+    margin-inline: auto;
+  }
   .my-0 {
     margin-block: calc(var(--spacing) * 0);
   }
@@ -300,6 +303,9 @@
   }
   .mt-\[2cqw\] {
     margin-top: 2cqw;
+  }
+  .mt-\[4cqw\] {
+    margin-top: 4cqw;
   }
   .mt-\[5\.6cqw\] {
     margin-top: 5.6cqw;
@@ -828,6 +834,9 @@
   .px-\[5\%\] {
     padding-inline: 5%;
   }
+  .px-\[6cqw\] {
+    padding-inline: 6cqw;
+  }
   .px-\[9\.6cqw\] {
     padding-inline: 9.6cqw;
   }
@@ -860,6 +869,9 @@
   }
   .pb-\[19\.2cqw\] {
     padding-bottom: 19.2cqw;
+  }
+  .pb-\[24cqw\] {
+    padding-bottom: 24cqw;
   }
   .pl-\[6\.4cqw\] {
     padding-left: 6.4cqw;
@@ -1135,13 +1147,13 @@
   .button-play {
     background-image: url(assets/Images/Buttons/button_play.png);
   }
-  .button-remember {
+  .button-bookmark {
     background-image: url(assets/Images/Buttons/Button_Remeber.png);
   }
-  .button-forget {
+  .button-unbookmark {
     background-image: url(assets/Images/Buttons/Button_Forget.png);
   }
-  .hex-remembered-bookmark {
+  .hex-bookmarked-marker {
     pointer-events: none;
     position: absolute;
     top: 1cqw;
