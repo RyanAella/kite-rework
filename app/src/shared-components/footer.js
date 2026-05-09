@@ -55,7 +55,7 @@ export class Footer extends HTMLElement {
             <span class="text-white text-[2cqw] font-sans">Gemerkt</span>
           </button>
 
-          <button id="foot-links" data-scene="weblinks" class="${this.btnClass}">
+          <button id="foot-links" data-scene="links-scene" class="${this.btnClass}">
             <img src="assets/Images/Buttons/weblinks.png" class="${this.imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Links</span>
           </button>
