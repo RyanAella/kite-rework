@@ -60,7 +60,7 @@ export class Footer extends HTMLElement {
             <span class="text-white text-[2cqw] font-sans">Links</span>
           </button>
 
-          <button id="foot-knowledge" data-scene="knowledge" class="${this.btnClass}">
+          <button id="foot-knowledge" data-scene="knowledge-scene" class="${this.btnClass}">
             <img src="assets/Images/Buttons/knowledge.png" class="${this.imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Wissen</span>
           </button>

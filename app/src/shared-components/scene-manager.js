@@ -9,6 +9,7 @@ import "../scenes/legal_information/legal-information-scene.js";
 import "../scenes/legal_information/dataprivacy-scene.js";
 import "../scenes/legal_information/imprint-scene.js";
 import "../scenes/legal_information/tos-scene.js";
+import "../scenes/knowledge-scene/knowledge-scene.js";
 
 class SceneManager extends HTMLElement {
   

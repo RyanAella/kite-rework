@@ -1,0 +1,125 @@
+import "./card-overlay-component.js";
+
+class Accordion extends HTMLElement {
+
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        this.className = "w-full"
+        this.data = this.args;
+        this.cardElements = this.data.cards;
+        this.categoryElements = this.data.categories; 
+        this.buildAccordionList();
+    }
+
+
+    async buildAccordionList() {
+        this.listContainer = document.createElement('div');
+        this.listContainer.className = "flex flex-col w-full gap-[3cqw]";
+
+        const knowledgeData = await this.getKnowledgeData(); // Lädt die Dropdown Inhalte
+
+        knowledgeData.forEach((category, catIndex) => {
+            // Kategorie-Container
+            const categoryWrapper = document.createElement('div');
+            categoryWrapper.className = "flex flex-col w-full";
+            this.categoryElements.push(categoryWrapper);
+
+            // Der orange Button
+            const catBtn = document.createElement('button');
+            catBtn.className = "w-full bg-[#F5944E] flex justify-between items-center p-[2cqw] rounded-[2cqw] text-white text-[3cqw] text-left";
+            
+            const catTitle = document.createElement('span');
+            catTitle.innerText = category.title;
+            catTitle.className = "w-[90%]";
+            
+            // Chevron Icon (Pfeil)
+            const chevron = document.createElement('img');
+            chevron.className = "w-[5cqw] h-[5cqw] object-contain";
+            chevron.src = "assets/Images/DropDown/Arrow_Left.png"
+
+            catBtn.appendChild(catTitle);
+            catBtn.appendChild(chevron);
+
+            // Container für die Karten (Initial versteckt)
+            const cardsWrapper = document.createElement('div');
+            cardsWrapper.className = "flex-col gap-[3cqw] mt-[3cqw] hidden";
+
+            // Toggle-Logik
+            catBtn.addEventListener('click', () => {
+                const isHidden = cardsWrapper.classList.contains('hidden');
+                if (isHidden) {
+                    cardsWrapper.classList.remove('hidden');
+                    cardsWrapper.classList.add('flex');
+                    chevron.src = "assets/Images/DropDown/Arrow_Down.png"
+                } else {
+                    cardsWrapper.classList.add('hidden');
+                    cardsWrapper.classList.remove('flex');
+                    chevron.src = "assets/Images/DropDown/Arrow_Left.png"
+                }
+            });
+
+            // Die Karten generieren
+            category.items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "w-full bg-white p-[3cqw] rounded-[2cqw] flex flex-col gap-[1cqw] active:bg-gray-50 transition-colors hover:bg-gray-200";
+                
+                const title = document.createElement('h3');
+                title.innerText = item.title;
+                title.className = "text-[#14305d] text-[3cqw] font-bold";
+
+                const teaser = document.createElement('p');
+                teaser.innerText = item.fullText;
+                teaser.className = "text-[#14305d]/80 text-[3.3cqw] leading-[4.5cqw] line-clamp-4"; // line-clamp kürzt den Text mit "..."
+
+                card.appendChild(title);
+                card.appendChild(teaser);
+
+                // Klick auf Karte öffnet die große Kartenansicht
+                card.addEventListener('click', (e) => {
+                    const cardOverlay = document.createElement('card-overlay-component');
+                    cardOverlay.args = {
+                        title: item.title,
+                        fullText: item.fullText,
+                        sourceUrl: item.sourceUrl
+                    };
+
+                    this.classList.add('hidden');
+                    const introText = document.getElementById("intro-text");
+                    const subIntro = document.getElementById("sub-intro");
+                    const searchBar = document.querySelector("searchbar-component");
+                    searchBar.classList.add("hidden");
+                    introText.classList.add("hidden");
+                    subIntro.classList.add("hidden");
+                    this.parentElement.appendChild(cardOverlay);
+                });
+
+                cardsWrapper.appendChild(card);
+
+                // Speichern der Karte für die Suchfunktion (Memory-Referenzierung)
+                this.cardElements.push({
+                    domElement: card,
+                    parentCategory: categoryWrapper,
+                    cardsWrapper: cardsWrapper,
+                    searchText: (item.title + " " + item.fullText).toLowerCase() // Such-Index
+                });
+            });
+
+            categoryWrapper.appendChild(catBtn);
+            categoryWrapper.appendChild(cardsWrapper);
+            this.listContainer.appendChild(categoryWrapper);
+        });
+        this.appendChild(this.listContainer);
+    }
+
+    async getKnowledgeData() {
+        let response = await fetch("assets/json/knowledge.json");
+        let data = await response.json();
+        console.log(data);
+        return data;
+    }
+}
+
+customElements.define("accordion-element", Accordion);
