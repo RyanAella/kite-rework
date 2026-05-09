@@ -7,9 +7,13 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-red-500: oklch(63.7% 0.237 25.331);
     --color-blue-50: oklch(97% 0.014 254.604);
     --color-blue-700: oklch(48.8% 0.243 264.376);
+    --color-gray-50: oklch(98.5% 0.002 247.839);
     --color-gray-100: oklch(96.7% 0.003 264.542);
+    --color-gray-200: oklch(92.8% 0.006 264.531);
+    --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-gray-900: oklch(21% 0.034 264.665);
     --color-black: #000;
     --color-white: #fff;
@@ -26,7 +30,6 @@
     --leading-snug: 1.375;
     --leading-normal: 1.5;
     --leading-relaxed: 1.625;
-    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -212,6 +215,9 @@
   .top-\[67\.1cqw\] {
     top: 67.1cqw;
   }
+  .right-\[4cqw\] {
+    right: 4cqw;
+  }
   .bottom-0 {
     bottom: calc(var(--spacing) * 0);
   }
@@ -305,6 +311,9 @@
   .mt-\[2cqw\] {
     margin-top: 2cqw;
   }
+  .mt-\[3cqw\] {
+    margin-top: 3cqw;
+  }
   .mt-\[4cqw\] {
     margin-top: 4cqw;
   }
@@ -374,8 +383,17 @@
   .box-border {
     box-sizing: border-box;
   }
+  .line-clamp-4 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+  }
   .block {
     display: block;
+  }
+  .contents {
+    display: contents;
   }
   .flex {
     display: flex;
@@ -461,6 +479,9 @@
   .w-0 {
     width: calc(var(--spacing) * 0);
   }
+  .w-\[5cqw\] {
+    width: 5cqw;
+  }
   .w-\[6cqw\] {
     width: 6cqw;
   }
@@ -503,6 +524,9 @@
   .w-\[85cqw\] {
     width: 85cqw;
   }
+  .w-\[90\%\] {
+    width: 90%;
+  }
   .w-full {
     width: 100%;
   }
@@ -512,8 +536,13 @@
   .max-w-\[90\%\] {
     max-width: 90%;
   }
+<<<<<<< HEAD
+  .max-w-\[140px\] {
+    max-width: 140px;
+=======
   .max-w-\[120px\] {
     max-width: 120px;
+>>>>>>> main
   }
   .max-w-lg {
     max-width: var(--container-lg);
@@ -607,6 +636,9 @@
   .gap-\[1\.6cqw\] {
     gap: 1.6cqw;
   }
+  .gap-\[1cqw\] {
+    gap: 1cqw;
+  }
   .gap-\[2\.5cqw\] {
     gap: 2.5cqw;
   }
@@ -615,6 +647,9 @@
   }
   .gap-\[3\.2cqw\] {
     gap: 3.2cqw;
+  }
+  .gap-\[3cqw\] {
+    gap: 3cqw;
   }
   .gap-\[4cqw\] {
     gap: 4cqw;
@@ -838,6 +873,9 @@
   .p-\[3\.2cqw\] {
     padding: 3.2cqw;
   }
+  .p-\[3cqw\] {
+    padding: 3cqw;
+  }
   .p-\[4cqw\] {
     padding: 4cqw;
   }
@@ -928,6 +966,12 @@
   .text-\[3\.2cqw\] {
     font-size: 3.2cqw;
   }
+<<<<<<< HEAD
+  .text-\[3\.3cqw\] {
+    font-size: 3.3cqw;
+  }
+=======
+>>>>>>> main
   .text-\[3\.5cqw\] {
     font-size: 3.5cqw;
   }
@@ -959,9 +1003,19 @@
     --tw-leading: 1.55;
     line-height: 1.55;
   }
+<<<<<<< HEAD
+  .leading-\[4\.5cqw\] {
+    --tw-leading: 4.5cqw;
+    line-height: 4.5cqw;
+  }
+  .leading-\[5cqw\] {
+    --tw-leading: 5cqw;
+    line-height: 5cqw;
+=======
   .leading-\[5\.5cqw\] {
     --tw-leading: 5.5cqw;
     line-height: 5.5cqw;
+>>>>>>> main
   }
   .leading-normal {
     --tw-leading: var(--leading-normal);
@@ -1010,6 +1064,9 @@
   .break-words {
     overflow-wrap: break-word;
   }
+  .whitespace-pre-wrap {
+    white-space: pre-wrap;
+  }
   .text-\[\#0b1a2d\] {
     color: #0b1a2d;
   }
@@ -1022,14 +1079,23 @@
   .text-\[\#14305d\] {
     color: #14305d;
   }
+  .text-\[\#14305d\]\/80 {
+    color: color-mix(in oklab, #14305d 80%, transparent);
+  }
   .text-\[\#284673\] {
     color: #284673;
+  }
+  .text-\[\#F5944E\] {
+    color: #F5944E;
   }
   .text-blue-700 {
     color: var(--color-blue-700);
   }
   .text-gray-900 {
     color: var(--color-gray-900);
+  }
+  .text-red-500 {
+    color: var(--color-red-500);
   }
   .text-white {
     color: var(--color-white);
@@ -1039,6 +1105,11 @@
   }
   .underline {
     text-decoration-line: underline;
+  }
+  .placeholder-gray-400 {
+    &::placeholder {
+      color: var(--color-gray-400);
+    }
   }
   .opacity-70 {
     opacity: 70%;
@@ -1107,12 +1178,25 @@
       }
     }
   }
+<<<<<<< HEAD
+  .hover\:bg-gray-200 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-gray-200);
+      }
+    }
+  }
+  .active\:bg-gray-50 {
+    &:active {
+      background-color: var(--color-gray-50);
+=======
   .active\:scale-95 {
     &:active {
       --tw-scale-x: 95%;
       --tw-scale-y: 95%;
       --tw-scale-z: 95%;
       scale: var(--tw-scale-x) var(--tw-scale-y);
+>>>>>>> main
     }
   }
   .active\:opacity-70 {

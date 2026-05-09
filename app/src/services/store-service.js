@@ -1,6 +1,8 @@
 // All the different keys for the localStorage
+// This class is used in the issue for the remember screen, I have copied the contents here to be able to use the storage.
 export const STORAGE_KEYS = {
     bookmarkedNovels: 'bookmarkedNovels',
+    knowledgeUIState: 'knowledgeUIState', // Storage Key for knowledge UI to save screen state
 };
 
 // Helper function to read the JSON from the localStorage
