@@ -94,7 +94,7 @@ class PausePopUp extends HTMLElement {
         if (!isIntro) {
             btnContainer.appendChild(createBtn("ABSCHLIEßEN", false, () => 
             this.dispatchEvent(new CustomEvent("sm-switch-scene", {
-                detail: { scene : "novel-selector" },
+                detail: { scene : "completion-scene" },
                 bubbles : true}))));
         }
 
