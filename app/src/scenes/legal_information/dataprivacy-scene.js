@@ -3,12 +3,12 @@ import "../../shared-components/headers/back-header.js";
 import "../../shared-components/footer.js";
 import { attachDataprivacyInfoPopup } from "./dataprivacy-info-popup.js";
 import {
-  attachLegalDragScroll,
+  attachDocumentPageDragScroll,
+  documentPageShell,
   escapeHtml,
-  legalPageShell,
-  renderDataprivacyToolbar,
-  renderLegalSections,
-} from "./legal-shared.js";
+  renderDocumentSections,
+  renderPrivacyToolbar,
+} from "../../shared-components/document-page-shared.js";
 
 class DataprivacyScene extends HTMLElement {
   async connectedCallback() {
@@ -24,8 +24,8 @@ class DataprivacyScene extends HTMLElement {
       const block = data.datenschutz;
       if (block) {
         const title = escapeHtml(block.title || "Datenschutz");
-        const toolbarRow = renderDataprivacyToolbar(block.toolbar);
-        const body = renderLegalSections(block.sections);
+        const toolbarRow = renderPrivacyToolbar(block.toolbar);
+        const body = renderDocumentSections(block.sections);
         mainHtml = `<h1 class="mb-[4.8cqw] text-center text-[4.8cqw] font-bold tracking-tight text-[#213a60]">${title}</h1>${toolbarRow}${body}`;
         toolbar = block.toolbar;
       }
@@ -33,8 +33,8 @@ class DataprivacyScene extends HTMLElement {
       // keep fallback
     }
 
-    this.innerHTML = legalPageShell(mainHtml);
-    attachLegalDragScroll(this);
+    this.innerHTML = documentPageShell(mainHtml);
+    attachDocumentPageDragScroll(this);
     attachDataprivacyInfoPopup(this, toolbar);
   }
 }

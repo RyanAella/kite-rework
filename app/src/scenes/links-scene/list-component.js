@@ -1,3 +1,5 @@
+import { bindTapOnlyExternalLink } from "../../services/tap-service.js";
+
 class ListComponent extends HTMLElement {
 
     constructor() {
@@ -51,6 +53,8 @@ class ListComponent extends HTMLElement {
             itemImg.className = `w-full h-full ${item.imgStyle || 'object-contain'}`;
 
             itemLink.appendChild(itemImg);
+            bindTapOnlyExternalLink(itemLink, item.url);
+
             itemContainer.appendChild(itemLink);
 
             // Eintrag zur Liste hinzufügen

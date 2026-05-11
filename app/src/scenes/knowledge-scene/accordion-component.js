@@ -1,4 +1,5 @@
 import "./card-overlay-component.js";
+import { addOpenOnTapOnly } from "../../services/tap-service.js";
 
 class Accordion extends HTMLElement {
 
@@ -77,8 +78,7 @@ class Accordion extends HTMLElement {
                 card.appendChild(title);
                 card.appendChild(teaser);
 
-                // Klick auf Karte öffnet die große Kartenansicht
-                card.addEventListener('click', (e) => {
+                addOpenOnTapOnly(card, () => {
                     const cardOverlay = document.createElement('card-overlay-component');
                     cardOverlay.args = {
                         title: item.title,

@@ -4,11 +4,12 @@ import "../scenes/novel-scene/novel-scene.js";
 import "../scenes/novel-selector.js";
 import "../scenes/links-scene/links-scene.js";
 import "../scenes/novel-selector-sidebar.js";
-import "../scenes/bookmarks-scene/index.js";
+import "../scenes/bookmarks-scene/bookmarks-scene.js";
 import "../scenes/legal_information/legal-information-scene.js";
 import "../scenes/legal_information/dataprivacy-scene.js";
 import "../scenes/legal_information/imprint-scene.js";
 import "../scenes/legal_information/tos-scene.js";
+import "../scenes/about-kite-scene/about-kite-scene.js";
 import "../scenes/completion-scene/completion-scene.js";
 import "../scenes/knowledge-scene/knowledge-scene.js";
 
@@ -58,10 +59,23 @@ class SceneManager extends HTMLElement {
   switchToLastScene() {
     if (this.sceneHistory.length > 1) {
       // Remove current scene from the stack
-      this.sceneHistory.pop(); 
-      
-       // Create and load the previous scene
-      const lastSceneData = this.sceneHistory[this.sceneHistory.length - 1]; 
+      this.sceneHistory.pop();
+
+      // Special-case: if a scene was opened from about-kite via a path
+      // that inserted novel-selector in between, "Zurück" should still
+      // return to about-kite-scene.
+      const previousScene = this.sceneHistory[this.sceneHistory.length - 1];
+      const beforePreviousScene = this.sceneHistory[this.sceneHistory.length - 2];
+      if (
+        this.sceneHistory.length > 1 &&
+        previousScene?.scene === "novel-selector" &&
+        beforePreviousScene?.scene === "about-kite-scene"
+      ) {
+        this.sceneHistory.pop();
+      }
+
+      // Create and load the previous scene
+      const lastSceneData = this.sceneHistory[this.sceneHistory.length - 1];
       const newScene = document.createElement(lastSceneData.scene.toLowerCase());
       newScene.args = lastSceneData.args;
       this.replaceChildren(newScene);
