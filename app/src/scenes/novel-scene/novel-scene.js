@@ -1,305 +1,77 @@
 
-import "../../shared-components/dialogue-list.js";
-import "../../shared-components/character-box.js";
+import { DialogueList } from "./dialogue-list-component/dialogue-list-component.js";
+import { CharacterBox } from "./character-box-component/character-box-component.js";
+import { InteractiveObjects } from "./interactive-objects-component.js";
 import "../../shared-components/headers/back-header.js";
 import "../../shared-components/headers/base-header.js";
-import "./components/continue-pop-up.js"
-import "./components/pause-pop-up.js";
+import { PausePopUp } from "./pause-pop-up-component.js";
+import { ContinuePopUp } from "./continue-pop-up-component.js";
+import { EventResolver } from "./event-resolver-component.js";
 
 class NovelScene extends HTMLElement {
-  
-  constructor() {
-    super();
-    this.dialogueList = document.createElement("dialogue-list");
-    this.dialogueList.classList.add("h-1/2", "shrink-0", "flex", "flex-col", "w-full", "overflow-hidden", "relative", "z-50");
-  }
 
   novel = {};
-  currentEvent = {};
-  currentChoices = [];
+
+  eventResolver;
+  background;
   dialogueList;
+  pausePopUp;
+  continuePopUp;
 
   connectedCallback() {
     this.novel = this.args['novel']
     let flag = this.args['needBaseHeader'];
     
-    //Event Setup
-    this.addEventListener("user-confirmation", (event) => { this.userConfirmation(event)});
-
+    //Adding Styling
     this.classList.add("flex", "flex-col", "items-center", "justify-center", "w-full", "h-full", "bg-blue-50/30", "font-sans", "overflow-hidden", "relative");
 
-    console.log(this.dialogueList);
+    //EventListener Setup
+    this.addEventListener("user-confirmation", (event) => { this.eventResolver.userConfirmation(event)});
+    this.addEventListener("add-character", (event) => {this.addCharacter(event.detail.characterId)});
+    this.addEventListener("resolve-event", (event) => {this.eventResolver.resolveCurrentEvent()});
 
-    console.log(this.novel);
-
-    this.pausePopUp = document.createElement("pause-pop-up");
-    this.pausePopUp.novel = this.novel;
-    this.appendChild(this.pausePopUp);
-
-    let events = this.novel['novelEvents'];
-    this.currentEvent = events[0];
-
-    if(flag) {
-      const header = document.createElement("base-header");
-      this.prepend(header);
-    } else {
-      const header = document.createElement("back-header");
+    //Create Child Elements
+    this.createBackground();
+    this.dialogueList = DialogueList.create();
+    this.eventResolver = EventResolver.create(this.novel['novelEvents'], this.dialogueList);
+    this.pausePopUp = PausePopUp.create(this.novel);
+    this.continuePopUp = ContinuePopUp.create(this.novel, this);
+    
+    const header = document.createElement(flag ? "base-header" : "back-header");
+    if(!flag) {
       header.addEventListener('sm-back', (e) => {
         e.preventDefault(); 
         e.stopPropagation();
         this.pausePopUp.togglePauseMenu(true);
       });
-      this.prepend(header);
     }
 
-    this.createBackground();
+    // Add ChildElements to DOM
+    this.appendChild(this.eventResolver);
+    this.appendChild(header);
+    this.appendChild(this.background);
+    this.background.appendChild(InteractiveObjects.create(this.novel['interactiveObjects']));
+    this.background.appendChild(this.dialogueList);
 
-    document.getElementById('background').appendChild(this.dialogueList);
-
-    this.renderInteractiveObjects();
-
-    this.continuePopUp = document.createElement("continue-pop-up");
-    this.continuePopUp.novel = this.novel;
-    this.continuePopUp.novelScene = this;
+    this.appendChild(this.pausePopUp);
     this.appendChild(this.continuePopUp);
-    
   }
 
   createBackground() {
-    const backgroundImageFileName = this.novel['name'] + '_BG.png';
     const backgroundImage = new Image();
-    backgroundImage.src = 'assets/Images/Background/' + backgroundImageFileName;
+    backgroundImage.src = 'assets/Images/Background/' + this.novel['name'] + '_BG.png';
     const background = document.createElement('div');
     background.style.backgroundImage = 'url(' + backgroundImage.src + ')';
     background.id = 'background';
     background.classList.add("pointer-events-auto", "bg-[length:100%_100%]", "bg-no-repeat", "bg-center", "flex-1", "w-full", "flex", "flex-col", "justify-start", "overflow-hidden", "relative", "z-0");
-    this.appendChild(background);
+    this.background = background;
   }
-
-  async resolveCurrentEvent() {
-    let allCharacters = Array.from(this.querySelectorAll('character-box'));
-    console.log(allCharacters);
-    let character = this.querySelector(`#character-${this.currentEvent['character']}`)
-    allCharacters.filter(c => c != character || this.currentEvent['eventType'] != 4).forEach(c => c.stopSpeaking());
-    if(character) character.updateCharacterExpression(this.currentEvent['expressionType']);
-    switch(this.currentEvent['eventType']) {
-      case 1: //Set Background Event
-
-        // This case does not exist
-        break;
-
-      case 2: //Character Join Event
-        console.log("Character Join Event");
-        await this.addCharacter();
-        break;
-      case 3: //Character Exit Event
-
-        console.log("Character Exit Event");
-        break;
-
-      case 4: //Show Message Event
-        try {character.startSpeaking();} catch {}
-        await this.dialogueList.showMessage(this.currentEvent['text'], false,  this.currentEvent['character']);
-        break;
-      case 5: //Add Choice Event
-        this.currentChoices.push(this.currentEvent);
-        break;
-      case 6: //Show Choices Event
-        await this.dialogueList.showChoices(this.currentChoices);
-        return;
-      case 7: //End Novel Event
-
-        // This case does not exist
-        break;
-
-      case 8: //Play Sound Event
-
-        // This case does not exist
-        break;
-
-      case 9: //Play Animation Event
-
-        // This case does not exist
-        break;
-
-      case 10: //Gpt Promt Event
-        console.log("GPT Promt Event");
-        await new Promise(r => setTimeout(r, 4000));
-        this.dispatchEvent(new CustomEvent("sm-switch-scene", {
-          detail: {
-            scene : "novel-selector"
-          },
-          bubbles : true
-        }));
-        return;
-
-      case 11: //Save Persistent Event
-
-        console.log("Save Persistent Event");
-        break;
-
-      case 12: //Mark Bias Event
-
-        // This case does not exist
-
-      case 13: //Save Variable Event
-
-        // This case does not exist
-
-      case 14: //Add Feedback Event
-
-        // This case does not exist
-      
-      case 16: //???
-
-      default:
-        console.log(`Unknown event with Id ${this.currentEvent['id']}`);
-    }
-    this.nextNovel();
-    await this.resolveCurrentEvent();
-  }
-
-
-  async userConfirmation(choice) {
-    // Only accept user Confirmation, if the current event is 
-    if(this.currentEvent['eventType'] != 6) {
-      console.log(`Invalid State --- novel-scene.userConfirmation ${this.currentEvent['eventType']}`);
-      return;
-    }
-    
-    console.log(this.currentChoices);
-    console.log(choice);
-    this.switchTo(this.currentChoices[choice['detail']['choiceIndex']]['onChoice']);
-    
-    this.currentChoices = [];
-    await this.resolveCurrentEvent();
-
-  }
-
   
-  nextNovel() {
-    this.switchTo(this.currentEvent['nextId']);
+  async addCharacter(characterId) {
+    let characterBox = await CharacterBox.create(this.novel['name'], characterId);
+    this.background.appendChild(characterBox);
+    this.eventResolver.addCharacterCallback();
   }
-
-  switchTo(id) {
-    let events = this.novel['novelEvents'];
-    for(let i = 0; i < events.length; i++) {
-      if(events[i]['id'] === id) {
-        this.currentEvent = events[i];
-        return true;
-      }
-    }
-    return false;
-  }
-
-  renderInteractiveObjects() {
-    // 1. Prüfen, ob die Novel überhaupt Objekte definiert hat
-    if (!this.novel['interactiveObjects'] || this.novel['interactiveObjects'].length === 0) {
-      console.log("Novel has no interactive objects defined");
-      return; 
-    }
-
-    // 2. Einen Container erschaffen, der über dem Hintergrund, aber unter dem UI liegt
-    const objectContainer = document.createElement('div');
-    objectContainer.id = 'interactive-objects-layer';
-    // pointer-events-none ist wichtig, damit Klicks ins Leere an den Hintergrund durchgereicht werden
-    objectContainer.className = 'absolute inset-0 w-full h-full pointer-events-none';
-
-    // 3. Jedes Objekt aus der JSON iterieren und rendern
-    this.novel['interactiveObjects'].forEach(objConfig => {
-      
-      const imgObj = document.createElement('img');
-      imgObj.id = `obj-${objConfig.id}`;
-      imgObj.src = objConfig.states[objConfig.currentState];
-      imgObj.draggable = false;
-      
-      // Das Objekt selbst muss wieder klickbar sein (pointer-events-auto)
-      imgObj.className = `${objConfig.classes} absolute transition-opacity duration-300`;
-      
-      // Die etablierte Mathematik: 1000er Pixelwerte in cqw umrechnen
-      imgObj.style.left = `${objConfig.x / 10}cqw`;
-
-      if (typeof objConfig.y === 'number') {
-        console.log("y does not equal null");
-        imgObj.style.top = `${objConfig.y / 10}cqw`;
-      }
-      
-      imgObj.style.width = `${objConfig.width / 10}cqw`;
-      imgObj.style.height = `${objConfig.height / 10}cqw`;
-      
-      // Z-Index steuert, ob es hinter Charakteren (z.B. 10) oder im Vordergrund (z.B. 30) liegt
-      imgObj.style.zIndex = objConfig.zIndex;
-
-      // 4. Klick-Logik: Nur anbinden, wenn es mehr als einen Zustand gibt
-      const stateKeys = Object.keys(objConfig.states);
-      
-      if (stateKeys.length > 1) {
-        
-        imgObj.addEventListener('click', async (e) => {
-          e.stopPropagation(); 
-          
-          // Animations-Lock: Verhindert Flackern durch Spam-Klicks
-          if (imgObj.isAnimating) return;
-
-          if (objConfig.interaction === "sequence") {
-            
-            imgObj.isAnimating = true;
-
-            // Wir starten bei Index 1, da Index 0 das "idle" Bild ist, das wir schon sehen
-            for (let i = 1; i < stateKeys.length; i++) {
-              console.log("steaming...")
-              objConfig.currentState = stateKeys[i];
-              imgObj.src = objConfig.states[objConfig.currentState];
-              
-              // Delay: Pausiert die Schleife für 200 Millisekunden pro Bild
-              // (Passen Sie die 200 an, um die Animation schneller oder langsamer zu machen)
-              await new Promise(resolve => setTimeout(resolve, 400));
-            }
-
-            // Noch ein kurzes Delay auf dem letzten Frame, bevor es verschwindet
-            await new Promise(resolve => setTimeout(resolve, 400));
-
-            // Am Ende wieder zurück zum neutralen Anfangszustand (idle)
-            objConfig.currentState = stateKeys[0];
-            imgObj.src = objConfig.states[objConfig.currentState];
-
-            // Lock wieder aufheben
-            imgObj.isAnimating = false;
-
-          } else {
-            // STANDARD-TOGGLE LOGIK (z.B. für die Lampe)
-            const currentIndex = stateKeys.indexOf(objConfig.currentState);
-            const nextIndex = (currentIndex + 1) % stateKeys.length; 
-            
-            objConfig.currentState = stateKeys[nextIndex];
-            imgObj.src = objConfig.states[objConfig.currentState];
-          }
-          
-          console.log(`Objekt ${objConfig.id} wechselt zu Zustand: ${objConfig.currentState}`);
-        });
-      }
-
-      objectContainer.appendChild(imgObj);
-    });
-
-    // Den fertigen Container in den Hintergrund der Szene einhängen
-    const bgElement = this.querySelector('#background');
-    bgElement.appendChild(objectContainer);
-  }
-
-
-  async addCharacter() {
-    if(this.currentEvent['eventType'] != 2) throw "Invalid Event Type"
-    const character = document.createElement("character-box");
-    character.id = `character-${this.currentEvent['character']}`;
-    this.querySelector('#background').appendChild(character);
-    await character.characterJoins(this.novel['name'], this.currentEvent['character']);
-  }
-
-
 }
 
-
-
 customElements.define("novel-scene", NovelScene);
-

@@ -1,13 +1,20 @@
-import { addDragScrolling } from "../services/drag-scrolling.js";
+import { addDragScrolling } from "../../../services/drag-scrolling.js";
 
-class DialogueList extends HTMLElement {
+export class DialogueList extends HTMLElement {
   
   constructor() {
     super();
     this.renderQueue = Promise.resolve();
   }
 
+  static create() {
+    const newDialogueList = document.createElement('dialogue-list');
+    return newDialogueList;
+  }
+
   connectedCallback() {
+    this.classList.add("h-1/2", "shrink-0", "flex", "flex-col", "w-full", "overflow-hidden", "relative", "z-50");
+
     this.renderMessageBox();
 
     this.scrollContainer = this.querySelector('.scroll-container');
