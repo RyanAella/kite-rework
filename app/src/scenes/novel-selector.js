@@ -371,8 +371,13 @@ class NovelSelector extends HTMLElement {
             })
         });
 
-        this.querySelector('#InfoHex').addEventListener('click', () => {
-            console.log("Switching to Info Screen");
+        this.querySelector('#InfoHex').addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.dispatchEvent(new CustomEvent("sm-switch-scene", {
+                detail: { scene: "about-kite-scene" },
+                bubbles: true,
+                composed: true,
+            }));
         });
     }
 }

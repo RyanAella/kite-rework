@@ -3,7 +3,7 @@
 const DEFAULT_INFO_TEXT =
   "Mit diesem Button kannst du deine App zurücksetzen. Sämtliche Daten, welche durch dein Spielen entstanden sind, werden gelöscht.";
 
-/** @param {unknown} toolbar */
+// Create the Dataprivacy Info Popup
 function createDataprivacyInfoPopup(toolbar) {
   if (!toolbar) return null;
 
@@ -25,28 +25,32 @@ function createDataprivacyInfoPopup(toolbar) {
   return popup;
 }
 
-/** Uses #legal-popup-container from legalPageShell (settings-style show/hide). */
+// Attach the Dataprivacy Info Popup to the root element
 export function attachDataprivacyInfoPopup(rootEl, toolbar) {
   const popup = createDataprivacyInfoPopup(toolbar);
   if (!popup) return;
 
-  const popupContainer = rootEl.querySelector("#legal-popup-container");
+  const popupContainer = rootEl.querySelector("#document-popup-container");
   if (!popupContainer) return;
 
-  const hidePopup = () => {
+// Hide the Dataprivacy Info Popup
+const hidePopup = () => {
     popupContainer.replaceChildren();
     popupContainer.classList.add("pointer-events-none");
   };
 
-  const showPopup = () => {
+// Show the Dataprivacy Info Popup
+const showPopup = () => {
     popupContainer.replaceChildren(popup);
     popupContainer.classList.remove("pointer-events-none");
   };
 
+// Add event listener to the popup button
   popup.querySelector("#popup-button")?.addEventListener("click", () => {
     hidePopup();
   });
 
+// Add event listener to the open button
   const openBtn = rootEl.querySelector("[data-info-open]");
   if (openBtn) {
     openBtn.addEventListener("click", (e) => {

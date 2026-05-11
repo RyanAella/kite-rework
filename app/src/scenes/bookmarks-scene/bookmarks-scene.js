@@ -1,8 +1,22 @@
 import "../../shared-components/headers/back-header.js";
 import "../../shared-components/footer.js";
-import { initBookmarksHoneycomb } from "./logic/bookmark-logic.js";
+import { bookmarkedNovelStore } from "../../services/store-service.js";
+import { initHoneycombComponent } from "./honeycomb-component.js";
 
 class BookmarksScene extends HTMLElement {
+
+  // Fetch the bookmarked selectable novels
+  async fetchBookmarkedSelectableNovels() {
+    const response = await fetch("assets/json/novels.json");
+    const data = await response.json();
+    const allNovels = data["visualNovels"];
+    const selectableNovels = allNovels.filter((n) => n.name !== "Einstieg");
+    const validNames = selectableNovels.map((n) => n.name);
+
+    const bookmarkedNames = bookmarkedNovelStore.load(validNames);
+    return selectableNovels.filter((n) => bookmarkedNames.has(n.name));
+  }
+
   async connectedCallback() {
     console.log("Bookmarks Scene loaded");
 
@@ -37,7 +51,9 @@ class BookmarksScene extends HTMLElement {
       </div>
     `;
 
-    await initBookmarksHoneycomb(this);
+    // Fetch the bookmarked selectable novels and initialize the honeycomb component
+    const novelsToShow = await this.fetchBookmarkedSelectableNovels();
+    initHoneycombComponent(this, novelsToShow);
   }
 }
 
