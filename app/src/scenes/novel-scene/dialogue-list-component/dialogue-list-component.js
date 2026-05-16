@@ -1,4 +1,4 @@
-import { addDragScrolling } from "../../../services/drag-scrolling.js";
+import { addDragScrolling } from "../../../shared-services/drag-scrolling.js";
 import "./message-container-component.js";
 import "./choice-container-component.js";
 

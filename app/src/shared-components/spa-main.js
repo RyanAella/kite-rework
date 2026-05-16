@@ -1,5 +1,5 @@
 import "./scene-manager.js";
-import { diasableImageDragging } from "../services/disable-image-drag.js";
+import { diasableImageDragging } from "../shared-services/disable-image-drag.js";
 
 class SpaMain extends HTMLElement {
   

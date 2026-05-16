@@ -1,6 +1,6 @@
 import "../../shared-components/headers/back-header.js";
 import "../../shared-components/footer.js";
-import { addDragScrolling } from "../../services/drag-scrolling.js";
+import { addDragScrolling } from "../../shared-services/drag-scrolling.js";
 import "./list-component.js";
 
 class LinksScene extends HTMLElement {

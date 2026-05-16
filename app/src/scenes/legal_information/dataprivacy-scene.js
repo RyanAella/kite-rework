@@ -1,7 +1,7 @@
-// Datenschutz (privacy) page: JSON content; drag scroll + settings-style info popup.
+// Datenschutz (privacy) page: JSON content; drag scroll + shared information popup.
 import "../../shared-components/headers/back-header.js";
 import "../../shared-components/footer.js";
-import { attachDataprivacyInfoPopup } from "./dataprivacy-info-popup.js";
+import { hideSwapModal, showSwapModal, createInformationPopup } from "../../shared-services/information-popup-service.js";
 import {
   attachDocumentPageDragScroll,
   documentPageShell,
@@ -9,6 +9,9 @@ import {
   renderDocumentSections,
   renderPrivacyToolbar,
 } from "../../shared-components/document-page-shared.js";
+
+const DEFAULT_DATAPRIVACY_INFO_TEXT =
+  "Mit diesem Button kannst du deine App zurücksetzen. Sämtliche Daten, welche durch dein Spielen entstanden sind, werden gelöscht.";
 
 class DataprivacyScene extends HTMLElement {
   async connectedCallback() {
@@ -35,7 +38,30 @@ class DataprivacyScene extends HTMLElement {
 
     this.innerHTML = documentPageShell(mainHtml);
     attachDocumentPageDragScroll(this);
-    attachDataprivacyInfoPopup(this, toolbar);
+    this.attachToolbarInfoPopup(toolbar);
+  }
+
+  attachToolbarInfoPopup(toolbar) {
+    if (!toolbar) return;
+
+    const popup = createInformationPopup(
+      String(toolbar.infoText || DEFAULT_DATAPRIVACY_INFO_TEXT),
+    );
+
+    const popupContainer = this.querySelector("#document-popup-container");
+    if (!popupContainer) return;
+
+    popup.addEventListener("information-popup-close", () => {
+      hideSwapModal(popupContainer);
+    });
+
+    const openBtn = this.querySelector("[data-info-open]");
+    if (openBtn) {
+      openBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        showSwapModal(popupContainer, popup);
+      });
+    }
   }
 }
 
