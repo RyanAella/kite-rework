@@ -1,5 +1,5 @@
 import "./card-overlay-component.js";
-import { addOpenOnTapOnly } from "../../services/tap-service.js";
+import { addOpenOnTapOnly } from "../../shared-services/tap-service.js";
 
 class Accordion extends HTMLElement {
 

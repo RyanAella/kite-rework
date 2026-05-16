@@ -1,6 +1,6 @@
 import "../../shared-components/headers/back-header.js";
 import "../../shared-components/footer.js";
-import { bookmarkedNovelStore } from "../../services/store-service.js";
+import { bookmarkedNovelStore } from "../../shared-services/store-service.js";
 import { initHoneycombComponent } from "./honeycomb-component.js";
 
 class BookmarksScene extends HTMLElement {

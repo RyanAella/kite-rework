@@ -1,7 +1,7 @@
 // Shared helpers for scrollable document-style screens (legal, about KITE, etc.):
 // safe HTML, section markup, optional privacy toolbar, layout shell, drag scroll.
 
-import { addDragScrolling } from "../services/drag-scrolling.js";
+import { addDragScrolling } from "../shared-services/drag-scrolling.js";
 
 const MAIN_LINK_CLASS = "text-blue-700 underline break-words";
 

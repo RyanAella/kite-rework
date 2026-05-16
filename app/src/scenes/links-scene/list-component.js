@@ -1,4 +1,4 @@
-import { bindTapOnlyExternalLink } from "../../services/tap-service.js";
+import { bindTapOnlyExternalLink } from "../../shared-services/tap-service.js";
 
 class ListComponent extends HTMLElement {
 
