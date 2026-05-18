@@ -1,3 +1,5 @@
+import { runTypewriterAnimation } from "./dialogue-skip-service.js";
+
 export class MessageContainer extends HTMLElement {
 
   connectedCallback() {
@@ -31,20 +33,13 @@ export class MessageContainer extends HTMLElement {
       messageBox.appendChild(typewriterBox);
       this.appendChild(messageBox);
 
-      requestAnimationFrame(() => {
-        this.dispatchEvent(new CustomEvent("scroll-to-bottom", {bubbles: true}));
-
-        let charIndex = 0;
-        const typeInterval = setInterval(async () => {
-          if (charIndex < text.length) {
-            typewriterBox.textContent += text.charAt(charIndex);
-            charIndex++;
-          } else {
-            clearInterval(typeInterval);
-            await new Promise(r => setTimeout(r, 750));
-            resolve();
-          }
-        }, 21);
+      runTypewriterAnimation(this, {
+        text,
+        typewriterBox,
+        resolve,
+        onBeforeStart: () => {
+          this.dispatchEvent(new CustomEvent("scroll-to-bottom", { bubbles: true }));
+        },
       });
     })
   }

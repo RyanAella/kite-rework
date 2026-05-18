@@ -7,6 +7,7 @@ import "../../shared-components/headers/base-header.js";
 import { PausePopUp } from "./pause-pop-up-component.js";
 import { ContinuePopUp } from "./continue-pop-up-component.js";
 import { EventResolver } from "./event-resolver-component.js";
+import { attachDialogueSkipOnOutsideClick } from "./dialogue-list-component/dialogue-skip-service.js";
 
 class NovelScene extends HTMLElement {
 
@@ -55,6 +56,8 @@ class NovelScene extends HTMLElement {
 
     this.appendChild(this.pausePopUp);
     this.appendChild(this.continuePopUp);
+
+    attachDialogueSkipOnOutsideClick(this.background, this.dialogueList);
   }
 
   createBackground() {
