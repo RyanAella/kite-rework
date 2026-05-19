@@ -1,3 +1,5 @@
+import { fetchFromJson } from "../shared-services/fetch-service.js";
+
 const skinSprites = ['a','b','c','d'];
 const headSpriteCount = 2;
 const baseImagePath = 'assets/Images/Character';
@@ -77,8 +79,7 @@ class CharacterBox extends HTMLElement {
   }
 
   async loadCharacterInfo(characterId) {
-    let response = await fetch("assets/json/character-info.json");
-    let data = await response.json();
+    let data = await fetchFromJson("assets/json/character-info.json");
     this.characterInfo = data["characters"].filter(c => c.id == characterId)[0];
   }
 

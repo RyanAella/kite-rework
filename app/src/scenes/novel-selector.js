@@ -2,6 +2,7 @@ import '../shared-components/headers/navigation-header.js';
 import '../shared-components/footer.js';
 
 import { bookmarkedNovelStore } from '../shared-services/store-service.js';
+import { fetchFromJson } from '../shared-services/fetch-service.js';
 
 const viewportSize = 1000;
 
@@ -46,8 +47,7 @@ class NovelSelector extends HTMLElement {
     }
     
     async loadNovels() {
-        let response = await fetch("assets/json/novels.json");
-        let data = await response.json();
+        let data = await fetchFromJson("assets/json/novels.json");
         const allNovels = data['visualNovels'];
         this.einstiegNovel = allNovels.find(novel => novel.name === "Einstieg");
         this.novels = allNovels.filter(novel => novel.name !== "Einstieg");
