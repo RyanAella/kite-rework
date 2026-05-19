@@ -4,8 +4,12 @@ import { CharacterBox } from "./character-box-component/character-box-component.
 import { InteractiveObjects } from "./interactive-objects-component.js";
 import "../../shared-components/headers/back-header.js";
 import "../../shared-components/headers/base-header.js";
-import { PausePopUp } from "./pause-pop-up-component.js";
-import { ContinuePopUp } from "./continue-pop-up-component.js";
+import {
+  createContinuePopUp,
+  createPausePopUp,
+  isIntroNovel,
+  shouldShowContinuePopUp,
+} from "./person-popup-setup-service.js";
 import { EventResolver } from "./event-resolver-component.js";
 import { attachDialogueSkipOnOutsideClick } from "./dialogue-list-component/dialogue-skip-service.js";
 
@@ -35,15 +39,14 @@ class NovelScene extends HTMLElement {
     this.createBackground();
     this.dialogueList = DialogueList.create();
     this.eventResolver = EventResolver.create(this.novel['novelEvents'], this.dialogueList);
-    this.pausePopUp = PausePopUp.create(this.novel);
-    this.continuePopUp = ContinuePopUp.create(this.novel, this);
+    this.pausePopUp = createPausePopUp(this.novel, () => this.switchToNovelSelector());
     
     const header = document.createElement(flag ? "base-header" : "back-header");
     if(!flag) {
       header.addEventListener('sm-back', (e) => {
         e.preventDefault(); 
         e.stopPropagation();
-        this.pausePopUp.togglePauseMenu(true);
+        this.pausePopUp.toggle(true);
       });
     }
 
@@ -55,9 +58,46 @@ class NovelScene extends HTMLElement {
     this.background.appendChild(this.dialogueList);
 
     this.appendChild(this.pausePopUp);
-    this.appendChild(this.continuePopUp);
+    if (!isIntroNovel(this.novel)) {
+      this.continuePopUp = createContinuePopUp(this.novel, {
+        onContinue: () => {
+          console.log("Mock-Storage: Lade gespeicherten Spielstand...");
+          this.resolveEvent();
+        },
+        onRestart: () => {
+          console.log("Mock-Storage: Lösche Spielstand, Reset auf Index 0...");
+          this.eventResolver.currentEvent = this.novel["novelEvents"][0];
+          this.resolveEvent();
+        },
+      });
+      this.appendChild(this.continuePopUp);
+      if (shouldShowContinuePopUp()) {
+        this.continuePopUp.toggle(true);
+      } else {
+        this.resolveEvent();
+      }
+    } else {
+      this.resolveEvent();
+    }
 
     attachDialogueSkipOnOutsideClick(this.background, this.dialogueList);
+  }
+
+  switchToNovelSelector() {
+    this.dispatchEvent(
+      new CustomEvent("sm-switch-scene", {
+        detail: { scene: "novel-selector" },
+        bubbles: true,
+      }),
+    );
+  }
+
+  resolveEvent() {
+    this.dispatchEvent(
+      new CustomEvent("resolve-event", {
+        bubbles: true,
+      }),
+    );
   }
 
   createBackground() {
