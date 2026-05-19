@@ -7,6 +7,7 @@ import {
   escapeHtml,
   renderDocumentSections,
 } from "../../shared-components/document-page-shared.js";
+import { fetchFromJson } from "../../shared-services/fetch-service.js";
 
 // UI Elements for the Impressum Scene
 class ImprintScene extends HTMLElement {
@@ -17,8 +18,7 @@ class ImprintScene extends HTMLElement {
 
       // Load the Impressum block from the legal-content.json file
     try {
-      const res = await fetch("assets/json/legal-content.json");
-      const data = await res.json();
+      const data = await fetchFromJson("assets/json/legal-content.json");
       const block = data.impressum;
       if (block) {
         const title = escapeHtml(block.title || "Impressum");

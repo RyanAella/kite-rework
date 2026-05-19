@@ -1,3 +1,5 @@
+import { fetchFromJson } from "../shared-services/fetch-service.js";
+
 class StartScene extends HTMLElement {
   constructor() {
     super();
@@ -28,8 +30,7 @@ class StartScene extends HTMLElement {
       const sm = document.querySelector('scene-manager');
       if (sm) {
         try {
-          const response = await fetch("assets/json/novels.json");
-          const data = await response.json();
+          const data = await fetchFromJson("assets/json/novels.json");
           const einstiegNovel = data.visualNovels.find(novel => novel.name === "Einstieg");
 
           sm.dispatchEvent(new CustomEvent("sm-switch-scene", {

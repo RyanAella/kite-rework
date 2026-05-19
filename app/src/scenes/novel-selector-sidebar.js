@@ -1,3 +1,4 @@
+import { fetchFromJson } from '../shared-services/fetch-service.js';
 import '../shared-components/headers/closing-header.js';
 
 class NovelSelectorSidebar extends HTMLElement {
@@ -5,9 +6,7 @@ class NovelSelectorSidebar extends HTMLElement {
     async connectedCallback() {
 
         console.log("Added New Novel Selector Component");
-
-        let response = await fetch("assets/json/novels.json");
-        let data = await response.json();
+        let data = await fetchFromJson("assets/json/novels.json");
         this.novels = data['visualNovels'].filter(novel => novel.name != "Einstieg");
 
         // HTML for the list

@@ -7,6 +7,7 @@ import {
   escapeHtml,
   renderDocumentSections,
 } from "../../shared-components/document-page-shared.js";
+import { fetchFromJson } from "../../shared-services/fetch-service.js";
 
 // UI Elements for the Terms of use Scene 
 class TosScene extends HTMLElement {
@@ -17,8 +18,7 @@ class TosScene extends HTMLElement {
 
     // Load the Terms of use block from the legal-content.json file
     try {
-      const res = await fetch("assets/json/legal-content.json");
-      const data = await res.json();
+      const data = await fetchFromJson("assets/json/legal-content.json");
       const block = data.nutzungsbedingungen;
       if (block) {
         const title = escapeHtml(block.title || "Nutzungsbedingungen");

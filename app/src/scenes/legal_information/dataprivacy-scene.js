@@ -9,6 +9,7 @@ import {
   renderDocumentSections,
   renderPrivacyToolbar,
 } from "../../shared-components/document-page-shared.js";
+import { fetchFromJson } from "../../shared-services/fetch-service.js";
 
 const DEFAULT_DATAPRIVACY_INFO_TEXT =
   "Mit diesem Button kannst du deine App zurücksetzen. Sämtliche Daten, welche durch dein Spielen entstanden sind, werden gelöscht.";
@@ -22,8 +23,7 @@ class DataprivacyScene extends HTMLElement {
     let toolbar = null;
     // data.datenschutz: title, toolbar (reset + info), sections[]
     try {
-      const res = await fetch("assets/json/legal-content.json");
-      const data = await res.json();
+      const data = await fetchFromJson("assets/json/legal-content.json");
       const block = data.datenschutz;
       if (block) {
         const title = escapeHtml(block.title || "Datenschutz");
