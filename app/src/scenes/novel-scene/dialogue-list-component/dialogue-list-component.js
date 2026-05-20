@@ -15,7 +15,7 @@ export class DialogueList extends HTMLElement {
   }
 
   connectedCallback() {
-    this.classList.add("h-1/2", "shrink-0", "flex", "flex-col", "w-full", "overflow-hidden", "relative", "z-50", "scroll-container", "no-scrollbar", "w-full", "overflow-y-auto", "scroll-auto", "flex", "flex-col", "p-[2cqw]");
+    this.classList.add("h-[45%]", "shrink-0", "flex", "flex-col", "w-full", "overflow-hidden", "relative", "z-50", "scroll-container", "no-scrollbar", "w-full", "overflow-y-auto", "scroll-auto", "flex", "flex-col", "p-[2cqw]");
 
     this.addEventListener("scroll-to-bottom", (event) => {this.scrollToBottom()});
     this.addEventListener("handle-choice-selection", (event) => {this.handleChoiceSelection(event.detail['index'], event.detail['text'])});

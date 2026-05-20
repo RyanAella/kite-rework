@@ -438,9 +438,6 @@
   .h-0 {
     height: calc(var(--spacing) * 0);
   }
-  .h-1\/2 {
-    height: calc(1 / 2 * 100%);
-  }
   .h-\[3\.4cqw\] {
     height: 3.4cqw;
   }
@@ -485,6 +482,9 @@
   }
   .h-\[43cqw\] {
     height: 43cqw;
+  }
+  .h-\[45\%\] {
+    height: 45%;
   }
   .h-\[70cqw\] {
     height: 70cqw;
@@ -946,8 +946,8 @@
   .bg-\[length\:100\%_100\%\] {
     background-size: 100% 100%;
   }
-  .bg-\[length\:auto_100\%\] {
-    background-size: auto 100%;
+  .bg-\[length\:auto_110\%\] {
+    background-size: auto 110%;
   }
   .bg-contain {
     background-size: contain;
