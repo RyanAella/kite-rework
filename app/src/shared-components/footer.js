@@ -38,7 +38,7 @@ export class Footer extends HTMLElement {
     this.classList = "w-full h-[20cqw]"
     this.innerHTML = `
       <footer class="w-full h-full bg-[#0B1A2D] flex items-center box-border border-white/10">
-        <div class="flex justify-between items-center w-full px-[3cqw]">
+        <div class="flex justify-between items-center w-full px-[6cqw]">
           
           <button id="foot-start" data-scene="novel-selector" class="${this.btnClass}">
             <img src="assets/Images/Buttons/home.png" class="${this.imgClass}" />

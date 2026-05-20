@@ -7,9 +7,9 @@ import { fetchFromJson } from '../shared-services/fetch-service.js';
 const viewportSize = 1000;
 
 const hexXDiff = 380;
-const hexYEven = -298;
-const hexYOdd = -112;
-const infoHexPos = {"x":347,"y":800};
+const hexYEven = -258;
+const hexYOdd = -72;
+const infoHexPos = {"x":347,"y":720};
 
 const bg2Scrolling = 48;
 const bg1Scrolling = 10;
@@ -66,8 +66,8 @@ class NovelSelector extends HTMLElement {
         `
         <div class="flex flex-col">
             <navigation-header></navigation-header>
-            <div id=bg-2 class="w-full h-[160cqw] bg-panorama-landschaft overflow-hidden bg-[length:auto_100%] bg-repeat-x">
-                <div id=bg-1 class="w-full h-full bg-panorama relative overflow-hidden bg-[length:auto_100%] bg-repeat-x">
+            <div id=bg-2 class="w-full h-[160cqw] bg-panorama-landschaft overflow-hidden bg-[length:auto_110%] bg-repeat-x">
+                <div id=bg-1 class="w-full h-full bg-panorama relative overflow-hidden bg-[length:auto_110%] bg-repeat-x">
                     <div id="novel-hexes" class="absolute inset-0 w-full h-full">
                         ${novelItemsHtml}
                     </div>
