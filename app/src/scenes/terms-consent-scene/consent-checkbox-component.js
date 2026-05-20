@@ -11,7 +11,7 @@ const CHECK_IMG_CLASSES =
 // Build the consent checkbox HTML
 export function buildConsentCheckbox({ id, label }) {
   return `
-    <label class="flex w-full cursor-pointer items-start gap-[7cqw] text-[3.6cqw] leading-snug">
+    <label class="flex w-full items-start gap-[7cqw] text-[3.6cqw] leading-snug">
       <input type="checkbox" id="${id}" class="peer sr-only" />
       <span class="${BOX_CLASSES}" aria-hidden="true">
         <img

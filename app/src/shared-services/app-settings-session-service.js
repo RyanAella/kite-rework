@@ -1,10 +1,10 @@
 const SETTINGS_SESSION_KEY = "settings";
 
 export const DEFAULT_APP_SETTINGS = {
-  voiceOutput: true,
+  voiceOutput: false,
   soundsActive: true,
-  soundVolume: 70,
-  typeSize: 70,
+  soundVolume: 100,
+  typeSize: 0,
 };
 
 // Ensure the settings defaults are set in the session storage

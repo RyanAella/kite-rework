@@ -38,6 +38,10 @@ export function hideSwapModal(container) {
 // Create the information popup component
 export function createInformationPopup(message) {
   const popup = document.createElement("information-popup-component");
-  if (message != null) popup.setInformationText(String(message));
+  setInformationText(popup, message);
   return popup;
+}
+
+export function setInformationText(popup, message) {
+  if (message != null) popup.setInformationText(String(message));
 }

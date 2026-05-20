@@ -206,7 +206,7 @@ class NovelSelector extends HTMLElement {
         if (this.isBookmarked(novel.name)) {
             bookmarkButtonBlock = `
                 <div id="bookmark-button"
-                    class="button-unbookmark text-white bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center select-none cursor-pointer"
+                    class="button-unbookmark text-white bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center select-none"
                     style="color: #ffffff"
                 >
                     GEMERKT
@@ -214,7 +214,7 @@ class NovelSelector extends HTMLElement {
         } else {
             bookmarkButtonBlock = `
                 <div id="bookmark-button"
-                    class="button-bookmark bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center select-none cursor-pointer"
+                    class="button-bookmark bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center select-none"
                     style="color: ${novel.novelColor}"
                 >
                     MERKEN

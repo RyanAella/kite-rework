@@ -122,7 +122,6 @@ export class TermsConsentScene extends HTMLElement {
     const allChecked = this.checkboxes.every((cb) => cb.checked);
     this.btn.disabled = !allChecked;
     BTN_DISABLED_CLASSES.forEach((cls) => this.btn.classList.toggle(cls, !allChecked));
-    this.btn.classList.toggle("cursor-pointer", allChecked);
   }
 
   // Handle the continue button click

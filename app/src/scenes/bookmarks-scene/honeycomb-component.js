@@ -135,7 +135,7 @@ function attachBookmarkHexNavigateListeners(bookmarksScene, novels) {
     const hex = grid.querySelector(`[data-id="${CSS.escape(novel.name)}"]`);
     if (!hex) continue;
 
-    hex.classList.add("cursor-pointer", "select-none");
+    hex.classList.add("select-none");
     hex.addEventListener("click", () => {
       bookmarksScene.dispatchEvent(
         new CustomEvent("sm-switch-scene", {

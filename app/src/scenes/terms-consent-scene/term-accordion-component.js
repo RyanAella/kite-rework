@@ -27,7 +27,7 @@ function buildAccordionItem(label, bodyHtml) {
   return `
     <details data-terms-acc class="group w-full">
       <summary
-        class="flex w-full cursor-pointer select-none list-none items-center justify-between gap-[3cqw] py-[3.2cqw] pr-[0.5cqw] text-left text-[4cqw] font-medium text-white outline-none [&::-webkit-details-marker]:hidden"
+        class="flex w-full select-none list-none items-center justify-between gap-[3cqw] py-[3.2cqw] pr-[0.5cqw] text-left text-[4cqw] font-medium text-white outline-none [&::-webkit-details-marker]:hidden"
       >
         <span>${escapeHtml(label)}</span>
         <img

@@ -38,13 +38,13 @@ class LegalInformationScene extends HTMLElement {
               </div>
 
               <div class="flex w-full flex-col gap-[4cqw]">
-                <button id="btn-impressum" type="button" class="w-full cursor-pointer select-none border-0 bg-[#142b52] py-[3.2cqw] text-center text-[3cqw] font-bold uppercase tracking-wide text-white shadow-sm transition-opacity active:opacity-70">
+                <button id="btn-impressum" type="button" class="w-fullselect-none border-0 bg-[#142b52] py-[3.2cqw] text-center text-[3cqw] font-bold uppercase tracking-wide text-white shadow-sm transition-opacity active:opacity-70">
                   Impressum
                 </button>
-                <button id="btn-datenschutz" type="button" class="w-full cursor-pointer select-none border-0 bg-[#142b52] py-[3.2cqw] text-center text-[3cqw] font-bold uppercase tracking-wide text-white shadow-sm transition-opacity active:opacity-70">
+                <button id="btn-datenschutz" type="button" class="w-full select-none border-0 bg-[#142b52] py-[3.2cqw] text-center text-[3cqw] font-bold uppercase tracking-wide text-white shadow-sm transition-opacity active:opacity-70">
                   Datenschutz
                 </button>
-                <button id="btn-nutzung" type="button" class="w-full cursor-pointer select-none border-0 bg-[#142b52] py-[3.2cqw] text-center text-[3cqw] font-bold uppercase tracking-wide text-white shadow-sm transition-opacity active:opacity-70">
+                <button id="btn-nutzung" type="button" class="w-full select-none border-0 bg-[#142b52] py-[3.2cqw] text-center text-[3cqw] font-bold uppercase tracking-wide text-white shadow-sm transition-opacity active:opacity-70">
                   Nutzungsbedingungen
                 </button>
               </div>
