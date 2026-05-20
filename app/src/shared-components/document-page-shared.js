@@ -95,11 +95,11 @@ export function renderPrivacyToolbar(toolbar) {
     <div class="mb-[6cqw] mt-[6cqw] flex w-full flex-row items-center justify-between">
       <div class="h-[6cqw] w-[6cqw] shrink-0"></div>
 
-      <button type="button" tabindex="-1" class="cursor-default select-none rounded border-[0.1cqw] border-[#0b1a2d] bg-transparent px-[4cqw] py-[3.2cqw] text-center text-[2.4cqw] font-bold uppercase tracking-wider text-[#0b1a2d]">
+      <button type="button" tabindex="-1" id="reset-button" class="cursor-default select-none rounded border-[0.1cqw] border-[#0b1a2d] bg-transparent px-[4cqw] py-[3.2cqw] text-center text-[2.4cqw] font-bold uppercase tracking-wider text-[#0b1a2d]">
         ${escapeHtml(toolbar.resetLabel)}
       </button>
 
-      <button type="button" data-info-open aria-label="Info" class="flex shrink-0 cursor-pointer items-center justify-center transition-opacity active:opacity-70">
+      <button type="button" data-info-open aria-label="Info" class="flex shrink-0 items-center justify-center transition-opacity active:opacity-70">
         <img src="assets/Images/Buttons/Info_Circle.png" alt="" class="h-[6cqw] w-[6cqw] object-contain pointer-events-none select-none" />
       </button>
     </div>

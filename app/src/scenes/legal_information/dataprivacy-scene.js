@@ -1,7 +1,7 @@
 // Datenschutz (privacy) page: JSON content; drag scroll + shared information popup.
 import "../../shared-components/headers/back-header.js";
 import "../../shared-components/footer.js";
-import { hideSwapModal, showSwapModal, createInformationPopup } from "../../shared-services/information-popup-service.js";
+import { hideSwapModal, showSwapModal, createInformationPopup, setInformationText } from "../../shared-services/information-popup-service.js";
 import {
   attachDocumentPageDragScroll,
   documentPageShell,
@@ -10,9 +10,10 @@ import {
   renderPrivacyToolbar,
 } from "../../shared-components/document-page-shared.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
+import { PersonPopUp } from "../../shared-components/person-popup-component.js";
 
-const DEFAULT_DATAPRIVACY_INFO_TEXT =
-  "Mit diesem Button kannst du deine App zurücksetzen. Sämtliche Daten, welche durch dein Spielen entstanden sind, werden gelöscht.";
+const DATAPRIVACY_INFO_TEXT = "Mit diesem Button kannst du deine App zurücksetzen. Sämtliche Daten, welche durch dein Spielen entstanden sind, werden gelöscht.";
+const RESET_INFO_TEXT = "Die App wurde erfolgreich zurückgesetzt";
 
 class DataprivacyScene extends HTMLElement {
   async connectedCallback() {
@@ -35,23 +36,51 @@ class DataprivacyScene extends HTMLElement {
     } catch (_) {
       // keep fallback
     }
+    
 
     this.innerHTML = documentPageShell(mainHtml);
     attachDocumentPageDragScroll(this);
     this.attachToolbarInfoPopup(toolbar);
+
+    this.personPopUp = PersonPopUp.create();
+    this.personPopUp.config = {
+      novelColor: "#132034",
+      title: 'Wenn du fortfährst, wird die App zurückgesetzt.\n\nWenn du dies möchtest, drücke auf "DATEN LÖSCHEN". Fals nicht, drücke auf "ABBRECHEN".',
+      descriptions: [],
+      buttons: [
+          { text: "ABBRECHEN", isPrimary: true, onClick: () => {
+              console.log("ABBRECHEN");
+              this.personPopUp.toggle(false)
+          }},
+          { text: "DATEN LÖSCHEN", isPrimary: false, onClick: () => {
+              console.log("DATEN LÖSCHEN");
+            this.personPopUp.toggle(false);
+              const popupContainer = this.querySelector('#document-popup-container');
+              localStorage.clear();
+              sessionStorage.clear();
+              setInformationText(this.infoPopup, RESET_INFO_TEXT);
+              showSwapModal(popupContainer, this.infoPopup);
+          }}
+      ],
+      overlayClass: "absolute inset-0 bg-black/50 z-[100] hidden p-[4cqw] transition-opacity duration-300",
+    };
+    this.classList = "flex flex-col w-full h-full relative"
+    this.appendChild(this.personPopUp);
+    document.querySelector('#reset-button').addEventListener("click", () => {
+      this.personPopUp.toggle(true);
+    });
+
   }
 
   attachToolbarInfoPopup(toolbar) {
     if (!toolbar) return;
 
-    const popup = createInformationPopup(
-      String(toolbar.infoText || DEFAULT_DATAPRIVACY_INFO_TEXT),
-    );
+    this.infoPopup = createInformationPopup();
 
     const popupContainer = this.querySelector("#document-popup-container");
     if (!popupContainer) return;
 
-    popup.addEventListener("information-popup-close", () => {
+    this.infoPopup.addEventListener("information-popup-close", () => {
       hideSwapModal(popupContainer);
     });
 
@@ -59,9 +88,11 @@ class DataprivacyScene extends HTMLElement {
     if (openBtn) {
       openBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        showSwapModal(popupContainer, popup);
+        setInformationText(this.infoPopup, DATAPRIVACY_INFO_TEXT);
+        showSwapModal(popupContainer, this.infoPopup);
       });
     }
+
   }
 }
 

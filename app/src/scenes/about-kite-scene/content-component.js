@@ -95,15 +95,15 @@ export function buildAboutKiteContentComponent(einstiegNovel) {
     ${renderDocumentSections(ABOUT_KITE_SECTIONS)}
     <div class="mt-[8cqw] flex w-full max-w-full flex-col items-center gap-[3.2cqw]">
       <button type="button" data-about-nav="novel-selector"
-        class="w-[62cqw] max-w-full cursor-pointer rounded border-[0.1cqw] border-transparent bg-[#0B1A2D] px-[1.8cqw] py-[3.2cqw] text-center text-[3.2cqw] font-bold uppercase tracking-wider text-white transition-opacity active:opacity-80">
+        class="w-[62cqw] max-w-full rounded border-[0.1cqw] border-transparent bg-[#0B1A2D] px-[1.8cqw] py-[3.2cqw] text-center text-[3.2cqw] font-bold uppercase tracking-wider text-white transition-opacity active:opacity-80">
         ZUR NOVEL-AUSWAHL
       </button>
       <button type="button" data-about-nav="einstieg"
-        class="w-[62cqw] max-w-full cursor-pointer rounded border-[0.1cqw] border-[#0B1A2D] bg-transparent px-[1.8cqw] py-[3.2cqw] text-center text-[3.2cqw] font-bold uppercase tracking-wider text-[#0B1A2D] transition-opacity active:opacity-80">
+        class="w-[62cqw] max-w-full rounded border-[0.1cqw] border-[#0B1A2D] bg-transparent px-[1.8cqw] py-[3.2cqw] text-center text-[3.2cqw] font-bold uppercase tracking-wider text-[#0B1A2D] transition-opacity active:opacity-80">
         ZUR EINSTIEGSNOVEL
       </button>
       <button type="button" data-about-nav="knowledge"
-        class="w-[62cqw] max-w-full cursor-pointer rounded border-[0.1cqw] border-[#0B1A2D] bg-transparent px-[1.8cqw] py-[3.2cqw] text-center text-[3.2cqw] font-bold uppercase tracking-wider text-[#0B1A2D] transition-opacity active:opacity-80">
+        class="w-[62cqw] max-w-full rounded border-[0.1cqw] border-[#0B1A2D] bg-transparent px-[1.8cqw] py-[3.2cqw] text-center text-[3.2cqw] font-bold uppercase tracking-wider text-[#0B1A2D] transition-opacity active:opacity-80">
         ZUR WISSENSBASIS
       </button>
     </div>

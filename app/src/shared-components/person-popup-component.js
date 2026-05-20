@@ -25,12 +25,14 @@ export class PersonPopUp extends HTMLElement {
   }
 
   connectedCallback() {
+    console.log("connection")
     if (!this.config) {
       console.error("PersonPopUp: config was not provided!");
       return;
     }
     this.buildUI();
     this.toggle(this.config.initiallyVisible === true);
+    console.log("Connected")
   }
 
   // Build the UI of the pop-up
