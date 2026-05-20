@@ -1,9 +1,27 @@
 // Shared helpers for scrollable document-style screens (legal, about KITE, etc.):
 // safe HTML, section markup, optional privacy toolbar, layout shell, drag scroll.
+// Used by legal sub-scenes and terms-consent-scene (accordion bodies).
 
 import { addDragScrolling } from "../shared-services/drag-scrolling.js";
 
-const MAIN_LINK_CLASS = "text-blue-700 underline break-words";
+const LEGAL_JSON_URL = "assets/json/legal-content.json";
+
+// Variant styles for the document content
+const VARIANT_STYLES = {
+  document: {
+    heading: (top) =>
+      `mb-[3.2cqw] text-[3.6cqw] font-bold text-[#0b1a2d]${top}`,
+    linesBlock: "mb-[3.2cqw] text-[3.6cqw] leading-tight text-[#0b1a2d]",
+    paragraph: "mb-[2.4cqw] text-[3.6cqw] leading-tight text-[#0b1a2d]",
+    link: "text-blue-700 underline break-words",
+  },
+  consentAccordion: {
+    heading: (top) => `mb-[2cqw] text-[3cqw] font-bold text-white${top}`,
+    linesBlock: "mb-[2cqw] text-[2.85cqw] leading-snug text-white/90",
+    paragraph: "mb-[2cqw] text-[2.85cqw] leading-snug text-white/90",
+    link: "text-sky-200 underline break-words",
+  },
+};
 
 // Escape HTML characters
 export function escapeHtml(text) {
@@ -20,10 +38,15 @@ function isSafeHref(href) {
   return h.startsWith("https://") || h.startsWith("http://");
 }
 
-// Render a paragraph block
-function renderParagraphBlock(p) {
+function getVariantStyles(variant) {
+  return VARIANT_STYLES[variant] || VARIANT_STYLES.document;
+}
+
+// One paragraph: plain string or array of text / link segments
+function renderParagraphBlock(p, variant) {
+  const { paragraph: pClass, link: linkClass } = getVariantStyles(variant);
   if (typeof p === "string") {
-    return `<p class="mb-[2.4cqw] text-[3.6cqw] leading-tight text-[#0b1a2d]">${escapeHtml(p)}</p>`;
+    return `<p class="${pClass}">${escapeHtml(p)}</p>`;
   }
   if (!Array.isArray(p)) return "";
 
@@ -32,31 +55,33 @@ function renderParagraphBlock(p) {
       if (typeof seg === "string") return escapeHtml(seg);
       if (seg && seg.type === "text" && seg.text != null) return escapeHtml(seg.text);
       if (seg && seg.type === "link" && seg.text && seg.href && isSafeHref(seg.href)) {
-        return `<a href="${escapeHtml(seg.href)}" class="${MAIN_LINK_CLASS}" rel="noopener noreferrer">${escapeHtml(seg.text)}</a>`;
+        return `<a href="${escapeHtml(seg.href)}" class="${linkClass}" rel="noopener noreferrer">${escapeHtml(seg.text)}</a>`;
       }
       return "";
     })
     .join("");
 
-  return `<p class="mb-[2.4cqw] text-[3.6cqw] leading-tight text-[#0b1a2d]">${inner}</p>`;
+  return `<p class="${pClass}">${inner}</p>`;
 }
 
 // Build HTML for sections (heading, optional lines, optional paragraphs).
-export function renderDocumentSections(sections) {
+export function renderDocumentSections(sections, options = {}) {
+  const variant = options.variant === "consentAccordion" ? "consentAccordion" : "document";
+  const styles = getVariantStyles(variant);
   if (!sections || !sections.length) return "";
   return sections
     .map((section, index) => {
-      const top = index === 0 ? "" : " mt-[5.6cqw]";
+      const top = index === 0 ? "" : variant === "consentAccordion" ? " mt-[4cqw]" : " mt-[5.6cqw]";
       const heading = section.heading
-        ? `<h2 class="mb-[3.2cqw] text-[3.6cqw] font-bold text-[#0b1a2d]${top}">${escapeHtml(section.heading)}</h2>`
+        ? `<h2 class="${styles.heading(top)}">${escapeHtml(section.heading)}</h2>`
         : "";
 
       let body = "";
       if (section.lines && section.lines.length) {
-        body += `<p class="mb-[3.2cqw] text-[3.6cqw] leading-tight text-[#0b1a2d]">${section.lines.map(escapeHtml).join("<br />")}</p>`;
+        body += `<p class="${styles.linesBlock}">${section.lines.map(escapeHtml).join("<br />")}</p>`;
       }
       if (section.paragraphs && section.paragraphs.length) {
-        body += section.paragraphs.map(renderParagraphBlock).join("");
+        body += section.paragraphs.map((p) => renderParagraphBlock(p, variant)).join("");
       }
       return heading + body;
     })
@@ -104,4 +129,15 @@ export function documentPageShell(mainColumnHtml) {
 export function attachDocumentPageDragScroll(rootEl) {
   const scrollBox = rootEl.querySelector("#document-scroll-container");
   if (scrollBox) addDragScrolling(scrollBox);
+}
+
+// Fetch the legal content
+export async function fetchLegalContent() {
+  try {
+    const res = await fetch(LEGAL_JSON_URL);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
 }
