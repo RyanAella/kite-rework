@@ -5,6 +5,7 @@ import "../scenes/novel-selector.js";
 import "../scenes/links-scene/links-scene.js";
 import "../scenes/novel-selector-sidebar.js";
 import "../scenes/bookmarks-scene/bookmarks-scene.js";
+import { TermsConsentScene } from "../scenes/terms-consent-scene/terms-consent-scene.js";
 import "../scenes/legal_information/legal-information-scene.js";
 import "../scenes/legal_information/dataprivacy-scene.js";
 import "../scenes/legal_information/imprint-scene.js";
@@ -27,11 +28,15 @@ class SceneManager extends HTMLElement {
     this.addEventListener("sm-clear-scene", (event) => { this.clearScene(event)});
     this.addEventListener("sm-back", () => { this.switchToLastScene() });
 
-    const startScene = document.createElement("start-scene");
-    this.appendChild(startScene);
-    
-    // Add initial scene to history (last item is always the current scene)
-    this.sceneHistory.push({ scene: "start-scene", args: null }); 
+    if (TermsConsentScene.hasLegalConsentCached()) {
+      const startScene = document.createElement("start-scene");
+      this.appendChild(startScene);
+      this.sceneHistory.push({ scene: "start-scene", args: null });
+    } else {
+      const termsScene = document.createElement("terms-consent-scene");
+      this.appendChild(termsScene);
+      this.sceneHistory.push({ scene: "terms-consent-scene", args: null });
+    }
   }
 
   switchScene(event) {
