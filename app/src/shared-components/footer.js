@@ -45,7 +45,7 @@ export class Footer extends HTMLElement {
             <span class="text-white text-[2cqw] font-sans">Start</span>
           </button>
 
-          <button id="foot-archive" data-scene="archive" class="${this.btnClass}">
+          <button id="foot-archive" data-scene="archive-scene" class="${this.btnClass}">
             <img src="assets/Images/Buttons/archive.png" class="${this.imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Archiv</span>
           </button>

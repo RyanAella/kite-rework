@@ -3,6 +3,7 @@ export class InteractiveObjects extends HTMLElement {
   data;
 
   static create(interactiveObjectsData) {
+    console.log(interactiveObjectsData);
     const newInteractiveObjects = document.createElement('interactive-objects');
     newInteractiveObjects.data = interactiveObjectsData;
     return newInteractiveObjects;
