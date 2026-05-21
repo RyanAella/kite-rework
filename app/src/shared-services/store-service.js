@@ -3,6 +3,7 @@
 export const STORAGE_KEYS = {
     bookmarkedNovels: 'bookmarkedNovels',
     knowledgeUIState: 'knowledgeUIState', // Storage Key for knowledge UI to save screen state
+    pausedNovelStates: 'pausedNovelStates', 
 };
 
 // Helper function to read the JSON from the localStorage
@@ -39,6 +40,27 @@ export function remove(storageKey) {
         localStorage?.removeItem(storageKey);
     } catch {
         // Ignore 
+    }
+}
+
+export const novelStateStore = {
+    load(novelName) {
+        const states = readJson(STORAGE_KEYS.pausedNovelStates, {});
+        return states[novelName] || null;
+    },
+
+    save(novelName, eventId) {
+        const states = readJson(STORAGE_KEYS.pausedNovelStates, {});
+        states[novelName] = eventId;
+        writeJson(STORAGE_KEYS.pausedNovelStates, states);
+    },
+
+    clear(novelName) {
+        const states = readJson(STORAGE_KEYS.pausedNovelStates, {});
+        if (states[novelName]) {
+            delete states[novelName];
+            writeJson(STORAGE_KEYS.pausedNovelStates, states);
+        }
     }
 }
 
