@@ -31,6 +31,9 @@ def transform_visual_novels(input_path, output_path):
 
             new_vn["novelColor"] = "#" + str(hex(round((novelColor["r"] * 255))))[2:].zfill(2) +  str(hex(round((novelColor["g"] * 255))))[2:].zfill(2) +  str(hex(round((novelColor["b"] * 255))))[2:].zfill(2)
             new_vn["novelFrameColor"] = "#" + str(hex(round((novelFrameColor["r"] * 255))))[2:].zfill(2) +  str(hex(round((novelFrameColor["g"] * 255))))[2:].zfill(2) +  str(hex(round((novelFrameColor["b"] * 255))))[2:].zfill(2)
+        
+        if vn["id"] == 13:
+            new_vn["disablePauseMenu"] = True
 
         new_events = []
         for ev in vn.get("novelEvents", []):
@@ -53,6 +56,9 @@ def transform_visual_novels(input_path, output_path):
             # Logische Konjunktion: onChoice existiert nur bei eventType 5 UND darf nicht leer sein
             if ev.get("eventType") == 5 and ev.get("onChoice"):
                 new_ev["onChoice"] = ev["onChoice"]
+
+            if ev.get("eventType") == 16 and ev.get("relevantBias"):
+                new_ev["relevantBias"] = ev["relevantBias"]
                 
             if ev.get("text"): 
                 new_ev["text"] = ev["text"]
@@ -60,7 +66,17 @@ def transform_visual_novels(input_path, output_path):
             new_ev["expressionType"] = ev["expressionType"]
                 
             new_events.append(new_ev)
-            
+        
+        if vn["id"] == 2:
+            new_events[0]["nextId"] = "InitialCharacterJoinsEvent002"
+            insertedEvent = {}
+            insertedEvent["id"] = "InitialCharacterJoinsEvent002"
+            insertedEvent["nextId"] = "Anfang"
+            insertedEvent["eventType"] = 2
+            insertedEvent["character"] = 8
+            insertedEvent["expressionType"] = 10
+            new_events.insert(1, insertedEvent)
+
         if new_events:
             new_vn["novelEvents"] = new_events
             
@@ -69,6 +85,7 @@ def transform_visual_novels(input_path, output_path):
         index += 1
         
     new_data = {"visualNovels": new_visual_novels}
+
     
     with open(base_path/output_path, 'w', encoding='utf-8') as f:
         json.dump(new_data, f, indent=4, ensure_ascii=False)

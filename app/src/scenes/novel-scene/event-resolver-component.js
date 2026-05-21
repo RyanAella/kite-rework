@@ -1,24 +1,32 @@
+import { addDialogChoice, newNovelInfo, setCompletedFlag } from "../../shared-services/progress-tracking-service.js";
+
 export class EventResolver extends HTMLElement {
 
+  novelName;
   characterBox;
   dialogueList;
+  tracking;
 
   events = {};
   currentEvent = {};
   currentChoices = [];
+  storageKey;
   eventHistory = [];
 
   isPaused = false;
 
-  static create(events, dialogueList) {
+  static create(novelName, events, dialogueList, tracking) {
     const eventResolver = document.createElement('event-resolver');
     eventResolver.events = events;
     eventResolver.dialogueList = dialogueList;
+    eventResolver.novelName = novelName;
+    eventResolver.tracking = tracking;
     return eventResolver;
   }
 
   connectedCallback() {
-    this.currentEvent = this.events[0]
+    this.currentEvent = this.events[0];
+    if(this.tracking) this.storageKey = newNovelInfo(this.novelName);
   }
 
   async resolveCurrentEvent() {
@@ -64,9 +72,10 @@ export class EventResolver extends HTMLElement {
       case 10: //Gpt Promt Event
         console.log("GPT Promt Event");
         await new Promise(r => setTimeout(r, 4000));
+        if(this.tracking) setCompletedFlag(this.storageKey);
         this.dispatchEvent(new CustomEvent("sm-switch-scene", {
           detail: {
-            scene : "novel-selector"
+            scene : `${this.tracking ? "completion-scene" : "novel-selector"}`
           },
           bubbles : true
         }));
@@ -119,7 +128,8 @@ export class EventResolver extends HTMLElement {
         character: 1
       });
     }
-    
+
+    if(this.tracking) addDialogChoice(this.storageKey, choice.detail["choiceIndex"]);
     this.switchTo(this.currentChoices[choice['detail']['choiceIndex']]['onChoice']);
     this.currentChoices = [];
 

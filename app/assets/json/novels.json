@@ -5,23 +5,8 @@
             "title": "Mehr zu KITE",
             "description": "Hier kannst du den Einstiegs-Dialog erneut spielen.",
             "novelColor": "#aa1c02",
-            "disablePauseMenu": true,
             "novelFrameColor": "#d04c03",
-            "interactiveObjects": [
-                {
-                    "id": "vordergrund_leiste",
-                    "x": 0,
-                    "y": null,
-                    "width": 1000,
-                    "height": 115,
-                    "zIndex": 45,
-                    "currentState": "default",
-                    "classes": "object-fill bottom-0",
-                    "states": {
-                        "default": "assets/Images/EventAnimations/Einstieg/Einstieg_Desk.png"
-                    }
-                }
-            ],
+            "disablePauseMenu": true,
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -925,71 +910,8 @@
             "name": "Eltern",
             "title": "Eltern informieren",
             "description": "Du hast dich entschieden, ein Unternehmen zu gründen, und teilst das nun deinen Eltern mit.",
-            "novelColor": "#25650e",
+            "novelColor": "#25650e", 
             "novelFrameColor": "#4c9a30",
-            "interactiveObjects": [
-                {
-                    "id": "wohnzimmer_lampe",
-                    "x": 0,
-                    "y": -370,
-                    "width": 1000,
-                    "height": 2000,
-                    "zIndex": 10,
-                    "classes": "object-cover pointer-events-auto",
-                    "currentState": "off",
-                    "states": {
-                        "off": "assets/Images/EventAnimations/ElternInformieren/BG_parents_light_off.png",
-                        "on": "assets/Images/EventAnimations/ElternInformieren/BG_parents_light_on.png"
-                    }
-                },
-                {
-                    "id": "tisch_vordergrund",
-                    "x": 0,
-                    "y": 1550,
-                    "width": 1000,
-                    "height": 600,
-                    "zIndex": 40,
-                    "classes": "object-fill pointer-events-none",
-                    "currentState": "default",
-                    "states": {
-                        "default": "assets/Images/EventAnimations/ElternInformieren/Eltern_Table.png"
-                    }
-                },
-                {
-                    "id": "teekanne_blau",
-                    "x": 320,
-                    "y": 1330,
-                    "width": 360,
-                    "height": 360,
-                    "zIndex": 45,
-                    "classes": "pointer-events-auto",
-                    "currentState": "idle",
-                    "interaction": "sequence",
-                    "states": {
-                        "idle": "assets/Images/EventAnimations/ElternInformieren/Jug_1.png",
-                        "steaming_1": "assets/Images/EventAnimations/ElternInformieren/Jug_2.png",
-                        "steaming_2": "assets/Images/EventAnimations/ElternInformieren/Jug_3.png", 
-                        "steaming_3": "assets/Images/EventAnimations/ElternInformieren/Jug_4.png"  
-                    }
-                },
-                {
-                    "id": "tasse_gruen",
-                    "x": 620,
-                    "y": 1300,
-                    "width": 380,
-                    "height": 440,
-                    "zIndex": 45,
-                    "classes": "pointer-events-auto",
-                    "currentState": "idle",
-                    "interaction": "sequence",
-                    "states": {
-                        "idle": "assets/Images/EventAnimations/ElternInformieren/Mug_G1.png",
-                        "steaming_1": "assets/Images/EventAnimations/ElternInformieren/Mug_G2.png",
-                        "steaming_2": "assets/Images/EventAnimations/ElternInformieren/Mug_G3.png",
-                        "steaming_3": "assets/Images/EventAnimations/ElternInformieren/Mug_G4.png" 
-                    }
-                }
-            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -1041,6 +963,7 @@
                     "nextId": "Altes Denken_3",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrungen gegenüber Frauen mit Kindern",
                     "expressionType": 0
                 },
                 {
@@ -1048,6 +971,7 @@
                     "nextId": "OptionsLabel22",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Work-Life-Balance-Erwartungen",
                     "expressionType": 0
                 },
                 {
@@ -1087,6 +1011,7 @@
                     "nextId": "Besorgt-Negativ II",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -1102,6 +1027,7 @@
                     "nextId": "OptionsLabel23",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -1150,6 +1076,7 @@
                     "nextId": "Bruder_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -1157,6 +1084,7 @@
                     "nextId": "OptionsLabel24",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung in der Wahrnehmung von Führungsfähigkeiten",
                     "expressionType": 0
                 },
                 {
@@ -1204,6 +1132,7 @@
                     "nextId": "OptionsLabel25",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung in der Wahrnehmung von Führungsfähigkeiten",
                     "expressionType": 0
                 },
                 {
@@ -1263,6 +1192,7 @@
                     "nextId": "OptionsLabel26",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Zugang zu Finanzierung",
                     "expressionType": 0
                 },
                 {
@@ -1311,6 +1241,7 @@
                     "nextId": "OptionsLabel27",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Erwartungen bezüglich Familienplanung",
                     "expressionType": 0
                 },
                 {
@@ -1400,6 +1331,7 @@
                     "nextId": "Kein Kind: Sexismus_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrungen gegenüber Frauen mit Kindern",
                     "expressionType": 0
                 },
                 {
@@ -1407,6 +1339,7 @@
                     "nextId": "OptionsLabel29",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Work-Life-Balance-Erwartungen",
                     "expressionType": 0
                 },
                 {
@@ -1463,6 +1396,7 @@
                     "nextId": "OptionsLabel30",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -1518,6 +1452,7 @@
                     "nextId": "OptionsLabel31",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrungen gegenüber Frauen mit Kindern",
                     "expressionType": 0
                 },
                 {
@@ -1566,6 +1501,7 @@
                     "nextId": "Nur das Beste",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Work-Life-Balance-Erwartungen",
                     "expressionType": 0
                 },
                 {
@@ -1581,6 +1517,7 @@
                     "nextId": "OptionsLabel32",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "SocioeconomicBiases",
                     "expressionType": 0
                 },
                 {
@@ -1629,6 +1566,7 @@
                     "nextId": "Meine Entscheidung II",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung in der Wahrnehmung von Führungsfähigkeiten",
                     "expressionType": 0
                 },
                 {
@@ -1644,6 +1582,7 @@
                     "nextId": "OptionsLabel33",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Erwartungen bezüglich Familienplanung",
                     "expressionType": 0
                 },
                 {
@@ -1740,6 +1679,7 @@
                     "nextId": "OptionsLabel35",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung in der Wahrnehmung von Führungsfähigkeiten",
                     "expressionType": 0
                 },
                 {
@@ -2090,6 +2030,7 @@
                     "nextId": "OptionsLabel40",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tightrope Bias",
                     "expressionType": 0
                 },
                 {
@@ -2275,6 +2216,7 @@
                     "nextId": "OptionsLabel44",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -2484,6 +2426,7 @@
                     "nextId": "OptionsLabel47",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Erwartungen bezüglich Familienplanung",
                     "expressionType": 0
                 },
                 {
@@ -2518,50 +2461,6 @@
             "description": "Du bist in Kontakt mit einer Kundin gekommen. Nachdem geklärt wurde, dass deine angebotenen Leistungen zu den Anforderungen deines Gegenübers passen, geht es nun um die Honorarverhandlung.",
             "novelColor": "#11454a",
             "novelFrameColor": "#27727f",
-            "interactiveObjects": [
-                {
-                    "id": "tisch",
-                    "x": 0,
-                    "y": null,
-                    "width": 1000,
-                    "height": 115,
-                    "zIndex": 40,
-                    "currentState": "default",
-                    "classes": "object-fill bottom-0",
-                    "states": {
-                        "default": "assets/Images/EventAnimations/HonorarVerhandeln/Table_FG.png"
-                    }
-                },
-                {
-                    "id": "schraenkchen",
-                    "x": 650,
-                    "y": 1510,
-                    "width": 350,
-                    "height": 175,
-                    "zIndex": 20,
-                    "currentState": "default",
-                    "classes": "object-fill",
-                    "states": {
-                        "default": "assets/Images/EventAnimations/HonorarVerhandeln/DrawerCabinet.png"
-                    }
-                },
-                {
-                    "id": "blumen_vase",
-                    "x": 745,
-                    "y": 1200,
-                    "width": 200,
-                    "height": 340,
-                    "zIndex": 21,
-                    "interaction": "sequence",
-                    "currentState": "frame_1",
-                    "classes": "pointer-events-auto",
-                    "states": {
-                        "frame_1": "assets/Images/EventAnimations/HonorarVerhandeln/Vase_1@4x.png",
-                        "frame_2": "assets/Images/EventAnimations/HonorarVerhandeln/Vase_2@4x.png",
-                        "frame_3": "assets/Images/EventAnimations/HonorarVerhandeln/Vase_3@4x.png"
-                    }
-                }
-            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -2880,6 +2779,7 @@
                     "nextId": "OptionsLabel56",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -2919,6 +2819,7 @@
                     "nextId": "OptionsLabel57",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -2958,6 +2859,7 @@
                     "nextId": "OptionsLabel58",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -3006,6 +2908,7 @@
                     "nextId": "OptionsLabel59",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -3200,6 +3103,7 @@
                     "nextId": "OptionsLabel64",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -3239,6 +3143,7 @@
                     "nextId": "OptionsLabel65",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -3278,6 +3183,7 @@
                     "nextId": "OptionsLabel66",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -3317,6 +3223,7 @@
                     "nextId": "OptionsLabel67",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Stereotypen über Frauen in nicht traditionellen Branchen",
                     "expressionType": 0
                 },
                 {
@@ -3356,6 +3263,7 @@
                     "nextId": "OptionsLabel68",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Stereotypen über Frauen in nicht traditionellen Branchen",
                     "expressionType": 0
                 },
                 {
@@ -3395,6 +3303,7 @@
                     "nextId": "OptionsLabel69",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -3443,6 +3352,7 @@
                     "nextId": "OptionsLabel70",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -3738,6 +3648,7 @@
                     "nextId": "OptionsLabel77",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Bestätigungsbias",
                     "expressionType": 0
                 },
                 {
@@ -3786,6 +3697,7 @@
                     "nextId": "OptionsLabel78",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Bestätigungsbias",
                     "expressionType": 0
                 },
                 {
@@ -3994,6 +3906,7 @@
                     "nextId": "OptionsLabel84",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Bestätigungsbias",
                     "expressionType": 0
                 },
                 {
@@ -4042,6 +3955,7 @@
                     "nextId": "OptionsLabel85",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Bestätigungsbias",
                     "expressionType": 0
                 },
                 {
@@ -4090,6 +4004,7 @@
                     "nextId": "OptionsLabel86",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -4138,6 +4053,7 @@
                     "nextId": "OptionsLabel87",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -4186,6 +4102,7 @@
                     "nextId": "OptionsLabel88",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Risikovermeidungs-Bias",
                     "expressionType": 0
                 },
                 {
@@ -4225,6 +4142,7 @@
                     "nextId": "OptionsLabel89",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Risikovermeidungs-Bias",
                     "expressionType": 0
                 },
                 {
@@ -4313,6 +4231,7 @@
                     "nextId": "OptionsLabel91",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -4352,6 +4271,7 @@
                     "nextId": "OptionsLabel92",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -4658,6 +4578,7 @@
                     "nextId": "OptionsLabel100",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechterlohngefälle",
                     "expressionType": 0
                 },
                 {
@@ -4778,6 +4699,7 @@
                     "nextId": "OptionsLabel103",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Stereotypen über Frauen in nicht traditionellen Branchen",
                     "expressionType": 0
                 },
                 {
@@ -4826,6 +4748,7 @@
                     "nextId": "OptionsLabel104",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Stereotypen über Frauen in nicht traditionellen Branchen",
                     "expressionType": 0
                 },
                 {
@@ -4979,6 +4902,7 @@
                     "nextId": "OptionsLabel108",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -5027,6 +4951,7 @@
                     "nextId": "OptionsLabel109",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -5091,6 +5016,7 @@
                     "nextId": "OptionsLabel110",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tightrope Bias",
                     "expressionType": 0
                 },
                 {
@@ -5130,6 +5056,7 @@
                     "nextId": "OptionsLabel111",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tightrope Bias",
                     "expressionType": 0
                 },
                 {
@@ -5242,6 +5169,7 @@
                     "nextId": "OptionsLabel114",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -5281,6 +5209,7 @@
                     "nextId": "OptionsLabel115",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -5402,6 +5331,7 @@
                     "nextId": "OptionsLabel118",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -5441,6 +5371,7 @@
                     "nextId": "OptionsLabel119",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -5544,6 +5475,7 @@
                     "nextId": "OptionsLabel122",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -5583,6 +5515,7 @@
                     "nextId": "OptionsLabel123",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -5839,6 +5772,7 @@
                     "nextId": "OptionsLabel130",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tightrope Bias",
                     "expressionType": 0
                 },
                 {
@@ -5887,6 +5821,7 @@
                     "nextId": "OptionsLabel131",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tightrope Bias",
                     "expressionType": 0
                 },
                 {
@@ -5979,24 +5914,6 @@
             "description": "Du triffst dich mit einem Angel Investor, der auf einer Pitch Night Interesse an deiner Innovation gezeigt hat und nun mehr erfahren möchte.",
             "novelColor": "#35481a",
             "novelFrameColor": "#3d8229",
-            "interactiveObjects": [
-                {
-                    "id": "pflanze",
-                    "x": 680,
-                    "y": 1200,
-                    "width": 350,
-                    "height": 500,
-                    "zIndex": 10,
-                    "interaction": "sequence",
-                    "currentState": "frame_1",
-                    "classes": "pointer-events-auto",
-                    "states": {
-                        "frame_1": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_1@4x.png",
-                        "frame_2": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_2@4x.png",
-                        "frame_3": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_3@4x.png"
-                    }
-                }
-            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -6102,6 +6019,7 @@
                     "nextId": "OptionsLabel134",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -6232,6 +6150,7 @@
                     "nextId": "OptionsLabel137",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Wohlwollender Sexismus",
                     "expressionType": 0
                 },
                 {
@@ -6467,6 +6386,7 @@
                     "nextId": "OptionsLabel143",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -6547,6 +6467,7 @@
                     "nextId": "OptionsLabel145",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "ProveItAgainBias",
                     "expressionType": 0
                 },
                 {
@@ -6594,6 +6515,7 @@
                     "nextId": "OptionsLabel146",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Risikovermeidungs-Bias",
                     "expressionType": 0
                 },
                 {
@@ -6674,6 +6596,7 @@
                     "nextId": "OptionsLabel148",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung in der Wahrnehmung von Führungsfähigkeiten",
                     "expressionType": 0
                 },
                 {
@@ -6763,6 +6686,7 @@
                     "nextId": "OptionsLabel150",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung in der Wahrnehmung von Führungsfähigkeiten",
                     "expressionType": 0
                 },
                 {
@@ -6811,6 +6735,7 @@
                     "nextId": "OptionsLabel151",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Stereotypen über Frauen in nicht traditionellen Branchen",
                     "expressionType": 0
                 },
                 {
@@ -6887,6 +6812,7 @@
                     "nextId": "OptionsLabel152",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Risikovermeidungs-Bias",
                     "expressionType": 0
                 },
                 {
@@ -6926,6 +6852,7 @@
                     "nextId": "OptionsLabel153",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -7255,57 +7182,6 @@
             "description": "Du hast heute einen Banktermin, um einen Kredit zu beantragen.",
             "novelColor": "#0e1a2d",
             "novelFrameColor": "#234169",
-            "interactiveObjects": [
-                {
-                    "id": "pflanze",
-                    "x": 680,
-                    "y": 1050,
-                    "width": 350,
-                    "height": 500,
-                    "zIndex": 10,
-                    "interaction": "sequence",
-                    "currentState": "frame_1",
-                    "classes": "pointer-events-auto",
-                    "states": {
-                        "frame_1": "assets/Images/EventAnimations/KreditBeantragen/Plant_1@4x.png",
-                        "frame_2": "assets/Images/EventAnimations/KreditBeantragen/Plant_2@4x.png",
-                        "frame_3": "assets/Images/EventAnimations/KreditBeantragen/Plant_3@4x.png"
-                    }
-                },
-                {
-                    "id": "vordergrund_leiste",
-                    "x": 0,
-                    "y": null,
-                    "width": 1000,
-                    "height": 115,
-                    "zIndex": 45,
-                    "currentState": "default",
-                    "classes": "object-fill bottom-0",
-                    "states": {
-                        "default": "assets/Images/EventAnimations/KreditBeantragen/Desk.png"
-                    }
-                },
-                {
-                    "id": "glas",
-                    "x": 35,
-                    "y": 1570,
-                    "width": 160,
-                    "height": 200,
-                    "zIndex": 50,
-                    "interaction": "sequence",
-                    "currentState": "frame_1",
-                    "classes": "pointer-events-auto",
-                    "states": {
-                        "frame_1": "assets/Images/EventAnimations/KreditBeantragen/Glass_1.png",
-                        "frame_2": "assets/Images/EventAnimations/KreditBeantragen/Glass_2.png",
-                        "frame_3": "assets/Images/EventAnimations/KreditBeantragen/Glass_3.png",
-                        "frame_4": "assets/Images/EventAnimations/KreditBeantragen/Glass_4.png",
-                        "frame_5": "assets/Images/EventAnimations/KreditBeantragen/Glass_5.png",
-                        "frame_6": "assets/Images/EventAnimations/KreditBeantragen/Glass_6.png",
-                        "frame_7": "assets/Images/EventAnimations/KreditBeantragen/Glass_7.png"
-                    }
-                }
-            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -7431,6 +7307,7 @@
                     "nextId": "OptionsLabel164",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -7479,6 +7356,7 @@
                     "nextId": "OptionsLabel165",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -7599,6 +7477,7 @@
                     "nextId": "OptionsLabel168",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -7686,6 +7565,7 @@
                     "nextId": "OptionsLabel170",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Heteronormativität",
                     "expressionType": 0
                 },
                 {
@@ -7784,6 +7664,7 @@
                     "nextId": "Bürgschaft Partner_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Bestätigungsbias",
                     "expressionType": 0
                 },
                 {
@@ -7791,6 +7672,7 @@
                     "nextId": "OptionsLabel172",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechterlohngefälle",
                     "expressionType": 0
                 },
                 {
@@ -7830,6 +7712,7 @@
                     "nextId": "OptionsLabel173",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -7942,6 +7825,7 @@
                     "nextId": "OptionsLabel176",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -8255,6 +8139,7 @@
                     "nextId": "OptionsLabel183",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tightrope Bias",
                     "expressionType": 0
                 },
                 {
@@ -8399,6 +8284,7 @@
                     "nextId": "Experte ausreichen II",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -8446,6 +8332,7 @@
                     "nextId": "OptionsLabel188",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -8485,6 +8372,7 @@
                     "nextId": "OptionsLabel189",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -8634,6 +8522,7 @@
                     "nextId": "OptionsLabel193",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -8714,6 +8603,7 @@
                     "nextId": "Geschäftspartner_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -8721,6 +8611,7 @@
                     "nextId": "Geschäftspartner_3",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung in der Wahrnehmung von Führungsfähigkeiten",
                     "expressionType": 0
                 },
                 {
@@ -8728,6 +8619,7 @@
                     "nextId": "OptionsLabel195",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Bestätigungsbias",
                     "expressionType": 0
                 },
                 {
@@ -8799,6 +8691,7 @@
                     "nextId": "Geschäftspartner Nachfrage II_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung in der Wahrnehmung von Führungsfähigkeiten",
                     "expressionType": 0
                 },
                 {
@@ -8806,6 +8699,7 @@
                     "nextId": "OptionsLabel197",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -8845,6 +8739,7 @@
                     "nextId": "Geschäftspartnerin_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung in der Wahrnehmung von Führungsfähigkeiten",
                     "expressionType": 0
                 },
                 {
@@ -8852,6 +8747,7 @@
                     "nextId": "OptionsLabel198",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -8891,6 +8787,7 @@
                     "nextId": "Geschäftspartnerin Nachfrage_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung in der Wahrnehmung von Führungsfähigkeiten",
                     "expressionType": 0
                 },
                 {
@@ -8898,6 +8795,7 @@
                     "nextId": "OptionsLabel199",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -9275,6 +9173,7 @@
                     "nextId": "OptionsLabel210",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -9346,6 +9245,7 @@
                     "nextId": "OptionsLabel212",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -9394,6 +9294,7 @@
                     "nextId": "OptionsLabel213",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -9474,6 +9375,7 @@
                     "nextId": "OptionsLabel215",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -9593,6 +9495,7 @@
                     "nextId": "Nachfrage Internalisiert_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -9600,6 +9503,7 @@
                     "nextId": "OptionsLabel218",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Bestätigungsbias",
                     "expressionType": 0
                 },
                 {
@@ -9934,6 +9838,7 @@
                     "nextId": "Professionell_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -9941,6 +9846,7 @@
                     "nextId": "OptionsLabel227",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Heteronormativität",
                     "expressionType": 0
                 },
                 {
@@ -9989,6 +9895,7 @@
                     "nextId": "Professionell II_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -9996,6 +9903,7 @@
                     "nextId": "OptionsLabel228",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Heteronormativität",
                     "expressionType": 0
                 },
                 {
@@ -10044,6 +9952,7 @@
                     "nextId": "Reaktion Businessplan_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -10051,6 +9960,7 @@
                     "nextId": "OptionsLabel229",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -10258,6 +10168,7 @@
                     "nextId": "OptionsLabel235",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -10297,6 +10208,7 @@
                     "nextId": "OptionsLabel236",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -10345,6 +10257,7 @@
                     "nextId": "OptionsLabel237",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -10393,6 +10306,7 @@
                     "nextId": "OptionsLabel238",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Bestätigungsbias",
                     "expressionType": 0
                 },
                 {
@@ -10576,6 +10490,7 @@
                     "nextId": "OptionsLabel243",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tightrope Bias",
                     "expressionType": 0
                 },
                 {
@@ -10654,6 +10569,7 @@
                     "nextId": "OptionsLabel245",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -10702,6 +10618,7 @@
                     "nextId": "OptionsLabel246",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -10741,6 +10658,7 @@
                     "nextId": "OptionsLabel247",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -11012,6 +10930,7 @@
                     "nextId": "OptionsLabel253",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -11055,70 +10974,6 @@
             "description": "Du rufst bei einer Notarin an, um einen Termin für deine Gründung auszumachen.",
             "novelColor": "#2c144d",
             "novelFrameColor": "#63458d",
-            "interactiveObjects": [
-                {
-                    "id": "pflanze",
-                    "x": 680,
-                    "y": 1090,
-                    "width": 360,
-                    "height": 525,
-                    "zIndex": 15,
-                    "interaction": "sequence",
-                    "currentState": "frame_1",
-                    "classes": "pointer-events-auto",
-                    "states": {
-                        "frame_1": "assets/Images/EventAnimations/MitNotarinTelefonieren/Plant_1@4x.png",
-                        "frame_2": "assets/Images/EventAnimations/MitNotarinTelefonieren/Plant_2@4x.png",
-                        "frame_3": "assets/Images/EventAnimations/MitNotarinTelefonieren/Plant_3@4x.png"
-                    }
-                },
-                {
-                    "id": "vordergrund_leiste",
-                    "x": 0,
-                    "y": null,
-                    "width": 1000,
-                    "height": 115,
-                    "zIndex": 45,
-                    "currentState": "default",
-                    "classes": "object-fill bottom-0",
-                    "states": {
-                        "default": "assets/Images/EventAnimations/MitNotarinTelefonieren/Desk.png"
-                    }
-                },
-                {
-                    "id": "bücherregal",
-                    "x": 0,
-                    "y": 0,
-                    "width": 1000,
-                    "height": 1800,
-                    "zIndex": 10,
-                    "currentState": "default",
-                    "classes": "object-fill",
-                    "states": {
-                        "default": "assets/Images/EventAnimations/MitNotarinTelefonieren/Notarin_Cabinet.png"
-                    }
-                },
-                {
-                    "id": "glas",
-                    "x": 75,
-                    "y": 1600,
-                    "width": 160,
-                    "height": 200,
-                    "zIndex": 50,
-                    "interaction": "sequence",
-                    "currentState": "frame_1",
-                    "classes": "pointer-events-auto",
-                    "states": {
-                        "frame_1": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_1.png",
-                        "frame_2": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_2.png",
-                        "frame_3": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_3.png",
-                        "frame_4": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_4.png",
-                        "frame_5": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_5.png",
-                        "frame_6": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_6.png",
-                        "frame_7": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_7.png"
-                    }
-                }
-            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -11204,6 +11059,7 @@
                     "nextId": "OptionsLabel255",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung der Leistungszuordnung",
                     "expressionType": 0
                 },
                 {
@@ -11284,6 +11140,7 @@
                     "nextId": "OptionsLabel257",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -11396,6 +11253,7 @@
                     "nextId": "OptionsLabel260",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Bestätigungsbias",
                     "expressionType": 0
                 },
                 {
@@ -11551,6 +11409,7 @@
                     "nextId": "Nachfrage_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Zugang zu Finanzierung",
                     "expressionType": 0
                 },
                 {
@@ -11558,6 +11417,7 @@
                     "nextId": "OptionsLabel264",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -11629,6 +11489,7 @@
                     "nextId": "Rat Gereizt_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -11636,6 +11497,7 @@
                     "nextId": "OptionsLabel266",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tightrope Bias",
                     "expressionType": 0
                 },
                 {
@@ -11875,6 +11737,7 @@
                     "nextId": "Wie auch immer_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -11882,6 +11745,7 @@
                     "nextId": "OptionsLabel270",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung in der Wahrnehmung von Führungsfähigkeiten",
                     "expressionType": 0
                 },
                 {
@@ -11916,57 +11780,6 @@
             "description": "Auf einer Veranstaltung stellst du deine Geschäftsidee vor und wirst danach von einer Journalistin angesprochen.",
             "novelColor": "#4e2350",
             "novelFrameColor": "#7e3b81",
-            "interactiveObjects": [
-                {
-                    "id": "tisch",
-                    "x": -60,
-                    "y": 1675,
-                    "width": 1120,
-                    "height": 300,
-                    "zIndex": 45,
-                    "currentState": "default",
-                    "classes": "max-w-none",
-                    "states": {
-                        "default": "assets/Images/EventAnimations/InterviewAbklären/Presse_Desk.png"
-                    }
-                },  
-                {
-                    "id": "glas",
-                    "x": 180,
-                    "y": 1600,
-                    "width": 130,
-                    "height": 200,
-                    "zIndex": 50,
-                    "interaction": "sequence",
-                    "currentState": "frame_1",
-                    "classes": "pointer-events-auto",
-                    "states": {
-                        "frame_1": "assets/Images/EventAnimations/InterviewAbklären/Glass_1.png",
-                        "frame_2": "assets/Images/EventAnimations/InterviewAbklären/Glass_2.png",
-                        "frame_3": "assets/Images/EventAnimations/InterviewAbklären/Glass_3.png",
-                        "frame_4": "assets/Images/EventAnimations/InterviewAbklären/Glass_4.png",
-                        "frame_5": "assets/Images/EventAnimations/InterviewAbklären/Glass_5.png",
-                        "frame_6": "assets/Images/EventAnimations/InterviewAbklären/Glass_6.png",
-                        "frame_7": "assets/Images/EventAnimations/InterviewAbklären/Glass_7.png"
-                    }
-                },
-                {
-                    "id": "blumen_vase",
-                    "x": 415,
-                    "y": 1460,
-                    "width": 200,
-                    "height": 340,
-                    "zIndex": 50,
-                    "interaction": "sequence",
-                    "currentState": "frame_1",
-                    "classes": "pointer-events-auto",
-                    "states": {
-                        "frame_1": "assets/Images/EventAnimations/InterviewAbklären/Vase_1@4x.png",
-                        "frame_2": "assets/Images/EventAnimations/InterviewAbklären/Vase_2@4x.png",
-                        "frame_3": "assets/Images/EventAnimations/InterviewAbklären/Vase_3@4x.png"
-                    }
-                }
-            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -12100,6 +11913,7 @@
                     "nextId": "OptionsLabel272",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tokenismus",
                     "expressionType": 0
                 },
                 {
@@ -12220,6 +12034,7 @@
                     "nextId": "OptionsLabel275",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tokenismus",
                     "expressionType": 0
                 },
                 {
@@ -12259,6 +12074,7 @@
                     "nextId": "OptionsLabel276",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung in der Wahrnehmung von Führungsfähigkeiten",
                     "expressionType": 0
                 },
                 {
@@ -12393,6 +12209,7 @@
                     "nextId": "OptionsLabel278",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -12441,6 +12258,7 @@
                     "nextId": "OptionsLabel279",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung der Leistungszuordnung",
                     "expressionType": 0
                 },
                 {
@@ -12497,6 +12315,7 @@
                     "nextId": "OptionsLabel280",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -12586,6 +12405,7 @@
                     "nextId": "OptionsLabel282",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -12642,6 +12462,7 @@
                     "nextId": "Frauen gründen_3",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Wohlwollender Sexismus",
                     "expressionType": 0
                 },
                 {
@@ -12649,6 +12470,7 @@
                     "nextId": "OptionsLabel283",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tokenismus",
                     "expressionType": 0
                 },
                 {
@@ -12778,6 +12600,7 @@
                     "nextId": "OptionsLabel286",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung der Leistungszuordnung",
                     "expressionType": 0
                 },
                 {
@@ -13194,6 +13017,7 @@
                     "nextId": "OptionsLabel294",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Wohlwollender Sexismus",
                     "expressionType": 0
                 },
                 {
@@ -13242,6 +13066,7 @@
                     "nextId": "OptionsLabel295",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tokenismus",
                     "expressionType": 0
                 },
                 {
@@ -13298,6 +13123,7 @@
                     "nextId": "OptionsLabel296",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tokenismus",
                     "expressionType": 0
                 },
                 {
@@ -13460,6 +13286,7 @@
                     "nextId": "OptionsLabel300",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tokenismus",
                     "expressionType": 0
                 },
                 {
@@ -13508,6 +13335,7 @@
                     "nextId": "OptionsLabel301",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tokenismus",
                     "expressionType": 0
                 },
                 {
@@ -13638,6 +13466,7 @@
                     "nextId": "OptionsLabel304",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Bestätigungsbias",
                     "expressionType": 0
                 },
                 {
@@ -13718,6 +13547,7 @@
                     "nextId": "OptionsLabel306",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tokenismus",
                     "expressionType": 0
                 },
                 {
@@ -13924,24 +13754,6 @@
             "description": "Du hast heute einen Termin für die Besichtigung von Büro-Räumen.",
             "novelColor": "#640342",
             "novelFrameColor": "#a52779",
-            "interactiveObjects": [
-                {
-                    "id": "pflanze",
-                    "x": 105,
-                    "y": 1195,
-                    "width": 240,
-                    "height": 370,
-                    "zIndex": 10,
-                    "interaction": "sequence",
-                    "currentState": "frame_1",
-                    "classes": "pointer-events-auto",
-                    "states": {
-                        "frame_1": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_1@4x.png",
-                        "frame_2": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_2@4x.png",
-                        "frame_3": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_3@4x.png"
-                    }
-                }
-            ],
             "novelEvents": [
                 {
                     "id": "InitialCharacterJoinsEvent001",
@@ -13971,6 +13783,7 @@
                     "nextId": "OptionsLabel311",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Verzerrung der Leistungszuordnung",
                     "expressionType": 0
                 },
                 {
@@ -14091,6 +13904,7 @@
                     "nextId": "Ageism Nachfrage II",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Alters- und Generationenbias",
                     "expressionType": 0
                 },
                 {
@@ -14147,6 +13961,7 @@
                     "nextId": "Ageism Nachfrage II",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Alters- und Generationenbias",
                     "expressionType": 0
                 },
                 {
@@ -14162,6 +13977,7 @@
                     "nextId": "Alter II",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Alters- und Generationenbias",
                     "expressionType": 0
                 },
                 {
@@ -14177,6 +13993,7 @@
                     "nextId": "OptionsLabel315",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Alters- und Generationenbias",
                     "expressionType": 0
                 },
                 {
@@ -14281,6 +14098,7 @@
                     "nextId": "Dankbar_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Wohlwollender Sexismus",
                     "expressionType": 0
                 },
                 {
@@ -14288,6 +14106,7 @@
                     "nextId": "OptionsLabel317",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -14344,6 +14163,7 @@
                     "nextId": "OptionsLabel318",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -14457,6 +14277,7 @@
                     "nextId": "End: Negativ_End_Sound",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Tightrope Bias",
                     "expressionType": 0
                 },
                 {
@@ -14508,6 +14329,7 @@
                     "nextId": "End: Positiv Selbstbewusst II",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -14555,6 +14377,7 @@
                     "nextId": "End: Positiv Selbstsicher II",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -14666,6 +14489,7 @@
                     "nextId": "OptionsLabel322",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -14714,6 +14538,7 @@
                     "nextId": "OptionsLabel323",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Alters- und Generationenbias",
                     "expressionType": 0
                 },
                 {
@@ -14802,6 +14627,7 @@
                     "nextId": "OptionsLabel325",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -14876,6 +14702,7 @@
                     "nextId": "Fokus: Negativ II_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Wohlwollender Sexismus",
                     "expressionType": 0
                 },
                 {
@@ -14883,6 +14710,7 @@
                     "nextId": "OptionsLabel326",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -14947,6 +14775,7 @@
                     "nextId": "OptionsLabel327",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -14986,6 +14815,7 @@
                     "nextId": "Frage II_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -14993,6 +14823,7 @@
                     "nextId": "OptionsLabel328",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Heteronormativität",
                     "expressionType": 0
                 },
                 {
@@ -15099,6 +14930,7 @@
                     "nextId": "OptionsLabel330",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -15147,6 +14979,7 @@
                     "nextId": "Freund betont_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Wohlwollender Sexismus",
                     "expressionType": 0
                 },
                 {
@@ -15154,6 +14987,7 @@
                     "nextId": "OptionsLabel331",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unterbewertung weiblich geführter Unternehmen",
                     "expressionType": 0
                 },
                 {
@@ -15211,6 +15045,7 @@
                     "nextId": "Selbstbewusst III",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -15355,6 +15190,7 @@
                     "nextId": "Freund Rat",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -15370,6 +15206,7 @@
                     "nextId": "OptionsLabel335",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -15418,6 +15255,7 @@
                     "nextId": "OptionsLabel336",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -15538,6 +15376,7 @@
                     "nextId": "Sachlich_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Wohlwollender Sexismus",
                     "expressionType": 0
                 },
                 {
@@ -15545,6 +15384,7 @@
                     "nextId": "OptionsLabel339",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Unbewusste Verzerrung in der Kommunikation",
                     "expressionType": 0
                 },
                 {
@@ -15593,6 +15433,7 @@
                     "nextId": "Selbstbewusst III",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -15608,6 +15449,7 @@
                     "nextId": "OptionsLabel340",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -15721,6 +15563,7 @@
                     "nextId": "Umlenken II_2",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -15728,6 +15571,7 @@
                     "nextId": "OptionsLabel341",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Risikovermeidungs-Bias",
                     "expressionType": 0
                 },
                 {
@@ -15856,6 +15700,7 @@
                     "nextId": "OptionsLabel344",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {
@@ -15904,6 +15749,7 @@
                     "nextId": "OptionsLabel345",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Geschlechtsspezifische Stereotypen",
                     "expressionType": 0
                 },
                 {
@@ -15943,6 +15789,7 @@
                     "nextId": "OptionsLabel346",
                     "eventType": 16,
                     "character": 0,
+                    "relevantBias": "Mikroaggression",
                     "expressionType": 0
                 },
                 {

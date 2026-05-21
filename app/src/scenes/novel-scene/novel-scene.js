@@ -12,6 +12,7 @@ import {
 } from "./person-popup-setup-service.js";
 import { EventResolver } from "./event-resolver-component.js";
 import { attachDialogueSkipOnOutsideClick } from "./dialogue-list-component/dialogue-skip-service.js";
+import { fetchFromJson } from "../../shared-services/fetch-service.js";
 import { novelStateStore } from "../../shared-services/store-service.js";
 
 class NovelScene extends HTMLElement {
@@ -40,7 +41,7 @@ class NovelScene extends HTMLElement {
     //Create Child Elements
     this.createBackground();
     this.dialogueList = DialogueList.create();
-    this.eventResolver = EventResolver.create(this.novel['novelEvents'], this.dialogueList);
+    this.eventResolver = EventResolver.create(this.novel["name"], this.novel['novelEvents'], this.dialogueList, !!!this.novel['disablePauseMenu']);
 
     // on resume triggert den event resolver normal mit dem nächsten Event weiterzumachen
     // on pause erstellt einen snapshot vom aktuellen event stand im resolver und speichert den zustand durch das klicken auf pausieren
@@ -75,7 +76,9 @@ class NovelScene extends HTMLElement {
     this.appendChild(this.eventResolver);
     this.appendChild(header);
     this.appendChild(this.background);
-    this.background.appendChild(InteractiveObjects.create(this.novel['interactiveObjects']));
+
+    this.addInteractiveObjects();
+
     this.background.appendChild(this.dialogueList);
     this.appendChild(this.pausePopUp);
 
@@ -151,6 +154,11 @@ class NovelScene extends HTMLElement {
     let characterBox = await CharacterBox.create(this.novel['name'], characterId);
     this.background.appendChild(characterBox);
     this.eventResolver.addCharacterCallback();
+  }
+
+  async addInteractiveObjects() {
+    const interactiveObjectData = await fetchFromJson("assets/json/interactive-objects-info.json");
+    this.background.appendChild(InteractiveObjects.create(interactiveObjectData.visualNovels.find((element) => element.name == this.novel['name']).interactiveObjects));
   }
 
   // Methode regeneriert in der UI die gespeicherten events aus der history, welche beim pausieren gespeichert wurden, messages hinzufügen, character hinzufügen, ...

@@ -13,6 +13,7 @@ import "../scenes/legal_information/tos-scene.js";
 import "../scenes/about-kite-scene/about-kite-scene.js";
 import "../scenes/completion-scene/completion-scene.js";
 import "../scenes/knowledge-scene/knowledge-scene.js";
+import "../scenes/archive-scene/archive-scene.js";
 
 class SceneManager extends HTMLElement {
   
