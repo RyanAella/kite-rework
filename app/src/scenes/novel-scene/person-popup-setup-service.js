@@ -1,4 +1,5 @@
 import { PersonPopUp } from "../../shared-components/person-popup-component.js";
+import { novelStateStore } from "../../shared-services/store-service.js";
 
 // This service is responsible for setting up the pause and continue pop-ups and buttons.
 
@@ -18,7 +19,7 @@ export function isIntroNovel(novel) {
 }
 
 // Create the pause pop-up
-export function createPausePopUp(novel, onLeaveNovel) {
+export function createPausePopUp(novel, { onLeaveNovel, onResume, onPause }) {
   const popUp = PersonPopUp.create();
   const intro = isIntroNovel(novel);
 
@@ -26,7 +27,7 @@ export function createPausePopUp(novel, onLeaveNovel) {
     novelColor: novel["novelColor"],
     title: "Was möchtest du tun?",
     descriptions: buildPauseDescriptions(intro),
-    buttons: buildPauseButtons(popUp, intro, onLeaveNovel),
+    buttons: buildPauseButtons(popUp, intro, { onLeaveNovel, onResume, onPause }),
     overlayClass: PAUSE_OVERLAY_CLASS,
   };
 
@@ -51,23 +52,28 @@ function buildPauseDescriptions(intro) {
 }
 
 // Build the buttons for the pause pop-up
-function buildPauseButtons(popUp, intro, onLeaveNovel) {
+function buildPauseButtons(popUp, intro, { onLeaveNovel, onResume, onPause }) {
   const buttons = [
-    { text: "WEITERSPIELEN", isPrimary: true, onClick: () => popUp.toggle(false) },
+    { 
+      text: "WEITERSPIELEN", isPrimary: true, onClick: () => { 
+        popUp.toggle(false);
+        onResume();
+      }
+    }
   ];
 
   if (!intro) {
     buttons.push({
       text: "PAUSIEREN",
       isPrimary: false,
-      onClick: () => console.log("Logik für Pausieren"),
+      onClick: () => onPause()
     });
   }
 
   buttons.push({ text: "ABBRECHEN", isPrimary: false, onClick: onLeaveNovel });
 
   if (!intro) {
-    buttons.push({ text: "ABSCHLIEßEN", isPrimary: false, onClick: onLeaveNovel });
+    buttons.push({ text: "ABSCHLIEßEN", isPrimary: false, onClick: onPause });
   }
 
   return buttons;
@@ -109,7 +115,7 @@ export function createContinuePopUp(novel, { onContinue, onRestart }) {
   return popUp;
 }
 
-// Check if the continue pop-up should be shown (for debugging purposes)
-export function shouldShowContinuePopUp() {
-  return true;
+// Schauen ob das novel im store mit der event id hinterlegt ist, falls ja wird es returnt
+export function shouldShowContinuePopUp(novelName) {
+  return novelStateStore.load(novelName) !== null;
 }

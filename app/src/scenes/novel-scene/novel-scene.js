@@ -12,6 +12,7 @@ import {
 } from "./person-popup-setup-service.js";
 import { EventResolver } from "./event-resolver-component.js";
 import { attachDialogueSkipOnOutsideClick } from "./dialogue-list-component/dialogue-skip-service.js";
+import { novelStateStore } from "../../shared-services/store-service.js";
 
 class NovelScene extends HTMLElement {
 
@@ -34,19 +35,39 @@ class NovelScene extends HTMLElement {
     this.addEventListener("user-confirmation", (event) => { this.eventResolver.userConfirmation(event)});
     this.addEventListener("add-character", (event) => {this.addCharacter(event.detail.characterId)});
     this.addEventListener("resolve-event", (event) => {this.eventResolver.resolveCurrentEvent()});
+    this.addEventListener("novel-finished", (event) => {novelStateStore.clear(this.novel.name)});
 
     //Create Child Elements
     this.createBackground();
     this.dialogueList = DialogueList.create();
     this.eventResolver = EventResolver.create(this.novel['novelEvents'], this.dialogueList);
-    this.pausePopUp = createPausePopUp(this.novel, () => this.switchToNovelSelector());
+
+    // on resume triggert den event resolver normal mit dem nächsten Event weiterzumachen
+    // on pause erstellt einen snapshot vom aktuellen event stand im resolver und speichert den zustand durch das klicken auf pausieren
+    // on leave löscht den Zustand aus dem store und geht zurück zum novel selector
+    this.pausePopUp = createPausePopUp(this.novel, {
+      onResume: () => this.eventResolver.resume(),
+      onPause: () => {
+          const snapShot = this.eventResolver.getSnapshot();
+          if (snapShot) {
+              novelStateStore.save(this.novel.name, snapShot);
+          }
+          this.switchToNovelSelector();
+      },
+      onLeaveNovel: () => {
+          novelStateStore.clear(this.novel.name);
+          this.switchToNovelSelector();
+      }
+    });
     
     const header = document.createElement(flag ? "base-header" : "back-header");
     if(!flag) {
       header.addEventListener('sm-back', (e) => {
         e.preventDefault(); 
         e.stopPropagation();
+        this.eventResolver.pause();
         this.pausePopUp.toggle(true);
+        console.log("Back button was clicked!")
       });
     }
 
@@ -56,22 +77,38 @@ class NovelScene extends HTMLElement {
     this.appendChild(this.background);
     this.background.appendChild(InteractiveObjects.create(this.novel['interactiveObjects']));
     this.background.appendChild(this.dialogueList);
-
     this.appendChild(this.pausePopUp);
+
     if (!isIntroNovel(this.novel)) {
+      const hasSavedState = shouldShowContinuePopUp(this.novel.name);
+
+      // on continue läuft beim weiterspielen nach dem continue pop up
+      // Hier wird der davor gespeicherte snapshot aus dem store geladen und wieder in den resolver übertragen
       this.continuePopUp = createContinuePopUp(this.novel, {
-        onContinue: () => {
-          console.log("Mock-Storage: Lade gespeicherten Spielstand...");
+        onContinue: async () => {
+          const snapShot = novelStateStore.load(this.novel.name);
+          if (snapShot) {
+              this.eventResolver.loadSnapshot(snapShot);
+
+              await this.restoreVisualState(snapShot.history);
+
+              const type = this.eventResolver.currentEvent['eventType'];
+              if ([2, 4].includes(type)) {
+                  this.eventResolver.switchToNext();
+              }
+          }
           this.resolveEvent();
         },
         onRestart: () => {
-          console.log("Mock-Storage: Lösche Spielstand, Reset auf Index 0...");
+          novelStateStore.clear(this.novel.name); // Alten State löschen
           this.eventResolver.currentEvent = this.novel["novelEvents"][0];
           this.resolveEvent();
         },
       });
+
       this.appendChild(this.continuePopUp);
-      if (shouldShowContinuePopUp()) {
+
+      if (hasSavedState) {
         this.continuePopUp.toggle(true);
       } else {
         this.resolveEvent();
@@ -114,6 +151,28 @@ class NovelScene extends HTMLElement {
     let characterBox = await CharacterBox.create(this.novel['name'], characterId);
     this.background.appendChild(characterBox);
     this.eventResolver.addCharacterCallback();
+  }
+
+  // Methode regeneriert in der UI die gespeicherten events aus der history, welche beim pausieren gespeichert wurden, messages hinzufügen, character hinzufügen, ...
+  // Wenn spiel weitergespielt wird, lädt diese methode alle vergangegen events aus der history
+  async restoreVisualState(history) {
+    console.log("History " + history);
+    if (!history || history.length === 0) return;
+
+    for (const oldEvent of history) {
+      switch (oldEvent.eventType) {
+        case 2:
+          let characterBox = await CharacterBox.create(this.novel['name'], oldEvent.character);
+          if (oldEvent.expressionType) {
+            characterBox.updateCharacterExpression(oldEvent.expressionType);
+          }
+          this.background.appendChild(characterBox);
+          break;
+        case 4:
+          await this.dialogueList.showMessage(oldEvent.text, false, oldEvent.character, true);
+          break;
+      }
+    }
   }
 }
 

@@ -29,16 +29,18 @@ export class DialogueList extends HTMLElement {
     addDragScrolling(this);
   }
 
-  async showMessage(text, isUser = false, characterId) {
+  async showMessage(text, isUser = false, characterId, isInstant = false) {
     this.renderQueue = this.renderQueue.then(() => {
-      return this.messageContainer.addMessage(text, isUser, characterId);
+      return this.messageContainer.addMessage(text, isUser, characterId, isInstant);
     });
+    return this.renderQueue;
   }
 
   showChoices(arrayOfChoices) {
     this.renderQueue = this.renderQueue.then(() => {
       return this.choiceContainer.addChoices(arrayOfChoices);
     });
+    return this.renderQueue;
   }
 
   async handleChoiceSelection(index, text) {

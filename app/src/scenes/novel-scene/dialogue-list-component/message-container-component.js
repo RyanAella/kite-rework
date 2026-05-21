@@ -6,7 +6,7 @@ export class MessageContainer extends HTMLElement {
     this.classList = "mt-auto flex flex-col gap-[1.6cqw] shrink-0"
   }
 
-  addMessage(text, isUser = false, characterId) {
+  addMessage(text, isUser = false, characterId, isInstant = false) {
     return new Promise((resolve) => {
       const messageBox = document.createElement('div');
       const baseClasses = "leading-relaxed text-white p-[2cqw] rounded-[1.6cqw] text-[3cqw] text-left grid origin-bottom animate-pop-in";
@@ -33,14 +33,22 @@ export class MessageContainer extends HTMLElement {
       messageBox.appendChild(typewriterBox);
       this.appendChild(messageBox);
 
-      runTypewriterAnimation(this, {
+      if (isInstant) {
+        typewriterBox.textContent = text;
+        this.dispatchEvent(new CustomEvent("scroll-to-bottom", { bubbles: true }));
+        resolve();
+      } else {
+        runTypewriterAnimation(this, {
         text,
         typewriterBox,
         resolve,
-        onBeforeStart: () => {
-          this.dispatchEvent(new CustomEvent("scroll-to-bottom", { bubbles: true }));
-        },
-      });
+          onBeforeStart: () => {
+            this.dispatchEvent(new CustomEvent("scroll-to-bottom", { bubbles: true }));
+          },
+        });
+      }
+
+      
     })
   }
 }

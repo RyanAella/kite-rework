@@ -6,12 +6,15 @@ export class EventResolver extends HTMLElement {
   events = {};
   currentEvent = {};
   currentChoices = [];
+  eventHistory = [];
+
+  isPaused = false;
 
   static create(events, dialogueList) {
     const eventResolver = document.createElement('event-resolver');
     eventResolver.events = events;
     eventResolver.dialogueList = dialogueList;
-    return eventResolver
+    return eventResolver;
   }
 
   connectedCallback() {
@@ -19,14 +22,20 @@ export class EventResolver extends HTMLElement {
   }
 
   async resolveCurrentEvent() {
-
-    console.log("Resolving Event: " + this.currentEvent['eventType']);
+    if(this.isPaused) {
+      console.log("Dialogue is in paused state.");
+      return;
+    }
 
     let allCharacters = Array.from(this.parentNode.querySelectorAll('character-box'));
-    console.log(allCharacters);
     let character = this.parentNode.querySelector(`#character-${this.currentEvent['character']}`)
     allCharacters.filter(c => c != character || this.currentEvent['eventType'] != 4).forEach(c => c.setSpeakingState(false));
     if(character) character.updateCharacterExpression(this.currentEvent['expressionType']);
+
+    // Speichern der messages und characters in den storage um diese beim weiterspielen wieder anzuzeigen
+    if (this.currentEvent['eventType'] === 4 || this.currentEvent['eventType'] === 2) {
+        this.eventHistory.push(this.currentEvent);
+    }
 
     switch(this.currentEvent['eventType']) {
 
@@ -61,6 +70,12 @@ export class EventResolver extends HTMLElement {
           },
           bubbles : true
         }));
+
+        // Event zum löschen des storage nachdem das novel vorbei ist
+        this.dispatchEvent(new CustomEvent("novel-finished", {
+          bubbles : true
+        }));
+
         return;
 
       case 11: //Save Persistent Event
@@ -78,6 +93,12 @@ export class EventResolver extends HTMLElement {
       default:
         console.log(`Unknown event with Id ${this.currentEvent['id']}`);
     }
+
+    if(this.isPaused) {
+      console.log("Dialogue is in paused state.");
+      return;
+    }
+
     this.switchToNext();
     await this.resolveCurrentEvent();
   }
@@ -88,12 +109,21 @@ export class EventResolver extends HTMLElement {
       console.log(`Invalid State --- novel-scene.userConfirmation ${this.currentEvent['eventType']}`);
       return;
     }
+
+    const choiceIndex = choice['detail']['choiceIndex'];
+    if (this.currentChoices[choiceIndex]) {
+      const selectedChoiceText = this.currentChoices[choiceIndex].text;
+      this.eventHistory.push({
+        eventType: 4,     
+        text: selectedChoiceText,
+        character: 1
+      });
+    }
     
-    console.log(this.currentChoices);
-    console.log(choice);
     this.switchTo(this.currentChoices[choice['detail']['choiceIndex']]['onChoice']);
-    
     this.currentChoices = [];
+
+    if (this.isPaused) return;
     await this.resolveCurrentEvent();
 
   }
@@ -111,6 +141,7 @@ export class EventResolver extends HTMLElement {
   addCharacterCallback() {
     if(this.currentEvent['eventType'] != 2) throw "Invalid Event Type"
     this.switchToNext();
+    if (this.isPaused) return;
     this.resolveCurrentEvent();
   }
 
@@ -127,6 +158,43 @@ export class EventResolver extends HTMLElement {
       }
     }
     return false;
+  }
+
+  // Pausieren der event loop um den Dialog einzufrieren
+  pause() {
+    this.isPaused = true;
+  }
+
+  // Die Events aus dem Dialog weiterlaufen lassen
+  resume() {
+      if (this.isPaused) {
+          this.isPaused = false;
+          // Startet die Schleife wieder exakt dort, wo sie gestoppt hat
+          this.resolveCurrentEvent(); 
+      }
+  }
+
+  // Returnt die Id des jetzigen events
+  getCurrentEventId() {
+      return this.currentEvent ? this.currentEvent['id'] : null;
+  }
+
+  // Lädt snapshot beim weiterspielen
+  loadSnapshot(snapShot) {
+    if (snapShot && snapShot.eventId) {
+      this.eventHistory = snapShot.history || [];
+      this.currentChoices = snapShot.currentChoices || [];
+      this.switchTo(snapShot.eventId);
+    }
+  }
+
+  // Holt sich den aktuellen snapshot um diesen im storage zu speichern
+  getSnapshot() {
+      return {
+          eventId: this.currentEvent ? this.currentEvent['id'] : null,
+          history: this.eventHistory,
+          currentChoices: this.currentChoices
+      };
   }
 }
 customElements.define('event-resolver', EventResolver);
