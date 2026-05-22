@@ -30,6 +30,8 @@ class SearchbarComponent extends HTMLElement {
         this.searchInput.addEventListener('input', (e) => {
             const query = e.target.value.trim().toLowerCase();
             this.clearBtn.classList.toggle('hidden', query.length === 0);
+            console.log("Input text " + query);
+            console.log("Categories: " + this.categoryElements);
             this.handleSearch(query);
         });
 
@@ -49,12 +51,12 @@ class SearchbarComponent extends HTMLElement {
     handleSearch(query) {
         if (query === "") {
             // Normalmodus: Alle Kategorien anzeigen, Karten verstecken, wenn Kategorie zu war
-            categoryElements.forEach(cat => {
+            this.categoryElements.forEach(cat => {
                 cat.classList.remove('hidden');
                 cat.classList.add('flex');
             });
             // Setzt die Karten in den ursprünglichen DOM-Baum zurück
-            cardElements.forEach(cardObj => {
+            this.cardElements.forEach(cardObj => {
                 cardObj.cardsWrapper.appendChild(cardObj.domElement);
                 cardObj.domElement.classList.remove('hidden');
             });
