@@ -1,7 +1,7 @@
 import "../scenes/start-scene.js";
 import "../scenes/settings-scene/settings-scene.js";
 import "../scenes/novel-scene/novel-scene.js";
-import "../scenes/novel-selector.js";
+import "../scenes/novel-selector/novel-selector.js";
 import "../scenes/links-scene/links-scene.js";
 import "../scenes/novel-selector-sidebar.js";
 import "../scenes/bookmarks-scene/bookmarks-scene.js";
