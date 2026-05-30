@@ -3,25 +3,28 @@ import { pathFinding } from "./path-finding-service.js";
 export async function addElements(CharacterBox, characterInfo) {
   console.log("addElements");
   let paths = []
-  paths.push(['ImgHead', pathFinding(characterInfo, "Head")]);
-  paths.push(['ImgHair', pathFinding(characterInfo, "Hair")]);
-  paths.push(['ImgClothes', pathFinding(characterInfo, "Clothes")]);
-  paths.push(['ImgFace', pathFinding(characterInfo, "Face", 5, false)]);
-  paths.push(['ImgEyes', pathFinding(characterInfo, "Eyes", "Eyes_Open")]);
-  if(characterInfo["glasses"]) paths.push(['ImgGlasses', pathFinding(characterInfo, "Glasses")]);
-  if(characterInfo["headset"]) paths.push(['ImgHeadset', pathFinding(characterInfo, "Headset")]);
+  paths.push(['ImgHead', pathFinding(characterInfo, "Head"), "z-30"]);
+  paths.push(['ImgHair', pathFinding(characterInfo, "Hair"), "z-30"]);
+  paths.push(['ImgClothes', pathFinding(characterInfo, "Clothes"), "z-30"]);
+  paths.push(['ImgFace', pathFinding(characterInfo, "Face", 5, false), "z-30"]);
+  paths.push(['ImgEyes', pathFinding(characterInfo, "Eyes", "Eyes_Open"), "z-30"]);
+  if(characterInfo["glasses"]) paths.push(['ImgGlasses', pathFinding(characterInfo, "Glasses"), "z-30"]);
+  if(characterInfo["headset"]) paths.push(['ImgHeadset', pathFinding(characterInfo, "Headset"), "z-30"]);
   
   //Hands
   const handsResponse = await fetch(pathFinding(characterInfo, 'Hands'), { method: 'HEAD'})
   if(handsResponse.ok) {
-    paths.push(['ImgHands', pathFinding(characterInfo, "Hands")]);
+    paths.push(['ImgHands', pathFinding(characterInfo, "Hands"),"z-40"]);
   }
   
   for(let i = 0; i < paths.length; i++) {
     let img = document.createElement("img");
     img.id = paths[i][0];
     img.src = paths[i][1];
-    img.className = "h-full w-full col-start-1 row-start-1 object-contain";
+    img.className = `pointer-events-none absolute w-[75cqw] col-start-1 row-start-1 object-contain ${paths[i][2]}`;
+    img.style.left = `${characterInfo["positionX"]}cqw`;
+    img.style.top = `${characterInfo["positionY"]}cqw`;
+    img.style.rotate = "0deg";
     CharacterBox.appendChild(img);
   }
 }

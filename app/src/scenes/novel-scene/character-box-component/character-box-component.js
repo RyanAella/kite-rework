@@ -9,12 +9,14 @@ export class CharacterBox extends HTMLElement {
   characterId;
   characterInfo;
   animationHandler;
+  characterObjectSync;
 
-  static async create(novelName, characterId) {
+  static async create(novelName, characterId, characterObjectSync) {
     console.log("Creating CharacterBox");
     const newCharacterBox = document.createElement('character-box');
     newCharacterBox.novelName = novelName;
     newCharacterBox.characterId = characterId;
+    newCharacterBox.characterObjectSync = characterObjectSync;
     await newCharacterBox.load();
     return newCharacterBox
   }
@@ -25,7 +27,7 @@ export class CharacterBox extends HTMLElement {
 
   async load() {
     console.log("Load");
-    this.classList.add("absolute", "w-[75cqw]", "grid", "grid-cols-1", "grid-rows-1", "z-30", "origin-[50%_20%]");
+    this.classList = "grid grid-cols-1 grid-rows-1 origin-[50%_20%]";
     this.id = `character-${this.characterId}`
     this.characterInfo = await characterInfoLoader(this.novelName, this.characterId);
     console.log(this.characterInfo);
@@ -33,14 +35,7 @@ export class CharacterBox extends HTMLElement {
     await addElements(this, this.characterInfo);
 
     this.animationHandler = new AnimationHandler(this);
-    this.setCharacterPosition();
     console.log("Loaded");
-  }
-
-  setCharacterPosition() {
-    this.style.left = `${this.characterInfo["positionX"]}cqw`;
-    this.style.top = `${this.characterInfo["positionY"]}cqw`;
-    this.style.rotate = "0deg";
   }
 
   
