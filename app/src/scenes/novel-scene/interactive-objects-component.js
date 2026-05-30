@@ -22,7 +22,7 @@ export class InteractiveObjects extends HTMLElement {
     
     this.id = 'interactive-objects';
     // pointer-events-none ist wichtig, damit Klicks ins Leere an den Hintergrund durchgereicht werden
-    this.className = 'absolute inset-0 w-full h-full pointer-events-none';
+    this.className = 'absolute w-full h-full pointer-events-none';
 
     // 3. Jedes Objekt aus der JSON iterieren und rendern
     this.data.forEach(objConfig => {
@@ -55,7 +55,6 @@ export class InteractiveObjects extends HTMLElement {
       if (stateKeys.length > 1) {
         
         imgObj.addEventListener('click', async (e) => {
-          e.stopPropagation(); 
           
           // Animations-Lock: Verhindert Flackern durch Spam-Klicks
           if (imgObj.isAnimating) return;
@@ -96,6 +95,16 @@ export class InteractiveObjects extends HTMLElement {
           
           console.log(`Objekt ${objConfig.id} wechselt zu Zustand: ${objConfig.currentState}`);
         });
+      }
+
+      if(objConfig.syncToCharacter) {
+        this.dispatchEvent(new CustomEvent("sync-object-to-character", {
+          detail: {
+            object: imgObj,
+            characterId : objConfig.syncToCharacter
+          },
+          bubbles: true
+        }));
       }
 
       this.appendChild(imgObj);

@@ -24,6 +24,7 @@ class NovelScene extends HTMLElement {
   dialogueList;
   pausePopUp;
   continuePopUp;
+  characterObjectSync = {};
 
   connectedCallback() {
     this.novel = this.args['novel']
@@ -37,6 +38,7 @@ class NovelScene extends HTMLElement {
     this.addEventListener("add-character", (event) => {this.addCharacter(event.detail.characterId)});
     this.addEventListener("resolve-event", (event) => {this.eventResolver.resolveCurrentEvent()});
     this.addEventListener("novel-finished", (event) => {novelStateStore.clear(this.novel.name)});
+    this.addEventListener("sync-object-to-character", (event) => {this.syncObjectToCharacter(event.detail.object, event.detail.characterId)});
 
     //Create Child Elements
     this.createBackground();
@@ -91,14 +93,14 @@ class NovelScene extends HTMLElement {
         onContinue: async () => {
           const snapShot = novelStateStore.load(this.novel.name);
           if (snapShot) {
-              this.eventResolver.loadSnapshot(snapShot);
+            this.eventResolver.loadSnapshot(snapShot);
 
-              await this.restoreVisualState(snapShot.history);
+            await this.restoreVisualState(snapShot.history);
 
-              const type = this.eventResolver.currentEvent['eventType'];
-              if ([2, 4].includes(type)) {
-                  this.eventResolver.switchToNext();
-              }
+            const type = this.eventResolver.currentEvent['eventType'];
+            if ([2, 4].includes(type)) {
+              this.eventResolver.switchToNext();
+            }
           }
           this.resolveEvent();
         },
@@ -150,10 +152,26 @@ class NovelScene extends HTMLElement {
     this.background = background;
   }
   
+  /**
+   * Created a new CharacterBox and adds it to the DOM
+   * @param {Number} characterId The Id of the new Character
+   */
   async addCharacter(characterId) {
-    let characterBox = await CharacterBox.create(this.novel['name'], characterId);
+    let characterBox = await CharacterBox.create(this.novel['name'], characterId, this.characterObjectSync[characterId] ?? []);
     this.background.appendChild(characterBox);
     this.eventResolver.addCharacterCallback();
+  }
+
+  /**
+   * Synchronizes an Object to a character, causing the characters animations to be applied to the object as well
+   * @param {HTMLElement} object 
+   * @param {Number} characterId 
+   */
+  syncObjectToCharacter(object, characterId) {
+    if(!this.characterObjectSync[characterId]) {
+      this.characterObjectSync[characterId] = [];
+    }
+    this.characterObjectSync[characterId].push(object);
   }
 
   async addInteractiveObjects() {
@@ -170,7 +188,7 @@ class NovelScene extends HTMLElement {
     for (const oldEvent of history) {
       switch (oldEvent.eventType) {
         case 2:
-          let characterBox = await CharacterBox.create(this.novel['name'], oldEvent.character);
+          let characterBox = await CharacterBox.create(this.novel['name'], oldEvent.character, this.characterObjectSync[oldEvent.character] ?? []);
           if (oldEvent.expressionType) {
             characterBox.updateCharacterExpression(oldEvent.expressionType);
           }

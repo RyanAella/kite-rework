@@ -81,6 +81,24 @@
             "steaming_2": "assets/Images/EventAnimations/ElternInformieren/Mug_G3.png",
             "steaming_3": "assets/Images/EventAnimations/ElternInformieren/Mug_G4.png" 
           }
+        },
+        {
+          "id": "tasse_violett",
+          "x": 50,
+          "y": 1100,
+          "width": 380,
+          "height": 440,
+          "zIndex": 35,
+          "classes": "pointer-events-auto",
+          "currentState": "idle",
+          "interaction": "sequence",
+          "states": {
+            "idle": "assets/Images/EventAnimations/ElternInformieren/Mug_V1.png",
+            "steaming_1": "assets/Images/EventAnimations/ElternInformieren/Mug_V2.png",
+            "steaming_2": "assets/Images/EventAnimations/ElternInformieren/Mug_V3.png",
+            "steaming_3": "assets/Images/EventAnimations/ElternInformieren/Mug_V4.png" 
+          },
+          "syncToCharacter": 8
         }
       ]
     },

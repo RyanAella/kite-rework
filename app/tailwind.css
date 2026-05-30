@@ -32,7 +32,6 @@
     --leading-snug: 1.375;
     --leading-normal: 1.5;
     --leading-relaxed: 1.625;
-    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -256,6 +255,9 @@
   .z-30 {
     z-index: 30;
   }
+  .z-40 {
+    z-index: 40;
+  }
   .z-50 {
     z-index: 50;
   }
@@ -331,11 +333,11 @@
   .mt-\[0\.5cqw\] {
     margin-top: 0.5cqw;
   }
-  .mt-\[1cqw\] {
-    margin-top: 1cqw;
-  }
   .mt-\[0\.25cqw\] {
     margin-top: 0.25cqw;
+  }
+  .mt-\[1cqw\] {
+    margin-top: 1cqw;
   }
   .mt-\[2cqw\] {
     margin-top: 2cqw;
@@ -577,11 +579,11 @@
   .w-\[32\.4\%\] {
     width: 32.4%;
   }
-  .w-\[55cqw\] {
-    width: 55cqw;
-  }
   .w-\[40\%\] {
     width: 40%;
+  }
+  .w-\[55cqw\] {
+    width: 55cqw;
   }
   .w-\[62cqw\] {
     width: 62cqw;

@@ -140,9 +140,10 @@ export class EventResolver extends HTMLElement {
 
   async addCharacter() {
     if(this.currentEvent['eventType'] != 2) throw "Invalid Event Type"
+    const characterId = this.currentEvent['character'];
     this.dispatchEvent(new CustomEvent("add-character", {
       detail : {
-        characterId : this.currentEvent['character']
+        characterId : characterId,
       },
       bubbles : true
     }));
