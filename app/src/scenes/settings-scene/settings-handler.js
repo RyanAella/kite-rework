@@ -1,5 +1,6 @@
 import { loadAppSettings, saveAppSettings } from "../../shared-services/app-settings-session-service.js";
 import { hidePinnedModal, showPinnedModal } from "../../shared-services/information-popup-service.js";
+import { applyUserFontSize, fontSizeToCqw } from "../../shared-services/user-font-size-service.js";
 
 // Settings handler class to manage the settings UI and persistence
 export class SettingsHandler {
@@ -45,15 +46,16 @@ export class SettingsHandler {
       this.persistAndRefresh();
     };
 
-    // Set the type size slider listener
-    refs.typeSizeSlider.oninput = () => {
-      refs.exampleTextEl.style = `font-size: ${3 + Number(refs.typeSizeSlider.value) / 50}cqw`;
+    // Set the font size slider listener
+    refs.fontSizeSlider.oninput = () => {
+      refs.exampleTextEl.style = `font-size: ${fontSizeToCqw(refs.fontSizeSlider.value)}cqw`;
     };
 
-    // Set the type size button listener
-    refs.typeSizeButton.addEventListener("click", () => {
-      this.settings.typeSize = refs.typeSizeSlider.value;
+    // Set the font size button listener
+    refs.fontSizeButton.addEventListener("click", () => {
+      this.settings.fontSize = refs.fontSizeSlider.value;
       this.persistAndRefresh();
+      applyUserFontSize();
       refs.popup.setInformationText("Die Schriftgröße wurde angepasst");
       this.showPopup();
     });
@@ -80,8 +82,7 @@ export class SettingsHandler {
     const { refs } = this;
     refs.voiceOutputSwitch.src = `assets/Images/IconsAndLogos/Icon_Settings_${this.settings.voiceOutput ? "Active" : "Inactive"}.png`;
     refs.soundsSwitch.src = `assets/Images/IconsAndLogos/Icon_Settings_${this.settings.soundsActive ? "Active" : "Inactive"}.png`;
-    refs.typeSizeSlider.value = String(this.settings.typeSize);
-    console.log(refs.exampleTextEl);
+    refs.fontSizeSlider.value = String(this.settings.fontSize);
     if (this.settings.soundsActive) {
       refs.slidebarCover.classList.remove("bg-white/50");
       refs.slidebarCover.classList.add("pointer-events-none");
@@ -96,6 +97,6 @@ export class SettingsHandler {
   // Sync the example font from the slider
   syncExampleFontFromSlider() {
     const { refs } = this;
-    refs.exampleTextEl.style = `font-size: ${3 + Number(refs.typeSizeSlider.value) / 50}cqw`;
+    refs.exampleTextEl.style = `font-size: ${fontSizeToCqw(refs.fontSizeSlider.value)}cqw`;
   }
 }

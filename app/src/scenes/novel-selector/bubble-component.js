@@ -35,7 +35,7 @@ export function createBubble(novel) {
                 style = "background-color: ${novel.novelColor}"
             >
                 <!-- Text-Inhalt -->
-                <p class="text-[3cqw] p-[3.2cqw] font-semibold leading-normal mb-[3.2cqw] text-center">
+                <p class="user-font p-[3.2cqw] font-semibold leading-normal mb-[3.2cqw] text-center">
                     ${novel.description}
                 </p>
 

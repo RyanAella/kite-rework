@@ -110,6 +110,10 @@
   }
 }
 
+@utility user-font {
+  font-size: var(--user-font-size, 3cqw);
+}
+
 @utility slider {
   @apply [&::-webkit-slider-runnable-track]:h-[1.5cqw];
   @apply [&::-webkit-slider-runnable-track]:bg-[#0a1622];

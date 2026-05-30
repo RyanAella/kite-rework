@@ -45,7 +45,7 @@ class DataprivacyScene extends HTMLElement {
     this.personPopUp = PersonPopUp.create();
     this.personPopUp.config = {
       novelColor: "#132034",
-      title: 'Wenn du fortfährst, wird die App zurückgesetzt.\n\nWenn du dies möchtest, drücke auf "DATEN LÖSCHEN". Fals nicht, drücke auf "ABBRECHEN".',
+      title: 'Wenn du fortfährst, wird die App zurückgesetzt.\n\nWenn du dies möchtest, drücke auf "DATEN LÖSCHEN". Falls nicht, drücke auf "ABBRECHEN".',
       descriptions: [],
       buttons: [
           { text: "ABBRECHEN", isPrimary: true, onClick: () => {

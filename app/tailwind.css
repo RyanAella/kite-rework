@@ -480,6 +480,9 @@
   .h-\[6cqw\] {
     height: 6cqw;
   }
+  .h-\[7\.5cqw\] {
+    height: 7.5cqw;
+  }
   .h-\[9cqw\] {
     height: 9cqw;
   }
@@ -507,17 +510,8 @@
   .h-\[30cqw\] {
     height: 30cqw;
   }
-  .h-\[40cqw\] {
-    height: 40cqw;
-  }
-  .h-\[43cqw\] {
-    height: 43cqw;
-  }
   .h-\[45\%\] {
     height: 45%;
-  }
-  .h-\[70cqw\] {
-    height: 70cqw;
   }
   .h-\[80\%\] {
     height: 80%;
@@ -539,6 +533,15 @@
   }
   .min-h-\[20cqw\] {
     min-height: 20cqw;
+  }
+  .min-h-\[40cqw\] {
+    min-height: 40cqw;
+  }
+  .min-h-\[43cqw\] {
+    min-height: 43cqw;
+  }
+  .min-h-\[70cqw\] {
+    min-height: 70cqw;
   }
   .w-0 {
     width: calc(var(--spacing) * 0);
@@ -1196,9 +1199,6 @@
   .text-\[3\.2cqw\] {
     font-size: 3.2cqw;
   }
-  .text-\[3\.3cqw\] {
-    font-size: 3.3cqw;
-  }
   .text-\[3\.5cqw\] {
     font-size: 3.5cqw;
   }
@@ -1228,6 +1228,9 @@
   }
   .text-\[10cqw\] {
     font-size: 10cqw;
+  }
+  .user-font {
+    font-size: var(--user-font-size, 3cqw);
   }
   .leading-\[1\.55\] {
     --tw-leading: 1.55;

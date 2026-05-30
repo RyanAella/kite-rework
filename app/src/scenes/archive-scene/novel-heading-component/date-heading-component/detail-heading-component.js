@@ -22,7 +22,7 @@ export class DetailHeading extends HTMLElement {
 
     this.innerHTML = `
         <div id="detail-heading" class="flex flex-row border-b-5 h-[10cqw] items-center justify-center mx-[5cqw] p-4" style="border-color: ${this.hex}">
-          <p class="text-[4cqw] w-full text-center" style="color: ${this.hex}">${this.title}</p>
+          <p class="user-font w-full text-center" style="color: ${this.hex}">${this.title}</p>
           <div 
             id="arrow-img"
             class="w-[6cqw] h-[6cqw]"
@@ -77,7 +77,7 @@ export class DetailHeading extends HTMLElement {
         this.arrowImg.style.maskImage = "url('assets/Images/DropDown/Arrow_Down.png')"
         this.arrowImg.style.webkitMaskImage = "url('assets/Images/DropDown/Arrow_Down.png')"
         const content = document.createElement('div');
-        content.classList = "flex flex-col gap-[2cqw] text-[3cqw]"
+        content.classList = "user-font flex flex-col gap-[2cqw]"
         content.innerHTML = this.extendedHTML;
         this.contentContainer.replaceChildren(content, copyButton);
       } else {

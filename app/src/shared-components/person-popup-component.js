@@ -77,23 +77,26 @@ export class PersonPopUp extends HTMLElement {
       "relative z-10 w-full text-white rounded-t-[3cqw] rounded-b-[3cqw] p-[6cqw] flex flex-col gap-[4cqw] font-sans";
     modal.style.backgroundColor = novelColor;
 
+    // Add the title if it is provided
     if (title) {
       const titleEl = document.createElement("h2");
       titleEl.innerText = title;
-      titleEl.className = "text-[3cqw] mb-[5cqw]";
+      titleEl.className = "user-font mb-[5cqw]";
       modal.appendChild(titleEl);
     }
 
+    // Add the info text if it is provided
     if (infoText) {
       const infoEl = document.createElement("p");
-      infoEl.className = "text-[3cqw] leading-relaxed mb-[8cqw]";
+      infoEl.className = "user-font leading-relaxed mb-[8cqw]";
       infoEl.innerText = infoText;
       modal.appendChild(infoEl);
     }
 
+    // Add the descriptions if they are provided
     if (descriptions.length > 0) {
       const list = document.createElement("div");
-      list.className = "flex flex-col gap-[1.5cqw] text-[3cqw] leading-snug";
+      list.className = "user-font flex flex-col gap-[1.5cqw] leading-snug";
       for (const { label, text } of descriptions) {
         const line = document.createElement("p");
         line.className = "my-0";
@@ -103,6 +106,7 @@ export class PersonPopUp extends HTMLElement {
       modal.appendChild(list);
     }
 
+    // Add the buttons if they are provided
     const btnContainer = document.createElement("div");
     btnContainer.className = btnContainerClass;
     for (const buttonConfig of buttons) {
@@ -113,7 +117,7 @@ export class PersonPopUp extends HTMLElement {
     return modal;
   }
 
-  // Create a button
+  // Create a button with the given configuration
   createButton({ text, isPrimary, onClick, className }, novelColor) {
     const btn = document.createElement("button");
     btn.innerText = text;

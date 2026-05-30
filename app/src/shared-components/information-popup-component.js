@@ -8,12 +8,12 @@ class InformationPopupComponent extends HTMLElement {
       "col-start-1 row-start-1 flex h-full w-full items-center justify-center bg-white/50";
 
     this.innerHTML = `
-      <div class="flex h-[43cqw] w-[85cqw] flex-col items-center rounded-[2cqw] bg-[#132034]">
+      <div class="flex min-h-[43cqw] w-[85cqw] flex-col items-center rounded-[2cqw] bg-[#132034]">
         <div class="mb-[5cqw] w-[80cqw] border-b-[0.5cqw] p-[2cqw] text-center text-[5cqw] text-white">
           INFORMATION
         </div>
-        <p id="popup-information-text" class="h-[40cqw] w-[80cqw] text-[3cqw] text-white"></p>
-        <div id="popup-button" class="mb-[5cqw] flex h-[20cqw] w-[30cqw] items-center justify-center border-[0.2cqw] text-[3cqw] text-white">
+        <p id="popup-information-text" class="user-font mb-[2cqw] w-[80cqw] text-white"></p>
+        <div id="popup-button" class="mt-auto mb-[5cqw] flex h-[7.5cqw] w-[30cqw] items-center justify-center border-[0.2cqw] text-[3cqw] text-white">
           OK
         </div>
       </div>

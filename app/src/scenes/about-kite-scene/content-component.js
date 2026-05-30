@@ -89,10 +89,10 @@ export function buildAboutKiteContentComponent(einstiegNovel) {
     <div class="flex w-full justify-center pb-[4cqw] pt-[4cqw]">
       ${buildAboutKiteHexHtml(einstiegNovel)}
     </div>
-    <p class="mb-[3.2cqw] text-[3.6cqw] font-semibold text-[#0b1a2d]">
+    <p class="user-font mb-[3.2cqw] font-semibold text-[#0b1a2d]">
       KITE - kurz erklärt
     </p>
-    ${renderDocumentSections(ABOUT_KITE_SECTIONS)}
+    ${renderDocumentSections(ABOUT_KITE_SECTIONS, { variant: "documentUserScalable" })}
     <div class="mt-[8cqw] flex w-full max-w-full flex-col items-center gap-[3.2cqw]">
       <button type="button" data-about-nav="novel-selector"
         class="w-[62cqw] max-w-full rounded border-[0.1cqw] border-transparent bg-[#0B1A2D] px-[1.8cqw] py-[3.2cqw] text-center text-[3.2cqw] font-bold uppercase tracking-wider text-white transition-opacity active:opacity-80">

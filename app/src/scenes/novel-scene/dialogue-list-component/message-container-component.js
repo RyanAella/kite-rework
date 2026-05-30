@@ -9,7 +9,7 @@ export class MessageContainer extends HTMLElement {
   addMessage(text, isUser = false, characterId, isInstant = false) {
     return new Promise((resolve) => {
       const messageBox = document.createElement('div');
-      const baseClasses = "leading-relaxed text-white p-[2cqw] rounded-[1.6cqw] text-[3cqw] text-left grid origin-bottom animate-pop-in";
+      const baseClasses = "user-font leading-relaxed text-white p-[2cqw] rounded-[1.6cqw] text-left grid origin-bottom animate-pop-in";
 
       if(isUser || characterId == 1) {
         console.log("ID -> " + characterId);

@@ -10,27 +10,27 @@ class SettingsContentComponent extends HTMLElement {
         Audio-Optionen
       </div>
 
-      <div class="mb-[3cqw] h-[40cqw] w-full rounded-[2cqw] bg-white p-[2cqw] font-semibold">
+      <div class="mb-[3cqw] min-h-[40cqw] w-full rounded-[2cqw] bg-white p-[2cqw] font-semibold">
         <div class="flex h-[12cqw] w-full flex-row">
           <img draggable="false" class="h-full scale-50 object-cover" src="assets/Images/IconsAndLogos/Icon_Dialogue.png" alt="" />
           <p class="flex h-full items-center text-[5cqw] text-[#14305d]">Dialoge Vorlesen</p>
           <img draggable="false" id="voice-output-switch" class="mr-[5%] ml-auto h-full object-cover" src="assets/Images/IconsAndLogos/Icon_Settings_Inactive.png" alt="" />
         </div>
-        <p class="w-full text-[3cqw] font-medium tracking-wide text-[#14305d]">
+        <p class="user-font w-full font-medium tracking-wide text-[#14305d]">
           Dieser Button schaltet die Sprachausgabe in den Visual Novels an bzw. aus. Ist die Sprachausgabe aktiviert, werden die Dialoge vertont und der Text, auf welchen du drückst, wird dir vorgelesen.
         </p>
       </div>
 
-      <div class="mb-[5cqw] h-[70cqw] w-full rounded-[2cqw] bg-white p-[2cqw] font-semibold">
+      <div class="mb-[5cqw] min-h-[70cqw] w-full rounded-[2cqw] bg-white p-[2cqw] font-semibold">
         <div class="flex h-[12cqw] w-full flex-row">
           <img draggable="false" class="h-full scale-50 object-cover" src="assets/Images/IconsAndLogos/Icon_Soundeffect.png" alt="" />
           <p class="flex h-full items-center text-[5cqw] text-[#14305d]">Sounds aktivieren</p>
           <img draggable="false" id="sound-switch" class="mr-[5%] ml-auto h-full object-cover" src="assets/Images/IconsAndLogos/Icon_Settings_Inactive.png" alt="" />
         </div>
-        <p class="w-full text-[3cqw] font-medium tracking-wide text-[#14305d]">
+        <p class="user-font w-full font-medium tracking-wide text-[#14305d]">
           Hier kannst du Soundeffekte der gesammten App aktivieren und ihre Laudstärke steuern, unabhängig von der Vorleselautstärke
         </p>
-        <p class="w-full text-[3cqw] font-medium tracking-wide text-[#14305d]">
+        <p class="user-font w-full font-medium tracking-wide text-[#14305d]">
           Hinweis: Ist die Systemlautstärke auf 0 gestellt, oder der Stumm-Modus von iOS-Geräten aktiv, sind die Soundeffekte nicht hörbar.
         </p>
 
@@ -50,7 +50,7 @@ class SettingsContentComponent extends HTMLElement {
         Textdarstellung
       </div>
 
-      <div class="mb-[5cqw] h-[70cqw] w-full rounded-[2cqw] bg-white p-[2cqw] font-semibold">
+      <div class="mb-[5cqw] min-h-[70cqw] w-full rounded-[2cqw] bg-white p-[2cqw] font-semibold">
         <div class="flex h-[12cqw] w-full flex-row">
           <img draggable="false" class="h-full scale-50 object-cover" src="assets/Images/IconsAndLogos/Icon_Typesize.png" alt="" />
           <p class="flex h-full items-center text-[5cqw] text-[#14305d]">Schriftgröße anpassen</p>
@@ -59,18 +59,18 @@ class SettingsContentComponent extends HTMLElement {
         <div class="flex h-[15cqw] w-full items-center">
           <div class="mx-[10cqw] flex h-[5cqw] items-center text-[5cqw]">A</div>
           <div class="[container-type:inline-size] h-[5cqw] w-full">
-            <input type="range" min="0" max="100" value="80" id="typeSize-slider" class="slider h-full w-full appearance-none" />
+            <input type="range" min="0" max="100" value="50" id="fontSize-slider" class="slider h-full w-full appearance-none" />
           </div>
           <div class="mx-[10cqw] flex h-[5cqw] items-center text-[10cqw]">A</div>
         </div>
 
         <div id="example-text" class="mb-[3cqw] w-full text-center font-medium tracking-wide">Beispieltext</div>
 
-        <p class="mb-[3cqw] w-full text-[3cqw] font-medium tracking-wide text-[#14305d]">
+        <p class="user-font mb-[3cqw] w-full font-medium tracking-wide text-[#14305d]">
           Mit dem Regler kannst du die Schriftgröße für die meisten Texte in der App anpassen. An dem Beispieltext kannst du sehen, wie groß die Texte angezeigt werden, sobald du bestätigst.
         </p>
 
-        <div id="typeSize-button" class="flex h-[9cqw] w-full items-center justify-center bg-[#132e59] text-[3cqw] font-medium text-white">
+        <div id="fontSize-button" class="user-font flex h-[9cqw] w-full items-center justify-center bg-[#132e59] font-medium text-white">
           SCHRIFTGRÖSSE FESTLEGEN
         </div>
       </div>
