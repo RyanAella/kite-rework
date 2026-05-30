@@ -16,11 +16,11 @@ class CardOverlayComponent extends HTMLElement {
         this.detailCard.className = "w-full bg-white p-[5cqw] rounded-[3cqw] flex flex-col gap-[4cqw]";
 
         this.detailTitle = document.createElement('h2');
-        this.detailTitle.className = "text-[#14305d] text-[3cqw] font-bold text-center";
+        this.detailTitle.className = "user-font text-[#14305d] font-bold text-center";
         this.detailTitle.innerText = this.args.title;
 
         this.detailText = document.createElement('p');
-        this.detailText.className = "text-[#14305d] text-[3.3cqw] leading-[5cqw] whitespace-pre-wrap"; // whitespace-pre-wrap respektiert Zeilenumbrüche im Text
+        this.detailText.className = "user-font text-[#14305d] leading-[5cqw] whitespace-pre-wrap"; // whitespace-pre-wrap respektiert Zeilenumbrüche im Text
 
         if (this.args.sourceUrl) {
             // Wir suchen das Wort "(Quelle)" im Text und ersetzen es durch einen echten HTML-Link

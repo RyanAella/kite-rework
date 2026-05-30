@@ -4,7 +4,7 @@ export const DEFAULT_APP_SETTINGS = {
   voiceOutput: false,
   soundsActive: true,
   soundVolume: 100,
-  typeSize: 0,
+  fontSize: 50,
 };
 
 // Ensure the settings defaults are set in the session storage

@@ -45,9 +45,9 @@ class SettingsScene extends HTMLElement {
       soundsSwitch: content.querySelector("#sound-switch"),
       volumeSlider: content.querySelector("#volume-slider"),
       slidebarCover: content.querySelector("#slidebar-cover"),
-      typeSizeSlider: content.querySelector("#typeSize-slider"),
+      fontSizeSlider: content.querySelector("#fontSize-slider"),
       exampleTextEl: content.querySelector("#example-text"),
-      typeSizeButton: content.querySelector("#typeSize-button"),
+      fontSizeButton: content.querySelector("#fontSize-button"),
     });
 
     // Attach event listeners to the settings handler

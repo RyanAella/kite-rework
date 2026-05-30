@@ -15,6 +15,13 @@ const VARIANT_STYLES = {
     paragraph: "mb-[2.4cqw] text-[3.6cqw] leading-tight text-[#0b1a2d]",
     link: "text-blue-700 underline break-words",
   },
+  documentUserScalable: {
+    heading: (top) =>
+      `user-font mb-[3.2cqw] font-bold text-[#0b1a2d]${top}`,
+    linesBlock: "user-font mb-[3.2cqw] leading-tight text-[#0b1a2d]",
+    paragraph: "user-font mb-[2.4cqw] leading-tight text-[#0b1a2d]",
+    link: "text-blue-700 underline break-words",
+  },
   consentAccordion: {
     heading: (top) => `mb-[2cqw] text-[3cqw] font-bold text-white${top}`,
     linesBlock: "mb-[2cqw] text-[2.85cqw] leading-snug text-white/90",
@@ -39,7 +46,9 @@ function isSafeHref(href) {
 }
 
 function getVariantStyles(variant) {
-  return VARIANT_STYLES[variant] || VARIANT_STYLES.document;
+  if (variant === "consentAccordion") return VARIANT_STYLES.consentAccordion;
+  if (variant === "documentUserScalable") return VARIANT_STYLES.documentUserScalable;
+  return VARIANT_STYLES.document;
 }
 
 // One paragraph: plain string or array of text / link segments
@@ -66,7 +75,7 @@ function renderParagraphBlock(p, variant) {
 
 // Build HTML for sections (heading, optional lines, optional paragraphs).
 export function renderDocumentSections(sections, options = {}) {
-  const variant = options.variant === "consentAccordion" ? "consentAccordion" : "document";
+  const variant = options.variant ?? "document";
   const styles = getVariantStyles(variant);
   if (!sections || !sections.length) return "";
   return sections

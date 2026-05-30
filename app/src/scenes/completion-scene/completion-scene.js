@@ -33,11 +33,11 @@ class CompletionScene extends HTMLElement {
         // Here will be later on the content dynamically set from the AI.
         const infoText = document.createElement("p");
         infoText.innerText = "Leider ist aktuell keine KI-Analyse verfügbar.";
-        infoText.className = "text-[#14305d] text-[3.2cqw] leading-[6cqw] text-left self-start";
+        infoText.className = "user-font text-[#14305d] leading-[6cqw] text-left self-start";
 
         const disclaimerText = document.createElement("p");
         disclaimerText.innerText = "Hinweis: Analyse und Feedback wurden durch KI künstlich erzeugt. Eine individuelle Beratung wird hierdurch nicht ersetzt.";
-        disclaimerText.className = "text-[#14305d] text-[3cqw] italic leading-[5.5cqw] text-center";
+        disclaimerText.className = "user-font text-[#14305d] italic leading-[5.5cqw] text-center";
 
         // Bottom Button (Instanz 2)
         const bottomBtn = this.createActionButton();

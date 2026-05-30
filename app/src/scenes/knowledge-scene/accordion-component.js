@@ -30,7 +30,7 @@ class Accordion extends HTMLElement {
 
             // Der orange Button
             const catBtn = document.createElement('button');
-            catBtn.className = "w-full bg-[#F5944E] flex justify-between items-center p-[2cqw] rounded-[2cqw] text-white text-[3cqw] text-left";
+            catBtn.className = "user-font w-full bg-[#F5944E] flex justify-between items-center p-[2cqw] rounded-[2cqw] text-white text-left";
             
             const catTitle = document.createElement('span');
             catTitle.innerText = category.title;
@@ -69,11 +69,11 @@ class Accordion extends HTMLElement {
                 
                 const title = document.createElement('h3');
                 title.innerText = item.title;
-                title.className = "text-[#14305d] text-[3cqw] font-bold";
+                title.className = "user-font text-[#14305d] font-bold";
 
                 const teaser = document.createElement('p');
                 teaser.innerText = item.fullText;
-                teaser.className = "text-[#14305d]/80 text-[3.3cqw] leading-[4.5cqw] line-clamp-4"; // line-clamp kürzt den Text mit "..."
+                teaser.className = "user-font text-[#14305d]/80 leading-[4.5cqw] line-clamp-4"; // line-clamp kürzt den Text mit "..."
 
                 card.appendChild(title);
                 card.appendChild(teaser);
