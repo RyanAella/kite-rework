@@ -75,7 +75,10 @@ export class EventResolver extends HTMLElement {
         if(this.tracking) setCompletedFlag(this.storageKey);
         this.dispatchEvent(new CustomEvent("sm-switch-scene", {
           detail: {
-            scene : `${this.tracking ? "completion-scene" : "novel-selector"}`
+            scene : `${this.tracking ? "completion-scene" : "novel-selector"}`,
+            args: {
+              novelName: this.novelName
+            } 
           },
           bubbles : true
         }));

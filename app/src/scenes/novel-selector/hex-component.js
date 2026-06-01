@@ -1,13 +1,30 @@
-export function createHex(posX, posY, novel, isInfo = false, isBookmarked) {
+export function createHex(posX, posY, novel, isInfo = false, isBookmarked, archiveData, args) {
     const left = posX / 10;
     const top = (posY / 10) + 50;
     const w = 29.6; // 296/10
     const h = 26.6; // 266/10
 
+    console.log(archiveData);
+    console.log(args);
+    let novelname = novel.name;
+    let keyValuePair = Object.entries(archiveData).find(([key, value]) => novelname == key);
+    let value = keyValuePair ? keyValuePair[1] : null;
+    const numberOfPlayedDiaogues = value != null ? value.length : 0;
+    const returnFromCompletion = args && args.fromCompletion && args.novelName == novelname;
+    const displayCount = (returnFromCompletion && numberOfPlayedDiaogues > 0) ? 
+        (numberOfPlayedDiaogues - 1) : numberOfPlayedDiaogues;
+
     // Bookmark Marker: only show for non-info hexes and if the novel is bookmarked
     const bookmarkMarker = (!isInfo && isBookmarked(novel.name))
         ? '<div class="hex-bookmarked-marker" role="presentation"></div>'
         : '';
+
+    const counterBubble = (value != null) ?
+        `
+                <div class="absolute bottom-[2.5cqw] left-1/2 -translate-x-1/2 flex justify-center items-center w-[5cqw] h-[5cqw] bg-[#fe5d03] rounded-full text-white font-mono z-20">
+                    <span class="bubble-number" data-new-value="${numberOfPlayedDiaogues}">${displayCount}</span>
+                </div>
+        ` : '';
 
     return `
         <div ${isInfo ? 'id="InfoHex"' : `data-id="${novel.name}"`}
@@ -27,6 +44,7 @@ export function createHex(posX, posY, novel, isInfo = false, isBookmarked) {
             <div class="relative z-10 w-[80%] text-center text-white text-[3.6cqw] font-semibold select-none pointer-events-none">
                 ${novel.title}
             </div>
+            ${counterBubble}
         </div>
     `;
 }

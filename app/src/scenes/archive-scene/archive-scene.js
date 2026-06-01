@@ -1,6 +1,6 @@
 import { addDragScrolling } from "../../shared-services/drag-scrolling.js";
-import { readJson, writeJson } from "../../shared-services/store-service.js";
 import { NovelHeading } from "./novel-heading-component/novel-heading-component.js";
+import { getArchiveData } from "../../shared-services/archive-data-service.js";
 
 class ArchiveScene extends HTMLElement {
 
@@ -63,33 +63,7 @@ class ArchiveScene extends HTMLElement {
   }
 
   addHeadings() {
-
-    const storageJson = readJson("archive");
-    if(storageJson == undefined) {
-      this.addEmptyinfoText();
-      return;
-    }
-
-    const rawData = Object.values(readJson("archive"));
-    let data = {};
-    console.log(rawData);
-    
-    rawData.forEach(element => {
-      if(element.completed == false) {
-        return;
-      }
-      const novelName = element.novelName;
-      console.log(element);
-      if(data[novelName] == null) {
-        data[novelName] = [];
-      }
-      delete element["novelName"];
-      data[novelName].push(element);
-    });
-
-    console.log(data);
-    this.instanceData = data;
-
+    this.instanceData = getArchiveData(true);
 
     if(Object.entries(this.instanceData).length === 0) {
       this.addEmptyinfoText();
@@ -99,15 +73,8 @@ class ArchiveScene extends HTMLElement {
       console.log(key);
       console.log(value);
       const heading = NovelHeading.create(this.novelData.visualNovels.find((element) => element.name == key), value);
-      this.novelContainer.appendChild(heading);2
+      this.novelContainer.appendChild(heading);
     });
-  }
-
-  addEmptyinfoText() {
-    let emptyText = document.createElement("p");
-    emptyText.classList = "text-[3.6cqw] font-medium tracking-tight text-[#284673]"
-    emptyText.innerHTML = "Spiele eine Novel, um hier deinen ersten Eintrag zu sehen."
-    this.novelContainer.appendChild(emptyText);
   }
 
   createPopUp() {

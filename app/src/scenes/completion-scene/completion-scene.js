@@ -68,7 +68,13 @@ class CompletionScene extends HTMLElement {
 
     returnToMainMenu() {
         this.dispatchEvent(new CustomEvent("sm-switch-scene", {
-            detail: { scene: "novel-selector" },
+            detail: { 
+                scene: "novel-selector",
+                args: { 
+                    fromCompletion: true,
+                    novelName: this.args.novelName
+                }
+            },
             bubbles: true
         }));
     }

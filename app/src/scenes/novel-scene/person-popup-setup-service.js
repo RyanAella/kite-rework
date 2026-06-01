@@ -19,7 +19,7 @@ export function isIntroNovel(novel) {
 }
 
 // Create the pause pop-up
-export function createPausePopUp(novel, { onLeaveNovel, onResume, onPause }) {
+export function createPausePopUp(novel, { onLeaveNovel, onResume, onPause, onFinish }) {
   const popUp = PersonPopUp.create();
   const intro = isIntroNovel(novel);
 
@@ -27,7 +27,7 @@ export function createPausePopUp(novel, { onLeaveNovel, onResume, onPause }) {
     novelColor: novel["novelColor"],
     title: "Was möchtest du tun?",
     descriptions: buildPauseDescriptions(intro),
-    buttons: buildPauseButtons(popUp, intro, { onLeaveNovel, onResume, onPause }),
+    buttons: buildPauseButtons(popUp, intro, { onLeaveNovel, onResume, onPause, onFinish }),
     overlayClass: PAUSE_OVERLAY_CLASS,
   };
 
@@ -52,7 +52,7 @@ function buildPauseDescriptions(intro) {
 }
 
 // Build the buttons for the pause pop-up
-function buildPauseButtons(popUp, intro, { onLeaveNovel, onResume, onPause }) {
+function buildPauseButtons(popUp, intro, { onLeaveNovel, onResume, onPause, onFinish }) {
   const buttons = [
     { 
       text: "WEITERSPIELEN", isPrimary: true, onClick: () => { 
@@ -73,7 +73,7 @@ function buildPauseButtons(popUp, intro, { onLeaveNovel, onResume, onPause }) {
   buttons.push({ text: "ABBRECHEN", isPrimary: false, onClick: onLeaveNovel });
 
   if (!intro) {
-    buttons.push({ text: "ABSCHLIEßEN", isPrimary: false, onClick: onPause });
+    buttons.push({ text: "ABSCHLIEßEN", isPrimary: false, onClick: onFinish });
   }
 
   return buttons;
