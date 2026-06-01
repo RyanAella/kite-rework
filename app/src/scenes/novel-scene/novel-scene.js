@@ -14,6 +14,7 @@ import { EventResolver } from "./event-resolver-component.js";
 import { attachDialogueSkipOnOutsideClick } from "./dialogue-list-component/dialogue-skip-service.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
 import { novelStateStore } from "../../shared-services/store-service.js";
+import { setCompletedFlag } from "../../shared-services/progress-tracking-service.js";
 
 class NovelScene extends HTMLElement {
 
@@ -60,6 +61,16 @@ class NovelScene extends HTMLElement {
       onLeaveNovel: () => {
           novelStateStore.clear(this.novel.name);
           this.switchToNovelSelector();
+      },
+      onFinish: () => {
+        console.log("Finishing event entered.");
+        if(this.eventResolver.tracking) setCompletedFlag(this.eventResolver.storageKey);
+        this.dispatchEvent(new CustomEvent("sm-switch-scene", {
+          detail: {
+            scene : `${this.eventResolver.tracking ? "completion-scene" : "novel-selector"}`
+          },
+          bubbles : true
+        }))
       }
     });
     

@@ -4,6 +4,8 @@ import { createHex } from './hex-component.js';
 import { moveElements } from './move-elements-service.js';
 import { createBubble, removeBubble, refreshHexBookmarkMarker, bubbleAnimation } from "./bubble-component.js";
 import { bookmarkedNovelStore } from '../../shared-services/store-service.js';
+import { getArchiveData } from "../../shared-services/archive-data-service.js";
+import { playNumberBlinkSequence } from "./bubble-animation-service.js";
 
 const viewportSize = 1000;
 
@@ -27,6 +29,8 @@ class NovelSelector extends HTMLElement {
     bookmarkedNovels = new Set();
 
     isBookmarked = (novelName) => this.bookmarkedNovels.has(novelName);
+    
+    archiveData = getArchiveData();
 
     toggleBookmarked = (novelName) => {
         bookmarkedNovelStore.toggle(this.bookmarkedNovels, novelName);
@@ -39,6 +43,10 @@ class NovelSelector extends HTMLElement {
         this.addEventListeners();
         this.boundMovedElements = moveElements.bind(this, hexScrollingFactor, viewportSize, hexSizeX);
         this.boundMovedElements();
+        if (this.args && this.args.fromCompletion) {
+            console.log(this.args);
+            playNumberBlinkSequence();
+        }
     }
     
     async loadNovels() {
@@ -52,10 +60,10 @@ class NovelSelector extends HTMLElement {
     renderHTML() {
         let counter = 0;
         const novelItemsHtml = this.novels.map(novel => {
-            return `${createHex(counter*hexXDiff, counter++%2==0 ? hexYEven : hexYOdd, novel, false, this.isBookmarked)}`;
+            return `${createHex(counter*hexXDiff, counter++%2==0 ? hexYEven : hexYOdd, novel, false, this.isBookmarked, this.archiveData, this.args)}`;
         }).join('');
 
-        const infoHex = createHex(infoHexPos.x, infoHexPos.y, this.einstiegNovel, true, this.isBookmarked);
+        const infoHex = createHex(infoHexPos.x, infoHexPos.y, this.einstiegNovel, true, this.isBookmarked, this.archiveData, this.args);
 
         // base structure
         this.innerHTML = 
