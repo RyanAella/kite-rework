@@ -14,12 +14,15 @@ export class ContainerComponent extends HTMLElement {
         header.addEventListener('sm-back', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            const targetScene = "novel-selector";
+
+            if (this.querySelector('card-overlay-component')) {
+                this.closeKnowledgeCardOverlay();
+                return;
+            }
+
             this.dispatchEvent(new CustomEvent("sm-switch-scene", {
-                detail: { 
-                    scene : targetScene,
-                },
-                bubbles : true
+                detail: { scene: "novel-selector" },
+                bubbles: true,
             }));
         });
         this.appendChild(header);
@@ -38,6 +41,18 @@ export class ContainerComponent extends HTMLElement {
         const footer = document.createElement("main-footer");
         footer.setAttribute("active-scene", "knowledge-scene");
         this.appendChild(footer);
+    }
+
+    closeKnowledgeCardOverlay() {
+        const activeOverlay = this.querySelector('card-overlay-component');
+        const accordion = this.querySelector('accordion-element');
+        if (!activeOverlay || !accordion) return;
+
+        activeOverlay.remove();
+        accordion.classList.remove('hidden');
+        this.querySelector('searchbar-component')?.classList.remove('hidden');
+        document.getElementById('intro-text')?.classList.remove('hidden');
+        document.getElementById('sub-intro')?.classList.remove('hidden');
     }
 
     buildTopSection() {
