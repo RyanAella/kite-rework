@@ -26,30 +26,6 @@ class KnowledgeScene extends HTMLElement {
     const accordion = document.createElement("accordion-element");
     accordion.args = { cards: this.cardElements, categories: this.categoryElements }
 
-    // Dieses Event fängt das back button event im header ab um die card wieder auszubleneden wenn sie angezeigt
-    // war, sodass nicht direkt zum menü geswitcht wird.
-    this.addEventListener('sm-switch-scene', (e) => {
-        // Wir suchen im DOM, ob gerade eine Detail-Karte existiert
-        const activeOverlay = this.querySelector('card-overlay-component');
-        const accordion = this.querySelector('accordion-element');
-
-        if (activeOverlay && accordion) {
-            // 1. Stoppt das Event! Der globale SceneManager wechselt die Szene NICHT.
-            e.stopPropagation();
-            
-            // 2. Wir löschen die Karte restlos aus dem Speicher
-            activeOverlay.remove();
-            
-            // 3. Wir blenden das Accordion und weitere Elemente mit dem alten Zustand wieder ein
-            accordion.classList.remove('hidden');
-            searchBar.classList.remove('hidden');
-            const introText = document.getElementById("intro-text");
-            const subIntro = document.getElementById("sub-intro");
-            introText.classList.remove('hidden');
-            subIntro.classList.remove('hidden');
-        }
-    });
-    
     this.mainScrollContainer.appendChild(accordion);
   }
 
