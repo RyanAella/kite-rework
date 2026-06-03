@@ -4,7 +4,7 @@ export function getArchiveData(calledFromArchive) {
     const storageJson = readJson("archive");
     if(storageJson == undefined && calledFromArchive) {
         addEmptyinfoText();
-        return;
+        return [];
     }
 
     const rawData = Object.values(readJson("archive", []));

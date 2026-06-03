@@ -20,6 +20,7 @@ class SceneManager extends HTMLElement {
   constructor() {
     super();
     this.sceneHistory = []; // Initialize scene history stack
+    this.enterFirstTime = true;
   }
 
   connectedCallback() {

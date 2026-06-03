@@ -6,6 +6,7 @@ import { createBubble, removeBubble, refreshHexBookmarkMarker, bubbleAnimation }
 import { bookmarkedNovelStore } from '../../shared-services/store-service.js';
 import { getArchiveData } from "../../shared-services/archive-data-service.js";
 import { playNumberBlinkSequence } from "./bubble-animation-service.js";
+import { playIntroAnimation } from "./intro-animation-service.js";
 
 const viewportSize = 1000;
 
@@ -46,6 +47,15 @@ class NovelSelector extends HTMLElement {
         if (this.args && this.args.fromCompletion) {
             console.log(this.args);
             playNumberBlinkSequence();
+        }
+
+        // Status-Flag, um die Animation bei Nutzerinteraktion abzubrechen
+        this.isAnimatingIntro = true; 
+
+        this.sceneManager = document.querySelector("scene-manager");
+        this.boundPlayAnimation = playIntroAnimation.bind(this, hexScrollingFactor, viewportSize, hexSizeX);
+        if (this.sceneManager.enterFirstTime) {
+            setTimeout(() => this.boundPlayAnimation(), 1000);
         }
     }
     
@@ -98,6 +108,7 @@ class NovelSelector extends HTMLElement {
     addEventListeners() {
 
         const dragStart = (event) => {
+            this.isAnimatingIntro = false;
             this.isDown = true;
             this.startX = event.pageX ?? event.changedTouches[0].screenX;
         }
@@ -119,6 +130,7 @@ class NovelSelector extends HTMLElement {
         }
 
         this.addEventListener("wheel", (e) => {
+            this.isAnimatingIntro = false;
             console.log("Wheel Event " + e.deltaY);
             this.bgPos -= (e.deltaY + e.deltaX);
             this.scrollingVelocity = -(e.deltaY + e.deltaX);

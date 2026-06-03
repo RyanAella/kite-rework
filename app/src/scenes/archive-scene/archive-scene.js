@@ -65,10 +65,6 @@ class ArchiveScene extends HTMLElement {
   addHeadings() {
     this.instanceData = getArchiveData(true);
 
-    if(Object.entries(this.instanceData).length === 0) {
-      this.addEmptyinfoText();
-      return;
-    }
     Object.entries(this.instanceData).forEach(([key, value]) => {
       console.log(key);
       console.log(value);
