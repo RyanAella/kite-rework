@@ -26,37 +26,52 @@ class SceneManager extends HTMLElement {
   connectedCallback() {
     console.log("Added New Scene Manager");
 
-    this.addEventListener("sm-switch-scene", (event) => { this.switchScene(event)});
-    this.addEventListener("sm-clear-scene", (event) => { this.clearScene(event)});
+    this.addEventListener("sm-switch-scene", (event) => { this.switchScene(event.detail.scene, event.detail.args)});
+    this.addEventListener("sm-clear-scene", (event) => { this.clearScene()});
     this.addEventListener("sm-back", () => { this.switchToLastScene() });
 
     if (TermsConsentScene.hasLegalConsentCached()) {
-      const startScene = document.createElement("start-scene");
-      this.appendChild(startScene);
-      this.sceneHistory.push({ scene: "start-scene", args: null });
+      this.switchScene("start-scene");
     } else {
-      const termsScene = document.createElement("terms-consent-scene");
-      this.appendChild(termsScene);
-      this.sceneHistory.push({ scene: "terms-consent-scene", args: null });
+      this.switchScene("terms-consent-scene");
     }
   }
 
-  switchScene(event) {
-    const sceneName = event.detail?.scene;
-    console.log(`Registered switchScene event: Switching to "${sceneName}"`);
+  getCurrentScene() {
+    if (this.childNodes.length === 0) {
+      return false;
+    }
+    if(this.childNodes.length > 1) {
+      throw `${this.childNodes.length} Scenes in DOM`;
+    }
+    return this.childNodes[0];
+  }
 
-    if (event.detail && typeof event.detail.scene === 'string') {
-      const newScene = document.createElement(event.detail.scene);
-      newScene.args = event.detail.args;
+  /**
+   * Switches from the current scene to the provided new Scene.
+   * @param {String} scene 
+   * @param {Object} args 
+   */
+  switchScene(scene, args) {
+    console.log(`Registered switchScene event: Switching to "${scene}"`);
 
-      // Push the new scene to the history stack
-      this.sceneHistory.push({ scene: sceneName, args: event.detail?.args });
+    if (scene) {
+      const newScene = document.createElement(scene);
+      newScene.args = args;
+
+      // Push the current scene to the history stack
+      if (this.getCurrentScene() && !this.getCurrentScene().preventHistoryPush) {
+        this.sceneHistory.push({ scene: this.getCurrentScene().tagName.toLowerCase(), args: this.getCurrentScene().args });
+      }
 
       this.replaceChildren(newScene);
     }
   }
   
-  clearScene(event) {
+  /**
+   * Removes the current Scene and Clears the Scene History
+   */
+  clearScene() {
     console.log("Registered clearScene event");
     // Remove all current scenes and reset history
     this.replaceChildren();
@@ -64,25 +79,11 @@ class SceneManager extends HTMLElement {
   }
 
   switchToLastScene() {
-    if (this.sceneHistory.length > 1) {
+    if (this.sceneHistory.length > 0) {
       // Remove current scene from the stack
-      this.sceneHistory.pop();
-
-      // Special-case: if a scene was opened from about-kite via a path
-      // that inserted novel-selector in between, "Zurück" should still
-      // return to about-kite-scene.
-      const previousScene = this.sceneHistory[this.sceneHistory.length - 1];
-      const beforePreviousScene = this.sceneHistory[this.sceneHistory.length - 2];
-      if (
-        this.sceneHistory.length > 1 &&
-        previousScene?.scene === "novel-selector" &&
-        beforePreviousScene?.scene === "about-kite-scene"
-      ) {
-        this.sceneHistory.pop();
-      }
+      const lastSceneData = this.sceneHistory.pop();
 
       // Create and load the previous scene
-      const lastSceneData = this.sceneHistory[this.sceneHistory.length - 1];
       const newScene = document.createElement(lastSceneData.scene.toLowerCase());
       newScene.args = lastSceneData.args;
       this.replaceChildren(newScene);
