@@ -180,8 +180,7 @@ class NovelSelector extends HTMLElement {
             e.stopPropagation(); 
             this.dispatchEvent(new CustomEvent("sm-switch-scene", {
                 detail: { scene: "about-kite-scene" },
-                bubbles: true,   
-                composed: true, 
+                bubbles: true
             }));
         });
     }

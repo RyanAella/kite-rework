@@ -18,6 +18,12 @@ import { setCompletedFlag } from "../../shared-services/progress-tracking-servic
 
 class NovelScene extends HTMLElement {
 
+  args = {
+    "novel": null,
+    "needBaseHeader": false,
+    "snapshot": null
+  }
+
   novel = {};
 
   eventResolver;
@@ -29,7 +35,7 @@ class NovelScene extends HTMLElement {
 
   connectedCallback() {
     this.novel = this.args['novel']
-    let flag = this.args['needBaseHeader'];
+    let needBaseHeader = this.args['needBaseHeader'];
     
     //Adding Styling
     this.classList.add("flex", "flex-col", "items-center", "justify-center", "w-full", "h-full", "bg-blue-50/30", "font-sans", "overflow-hidden", "relative");
@@ -52,11 +58,8 @@ class NovelScene extends HTMLElement {
     this.pausePopUp = createPausePopUp(this.novel, {
       onResume: () => this.eventResolver.resume(),
       onPause: () => {
-          const snapShot = this.eventResolver.getSnapshot();
-          if (snapShot) {
-              novelStateStore.save(this.novel.name, snapShot);
-          }
-          this.switchToNovelSelector();
+        this.saveSnapshot();
+        this.switchToNovelSelector();
       },
       onLeaveNovel: () => {
           novelStateStore.clear(this.novel.name);
@@ -74,14 +77,14 @@ class NovelScene extends HTMLElement {
       }
     });
     
-    const header = document.createElement(flag ? "base-header" : "back-header");
-    if(!flag) {
+    const header = document.createElement(needBaseHeader ? "base-header" : "back-header");
+    if(!needBaseHeader) {
       header.addEventListener('sm-back', (e) => {
         e.preventDefault(); 
         e.stopPropagation();
         this.eventResolver.pause();
         this.pausePopUp.toggle(true);
-        console.log("Back button was clicked!")
+        console.log("Back button was clicked!");
       });
     }
 
@@ -95,25 +98,31 @@ class NovelScene extends HTMLElement {
     this.background.appendChild(this.dialogueList);
     this.appendChild(this.pausePopUp);
 
-    if (!isIntroNovel(this.novel)) {
-      const hasSavedState = shouldShowContinuePopUp(this.novel.name);
+    // Saving a snapshot on an attemt to leave the scene
+    const leavingFunctions = [header.querySelector("#btn-legal"), header.querySelector("#btn-settings")];
+    leavingFunctions.forEach((element) => {
+      const originalFunction = element.onclick;
+      element.onclick = (...args) => {
+        this.saveSnapshot();
+        return originalFunction.apply(this, args);
+      };
+    });
+
+    
+
+    const hasSavedState = shouldShowContinuePopUp(this.novel.name);
+
+    if(!!this.args.snapshot) {
+
+      this.loadSnapshot();
+
+    } else if (!isIntroNovel(this.novel) && hasSavedState) {
 
       // on continue läuft beim weiterspielen nach dem continue pop up
       // Hier wird der davor gespeicherte snapshot aus dem store geladen und wieder in den resolver übertragen
       this.continuePopUp = createContinuePopUp(this.novel, {
         onContinue: async () => {
-          const snapShot = novelStateStore.load(this.novel.name);
-          if (snapShot) {
-            this.eventResolver.loadSnapshot(snapShot);
-
-            await this.restoreVisualState(snapShot.history);
-
-            const type = this.eventResolver.currentEvent['eventType'];
-            if ([2, 4].includes(type)) {
-              this.eventResolver.switchToNext();
-            }
-          }
-          this.resolveEvent();
+          this.loadSnapshot();
         },
         onRestart: () => {
           novelStateStore.clear(this.novel.name); // Alten State löschen
@@ -121,14 +130,9 @@ class NovelScene extends HTMLElement {
           this.resolveEvent();
         },
       });
-
       this.appendChild(this.continuePopUp);
+      this.continuePopUp.toggle(true);
 
-      if (hasSavedState) {
-        this.continuePopUp.toggle(true);
-      } else {
-        this.resolveEvent();
-      }
     } else {
       this.resolveEvent();
     }
@@ -210,6 +214,30 @@ class NovelScene extends HTMLElement {
           break;
       }
     }
+  }
+
+  saveSnapshot() {
+    const snapShot = this.eventResolver.getSnapshot();
+    if (snapShot) {
+      this.args.snapshot = snapShot
+      novelStateStore.save(this.novel.name, snapShot);
+    }
+    console.log(this.args);
+  }
+
+  async loadSnapshot() {
+    const snapShot = novelStateStore.load(this.novel.name);
+    if (snapShot) {
+      this.eventResolver.loadSnapshot(snapShot);
+
+      await this.restoreVisualState(snapShot.history);
+
+      const type = this.eventResolver.currentEvent['eventType'];
+      if ([2, 4].includes(type)) {
+        this.eventResolver.switchToNext();
+      }
+    }
+    this.resolveEvent();
   }
 }
 
