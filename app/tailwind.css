@@ -1,4 +1,4 @@
-/*! tailwindcss v4.2.2 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.3.0 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
@@ -1482,6 +1482,11 @@
   .active\:bg-gray-50 {
     &:active {
       background-color: var(--color-gray-50);
+    }
+  }
+  .active\:opacity-40 {
+    &:active {
+      opacity: 40%;
     }
   }
   .active\:opacity-70 {

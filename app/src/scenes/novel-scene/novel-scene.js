@@ -14,6 +14,10 @@ import { EventResolver } from "./event-resolver-component.js";
 import { attachDialogueSkipOnOutsideClick } from "./dialogue-list-component/dialogue-skip-service.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
 import { novelStateStore } from "../../shared-services/store-service.js";
+import {
+  markNovelSessionStarted,
+  markNovelSessionEnded,
+} from "../../shared-services/novel-session-service.js";
 import { playAudio } from "../../shared-services/audio-playing-service.js";
 import { setCompletedFlag } from "../../shared-services/progress-tracking-service.js";
 
@@ -34,10 +38,15 @@ class NovelScene extends HTMLElement {
   continuePopUp;
   characterObjectSync = {};
 
+  /** Sets up the scene: session, listeners, child components and start/continue flow. */
   connectedCallback() {
     this.novel = this.args['novel']
     let needBaseHeader = this.args['needBaseHeader'];
-    
+
+    // Mark novel session active so Settings/Legal can disable footer nav while playing.
+    markNovelSessionStarted();
+
+
     //Adding Styling
     this.classList.add("flex", "flex-col", "items-center", "justify-center", "w-full", "h-full", "bg-blue-50/30", "font-sans", "overflow-hidden", "relative");
 
@@ -45,7 +54,10 @@ class NovelScene extends HTMLElement {
     this.addEventListener("user-confirmation", (event) => { this.eventResolver.userConfirmation(event)});
     this.addEventListener("add-character", (event) => {this.addCharacter(event.detail.characterId)});
     this.addEventListener("resolve-event", (event) => {this.eventResolver.resolveCurrentEvent()});
-    this.addEventListener("novel-finished", (event) => {novelStateStore.clear(this.novel.name)});
+    this.addEventListener("novel-finished", (event) => {
+      novelStateStore.clear(this.novel.name);
+      markNovelSessionEnded();
+    });
     this.addEventListener("sync-object-to-character", (event) => {this.syncObjectToCharacter(event.detail.object, event.detail.characterId)});
 
     //Create Child Elements
@@ -60,10 +72,13 @@ class NovelScene extends HTMLElement {
       onResume: () => this.eventResolver.resume(),
       onPause: () => {
         this.saveSnapshot();
+        // Pause returns to the hub: novel is no longer actively running.
+        markNovelSessionEnded();
         this.switchToNovelSelector();
       },
       onLeaveNovel: () => {
           novelStateStore.clear(this.novel.name);
+          markNovelSessionEnded();
           this.switchToNovelSelector();
       },
       onFinish: () => {
@@ -143,6 +158,7 @@ class NovelScene extends HTMLElement {
     playAudio("SFX_LoadScene");
   }
 
+  /** Navigates back to the novel selector hub. */
   switchToNovelSelector() {
     this.dispatchEvent(
       new CustomEvent("sm-switch-scene", {
@@ -152,6 +168,7 @@ class NovelScene extends HTMLElement {
     );
   }
 
+  /** Prompts the event resolver to process the current novel event. */
   resolveEvent() {
     this.dispatchEvent(
       new CustomEvent("resolve-event", {
@@ -160,6 +177,7 @@ class NovelScene extends HTMLElement {
     );
   }
 
+  /** Builds the background div from the novel's background image. */
   createBackground() {
     const backgroundImage = new Image();
     backgroundImage.src = 'assets/Images/Background/' + this.novel['name'] + '_BG.png';
@@ -192,13 +210,20 @@ class NovelScene extends HTMLElement {
     this.characterObjectSync[characterId].push(object);
   }
 
+  /**
+   * Loads the interactive objects for this novel and appends them to the background.
+   * @returns {Promise<void>}
+   */
   async addInteractiveObjects() {
     const interactiveObjectData = await fetchFromJson("assets/json/interactive-objects-info.json");
     this.background.appendChild(InteractiveObjects.create(interactiveObjectData.visualNovels.find((element) => element.name == this.novel['name']).interactiveObjects));
   }
 
-  // Methode regeneriert in der UI die gespeicherten events aus der history, welche beim pausieren gespeichert wurden, messages hinzufügen, character hinzufügen, ...
-  // Wenn spiel weitergespielt wird, lädt diese methode alle vergangegen events aus der history
+  /**
+   * Rebuilds the UI (characters, messages) from a saved event history when continuing a novel.
+   * @param {Array<Object>} history The past events to replay.
+   * @returns {Promise<void>}
+   */
   async restoreVisualState(history) {
     console.log("History " + history);
     if (!history || history.length === 0) return;
@@ -219,6 +244,7 @@ class NovelScene extends HTMLElement {
     }
   }
 
+  /** Saves the current resolver state to the store so the novel can be resumed later. */
   saveSnapshot() {
     const snapShot = this.eventResolver.getSnapshot();
     if (snapShot) {
@@ -228,6 +254,10 @@ class NovelScene extends HTMLElement {
     console.log(this.args);
   }
 
+  /**
+   * Restores a saved snapshot into the resolver, rebuilds the visual state and resumes play.
+   * @returns {Promise<void>}
+   */
   async loadSnapshot() {
     const snapShot = novelStateStore.load(this.novel.name);
     if (snapShot) {

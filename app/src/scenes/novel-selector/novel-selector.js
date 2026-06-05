@@ -4,6 +4,7 @@ import { createHex } from './hex-component.js';
 import { moveElements } from './move-elements-service.js';
 import { createBubble, removeBubble, refreshHexBookmarkMarker, bubbleAnimation } from "./bubble-component.js";
 import { bookmarkedNovelStore } from '../../shared-services/store-service.js';
+import { markNovelSessionEnded } from '../../shared-services/novel-session-service.js';
 import { getArchiveData } from "../../shared-services/archive-data-service.js";
 import { playNumberBlinkSequence } from "./bubble-animation-service.js";
 import { playIntroAnimation } from "./intro-animation-service.js";
@@ -38,6 +39,9 @@ class NovelSelector extends HTMLElement {
     }
 
     async connectedCallback() {
+        // Safety net: reaching the hub means no novel is actively playing.
+        markNovelSessionEnded();
+
         await this.loadNovels();
         this.bookmarkedNovels = bookmarkedNovelStore.load(this.novels.map((n) => n.name));
         this.renderHTML();

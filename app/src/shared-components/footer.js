@@ -3,16 +3,29 @@ export class Footer extends HTMLElement {
     super();
     // Shared Tailwind classes for buttons and icons
     this.btnClass = "bg-transparent flex flex-col items-center gap-[1.2cqw] outline-none transition-all duration-200 opacity-70";
+    // Disabled-mode press feedback: rests at 70%, dims to 40% while held.
+    this.disabledBtnClass = "bg-transparent flex flex-col items-center gap-[1.2cqw] outline-none transition-opacity opacity-70 active:opacity-40";
     this.imgClass = "w-[6cqw] h-[6cqw] object-contain pointer-events-none";
   }
 
   connectedCallback() {
     this.render();
     this.setupEvents();
-    
+
+    // Disabled mode: visible footer, no navigation, no active highlight.
+    if (this.isDisabled()) return;
+
     // Check which scene is currently active via attribute
     const currentScene = this.getAttribute('active-scene');
     this.initActiveButton(currentScene);
+  }
+
+  isDisabled() {
+    return this.hasAttribute('disabled');
+  }
+
+  getButtonClass() {
+    return this.isDisabled() ? this.disabledBtnClass : this.btnClass;
   }
 
   // Initial setup: finds the button that matches the current scene name
@@ -35,32 +48,33 @@ export class Footer extends HTMLElement {
   }
 
   render() {
+    const btnClass = this.getButtonClass();
     this.classList = "w-full h-[20cqw]"
     this.innerHTML = `
       <footer class="w-full h-full bg-[#0B1A2D] flex items-center box-border border-white/10">
         <div class="flex justify-between items-center w-full px-[6cqw]">
           
-          <button id="foot-start" data-scene="novel-selector" class="${this.btnClass}">
+          <button id="foot-start" data-scene="novel-selector" class="${btnClass}">
             <img src="assets/Images/Buttons/home.png" class="${this.imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Start</span>
           </button>
 
-          <button id="foot-archive" data-scene="archive-scene" class="${this.btnClass}">
+          <button id="foot-archive" data-scene="archive-scene" class="${btnClass}">
             <img src="assets/Images/Buttons/archive.png" class="${this.imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Archiv</span>
           </button>
 
-          <button id="foot-bookmark" data-scene="bookmarks-scene" class="${this.btnClass}">
+          <button id="foot-bookmark" data-scene="bookmarks-scene" class="${btnClass}">
             <img src="assets/Images/Buttons/bookmark.png" class="${this.imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Gemerkt</span>
           </button>
 
-          <button id="foot-links" data-scene="links-scene" class="${this.btnClass}">
+          <button id="foot-links" data-scene="links-scene" class="${btnClass}">
             <img src="assets/Images/Buttons/weblinks.png" class="${this.imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Links</span>
           </button>
 
-          <button id="foot-knowledge" data-scene="knowledge-scene" class="${this.btnClass}">
+          <button id="foot-knowledge" data-scene="knowledge-scene" class="${btnClass}">
             <img src="assets/Images/Buttons/knowledge.png" class="${this.imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Wissen</span>
           </button>
@@ -77,6 +91,9 @@ export class Footer extends HTMLElement {
     this.querySelectorAll('button').forEach(btn => {
       btn.onclick = (e) => {
         e.stopPropagation();
+
+        // Disabled: swallow click; press feedback is via active:opacity-40 on the button class.
+        if (this.isDisabled()) return;
 
         const targetScene = btn.getAttribute('data-scene');
         const currentActiveScene = this.getAttribute('active-scene');
