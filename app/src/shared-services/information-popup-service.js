@@ -1,8 +1,11 @@
 // Information popup service for showing and hiding the information popup component
 import "../shared-components/information-popup-component.js";
+import { playAudio, TTSRead } from "./audio-playing-service.js";
 
 // Enable the popup layer
 export function enablePopupLayer(container) {
+  playAudio("SFX_Textpopup_2");
+  TTSRead(container.querySelector("#popup-information-text").innerHTML);
   container.classList.remove("pointer-events-none");
 }
 

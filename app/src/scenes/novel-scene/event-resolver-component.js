@@ -1,3 +1,4 @@
+import { playAudio, TTSRead } from "../../shared-services/audio-playing-service.js";
 import { addDialogChoice, newNovelInfo, setCompletedFlag } from "../../shared-services/progress-tracking-service.js";
 
 export class EventResolver extends HTMLElement {
@@ -58,6 +59,7 @@ export class EventResolver extends HTMLElement {
 
       case 4: //Show Message Event
         if(character) character.setSpeakingState(true);
+        TTSRead(this.currentEvent['text']);
         await this.dialogueList.showMessage(this.currentEvent['text'], false,  this.currentEvent['character']);
         break;
 
@@ -66,6 +68,9 @@ export class EventResolver extends HTMLElement {
         break;
 
       case 6: //Show Choices Event
+        TTSRead("Folgende Antwortmöglichkeiten stehen dir zur Auswahl: " + this.currentChoices.map((element, index) => {
+          return `${index+1}. Option: ${element['text']} `
+        }).join(""));
         await this.dialogueList.showChoices(this.currentChoices);
         return;
 
@@ -90,13 +95,14 @@ export class EventResolver extends HTMLElement {
 
         return;
 
-      case 11: //Save Persistent Event
+      case 11: //Play Sound Event
+        playAudio(this.currentEvent.audioClipToPlay);
         console.log("Save Persistent Event");
         break;
 
       case 1: //Set Background Event (This case does not exist)
       case 7: //End Novel Event (This case does not exist)
-      case 8: //Play Sound Event (This case does not exist)
+      case 8: //Save Persistent Event (This case does not exist)
       case 9: //Play Animation Event (This case does not exist)
       case 12: //Mark Bias Event (This case does not exist)
       case 13: //Save Variable Event (This case does not exist)

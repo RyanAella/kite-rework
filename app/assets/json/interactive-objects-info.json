@@ -30,9 +30,14 @@
           "zIndex": 10,
           "classes": "object-cover pointer-events-auto",
           "currentState": "off",
+          "interaction": "toggle",
           "states": {
             "off": "assets/Images/EventAnimations/ElternInformieren/BG_parents_light_off.png",
             "on": "assets/Images/EventAnimations/ElternInformieren/BG_parents_light_on.png"
+          },
+          "sounds": {
+            "off": "LightSwitch_off",
+            "on": "LightSwitch_on"
           }
         },
         {
@@ -63,7 +68,8 @@
             "steaming_1": "assets/Images/EventAnimations/ElternInformieren/Jug_2.png",
             "steaming_2": "assets/Images/EventAnimations/ElternInformieren/Jug_3.png", 
             "steaming_3": "assets/Images/EventAnimations/ElternInformieren/Jug_4.png"  
-          }
+          },
+          "sound": "BoilingWater"
         },
         {
           "id": "tasse_gruen",
@@ -80,7 +86,9 @@
             "steaming_1": "assets/Images/EventAnimations/ElternInformieren/Mug_G2.png",
             "steaming_2": "assets/Images/EventAnimations/ElternInformieren/Mug_G3.png",
             "steaming_3": "assets/Images/EventAnimations/ElternInformieren/Mug_G4.png" 
-          }
+
+          },
+          "sound": "BoilingWater"
         },
         {
           "id": "tasse_violett",
@@ -98,6 +106,7 @@
             "steaming_2": "assets/Images/EventAnimations/ElternInformieren/Mug_V3.png",
             "steaming_3": "assets/Images/EventAnimations/ElternInformieren/Mug_V4.png" 
           },
+          "sound": "BoilingWater",
           "syncToCharacter": 8
         }
       ]
@@ -145,7 +154,8 @@
             "frame_1": "assets/Images/EventAnimations/HonorarVerhandeln/Vase_1@4x.png",
             "frame_2": "assets/Images/EventAnimations/HonorarVerhandeln/Vase_2@4x.png",
             "frame_3": "assets/Images/EventAnimations/HonorarVerhandeln/Vase_3@4x.png"
-          }
+          },
+          "sound": "VaseSound"
         }
       ]
     },
@@ -166,7 +176,8 @@
             "frame_1": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_1@4x.png",
             "frame_2": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_2@4x.png",
             "frame_3": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_3@4x.png"
-          }
+          },
+          "sound": "PlantSound"
         }
       ]
     },
@@ -187,7 +198,8 @@
             "frame_1": "assets/Images/EventAnimations/KreditBeantragen/Plant_1@4x.png",
             "frame_2": "assets/Images/EventAnimations/KreditBeantragen/Plant_2@4x.png",
             "frame_3": "assets/Images/EventAnimations/KreditBeantragen/Plant_3@4x.png"
-          }
+          },
+          "sound": "PlantSound"
         },
         {
           "id": "vordergrund_leiste",
@@ -220,7 +232,8 @@
             "frame_5": "assets/Images/EventAnimations/KreditBeantragen/Glass_5.png",
             "frame_6": "assets/Images/EventAnimations/KreditBeantragen/Glass_6.png",
             "frame_7": "assets/Images/EventAnimations/KreditBeantragen/Glass_7.png"
-          }
+          },
+          "sound": "WaterGlass"
         }
       ]
     },
@@ -241,7 +254,8 @@
             "frame_1": "assets/Images/EventAnimations/MitNotarinTelefonieren/Plant_1@4x.png",
             "frame_2": "assets/Images/EventAnimations/MitNotarinTelefonieren/Plant_2@4x.png",
             "frame_3": "assets/Images/EventAnimations/MitNotarinTelefonieren/Plant_3@4x.png"
-          }
+          },
+          "sound": "PlantSound"
         },
         {
           "id": "vordergrund_leiste",
@@ -287,7 +301,8 @@
             "frame_5": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_5.png",
             "frame_6": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_6.png",
             "frame_7": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_7.png"
-          }
+          },
+          "sound": "WaterGlass"
         }
       ]
     },
@@ -325,7 +340,8 @@
             "frame_5": "assets/Images/EventAnimations/InterviewAbklären/Glass_5.png",
             "frame_6": "assets/Images/EventAnimations/InterviewAbklären/Glass_6.png",
             "frame_7": "assets/Images/EventAnimations/InterviewAbklären/Glass_7.png"
-          }
+          },
+          "sound": "WaterGlass"
         },
         {
           "id": "blumen_vase",
@@ -341,7 +357,8 @@
             "frame_1": "assets/Images/EventAnimations/InterviewAbklären/Vase_1@4x.png",
             "frame_2": "assets/Images/EventAnimations/InterviewAbklären/Vase_2@4x.png",
             "frame_3": "assets/Images/EventAnimations/InterviewAbklären/Vase_3@4x.png"
-          }
+          },
+          "sound": "VaseSound"
         }
       ]
     },
@@ -362,7 +379,8 @@
             "frame_1": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_1@4x.png",
             "frame_2": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_2@4x.png",
             "frame_3": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_3@4x.png"
-          }
+          },
+          "sound": "PlantSound"
         }
       ]
     }

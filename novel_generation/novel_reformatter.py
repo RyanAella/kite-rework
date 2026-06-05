@@ -57,6 +57,9 @@ def transform_visual_novels(input_path, output_path):
             if ev.get("eventType") == 5 and ev.get("onChoice"):
                 new_ev["onChoice"] = ev["onChoice"]
 
+            if(ev.get("eventType") == 11 and ev.get("audioClipToPlay")):
+                new_ev["audioClipToPlay"] = ev["audioClipToPlay"][:1].upper() + ev["audioClipToPlay"][1:]
+
             if ev.get("eventType") == 16 and ev.get("relevantBias"):
                 new_ev["relevantBias"] = ev["relevantBias"]
                 

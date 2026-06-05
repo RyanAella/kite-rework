@@ -14,6 +14,7 @@ import { EventResolver } from "./event-resolver-component.js";
 import { attachDialogueSkipOnOutsideClick } from "./dialogue-list-component/dialogue-skip-service.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
 import { novelStateStore } from "../../shared-services/store-service.js";
+import { playAudio } from "../../shared-services/audio-playing-service.js";
 import { setCompletedFlag } from "../../shared-services/progress-tracking-service.js";
 
 class NovelScene extends HTMLElement {
@@ -138,6 +139,8 @@ class NovelScene extends HTMLElement {
     }
 
     attachDialogueSkipOnOutsideClick(this.background, this.dialogueList);
+
+    playAudio("SFX_LoadScene");
   }
 
   switchToNovelSelector() {

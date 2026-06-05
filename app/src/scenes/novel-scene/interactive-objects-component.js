@@ -1,3 +1,5 @@
+import { playAudio } from "../../shared-services/audio-playing-service.js";
+
 export class InteractiveObjects extends HTMLElement {
 
   data;
@@ -59,38 +61,50 @@ export class InteractiveObjects extends HTMLElement {
           // Animations-Lock: Verhindert Flackern durch Spam-Klicks
           if (imgObj.isAnimating) return;
 
-          if (objConfig.interaction === "sequence") {
-            
-            imgObj.isAnimating = true;
+          switch (objConfig.interaction) {
+            case "sequence":
+              imgObj.isAnimating = true;
 
-            // Wir starten bei Index 1, da Index 0 das "idle" Bild ist, das wir schon sehen
-            for (let i = 1; i < stateKeys.length; i++) {
-              console.log("steaming...")
-              objConfig.currentState = stateKeys[i];
-              imgObj.src = objConfig.states[objConfig.currentState];
-              
-              // Delay: Pausiert die Schleife für 200 Millisekunden pro Bild
-              // (Passen Sie die 200 an, um die Animation schneller oder langsamer zu machen)
+              if(objConfig.sound) {
+                playAudio(objConfig.sound);
+              }
+
+              // Wir starten bei Index 1, da Index 0 das "idle" Bild ist, das wir schon sehen
+              for (let i = 1; i < stateKeys.length; i++) {
+                console.log("Playing Animation ...")
+                objConfig.currentState = stateKeys[i];
+                imgObj.src = objConfig.states[objConfig.currentState];
+                
+                // Delay: Pausiert die Schleife für 200 Millisekunden pro Bild
+                // (Passen Sie die 200 an, um die Animation schneller oder langsamer zu machen)
+                await new Promise(resolve => setTimeout(resolve, 400));
+              }
+
+              // Noch ein kurzes Delay auf dem letzten Frame, bevor es verschwindet
               await new Promise(resolve => setTimeout(resolve, 400));
-            }
 
-            // Noch ein kurzes Delay auf dem letzten Frame, bevor es verschwindet
-            await new Promise(resolve => setTimeout(resolve, 400));
+              // Am Ende wieder zurück zum neutralen Anfangszustand (idle)
+              objConfig.currentState = stateKeys[0];
+              imgObj.src = objConfig.states[objConfig.currentState];
 
-            // Am Ende wieder zurück zum neutralen Anfangszustand (idle)
-            objConfig.currentState = stateKeys[0];
-            imgObj.src = objConfig.states[objConfig.currentState];
+              // Lock wieder aufheben
+              imgObj.isAnimating = false;
 
-            // Lock wieder aufheben
-            imgObj.isAnimating = false;
+              break;
+            case "toggle":
+              // STANDARD-TOGGLE LOGIK (z.B. für die Lampe)
+              const currentIndex = stateKeys.indexOf(objConfig.currentState);
+              const nextIndex = (currentIndex + 1) % stateKeys.length; 
+              
+              objConfig.currentState = stateKeys[nextIndex];
+              imgObj.src = objConfig.states[objConfig.currentState];
 
-          } else {
-            // STANDARD-TOGGLE LOGIK (z.B. für die Lampe)
-            const currentIndex = stateKeys.indexOf(objConfig.currentState);
-            const nextIndex = (currentIndex + 1) % stateKeys.length; 
-            
-            objConfig.currentState = stateKeys[nextIndex];
-            imgObj.src = objConfig.states[objConfig.currentState];
+              if(objConfig.sounds && objConfig.sounds[objConfig.currentState]) {
+                playAudio(objConfig.sounds[objConfig.currentState]);
+              }
+              break;
+            default:
+              console.log("Unknown Interaction " + objConfig.interaction);
           }
           
           console.log(`Objekt ${objConfig.id} wechselt zu Zustand: ${objConfig.currentState}`);
