@@ -1,10 +1,14 @@
 import "../../shared-components/headers/back-header.js";
 import "../../shared-components/footer.js";
+import { isNovelSessionActive } from "../../shared-services/novel-session-service.js";
 
 // Legal hub: entry point with links to Impressum, Datenschutz, Nutzungsbedingungen; footer inside z-10 column like settings.
 
 class LegalInformationScene extends HTMLElement {
   connectedCallback() {
+    // Disable footer nav if arriving from a running novel.
+    const footerAttrs = isNovelSessionActive() ? "disabled" : "";
+
     // Static layout + footer; buttons dispatch sm-switch-scene for the router
     this.innerHTML = `
       <div class="relative flex h-full min-h-0 w-full flex-col overflow-hidden font-sans text-[#0b1a2d]">
@@ -56,7 +60,7 @@ class LegalInformationScene extends HTMLElement {
             </div>
           </div>
 
-          <main-footer></main-footer>
+          <main-footer ${footerAttrs}></main-footer>
         </div>
       </div>
     `;

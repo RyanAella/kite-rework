@@ -2,6 +2,7 @@ import "../../shared-components/headers/back-header.js";
 import "../../shared-components/footer.js";
 import { addDragScrolling } from "../../shared-services/drag-scrolling.js";
 import { ensureSettingsDefaults } from "../../shared-services/app-settings-session-service.js";
+import { isNovelSessionActive } from "../../shared-services/novel-session-service.js";
 import { SettingsHandler } from "./settings-handler.js";
 import "./settings-content-component.js";
 
@@ -9,6 +10,9 @@ class SettingsScene extends HTMLElement {
   connectedCallback() {
     console.log("Settings Scene loaded");
     ensureSettingsDefaults();
+
+    // Disable footer nav if arriving from a running novel.
+    const footerAttrs = isNovelSessionActive() ? "disabled" : "";
 
     this.innerHTML = `
       <div class="grid h-full w-full grid-cols-1 grid-rows-1">
@@ -20,7 +24,7 @@ class SettingsScene extends HTMLElement {
               EINSTELLUNGEN
             </p>
           </div>
-          <main-footer></main-footer>
+          <main-footer ${footerAttrs}></main-footer>
         </div>
         <div id="popup-container" class="pointer-events-none col-start-1 row-start-1 z-10 h-full w-full"></div>
       </div>
