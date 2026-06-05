@@ -1,3 +1,5 @@
+import { playAudio } from "../../../shared-services/audio-playing-service.js";
+
 export class ChoiceContainer extends HTMLElement {
 
   connectedCallback() {
@@ -34,6 +36,8 @@ export class ChoiceContainer extends HTMLElement {
 
           const textSpan = choiceButton.querySelector('span');
           textSpan.classList.add('text-white');
+
+          playAudio("SFX_SelectionDescision")
 
           await new Promise(r => setTimeout(r, 750));
 

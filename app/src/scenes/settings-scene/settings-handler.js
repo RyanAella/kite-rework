@@ -1,4 +1,5 @@
 import { loadAppSettings, saveAppSettings } from "../../shared-services/app-settings-session-service.js";
+import { playAudio } from "../../shared-services/audio-playing-service.js";
 import { hidePinnedModal, showPinnedModal } from "../../shared-services/information-popup-service.js";
 import { applyUserFontSize, fontSizeToCqw } from "../../shared-services/user-font-size-service.js";
 
@@ -33,18 +34,27 @@ export class SettingsHandler {
       this.settings.soundsActive = !this.settings.soundsActive;
       this.persistAndRefresh();
       refs.popup.setInformationText(
-        this.settings.voiceOutput
+        this.settings.soundsActive
           ? "Sämtliche Soundeffekte der App wurden aktiviert. Dies ist unabhängig von der Vorlesefunktion."
           : "Sämtliche Soundeffekte der App wurden deaktiviert. Dies ist unabhängig von der Vorlesefunktion.",
       );
       this.showPopup();
     });
 
+    let volumeStore = false;
     // Set the volume slider listener
     refs.volumeSlider.oninput = () => {
       this.settings.soundVolume = refs.volumeSlider.value;
+      volumeStore = true;
       this.persistAndRefresh();
     };
+
+    window.addEventListener("mouseup", (event) => {
+      if(volumeStore) {
+        playAudio("SFX_InteractionButton_2");
+        volumeStore = false;
+      }
+    });
 
     // Set the font size slider listener
     refs.fontSizeSlider.oninput = () => {
@@ -100,3 +110,4 @@ export class SettingsHandler {
     refs.exampleTextEl.style = `font-size: ${fontSizeToCqw(refs.fontSizeSlider.value)}cqw`;
   }
 }
+

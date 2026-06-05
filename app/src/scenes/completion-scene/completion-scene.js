@@ -1,4 +1,5 @@
 import "../../shared-components/headers/back-header.js";
+import { playAudio } from "../../shared-services/audio-playing-service.js";
 
 class CompletionScene extends HTMLElement {
     constructor() {
@@ -48,6 +49,8 @@ class CompletionScene extends HTMLElement {
         contentContainer.appendChild(infoText);
         contentContainer.appendChild(disclaimerText);
         contentContainer.appendChild(bottomBtn);
+
+        playAudio("SFX_ResultKI");
 
         this.appendChild(contentContainer);
     }

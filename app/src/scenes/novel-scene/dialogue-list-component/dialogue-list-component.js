@@ -1,6 +1,7 @@
 import { addDragScrolling } from "../../../shared-services/drag-scrolling.js";
 import "./message-container-component.js";
 import "./choice-container-component.js";
+import { playAudio } from "../../../shared-services/audio-playing-service.js";
 
 export class DialogueList extends HTMLElement {
   
@@ -30,6 +31,7 @@ export class DialogueList extends HTMLElement {
   }
 
   async showMessage(text, isUser = false, characterId, isInstant = false) {
+    playAudio("SFX_Textpopup_1");
     this.renderQueue = this.renderQueue.then(() => {
       return this.messageContainer.addMessage(text, isUser, characterId, isInstant);
     });
@@ -37,6 +39,7 @@ export class DialogueList extends HTMLElement {
   }
 
   showChoices(arrayOfChoices) {
+    playAudio("SFX_SelectionLoad");
     this.renderQueue = this.renderQueue.then(() => {
       return this.choiceContainer.addChoices(arrayOfChoices);
     });
