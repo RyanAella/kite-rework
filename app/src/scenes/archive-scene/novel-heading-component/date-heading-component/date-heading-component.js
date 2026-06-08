@@ -106,6 +106,22 @@ export class DateHeading extends HTMLElement {
     let currentChoices = [];
     while(true) {
       console.log(currentEvent.id)
+
+      if (this.instanceData.isPremature && currentEvent.id === this.instanceData.lastEventId) {
+          
+          // Wir rendern noch das exakte Event, an dem der Nutzer abgebrochen hat
+          if (currentEvent.eventType === 4) {
+              htmlElement += `<p><b>${this.nameMap[currentEvent["character"]]}:</b> ${currentEvent["text"]}</p>`;
+          } else if (currentEvent.eventType === 16) {
+              htmlElement += `<p><i><b>Hinweis:</b> ${currentEvent["relevantBias"]}</i></p>`;
+          }
+          
+          // Die definierte Abbruch-Meldung anhängen (wie im Screenshot gewünscht)
+          htmlElement += `<p>Das Gespräch wurde vorzeitig beendet.</p>`;
+          
+          return htmlElement;
+      }
+
       switch (currentEvent.eventType){
         case 2:
         case 11:
@@ -121,6 +137,15 @@ export class DateHeading extends HTMLElement {
           break;
         case 6:
           let choice = currentChoices[playerChoices.shift()];
+
+          // Wenn der Nutzer die Novel vorzeitig beendet hat, ist 'choice' hier undefined.
+          // In diesem Fall brechen wir sauber ab und geben einfach den Dialog zurück, 
+          // der BIS ZU DIESEM PUNKT gespielt wurde, anstatt abzustürzen.
+          if (!choice) {
+              console.log("Archiv-Info: Dialog wurde vom Nutzer vorzeitig beendet.");
+              return htmlElement;
+          }
+
           htmlElement += `<p><b>${this.nameMap[1]}:</b> ${choice["text"]}</p>`
           currentEvent = this.novelData.novelEvents.find((element) => element.id == choice.onChoice);
           currentChoices = [];

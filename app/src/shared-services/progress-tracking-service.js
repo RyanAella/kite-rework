@@ -39,9 +39,14 @@ export function getNovelInfo(UUID) {
   return readJson(storeKey)[UUID];
 }
 
-export function setCompletedFlag(UUID) {
+export function setCompletedFlag(UUID, lastEventId = null, isPremature = false) {
   console.log("progress-tracking-service::setCompletedFlag");
   let archive = readJson(storeKey);
   archive[UUID].completed = true;
+
+  // Speichern der exakten Event-ID und den Abbruch-Status
+  archive[UUID].lastEventId = lastEventId;
+  archive[UUID].isPremature = isPremature;
+
   writeJson(storeKey, archive);
 }

@@ -42,17 +42,14 @@ class ArchiveScene extends HTMLElement {
       <div id="popup-container" class="hidden row-start-1 col-start-1 h-full w-full flex items-center justify-center z-10"></div>
     `;
 
+    this.addEmptyinfoText();
+
     this.createPopUp();
 
     addDragScrolling(this.querySelector('#scroll-container'));
     this.novelContainer = this.querySelector("#novel-container");
 
     this.addHeadings();
-
-
-
-
-
 
     this.addEventListener("show-popup", (event) => {
       console.log("Showing Popup")
@@ -64,7 +61,6 @@ class ArchiveScene extends HTMLElement {
 
   addHeadings() {
     this.instanceData = getArchiveData(true);
-
     Object.entries(this.instanceData).forEach(([key, value]) => {
       console.log(key);
       console.log(value);
@@ -80,6 +76,15 @@ class ArchiveScene extends HTMLElement {
     this.popUpText = document.createElement("p");
     popUp.replaceChildren(this.popUpText);
     this.popupContainer.appendChild(popUp);
+  }
+
+  addEmptyinfoText() {
+    const novelContainer = this.querySelector("#novel-container");
+    let emptyText = document.createElement("p");
+    emptyText.id = "empty-info-text";
+    emptyText.classList = "text-[3.6cqw] font-medium tracking-tight text-[#284673]"
+    emptyText.innerHTML = "Spiele eine Novel, um hier deinen ersten Eintrag zu sehen."
+    novelContainer.appendChild(emptyText);
   }
 }
 customElements.define("archive-scene", ArchiveScene);
