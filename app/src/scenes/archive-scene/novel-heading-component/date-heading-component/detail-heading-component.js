@@ -39,11 +39,11 @@ export class DetailHeading extends HTMLElement {
             ">
           </div>
         </div>
-        <div id="content-container" class="flex flex-col mx-[5cqw]"></div>
+        <div id="content-container" class="flex flex-col mx-[5cqw] mt-[3cqw]"></div>
         `;
     
     const copyButton = document.createElement('div');
-    copyButton.classList = "flex flex-row h-[5cqw] items-center justify-center text-[5cqw]"
+    copyButton.classList = "flex flex-row h-[5cqw] items-center justify-center text-[4cqw] mt-[6cqw] mb-[6cqw]"
     copyButton.innerHTML =
       `<img src="assets/Images/Buttons/copy.png" class="h-full"></img>
        <p class="font-bold ml-[2cqw]">Kopieren</p>`

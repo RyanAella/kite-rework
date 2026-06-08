@@ -77,7 +77,7 @@ export class EventResolver extends HTMLElement {
       case 10: //Gpt Promt Event
         console.log("GPT Promt Event");
         await new Promise(r => setTimeout(r, 4000));
-        if(this.tracking) setCompletedFlag(this.storageKey);
+        if(this.tracking) setCompletedFlag(this.storageKey, this.currentEvent['id'], false);
         this.dispatchEvent(new CustomEvent("sm-switch-scene", {
           detail: {
             scene : `${this.tracking ? "completion-scene" : "novel-selector"}`,
@@ -204,6 +204,11 @@ export class EventResolver extends HTMLElement {
     if (snapShot && snapShot.eventId) {
       this.eventHistory = snapShot.history || [];
       this.currentChoices = snapShot.currentChoices || [];
+
+      if (snapShot.storageKey) {
+          this.storageKey = snapShot.storageKey;
+      }
+
       this.switchTo(snapShot.eventId);
     }
   }
@@ -213,7 +218,8 @@ export class EventResolver extends HTMLElement {
       return {
           eventId: this.currentEvent ? this.currentEvent['id'] : null,
           history: this.eventHistory,
-          currentChoices: this.currentChoices
+          currentChoices: this.currentChoices,
+          storageKey: this.storageKey
       };
   }
 }

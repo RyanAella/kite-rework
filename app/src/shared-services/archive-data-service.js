@@ -1,11 +1,6 @@
 import { readJson, writeJson } from "./store-service.js";
 
 export function getArchiveData(calledFromArchive) {
-    const storageJson = readJson("archive");
-    if(storageJson == undefined && calledFromArchive) {
-        addEmptyinfoText();
-        return [];
-    }
 
     const rawData = Object.values(readJson("archive", []));
     let data = {};
@@ -13,7 +8,7 @@ export function getArchiveData(calledFromArchive) {
     
     rawData.forEach(element => {
         if(element.completed == false) {
-        return;
+            return;
         }
         const novelName = element.novelName;
         console.log(element);
@@ -22,17 +17,16 @@ export function getArchiveData(calledFromArchive) {
         }
         delete element["novelName"];
         data[novelName].push(element);
+        
+        if (calledFromArchive) {
+            let infoText = document.querySelector("#empty-info-text");
+            console.log("Text: " + infoText);
+            infoText.classList.add("hidden");
+        }
+        
     });
 
     console.log(data);
 
     return data;
-}
-
-function addEmptyinfoText() {
-    const novelContainer = document.querySelector("#novel-container");
-    let emptyText = document.createElement("p");
-    emptyText.classList = "text-[3.6cqw] font-medium tracking-tight text-[#284673]"
-    emptyText.innerHTML = "Spiele eine Novel, um hier deinen ersten Eintrag zu sehen."
-    novelContainer.appendChild(emptyText);
 }
