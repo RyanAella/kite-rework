@@ -6,7 +6,10 @@
       "positionX": 10,
       "positionY": 75,
       "glasses" : false,
-      "headset" : false
+      "headset" : false,
+      "hasHands" : false,
+      "maxHair" : 1,
+      "maxClothes" : 1
     },
     {
       "id": 5,
@@ -14,7 +17,10 @@
       "positionX": 12,
       "positionY": 75,
       "glasses" : false,
-      "headset" : false
+      "headset" : false,
+      "hasHands" : true,
+      "maxHair" : 4,
+      "maxClothes" : 4
       },
     {
       "id": 6,
@@ -22,7 +28,10 @@
       "positionX": 40,
       "positionY": 78,
       "glasses" : false,
-      "headset" : false
+      "headset" : false,
+      "hasHands" : true,
+      "maxHair" : 4,
+      "maxClothes" : 4
     },
     {
       "id": 7,
@@ -30,7 +39,10 @@
       "positionX": 38,
       "positionY": 73,
       "glasses" : true,
-      "headset" : false
+      "headset" : false,
+      "hasHands" : false,
+      "maxHair" : 4,
+      "maxClothes" : 4
     },
     {
       "id": 8,
@@ -38,7 +50,10 @@
       "positionX": -13,
       "positionY": 74,
       "glasses" : false,
-      "headset" : false
+      "headset" : false,
+      "hasHands" : true,
+      "maxHair" : 4,
+      "maxClothes" : 4
     },
     {
       "id": 9,
@@ -46,7 +61,10 @@
       "positionX": -8,
       "positionY": 75,
       "glasses" : false,
-      "headset" : false
+      "headset" : false,
+      "hasHands" : true,
+      "maxHair" : 4,
+      "maxClothes" : 4
     },
     {
       "id": 10,
@@ -54,7 +72,10 @@
       "positionX": 5,
       "positionY": 85,
       "glasses" : false,
-      "headset" : true
+      "headset" : true,
+      "hasHands" : false,
+      "maxHair" : 4,
+      "maxClothes" : 4
     },
     {
       "id": 11,
@@ -62,7 +83,10 @@
       "positionX": 5,
       "positionY": 75,
       "glasses" : false,
-      "headset" : false
+      "headset" : false,
+      "hasHands" : true,
+      "maxHair" : 4,
+      "maxClothes": 4
     },
     {
       "id": 12,
@@ -70,7 +94,9 @@
       "positionX": 2,
       "positionY": 75,
       "glasses" : false,
-      "headset" : false
+      "headset" : false,
+      "maxHair" : 3,
+      "maxClothes" : 4
     }
   ]
 }

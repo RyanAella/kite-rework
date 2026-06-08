@@ -12,9 +12,8 @@ export async function addElements(CharacterBox, characterInfo) {
   if(characterInfo["headset"]) paths.push(['ImgHeadset', pathFinding(characterInfo, "Headset"), "z-30"]);
   
   //Hands
-  const handsResponse = await fetch(pathFinding(characterInfo, 'Hands'), { method: 'HEAD'})
-  if(handsResponse.ok) {
-    paths.push(['ImgHands', pathFinding(characterInfo, "Hands"),"z-40"]);
+  if(characterInfo["hasHands"]) {
+    paths.push(['ImgHands', pathFinding(characterInfo, "Hands"), "z-40"]);
   }
   
   for(let i = 0; i < paths.length; i++) {
