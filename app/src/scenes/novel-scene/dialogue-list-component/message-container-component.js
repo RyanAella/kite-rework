@@ -9,14 +9,14 @@ export class MessageContainer extends HTMLElement {
   addMessage(text, isUser = false, characterId, isInstant = false) {
     return new Promise((resolve) => {
       const messageBox = document.createElement('div');
-      const baseClasses = "user-font leading-relaxed text-white p-[2cqw] rounded-[1.6cqw] text-left grid origin-bottom animate-pop-in";
+      const baseClasses = "user-font leading-relaxed text-white p-[2cqw] rounded-[1.6cqw] text-left grid origin-bottom animate-pop-in break-words";
 
       if(isUser || characterId == 1) {
         console.log("ID -> " + characterId);
-        messageBox.className = `${baseClasses} max-w-[90%] self-end bg-[#0c447f]`;
+        messageBox.className = `${baseClasses} w-[90%] self-end bg-[#0c447f]`;
       } else if(characterId >= 5 && characterId <= 12) {
         console.log("ID -> " + characterId);
-        messageBox.className = `${baseClasses} max-w-[90%] self-start bg-[#393a39]`;
+        messageBox.className = `${baseClasses} w-[90%] self-start bg-[#393a39]`;
       } else {
         messageBox.className = `${baseClasses} w-full self-center bg-[#0e7f90]`;
       }

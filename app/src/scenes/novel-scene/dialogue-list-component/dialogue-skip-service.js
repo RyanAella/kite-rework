@@ -18,20 +18,38 @@ export function runTypewriterAnimation(messageContainer, { text, typewriterBox, 
   requestAnimationFrame(() => {
     onBeforeStart?.();
 
+    /* 
+      Render the full text up front, split into a visible "typed" part and a
+      hidden "untyped" part. The untyped part keeps its layout space (visibility
+      hidden), so line breaks match the final text from the start and revealing
+      characters never causes the text to reflow or flicker onto the next line. 
+    */
+    typewriterBox.textContent = "";
+    const typedSpan = document.createElement("span");
+    const untypedSpan = document.createElement("span");
+    untypedSpan.className = "invisible";
+    untypedSpan.textContent = text;
+    typewriterBox.appendChild(typedSpan);
+    typewriterBox.appendChild(untypedSpan);
+    animation.typedSpan = typedSpan;
+    animation.untypedSpan = untypedSpan;
+
     let charIndex = 0;
     // Set the interval for the typewriter animation
     animation.typeInterval = setInterval(() => {
 
-      // If the character index is less than the text length, add the character to the typewriter box
+      // If the character index is less than the text length, reveal the next character
       if (charIndex < text.length) {
-        typewriterBox.textContent += text.charAt(charIndex);
         charIndex++;
+        typedSpan.textContent = text.slice(0, charIndex);
+        untypedSpan.textContent = text.slice(charIndex);
       } else {
 
         // Clear the interval when the text is complete
         clearInterval(animation.typeInterval);
         animation.typeInterval = null;
-        typewriterBox.textContent = text;
+        typedSpan.textContent = text;
+        untypedSpan.textContent = "";
 
         // Set the post delay timeout
         animation.postDelayTimeout = setTimeout(() => {
