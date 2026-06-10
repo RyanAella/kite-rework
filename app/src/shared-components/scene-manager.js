@@ -1,3 +1,4 @@
+import "../scenes/loading-scene.js";
 import "../scenes/start-scene.js";
 import "../scenes/settings-scene/settings-scene.js";
 import "../scenes/novel-scene/novel-scene.js";
@@ -30,11 +31,7 @@ class SceneManager extends HTMLElement {
     this.addEventListener("sm-clear-scene", (event) => { this.clearScene()});
     this.addEventListener("sm-back", () => { this.switchToLastScene() });
 
-    if (TermsConsentScene.hasLegalConsentCached()) {
-      this.switchScene("start-scene");
-    } else {
-      this.switchScene("terms-consent-scene");
-    }
+    this.switchScene("loading-scene");
   }
 
   getCurrentScene() {
