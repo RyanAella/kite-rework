@@ -11,7 +11,8 @@ export class MessageContainer extends HTMLElement {
       const messageBox = document.createElement('div');
       const baseClasses = "user-font leading-relaxed text-white p-[2cqw] rounded-[1.6cqw] text-left grid origin-bottom animate-pop-in";
 
-      if(isUser || characterId == 1) {
+      const isChoiceBubble = isUser || characterId == 1;
+      if(isChoiceBubble) {
         console.log("ID -> " + characterId);
         messageBox.className = `${baseClasses} max-w-[90%] self-end bg-[#0c447f]`;
       } else if(characterId >= 5 && characterId <= 12) {
@@ -19,6 +20,19 @@ export class MessageContainer extends HTMLElement {
         messageBox.className = `${baseClasses} max-w-[90%] self-start bg-[#393a39]`;
       } else {
         messageBox.className = `${baseClasses} w-full self-center bg-[#0e7f90]`;
+      }
+
+      // Only the user's own choices are undoable; characterId == 1 lines merely share the styling.
+      if (isUser) {
+        messageBox.classList.add("js-choice-bubble", "cursor-pointer");
+        messageBox.addEventListener("click", () => {
+          this.dispatchEvent(
+            new CustomEvent("choice-undo-requested", {
+              detail: { bubble: messageBox },
+              bubbles: true,
+            }),
+          );
+        });
       }
 
       const invisibleBox = document.createElement('span');
@@ -36,12 +50,12 @@ export class MessageContainer extends HTMLElement {
       if (isInstant) {
         typewriterBox.textContent = text;
         this.dispatchEvent(new CustomEvent("scroll-to-bottom", { bubbles: true }));
-        resolve();
+        resolve(messageBox);
       } else {
         runTypewriterAnimation(this, {
         text,
         typewriterBox,
-        resolve,
+        resolve: () => resolve(messageBox),
           onBeforeStart: () => {
             this.dispatchEvent(new CustomEvent("scroll-to-bottom", { bubbles: true }));
           },

@@ -20,6 +20,7 @@ export class DialogueList extends HTMLElement {
 
     this.addEventListener("scroll-to-bottom", (event) => {this.scrollToBottom()});
     this.addEventListener("handle-choice-selection", (event) => {this.handleChoiceSelection(event.detail['index'], event.detail['text'])});
+    this.addEventListener("choice-undo-requested", (event) => {this.handleChoiceUndoRequest(event.detail?.bubble)});
 
     this.messageContainer = document.createElement('message-container');
     this.choiceContainer = document.createElement('choice-container');
@@ -55,6 +56,39 @@ export class DialogueList extends HTMLElement {
       bubbles: true,
     });
     this.dispatchEvent(event);
+  }
+
+  /**
+   * Handles the request to undo a choice.
+   * @param {Object} bubble - The bubble element that triggered the request.
+   */
+  handleChoiceUndoRequest(bubble) {
+    if (!bubble) return;
+    const bubbles = Array.from(this.messageContainer.querySelectorAll(".js-choice-bubble"));
+    const index = bubbles.indexOf(bubble);
+    if (index < 0) return;
+    this.dispatchEvent(new CustomEvent("request-undo-choice", {
+      detail: { index, bubble },
+      bubbles: true,
+    }));
+  }
+
+  /**
+   * Undoes a choice by removing the choice bubble and its message.
+   * @param {Object} bubble - The bubble element that triggered the request.
+   */
+  undoToChoice(bubble) {
+    if (!bubble) return;
+
+    this.choiceContainer.innerHTML = '';
+
+    let node = bubble.nextSibling;
+    while (node) {
+      const next = node.nextSibling;
+      node.remove();
+      node = next;
+    }
+    bubble.remove();
   }
 
   scrollToBottom() {

@@ -1,5 +1,5 @@
 import { playAudio, TTSRead } from "../../shared-services/audio-playing-service.js";
-import { addDialogChoice, newNovelInfo, setCompletedFlag } from "../../shared-services/progress-tracking-service.js";
+import { addDialogChoice, newNovelInfo, setCompletedFlag, truncateDialogChoices } from "../../shared-services/progress-tracking-service.js";
 
 export class EventResolver extends HTMLElement {
 
@@ -13,6 +13,7 @@ export class EventResolver extends HTMLElement {
   currentChoices = [];
   storageKey;
   eventHistory = [];
+  choicePoints = [];
 
   isPaused = false;
 
@@ -121,6 +122,10 @@ export class EventResolver extends HTMLElement {
     await this.resolveCurrentEvent();
   }
 
+  /**
+   * Handles the user confirmation of a choice.
+   * @param {Object} choice - The choice object containing the choice index.
+   */
   async userConfirmation(choice) {
     // Only accept user Confirmation, if the current event is 
     if(this.currentEvent['eventType'] != 6) {
@@ -129,6 +134,15 @@ export class EventResolver extends HTMLElement {
     }
 
     const choiceIndex = choice['detail']['choiceIndex'];
+
+    // Save the current state of the event history and choices
+    const historyLength = this.eventHistory.length;
+    this.choicePoints.push({
+      choicesEventId: this.currentEvent?.id,
+      choices: [...this.currentChoices],
+      historyLength,
+    });
+
     if (this.currentChoices[choiceIndex]) {
       const selectedChoiceText = this.currentChoices[choiceIndex].text;
       this.eventHistory.push({
@@ -145,6 +159,34 @@ export class EventResolver extends HTMLElement {
     if (this.isPaused) return;
     await this.resolveCurrentEvent();
 
+  }
+
+  /**
+   * Undoes a choice by restoring the previous state of the event history and choices.
+   * @param {number} index - The index of the choice point to undo.
+   * @returns {Object|null} The choice point that was undone, or null if no choice point was found.
+   */
+  undoChoice(index) {
+    const cp = this.choicePoints[index];
+    if (!cp) return null;
+
+    // Drop this and all later choice points.
+    this.choicePoints.length = index;
+
+    // Trim history back to before this choice was selected.
+    this.eventHistory.length = cp.historyLength;
+
+    // Restore the choice event and its choices.
+    this.currentChoices = [...(cp.choices || [])];
+    this.switchTo(cp.choicesEventId);
+
+    if (this.tracking) {
+      truncateDialogChoices(this.storageKey, index);
+    }
+
+    this.isPaused = false;
+    this.resolveCurrentEvent(); // eventType 6 will show choices again
+    return cp;
   }
 
   async addCharacter() {
@@ -204,6 +246,7 @@ export class EventResolver extends HTMLElement {
     if (snapShot && snapShot.eventId) {
       this.eventHistory = snapShot.history || [];
       this.currentChoices = snapShot.currentChoices || [];
+      this.choicePoints = snapShot.choicePoints || [];
 
       if (snapShot.storageKey) {
           this.storageKey = snapShot.storageKey;
@@ -219,6 +262,7 @@ export class EventResolver extends HTMLElement {
           eventId: this.currentEvent ? this.currentEvent['id'] : null,
           history: this.eventHistory,
           currentChoices: this.currentChoices,
+          choicePoints: this.choicePoints,
           storageKey: this.storageKey
       };
   }

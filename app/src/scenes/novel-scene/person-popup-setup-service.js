@@ -115,6 +115,44 @@ export function createContinuePopUp(novel, { onContinue, onRestart }) {
   return popUp;
 }
 
+/**
+ * Creates the undo choice pop-up.
+ * @param {Object} novel - The novel object.
+ * @param {Object} onResume - The callback function to resume the novel.
+ * @param {Object} onUndo - The callback function to undo the choice.
+ * @returns {Object} The undo choice pop-up.
+ */
+export function createUndoChoicePopUp(novel, { onResume, onUndo }) {
+  const popUp = PersonPopUp.create();
+
+  popUp.config = {
+    novelColor: novel["novelColor"],
+    title: "Bist du sicher, dass Du deine Entscheidung rückgängig machen möchtest?",
+    buttons: [
+      {
+        text: "WEITERSPIELEN",
+        isPrimary: true,
+        onClick: () => {
+          popUp.toggle(false);
+          onResume();
+        },
+      },
+      {
+        text: "RÜCKGÄNGIG MACHEN",
+        isPrimary: false,
+        onClick: () => {
+          popUp.toggle(false);
+          onUndo();
+        },
+      },
+    ],
+    overlayClass: PAUSE_OVERLAY_CLASS,
+    btnContainerClass: "flex flex-col gap-[2.5cqw] mt-[2cqw]",
+  };
+
+  return popUp;
+}
+
 // Schauen ob das novel im store mit der event id hinterlegt ist, falls ja wird es returnt
 export function shouldShowContinuePopUp(novelName) {
   return novelStateStore.load(novelName) !== null;
