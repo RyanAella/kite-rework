@@ -35,6 +35,18 @@ export function addDialogChoice(UUID, choice) {
   writeJson(storeKey, archive);
 }
 
+/**
+ * Truncates the dialog choices for a given UUID.
+ * @param {string} UUID - The UUID of the novel.
+ * @param {number} length - The length of the dialog choices to truncate.
+ */
+export function truncateDialogChoices(UUID, length) {
+  let archive = readJson(storeKey);
+  if (!archive?.[UUID] || !Array.isArray(archive[UUID].dialog)) return;
+  archive[UUID].dialog.length = Math.max(0, length);
+  writeJson(storeKey, archive);
+}
+
 export function getNovelInfo(UUID) {
   return readJson(storeKey)[UUID];
 }

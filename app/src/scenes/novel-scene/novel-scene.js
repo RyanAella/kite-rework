@@ -7,6 +7,7 @@ import "../../shared-components/headers/base-header.js";
 import {
   createContinuePopUp,
   createPausePopUp,
+  createUndoChoicePopUp,
   isIntroNovel,
   shouldShowContinuePopUp,
 } from "./person-popup-setup-service.js";
@@ -36,6 +37,8 @@ class NovelScene extends HTMLElement {
   dialogueList;
   pausePopUp;
   continuePopUp;
+  undoChoicePopUp;
+  pendingUndo = null;
   characterObjectSync = {};
 
   /** Sets up the scene: session, listeners, child components and start/continue flow. */
@@ -54,6 +57,7 @@ class NovelScene extends HTMLElement {
     this.addEventListener("user-confirmation", (event) => { this.eventResolver.userConfirmation(event)});
     this.addEventListener("add-character", (event) => {this.addCharacter(event.detail.characterId)});
     this.addEventListener("resolve-event", (event) => {this.eventResolver.resolveCurrentEvent()});
+    this.addEventListener("request-undo-choice", (event) => { this.requestUndoChoice(event.detail) });
     this.addEventListener("novel-finished", (event) => {
       novelStateStore.clear(this.novel.name);
       markNovelSessionEnded();
@@ -95,6 +99,20 @@ class NovelScene extends HTMLElement {
         }))
       }
     });
+
+    this.undoChoicePopUp = createUndoChoicePopUp(this.novel, {
+      onResume: () => {
+        this.pendingUndo = null;
+        this.eventResolver.resume();
+      },
+      onUndo: () => {
+        if (!this.pendingUndo) return;
+        const { index, bubble } = this.pendingUndo;
+        this.pendingUndo = null;
+        this.dialogueList.undoToChoice(bubble);
+        this.eventResolver.undoChoice(index);
+      }
+    });
     
     const header = document.createElement(needBaseHeader ? "base-header" : "back-header");
     if(!needBaseHeader) {
@@ -116,6 +134,7 @@ class NovelScene extends HTMLElement {
 
     this.background.appendChild(this.dialogueList);
     this.appendChild(this.pausePopUp);
+    this.appendChild(this.undoChoicePopUp);
 
     // Saving a snapshot on an attemt to leave the scene
     const leavingFunctions = [header.querySelector("#btn-legal"), header.querySelector("#btn-settings")];
@@ -159,6 +178,13 @@ class NovelScene extends HTMLElement {
     attachDialogueSkipOnOutsideClick(this.background, this.dialogueList);
 
     playAudio("SFX_LoadScene");
+  }
+
+  requestUndoChoice({ index, bubble }) {
+    if (typeof index !== "number" || !bubble) return;
+    this.pendingUndo = { index, bubble };
+    this.eventResolver.pause();
+    this.undoChoicePopUp.toggle(true);
   }
 
   /** Navigates back to the novel selector hub. */
