@@ -1,158 +1,123 @@
-// Bookmark hex width and height in cqw
-const BOOKMARK_HEX_W_CQW = 29.6;
-const BOOKMARK_HEX_H_CQW = 26.6;
-const BOOKMARK_HEX_GAP_CQW = 1.2;
+// Hexagon tile sizes and the shared hex shape image.
+const HEX_W_CQW = 29.6;
+const HEX_H_CQW = 26.6;
+const HEX_GAP_CQW = 1.2;
+const HEX_SHAPE_SRC = "assets/Images/FoundersBubble/Novel_Shape.png";
 
+const COLUMNS = 3;
+const COLUMN_FILL_ORDER = [0, 2, 1];
 
-const COL_STEP_CQW = BOOKMARK_HEX_W_CQW * 0.82 + BOOKMARK_HEX_GAP_CQW; // Horizontal step between neighbouring columns
-const ROW_STEP_CQW = BOOKMARK_HEX_H_CQW + BOOKMARK_HEX_GAP_CQW; // Vertical step between neighbouring rows in one column
-const MID_STAGGER_CQW = ROW_STEP_CQW * 0.5; // This is the stagger for the odd columns
+const COL_STEP_CQW = HEX_W_CQW * 0.82 + HEX_GAP_CQW; // horizontal step between columns
+const ROW_STEP_CQW = HEX_H_CQW + HEX_GAP_CQW; // vertical step within a column
+const MID_STAGGER_CQW = ROW_STEP_CQW * 0.5; // vertical offset of the middle column
+const BOX_WIDTH_CQW = (COLUMNS - 1) * COL_STEP_CQW + HEX_W_CQW;
 
-// Calculate the number of columns for the honeycomb
-function bookmarkColumnCount(n) {
-  if (n <= 1) return 1;
-  if (n === 2) return 2;
-  return 3;
-}
+// Drifts the middle column half a row for the honeycomb effect.
+const columnStagger = (colIdx) => (colIdx === 1 ? MID_STAGGER_CQW : 0);
 
-// Create the columns for the honeycomb
-function bookmarkColumnsFromItems(items, columnCount) {
-  const cols = Array.from({ length: columnCount }, () => []);
-  items.forEach((item, i) => {
-    cols[i % columnCount].push(item);
+/**
+ * Distributes novels into the fixed columns in left, right, middle order.
+ * @param {Array} novels - The novels to distribute.
+ * @returns {Array} The distributed novels.
+ */
+function columnsFromNovels(novels) {
+  const cols = Array.from({ length: COLUMNS }, () => []);
+  novels.forEach((novel, i) => {
+    cols[COLUMN_FILL_ORDER[i % COLUMNS]].push(novel);
   });
   return cols;
 }
 
-// Layout the honeycomb placements
-function layoutHoneycombPlacements(columns) {
-  const colCount = columns.length;
-  const out = [];
+/**
+ * Builds the honeycomb model for the bookmarks scene.
+ * @param {Array} novels - The novels to build the honeycomb model for.
+ * @returns {Object} The honeycomb model.
+ */
+function buildHoneycombModel(novels) {
+  if (novels.length === 0) return null;
 
-  columns.forEach((novelsInCol, colIdx) => {
-    const stagger = colCount > 1 && colIdx % 2 === 1 ? MID_STAGGER_CQW : 0;
+  const placements = [];
+  let boxHeight = HEX_H_CQW;
+
+  columnsFromNovels(novels).forEach((novelsInCol, colIdx) => {
+    const stagger = columnStagger(colIdx);
     novelsInCol.forEach((novel, rowIdx) => {
-      out.push({
-        novel,
-        left: colIdx * COL_STEP_CQW,
-        top: stagger + rowIdx * ROW_STEP_CQW,
-      });
+      const top = stagger + rowIdx * ROW_STEP_CQW;
+      placements.push({ novel, left: colIdx * COL_STEP_CQW, top });
+      boxHeight = Math.max(boxHeight, top + HEX_H_CQW);
     });
   });
 
-  return out;
+  return { placements, boxWidth: BOX_WIDTH_CQW, boxHeight };
 }
 
-// Calculate the height of the honeycomb box
-function honeycombBoxHeight(columns) {
-  let maxBottom = 0;
-  const colCount = columns.length;
-
-  columns.forEach((novelsInCol, colIdx) => {
-    if (novelsInCol.length === 0) return;
-    const stagger = colCount > 1 && colIdx % 2 === 1 ? MID_STAGGER_CQW : 0;
-    const bottom =
-      stagger + (novelsInCol.length - 1) * ROW_STEP_CQW + BOOKMARK_HEX_H_CQW;
-    maxBottom = Math.max(maxBottom, bottom);
-  });
-
-  return maxBottom || BOOKMARK_HEX_H_CQW;
-}
-
-// Calculate the width of the honeycomb box
-function honeycombBoxWidth(columnCount) {
-  if (columnCount <= 1) return BOOKMARK_HEX_W_CQW;
-  return Math.max(0, columnCount - 1) * COL_STEP_CQW + BOOKMARK_HEX_W_CQW;
-}
-
-// Build the honeycomb model
-function buildBookmarkHoneycombModel(novels) {
-  if (novels.length === 0) {
-    return null;
-  }
-
-  const colCount = bookmarkColumnCount(novels.length);
-  const columns = bookmarkColumnsFromItems(novels, colCount);
-
-  return {
-    placements: layoutHoneycombPlacements(columns),
-    boxWidth: honeycombBoxWidth(colCount),
-    boxHeight: honeycombBoxHeight(columns),
-  };
-}
-
-// Create the absolute bookmark hex markup
-function createAbsoluteBookmarkHexMarkup(novel, leftCqw, topCqw) {
+/**
+ * Builds the markup for a single positioned hex tile.
+ * @param {Object} novel - The novel to build the markup for.
+ * @param {number} left - The left position of the tile.
+ * @param {number} top - The top position of the tile.
+ * @returns {string} The markup for the tile.
+ */
+function hexTileMarkup(novel, left, top) {
   return `
-      <div data-id="${novel.name}"
-        class="absolute flex shrink-0 items-center justify-center"
-        style="left:${leftCqw}cqw;top:${topCqw}cqw;width:${BOOKMARK_HEX_W_CQW}cqw;height:${BOOKMARK_HEX_H_CQW}cqw;"
-      >
-        <svg viewBox="0 0 296 266" class="absolute inset-0 z-0 h-full w-full overflow-visible">
-          <path
-            d="M 96.5,0 L 209.5,0 Q 229.5,0 239.5,17.3 L 296,115.7 Q 306,133 296,150.3 L 239.5,248.7 Q 229.5,266 209.5,266 L 96.5,266 Q 76.5,266 66.5,248.7 L 10,150.3 Q 0,133 10,115.7 L 66.5,17.3 Q 76.5,0 96.5,0 Z"
-            fill="${novel.novelColor}"
-          />
-        </svg>
-
-        <div class="relative z-10 w-[80%] text-center text-white text-[3.6cqw] font-semibold leading-tight pointer-events-none">
-          ${novel.title}
-        </div>
+    <div data-id="${novel.name}"
+      class="absolute flex shrink-0 items-center justify-center"
+      style="left:${left}cqw;top:${top}cqw;width:${HEX_W_CQW}cqw;height:${HEX_H_CQW}cqw;"
+    >
+      <div
+        class="absolute inset-0 z-0 h-full w-full"
+        style="background-color:${novel.novelColor};-webkit-mask:url('${HEX_SHAPE_SRC}') center/contain no-repeat;mask:url('${HEX_SHAPE_SRC}') center/contain no-repeat;"
+      ></div>
+      <div class="relative z-10 w-[80%] text-center text-white text-[3.6cqw] font-semibold leading-tight pointer-events-none">
+        ${novel.title}
       </div>
-    `;
+    </div>
+  `;
 }
 
-// Render the bookmark hex grid
-function renderBookmarkHexGrid(bookmarksScene, novels) {
+/**
+ * Navigates to the novel scene for the clicked tile.
+ * @param {Object} bookmarksScene - The bookmarks scene.
+ * @param {Object} novel - The novel to navigate to.
+ */
+function navigateToNovel(bookmarksScene, novel) {
+  bookmarksScene.dispatchEvent(
+    new CustomEvent("sm-switch-scene", {
+      detail: { scene: "novel-scene", args: { novel } },
+      bubbles: true,
+      composed: true,
+    }),
+  );
+}
+
+/**
+ * Initializes the honeycomb component for the bookmarks scene.
+ * @param {Object} bookmarksScene - The bookmarks scene.
+ * @param {Array} novels - The novels to initialize the honeycomb component for.
+ */
+export function initHoneycombComponent(bookmarksScene, novels) {
   const grid = bookmarksScene.querySelector("#hex-grid");
   if (!grid) return;
 
-  const model = buildBookmarkHoneycombModel(novels);
-  if (model == null) {
+  const model = buildHoneycombModel(novels);
+  if (!model) {
     grid.innerHTML = "";
     return;
   }
 
   const { placements, boxWidth, boxHeight } = model;
-
   const tiles = placements
-    .map(({ novel, left, top }) =>
-      createAbsoluteBookmarkHexMarkup(novel, left, top),
-    )
+    .map(({ novel, left, top }) => hexTileMarkup(novel, left, top))
     .join("");
 
   grid.innerHTML =
     `<div class="relative mx-auto shrink-0 overflow-visible"` +
     ` style="width:${boxWidth}cqw;height:${boxHeight}cqw">${tiles}</div>`;
-}
 
-// Attach the bookmark hex navigate listeners
-function attachBookmarkHexNavigateListeners(bookmarksScene, novels) {
-  const grid = bookmarksScene.querySelector("#hex-grid");
-  if (!grid) return;
-
-  for (const novel of novels) {
+  for (const { novel } of placements) {
     const hex = grid.querySelector(`[data-id="${CSS.escape(novel.name)}"]`);
     if (!hex) continue;
-
     hex.classList.add("select-none");
-    hex.addEventListener("click", () => {
-      bookmarksScene.dispatchEvent(
-        new CustomEvent("sm-switch-scene", {
-          detail: {
-            scene: "novel-scene",
-            args: { novel },
-          },
-          bubbles: true,
-          composed: true,
-        }),
-      );
-    });
+    hex.addEventListener("click", () => navigateToNovel(bookmarksScene, novel));
   }
-}
-
-// Initialize the honeycomb component
-export function initHoneycombComponent(bookmarksScene, novels) {
-  renderBookmarkHexGrid(bookmarksScene, novels);
-  attachBookmarkHexNavigateListeners(bookmarksScene, novels);
 }

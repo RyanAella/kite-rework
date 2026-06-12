@@ -5,7 +5,10 @@ import { initHoneycombComponent } from "./honeycomb-component.js";
 
 class BookmarksScene extends HTMLElement {
 
-  // Fetch the bookmarked selectable novels
+  /**
+   * Fetches the bookmarked selectable novels.
+   * @returns {Promise<Array>} The bookmarked selectable novels.
+   */
   async fetchBookmarkedSelectableNovels() {
     const response = await fetch("assets/json/novels.json");
     const data = await response.json();
@@ -14,12 +17,13 @@ class BookmarksScene extends HTMLElement {
     const validNames = selectableNovels.map((n) => n.name);
 
     const bookmarkedNames = bookmarkedNovelStore.load(validNames);
-    return selectableNovels.filter((n) => bookmarkedNames.has(n.name));
+    const byName = new Map(selectableNovels.map((n) => [n.name, n]));
+    return [...bookmarkedNames]
+      .map((name) => byName.get(name))
+      .filter(Boolean);
   }
 
   async connectedCallback() {
-    console.log("Bookmarks Scene loaded");
-
     this.innerHTML = `
       <div class="relative flex h-full min-h-0 w-full flex-col overflow-hidden font-sans text-[#0b1a2d]">
         <div class="pointer-events-none absolute inset-0 bg-bright bg-cover"></div>
