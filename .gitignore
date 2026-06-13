@@ -5,3 +5,6 @@
 node_modules/
 AGENT.md
 docs/
+
+# Environment variables (secrets)
+.env

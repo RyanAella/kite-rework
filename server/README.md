@@ -2,44 +2,46 @@
 
 Lightweight Node.js server for the AI feedback feature. Uses only the native `http` module – no external dependencies.
 
+**Server and testing the api can just be runned locally, because the server should not be hosted.**
+
 ## Requirements
 
 - Node.js 18 or newer
+- A file located int the root folder (team-04) named ".env" for storing api key as envrironment variable
+- The file needs the API Key as env variable. Paste this entry **GEMINI_API_KEY='your_api_key'**
 
 ## Run
 
 ```bash
-cd server
-npm start
+cd team-04
+node --env-file=.env server/server.js
 ```
 
-For development with auto-restart on file changes:
+## Testing
+
+**Server must be started before testing to run in the background in its own terminal. After that exectute the testing commands in a second terminal.**
+
+To run the API Test run:
 
 ```bash
-npm run dev
+cd team-04
+node app/tests/api-test.js
 ```
 
-The server listens on port **3000** by default. Override with the `PORT` environment variable:
-
-```bash
-PORT=4000 npm start
-```
 
 ## Endpoints
 
 | Method | Path        | Description                          |
 |--------|-------------|--------------------------------------|
 | GET    | `/health`   | Liveness check, returns `{ status: "ok" }` |
-| POST   | `/feedback` | Returns placeholder feedback (no request body yet) |
+| POST   | `/feedback` | Returns placeholder feedback |
 
 ### POST /feedback
 
-No request body required for now.
-
-**Response (placeholder):**
+**Response:**
 
 ```json
 {
-  "feedback": "Placeholder response – AI API not yet connected."
+  "feedback": "Placeholder response"
 }
 ```
