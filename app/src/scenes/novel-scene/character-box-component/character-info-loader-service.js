@@ -1,24 +1,23 @@
+import { fetchFromJson } from "../../../shared-services/fetch-service.js";
 import { pathFinding } from "./path-finding-service.js";
 
 const skinSprites = ['a','b','c','d'];
 const headSpriteCount = 2;
 
+/**
+ * Fetches / Generates Information of a character
+ * @param {string} novelName the Name of the currently played novel
+ * @param {number} characterId the ID of the character
+ * @returns character Information in an Object
+ */
 export async function characterInfoLoader(novelName, characterId) {
-  console.log("novelCharacterGenerating");
 
-  let response = await fetch("assets/json/character-info.json");
-  let data = await response.json();
+  let data = await fetchFromJson("assets/json/character-info.json");
   let characterInfo = data["characters"].filter(c => c.id == characterId)[0];
 
   if (!characterInfo) return null;
 
   characterInfo["novelName"] = novelName;
-  //novelName
-  //hairSpriteId
-  //clothesSpriteId
-  //eyebrowType
-  //headSpriteId
-  //skinSpriteId
 
   const maxHair = characterInfo.maxHair;
   const maxClothes = characterInfo.maxClothes;

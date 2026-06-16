@@ -6,6 +6,14 @@ export class MessageContainer extends HTMLElement {
     this.classList = "mt-auto flex flex-col gap-[1.6cqw] shrink-0"
   }
 
+  /**
+   * Adds a message to this message container.
+   * @param {string} text The text contents of this message
+   * @param {*} isUser Whether this message is the result of a user choice
+   * @param {*} characterId The ID of the Character that speaks this message
+   * @param {*} isInstant Whether the message is added without an animation
+   * @returns a promise for the created messageBox
+   */
   addMessage(text, isUser = false, characterId, isInstant = false) {
     return new Promise((resolve) => {
       const messageBox = document.createElement('div');
@@ -13,10 +21,8 @@ export class MessageContainer extends HTMLElement {
 
       const isChoiceBubble = isUser || characterId == 1;
       if(isChoiceBubble) {
-        console.log("ID -> " + characterId);
         messageBox.className = `${baseClasses} w-[90%] self-end bg-[#0c447f]`;
       } else if(characterId >= 5 && characterId <= 12) {
-        console.log("ID -> " + characterId);
         messageBox.className = `${baseClasses} w-[90%] self-start bg-[#393a39]`;
       } else {
         messageBox.className = `${baseClasses} w-full self-center bg-[#0e7f90]`;
@@ -61,8 +67,6 @@ export class MessageContainer extends HTMLElement {
           },
         });
       }
-
-      
     })
   }
 }

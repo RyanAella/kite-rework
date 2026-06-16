@@ -1,12 +1,10 @@
+// Shared Tailwind classes for buttons and icons
+const enabledBtnClass = "bg-transparent flex flex-col items-center gap-[1.2cqw] outline-none transition-all duration-200 opacity-70";
+// Disabled-mode press feedback: rests at 70%, dims to 40% while held.
+const disabledBtnClass = "bg-transparent flex flex-col items-center gap-[1.2cqw] outline-none transition-opacity opacity-70 active:opacity-40";
+const imgClass = "w-[6cqw] h-[6cqw] object-contain pointer-events-none";
+
 export class Footer extends HTMLElement {
-  constructor() {
-    super();
-    // Shared Tailwind classes for buttons and icons
-    this.btnClass = "bg-transparent flex flex-col items-center gap-[1.2cqw] outline-none transition-all duration-200 opacity-70";
-    // Disabled-mode press feedback: rests at 70%, dims to 40% while held.
-    this.disabledBtnClass = "bg-transparent flex flex-col items-center gap-[1.2cqw] outline-none transition-opacity opacity-70 active:opacity-40";
-    this.imgClass = "w-[6cqw] h-[6cqw] object-contain pointer-events-none";
-  }
 
   connectedCallback() {
     this.render();
@@ -25,10 +23,14 @@ export class Footer extends HTMLElement {
   }
 
   getButtonClass() {
-    return this.isDisabled() ? this.disabledBtnClass : this.btnClass;
+    return this.isDisabled() ? disabledBtnClass : enabledBtnClass;
   }
 
-  // Initial setup: finds the button that matches the current scene name
+
+  /**
+   * Initial setup: finds the button that matches the given scene name
+   * @param {String} sceneName 
+   */
   initActiveButton(sceneName) {
     const targetBtn = this.querySelector(`button[data-scene="${sceneName}"]`);
     if (targetBtn) {
@@ -36,7 +38,11 @@ export class Footer extends HTMLElement {
     }
   }
 
-  // Updates the visual active state (opacity) of the buttons
+  /**
+   * Updates the visual active state (opacity) of a button
+   * @param {HTMLElement} btn 
+   * @returns 
+   */
   setActive(btn) {
     if (!btn) return;
     this.querySelectorAll('button').forEach(b => {
@@ -47,6 +53,9 @@ export class Footer extends HTMLElement {
     btn.classList.add('opacity-100');
   }
 
+  /**
+   * Adds all contents to the Footer Element in the DOM
+   */
   render() {
     const btnClass = this.getButtonClass();
     this.classList = "w-full h-[20cqw]"
@@ -54,28 +63,28 @@ export class Footer extends HTMLElement {
       <footer class="w-full h-full bg-[#0B1A2D] flex items-center box-border border-white/10">
         <div class="flex justify-between items-center w-full px-[6cqw]">
           
-          <button id="foot-start" data-scene="novel-selector" class="${btnClass}">
-            <img src="assets/Images/Buttons/home.png" class="${this.imgClass}" />
+          <button id="foot-start" data-scene="novel-selector-scene" class="${btnClass}">
+            <img src="assets/Images/Buttons/home.png" class="${imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Start</span>
           </button>
 
           <button id="foot-archive" data-scene="archive-scene" class="${btnClass}">
-            <img src="assets/Images/Buttons/archive.png" class="${this.imgClass}" />
+            <img src="assets/Images/Buttons/archive.png" class="${imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Archiv</span>
           </button>
 
           <button id="foot-bookmark" data-scene="bookmarks-scene" class="${btnClass}">
-            <img src="assets/Images/Buttons/bookmark.png" class="${this.imgClass}" />
+            <img src="assets/Images/Buttons/bookmark.png" class="${imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Gemerkt</span>
           </button>
 
           <button id="foot-links" data-scene="links-scene" class="${btnClass}">
-            <img src="assets/Images/Buttons/weblinks.png" class="${this.imgClass}" />
+            <img src="assets/Images/Buttons/weblinks.png" class="${imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Links</span>
           </button>
 
           <button id="foot-knowledge" data-scene="knowledge-scene" class="${btnClass}">
-            <img src="assets/Images/Buttons/knowledge.png" class="${this.imgClass}" />
+            <img src="assets/Images/Buttons/knowledge.png" class="${imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Wissen</span>
           </button>
 
@@ -83,6 +92,9 @@ export class Footer extends HTMLElement {
       </footer>`;
   }
 
+  /**
+   * Add all required Event Listeners to the Footer Elements
+   */
   setupEvents() {
     // Prevent clicks from reaching elements behind the footer
     this.onclick = (e) => e.stopPropagation();

@@ -2,20 +2,24 @@ import { readJson, writeJson } from "./store-service.js";
 
 const storeKey = "archive"
 
+/**
+ * Adds a new entry in the local storage for the archive entries, if one does not exist already.
+ */
 function setup() {
   if(readJson(storeKey) == undefined) {
-    console.log("progress-tracking-service::setup");
     writeJson(storeKey, {});
   }
 }
 
+/**
+ * Creates a new Entry in the localStorage Archive Storage Object.
+ * @param {string} novelName the name of the novel, this entry belongs to
+ * @returns The ID of the new entry
+ */
 export function newNovelInfo(novelName) {
   setup();
-  console.log("progress-tracking-service::newNovelInfo");
   let archive = readJson(storeKey);
   let storageInstanceKey = crypto.randomUUID();
-  console.log(archive);
-  console.log(storageInstanceKey);
   archive[storageInstanceKey] = ({
     "novelName": novelName,
     "date": new Date(),
@@ -27,9 +31,12 @@ export function newNovelInfo(novelName) {
   return storageInstanceKey;
 }
 
+/**
+ * Adds a user choice to an entry in the Archive Storage Object.
+ * @param {UUID} UUID The ID of the entry
+ * @param {number} choice the users choice
+ */
 export function addDialogChoice(UUID, choice) {
-  console.log("progress-tracking-service::addDialogeChoice");
-  console.log(`storeKey: ${storeKey} | UUID: ${UUID}`);
   let archive = readJson(storeKey);
   archive[UUID].dialog.push(choice);
   writeJson(storeKey, archive);
@@ -47,12 +54,22 @@ export function truncateDialogChoices(UUID, length) {
   writeJson(storeKey, archive);
 }
 
+/**
+ * Gets an Archive Storage Entry.
+ * @param {UUID} UUID The ID of the Entry
+ * @returns The Object stored for the given ID
+ */
 export function getNovelInfo(UUID) {
   return readJson(storeKey)[UUID];
 }
 
+/**
+ * Marks an Archive Storage Entry as Completed.
+ * @param {UUID} UUID The ID of the Entry
+ * @param {number} lastEventId The ID of the last played event
+ * @param {Boolean} isPremature Whether the novel as been aborted instead of beeing completed normally
+ */
 export function setCompletedFlag(UUID, lastEventId = null, isPremature = false) {
-  console.log("progress-tracking-service::setCompletedFlag");
   let archive = readJson(storeKey);
   archive[UUID].completed = true;
 

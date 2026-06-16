@@ -6,6 +6,10 @@ export class ChoiceContainer extends HTMLElement {
     this.classList = "flex flex-col gap-[1.3cqw] p-[2cqw] empty:hidden shrink-0"
   }
 
+  /**
+   * Adds a number of choices to this choiceContainer
+   * @param {Array} arrayOfChoices An Array of all characterChoiceEvents that should be shown
+   */
   addChoices(arrayOfChoices) {
     return new Promise((resolve) => {
       this.innerHTML = '';

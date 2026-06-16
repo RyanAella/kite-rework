@@ -13,8 +13,11 @@ const PRIMARY_BUTTON_CLASS =
 const SECONDARY_BUTTON_CLASS =
   "py-[1.6cqw] px-[0.8cqw] rounded-[0.6cqw] font-bold text-[2.6cqw] text-center border-[0.3cqw] text-white border-white bg-transparent";
 
-// Popup with a person image behind a colored text box.
-// Pass content (title, text, buttons) through config — see buildModal().
+
+/**
+ * Popup with a person image behind a colored text box.
+ * Pass content (title, text, buttons) through config — see buildModal().
+ */
 export class PersonPopUp extends HTMLElement {
   static create(config) {
     const popUp = document.createElement("person-pop-up");
@@ -25,17 +28,17 @@ export class PersonPopUp extends HTMLElement {
   }
 
   connectedCallback() {
-    console.log("connection")
     if (!this.config) {
       console.error("PersonPopUp: config was not provided!");
       return;
     }
     this.buildUI();
     this.toggle(this.config.initiallyVisible === true);
-    console.log("Connected")
   }
 
-  // Build the UI of the pop-up
+  /**
+   * Build the UI of the pop-up
+   */
   buildUI() {
     const { overlayClass = DEFAULT_OVERLAY_CLASS, modalWidth = "w-[80%]" } = this.config;
 
@@ -52,7 +55,10 @@ export class PersonPopUp extends HTMLElement {
     this.appendChild(this.overlay);
   }
 
-  // Create the person image
+  /**
+   * Create the person image
+   * @returns the created uimage
+   */
   createPersonImage() {
     const img = document.createElement("img");
     img.src = PERSON_IMAGE_PATH;
@@ -61,7 +67,10 @@ export class PersonPopUp extends HTMLElement {
     return img;
   }
 
-  // Build the modal
+  /**
+   * Build the modal
+   * @returns 
+   */
   buildModal() {
     const {
       novelColor,

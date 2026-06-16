@@ -1,19 +1,13 @@
-import { addDragScrolling } from "../../shared-services/drag-scrolling.js";
+import { addDragScrolling } from "../../shared-services/drag-scrolling-service.js";
 import { NovelHeading } from "./novel-heading-component/novel-heading-component.js";
 import { getArchiveData } from "../../shared-services/archive-data-service.js";
+import { fetchFromJson } from "../../shared-services/fetch-service.js";
 
 class ArchiveScene extends HTMLElement {
 
-  constructor() {
-    super();
-  }
-
   async connectedCallback() {
 
-    let response = await fetch("assets/json/novels.json");
-    this.novelData = await response.json();
-
-    console.log("Archive Scene loaded");
+    this.novelData = await fetchFromJson("assets/json/novels.json");
 
     this.classList = "h-full w-full grid grid-cols-1 grid-rows-1";
     this.innerHTML = `
@@ -52,23 +46,26 @@ class ArchiveScene extends HTMLElement {
     this.addHeadings();
 
     this.addEventListener("show-popup", (event) => {
-      console.log("Showing Popup")
       this.popUpText.innerHTML = event.detail.text
       this.popupContainer.classList.remove("hidden");
       setTimeout(() => this.popupContainer.classList.add("hidden"), 1000);
     });
   }
 
+  /**
+   * Adds a novel Heading for each Archive Storage Entry.
+   */
   addHeadings() {
     this.instanceData = getArchiveData(true);
     Object.entries(this.instanceData).forEach(([key, value]) => {
-      console.log(key);
-      console.log(value);
       const heading = NovelHeading.create(this.novelData.visualNovels.find((element) => element.name == key), value);
       this.novelContainer.appendChild(heading);
     });
   }
 
+  /**
+   * Creates the PopUp element.
+   */
   createPopUp() {
     this.popupContainer = this.querySelector('#popup-container');
     let popUp = document.createElement('div');
@@ -78,6 +75,9 @@ class ArchiveScene extends HTMLElement {
     this.popupContainer.appendChild(popUp);
   }
 
+  /**
+   * Adds the Informational Text, that shows, when no entry is present.
+   */
   addEmptyinfoText() {
     const novelContainer = this.querySelector("#novel-container");
     let emptyText = document.createElement("p");

@@ -3,13 +3,9 @@ import "./searchbar-component.js";
 import "./accordion-component.js"
 
 class KnowledgeScene extends HTMLElement {
-  
-  constructor() {
-    super();
-    // Speichert Referenzen zu allen DOM-Karten
-    this.cardElements = []; 
-    this.categoryElements = [];
-  }
+
+  cardElements = []; 
+  categoryElements = [];
 
   async connectedCallback() {
     const containerComponent = document.createElement("container-component");
@@ -29,8 +25,9 @@ class KnowledgeScene extends HTMLElement {
     this.mainScrollContainer.appendChild(accordion);
   }
 
-
-  // Creates the intro text and the heading above it
+  /**
+   * Creates the intro text and the heading above it
+   */
   buildHeadingAndDesc() {
     // Intro Heading unter der Suche
     const introText = document.createElement('h2');

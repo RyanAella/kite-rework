@@ -12,14 +12,12 @@ export class DateHeading extends HTMLElement {
     return element;
   }
 
-  connectedCallback() {
-    console.log("DEBUG: Heading Connected");
-  }
-
+  /**
+   * Generate all subcontents of this element
+   */
   load() {
     this.hex = this.novelData['novelColor']
     this.formatDate();
-    console.log(this.createDialog());
     this.classList = "flex flex-col w-full mt-[1cqw]";
     this.innerHTML = `
       <div 
@@ -53,8 +51,10 @@ export class DateHeading extends HTMLElement {
     });
   }
 
+  /**
+   * Gets the current date, formats it correctly and saves it in this.formattedDate
+   */
   formatDate() {
-    console.log(this.instanceData['date'])
     const date = new Date(this.instanceData['date']);
 
     // 1. Get the short weekday in German (e.g., "Sa")
@@ -77,8 +77,7 @@ export class DateHeading extends HTMLElement {
     // 4. Combine them with the pipe character
     const customFormat = `${weekday} | ${dateStr} | ${timeStr}`;
 
-    this.formattedDate = customFormat; 
-    // Output: Sa | 16.05.2026 | 10:24
+    this.formattedDate = customFormat; // Output: Sa | 16.05.2026 | 10:24
   }
 
   nameMap = {
@@ -95,31 +94,29 @@ export class DateHeading extends HTMLElement {
     12 : "Kundin"
   }
 
+  /**
+   * Creates the contents of the dialog as html code
+   * @returns The inner HTML displayed to the user in the dialog subsection as a string
+   */
   createDialog() {
-    console.log(this.novelData);
-    console.log(this.instanceData);
-
     let htmlElement = "";
 
     let currentEvent = this.novelData.novelEvents[0];
     let playerChoices = structuredClone(this.instanceData.dialog);
     let currentChoices = [];
     while(true) {
-      console.log(currentEvent.id)
 
+      // Managing the case, that the playing of the novel has been aborted at this point
       if (this.instanceData.isPremature && currentEvent.id === this.instanceData.lastEventId) {
-          
-          // Wir rendern noch das exakte Event, an dem der Nutzer abgebrochen hat
-          if (currentEvent.eventType === 4) {
-              htmlElement += `<p><b>${this.nameMap[currentEvent["character"]]}:</b> ${currentEvent["text"]}</p>`;
-          } else if (currentEvent.eventType === 16) {
-              htmlElement += `<p><i><b>Hinweis:</b> ${currentEvent["relevantBias"]}</i></p>`;
-          }
-          
-          // Die definierte Abbruch-Meldung anhängen (wie im Screenshot gewünscht)
-          htmlElement += `<p>Das Gespräch wurde vorzeitig beendet.</p>`;
-          
-          return htmlElement;
+        
+        if (currentEvent.eventType === 4) {
+            htmlElement += `<p><b>${this.nameMap[currentEvent["character"]]}:</b> ${currentEvent["text"]}</p>`;
+        } else if (currentEvent.eventType === 16) {
+            htmlElement += `<p><i><b>Hinweis:</b> ${currentEvent["relevantBias"]}</i></p>`;
+        }
+        htmlElement += `<p>Das Gespräch wurde vorzeitig beendet.</p>`;
+        
+        return htmlElement;
       }
 
       switch (currentEvent.eventType){
@@ -138,11 +135,11 @@ export class DateHeading extends HTMLElement {
         case 6:
           let choice = currentChoices[playerChoices.shift()];
 
-          // Wenn der Nutzer die Novel vorzeitig beendet hat, ist 'choice' hier undefined.
-          // In diesem Fall brechen wir sauber ab und geben einfach den Dialog zurück, 
-          // der BIS ZU DIESEM PUNKT gespielt wurde, anstatt abzustürzen.
+          // If the user has exited the novel early, “choice” is undefined here.
+          // In this case, we stop here and simply return the dialogue 
+          // that has been played UP TO THIS POINT, to prevent an exception.
           if (!choice) {
-              console.log("Archiv-Info: Dialog wurde vom Nutzer vorzeitig beendet.");
+              console.warn("Archiv-Info: Dialog wurde vom Nutzer vorzeitig beendet.");
               return htmlElement;
           }
 
@@ -155,7 +152,7 @@ export class DateHeading extends HTMLElement {
           currentEvent = this.novelData.novelEvents.find((element) => element.id == currentEvent.nextId);
           break;
         default:
-          console.log(`Event with type ${currentEvent.eventType}`);
+          console.warn(`Event with type ${currentEvent.eventType}`);
           return htmlElement;
       }
     }

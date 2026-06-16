@@ -1,14 +1,10 @@
-import { fetchFromJson } from "../shared-services/fetch-service.js";
-import { ImageLoadingService } from "../shared-services/image-loading-service.js";
-import { TermsConsentScene } from "./terms-consent-scene/terms-consent-scene.js";
+import { fetchFromJson } from "../../shared-services/fetch-service.js";
+import { ImageLoadingService } from "../../shared-services/image-loading-service.js";
+import { TermsConsentScene } from "../terms-consent-scene/terms-consent-scene.js";
 
 class LoadingScene extends HTMLElement {
-  constructor() {
-    super();
-  }
 
   async connectedCallback() {
-    console.log("Starting Scene loaded");
 
     // html body
     this.innerHTML = `
@@ -38,8 +34,7 @@ class LoadingScene extends HTMLElement {
     const proxy = new Proxy(progressTracker, {
       set: (target, property, value) => {
         target[property] = value;
-        console.log("Setting: " + property + " to " + value);
-        console.log(`Preloading Fortschritt: ${target["loadedCount"]} / ${target["totalImageCount"]}`);
+        console.debug(`Preloading Progress: ${target["loadedCount"]} / ${target["totalImageCount"]}`);
         if(target["loadedCount"] === target["totalImageCount"]) {
           this.proceedToNextScene();
         } else {

@@ -31,9 +31,12 @@ export class EventResolver extends HTMLElement {
     if(this.tracking) this.storageKey = newNovelInfo(this.novelName);
   }
 
+  /**
+   * Resolves the Current Event and switches to the next one.
+   */
   async resolveCurrentEvent() {
     if(this.isPaused) {
-      console.log("Dialogue is in paused state.");
+      console.warn("Dialogue is in paused state.");
       return;
     }
 
@@ -50,18 +53,16 @@ export class EventResolver extends HTMLElement {
     switch(this.currentEvent['eventType']) {
 
       case 2: //Character Join Event
-        console.log("Character Join Event");
         await this.addCharacter();
         return;
 
       case 3: //Character Exit Event
-        console.log("Character Exit Event");
         break;
 
       case 4: //Show Message Event
         if(character) character.setSpeakingState(true);
         TTSRead(this.currentEvent['text']);
-        await this.dialogueList.showMessage(this.currentEvent['text'], false,  this.currentEvent['character']);
+        await this.dialogueList.showMessage(this.currentEvent['text'], false, this.currentEvent['character']);
         break;
 
       case 5: //Add Choice Event
@@ -76,12 +77,11 @@ export class EventResolver extends HTMLElement {
         return;
 
       case 10: //Gpt Promt Event
-        console.log("GPT Promt Event");
         await new Promise(r => setTimeout(r, 4000));
         if(this.tracking) setCompletedFlag(this.storageKey, this.currentEvent['id'], false);
         this.dispatchEvent(new CustomEvent("sm-switch-scene", {
           detail: {
-            scene : `${this.tracking ? "completion-scene" : "novel-selector"}`,
+            scene : `${this.tracking ? "completion-scene" : "novel-selector-scene"}`,
             args: {
               novelName: this.novelName
             } 
@@ -98,9 +98,11 @@ export class EventResolver extends HTMLElement {
 
       case 11: //Play Sound Event
         playAudio(this.currentEvent.audioClipToPlay);
-        console.log("Save Persistent Event");
         break;
 
+      case 16: //Bias Event
+        break;
+        
       case 1: //Set Background Event (This case does not exist)
       case 7: //End Novel Event (This case does not exist)
       case 8: //Save Persistent Event (This case does not exist)
@@ -108,13 +110,11 @@ export class EventResolver extends HTMLElement {
       case 12: //Mark Bias Event (This case does not exist)
       case 13: //Save Variable Event (This case does not exist)
       case 14: //Add Feedback Event (This case does not exist)
-      case 16: //???
       default:
-        console.log(`Unknown event with Id ${this.currentEvent['id']}`);
+        console.warn(`Unknown event with Id ${this.currentEvent['id']}`);
     }
 
     if(this.isPaused) {
-      console.log("Dialogue is in paused state.");
       return;
     }
 
@@ -129,7 +129,7 @@ export class EventResolver extends HTMLElement {
   async userConfirmation(choice) {
     // Only accept user Confirmation, if the current event is 
     if(this.currentEvent['eventType'] != 6) {
-      console.log(`Invalid State --- novel-scene.userConfirmation ${this.currentEvent['eventType']}`);
+      console.error(`Invalid State --- novel-scene.userConfirmation ${this.currentEvent['eventType']}`);
       return;
     }
 
@@ -189,6 +189,9 @@ export class EventResolver extends HTMLElement {
     return cp;
   }
 
+  /**
+   * Sends an event to the NovelScene to add a new Character
+   */
   async addCharacter() {
     if(this.currentEvent['eventType'] != 2) throw "Invalid Event Type"
     const characterId = this.currentEvent['character'];
@@ -200,6 +203,9 @@ export class EventResolver extends HTMLElement {
     }));
   }
 
+  /**
+   * Recieves Confirmation, that the Character has been added and proceeds with the next event
+   */
   addCharacterCallback() {
     if(this.currentEvent['eventType'] != 2) throw "Invalid Event Type"
     this.switchToNext();
@@ -207,10 +213,18 @@ export class EventResolver extends HTMLElement {
     this.resolveCurrentEvent();
   }
 
+  /**
+   * Switches to the next event.
+   */
   switchToNext() {
     this.switchTo(this.currentEvent['nextId']);
   }
 
+  /**
+   * Switches to a different event
+   * @param {*} id The ID of the event switched to
+   * @returns true, if the event has been found and false otherwise
+   */
   switchTo(id) {
     let events = this.events;
     for(let i = 0; i < events.length; i++) {
@@ -222,26 +236,36 @@ export class EventResolver extends HTMLElement {
     return false;
   }
 
-  // Pausieren der event loop um den Dialog einzufrieren
+  /**
+   * Pauses the Event Loop to stop the dialog from continuing
+   */
   pause() {
     this.isPaused = true;
   }
 
-  // Die Events aus dem Dialog weiterlaufen lassen
+  /**
+   * Resumes the dialogue, after it has been paused
+   */
   resume() {
-      if (this.isPaused) {
-          this.isPaused = false;
-          // Startet die Schleife wieder exakt dort, wo sie gestoppt hat
-          this.resolveCurrentEvent(); 
-      }
+    if (this.isPaused) {
+      this.isPaused = false;
+      // Startet die Schleife wieder exakt dort, wo sie gestoppt hat
+      this.resolveCurrentEvent(); 
+    }
   }
 
-  // Returnt die Id des jetzigen events
+  /**
+   * Gets the Id of the current Event
+   * @returns Id of the current event
+   */
   getCurrentEventId() {
-      return this.currentEvent ? this.currentEvent['id'] : null;
+    return this.currentEvent ? this.currentEvent['id'] : null;
   }
 
-  // Lädt snapshot beim weiterspielen
+  /**
+   * Loads the given snapshot
+   * @param {*} snapShot 
+   */
   loadSnapshot(snapShot) {
     if (snapShot && snapShot.eventId) {
       this.eventHistory = snapShot.history || [];
@@ -256,15 +280,19 @@ export class EventResolver extends HTMLElement {
     }
   }
 
-  // Holt sich den aktuellen snapshot um diesen im storage zu speichern
+  /**
+   * Generates a snapshot of the current state of the novel.
+   * @returns the snapshot
+   */
   getSnapshot() {
-      return {
-          eventId: this.currentEvent ? this.currentEvent['id'] : null,
-          history: this.eventHistory,
-          currentChoices: this.currentChoices,
-          choicePoints: this.choicePoints,
-          storageKey: this.storageKey
-      };
+    return {
+      eventId: this.currentEvent ? this.currentEvent['id'] : null,
+      history: this.eventHistory,
+      currentChoices: this.currentChoices,
+      choicePoints: this.choicePoints,
+      storageKey: this.storageKey
+    };
   }
 }
+
 customElements.define('event-resolver', EventResolver);

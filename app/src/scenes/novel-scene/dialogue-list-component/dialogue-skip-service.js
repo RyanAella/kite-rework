@@ -1,10 +1,12 @@
 const POST_TYPING_DELAY_MS = 750; // 750ms is the delay after the typewriter animation completes
 const TYPEWRITER_INTERVAL_MS = 21; // 21ms is the interval at which the typewriter animation runs
 
-// WeakMap to store the active animations
-const activeAnimations = new WeakMap(); 
 
-// Runs the typewriter animation
+const activeAnimations = new WeakMap(); // WeakMap to store the active animations
+
+/**
+ * Runs the typewriter animation
+ */
 export function runTypewriterAnimation(messageContainer, { text, typewriterBox, resolve, onBeforeStart }) {
   const animation = {
     text,
@@ -72,7 +74,12 @@ export function runTypewriterAnimation(messageContainer, { text, typewriterBox, 
   });
 }
 
-// Skips the active animation
+
+/**
+ * Skips the active animation
+ * @param {*} messageContainer The messageContainer in which the animation takes place
+ * @returns true when something was skipped, false otherwise
+ */
 export function skipActiveAnimation(messageContainer) {
   const animation = activeAnimations.get(messageContainer);
   if (!animation || animation.done) return false;
@@ -86,17 +93,23 @@ export function skipActiveAnimation(messageContainer) {
   return true;
 }
 
-// Checks if there are visible choices
+/** 
+ * Checks if there are visible choices
+ */
 export function hasVisibleChoices(choiceContainer) {
   return choiceContainer.querySelector("button") !== null;
 }
-// Try to skip the dialogue animation if there are no visible choices
+/**
+ * Try to skip the dialogue animation if there are no visible choices
+ */
 export function trySkipDialogueAnimation({ messageContainer, choiceContainer }) {
   if (hasVisibleChoices(choiceContainer)) return;
   skipActiveAnimation(messageContainer);
 }
 
-// Attach the dialogue skip on outside click event to the background
+/**
+ * Attach the dialogue skip on outside click event to the background
+ */
 export function attachDialogueSkipOnOutsideClick(background, dialogueList) {
   background.addEventListener("click", (event) => {
     if (dialogueList.contains(event.target)) return;

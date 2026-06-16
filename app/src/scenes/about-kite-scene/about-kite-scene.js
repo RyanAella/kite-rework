@@ -1,38 +1,16 @@
-import "../../shared-components/headers/back-header.js";
+import "../../shared-components/headers/back-header-component.js";
 import {
   attachDocumentPageDragScroll,
   documentPageShell,
-} from "../../shared-components/document-page-shared.js";
+} from "../../shared-services/shared-document-page-service.js";
 import {
   buildAboutKiteContentComponent,
   wireAboutKiteContentNavigation,
 } from "./content-component.js";
+import { fetchFromJson } from "../../shared-services/fetch-service.js";
 
 export class AboutKiteScene extends HTMLElement {
 
-  // Fetch the Einstieg Novel
-  async fetchEinstiegNovel() {
-    const defaultEinstieg = {
-      title: "Mehr zu KITE",
-      novelColor: "#aa1c02",
-      novelFrameColor: "#d04c03",
-      name: "Einstieg",
-    };
-
-    // Load the Einstieg Novel
-    let novel = { ...defaultEinstieg };
-    try {
-      const res = await fetch("assets/json/novels.json");
-      const data = await res.json();
-      const found = data.visualNovels?.find((n) => n.name === "Einstieg");
-      if (found) novel = found;
-    } catch {
-      /* keep default */
-    }
-    return novel;
-  }
-
-  // Initialize the About Kite Scene
   async connectedCallback() {
     this.classList.add(
       "flex",
@@ -43,13 +21,24 @@ export class AboutKiteScene extends HTMLElement {
       "overflow-hidden",
     );
 
-    // Fetch the Einstieg Novel and initialize the content component
-    const einstiegNovel = await this.fetchEinstiegNovel();
+    // Fetch the Intro Novel and initialize the content component
+    const introNovel = await this.fetchIntroNovel();
     this.innerHTML = documentPageShell(
-      buildAboutKiteContentComponent(einstiegNovel),
+      buildAboutKiteContentComponent(introNovel),
     );
     attachDocumentPageDragScroll(this);
-    wireAboutKiteContentNavigation(this, einstiegNovel);
+    wireAboutKiteContentNavigation(this, introNovel);
+  }
+
+  /**
+   * Fetches Information for the Hexagon in this scene
+   * @returns An Object with all required Information
+   */
+  async fetchIntroNovel() {
+    const data = await fetchFromJson("assets/json/novels.json");
+    const novel = data.visualNovels?.find((n) => n.name === "Einstieg");
+
+    return novel;
   }
 }
 

@@ -1,3 +1,7 @@
+/**
+ * Adds the ability to scroll by dragging.
+ * @param {HTMLElement} scrollBox The Container the scrolling functionality will be added to
+ */
 export function addDragScrolling(scrollBox) {
   let isDown = false;
   let startY;

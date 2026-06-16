@@ -1,6 +1,6 @@
-import "../../shared-components/headers/back-header.js";
-import "../../shared-components/footer.js";
-import { addDragScrolling } from "../../shared-services/drag-scrolling.js";
+import "../../shared-components/headers/back-header-component.js";
+import "../../shared-components/footer-component.js";
+import { addDragScrolling } from "../../shared-services/drag-scrolling-service.js";
 import { ensureSettingsDefaults } from "../../shared-services/app-settings-session-service.js";
 import { isNovelSessionActive } from "../../shared-services/novel-session-service.js";
 import { SettingsHandler } from "./settings-handler.js";
@@ -8,7 +8,6 @@ import "./settings-content-component.js";
 
 class SettingsScene extends HTMLElement {
   connectedCallback() {
-    console.log("Settings Scene loaded");
     ensureSettingsDefaults();
 
     // Disable footer nav if arriving from a running novel.

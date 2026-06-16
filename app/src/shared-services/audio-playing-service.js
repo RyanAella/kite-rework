@@ -1,6 +1,10 @@
 import { loadAppSettings } from "./app-settings-session-service.js";
 import { readJson } from "./store-service.js";
 
+/**
+ * Plays a wav file
+ * @param {String} audioFileName The Path to the Audio File
+ */
 export function playAudio(audioFileName) {
   if(!audioFileName) {
     throw `Missing Parameter 'audioFileName'`
@@ -11,7 +15,6 @@ export function playAudio(audioFileName) {
     const sound = new Audio(`assets/AudioResources/${audioFileName}.wav`);
     sound.volume = settings.soundVolume / 100;
     sound.play();
-    console.log("Playing Sound " + audioFileName);
   }
 }
 
@@ -25,6 +28,5 @@ export function TTSRead(text) {
   if(settings.voiceOutput) {
     const message = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(message);
-    console.log("Reading out Message: " + text);
   }
 }

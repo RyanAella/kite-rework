@@ -2,7 +2,7 @@
 // safe HTML, section markup, optional privacy toolbar, layout shell, drag scroll.
 // Used by legal sub-scenes and terms-consent-scene (accordion bodies).
 
-import { addDragScrolling } from "../shared-services/drag-scrolling.js";
+import { addDragScrolling } from "./drag-scrolling-service.js";
 
 const LEGAL_JSON_URL = "assets/json/legal-content.json";
 
@@ -30,7 +30,11 @@ const VARIANT_STYLES = {
   },
 };
 
-// Escape HTML characters
+/**
+ * Escape HTML characters
+ * @param {*} text 
+ * @returns 
+ */
 export function escapeHtml(text) {
   return String(text)
     .replace(/&/g, "&amp;")
@@ -39,7 +43,11 @@ export function escapeHtml(text) {
     .replace(/"/g, "&quot;");
 }
 
-// Check if the href is safe
+/**
+ * Check if the href is safe
+ * @param {*} href 
+ * @returns 
+ */
 function isSafeHref(href) {
   const h = String(href || "").trim();
   return h.startsWith("https://") || h.startsWith("http://");
@@ -51,7 +59,12 @@ function getVariantStyles(variant) {
   return VARIANT_STYLES.document;
 }
 
-// One paragraph: plain string or array of text / link segments
+/**
+ * One paragraph: plain string or array of text / link segments
+ * @param {*} p 
+ * @param {*} variant 
+ * @returns 
+ */
 function renderParagraphBlock(p, variant) {
   const { paragraph: pClass, link: linkClass } = getVariantStyles(variant);
   if (typeof p === "string") {
@@ -73,7 +86,12 @@ function renderParagraphBlock(p, variant) {
   return `<p class="${pClass}">${inner}</p>`;
 }
 
-// Build HTML for sections (heading, optional lines, optional paragraphs).
+/**
+ * Build HTML for sections (heading, optional lines, optional paragraphs)
+ * @param {*} sections 
+ * @param {*} options 
+ * @returns 
+ */
 export function renderDocumentSections(sections, options = {}) {
   const variant = options.variant ?? "document";
   const styles = getVariantStyles(variant);
@@ -97,7 +115,11 @@ export function renderDocumentSections(sections, options = {}) {
     .join("");
 }
 
-// Build HTML for the privacy toolbar
+/**
+ * Build HTML for the privacy toolbar in the DataprivacyScene
+ * @param {Object} toolbar the specifications of the toolbar
+ * @returns HTML Code for the toolbar
+ */
 export function renderPrivacyToolbar(toolbar) {
   if (!toolbar || !toolbar.resetLabel) return "";
   return `
@@ -115,7 +137,9 @@ export function renderPrivacyToolbar(toolbar) {
   `;
 }
 
-// Build the HTML for the document page shell
+/**
+ * Build the HTML for the document page shell
+ */
 export function documentPageShell(mainColumnHtml) {
   return `
       <div class="relative flex h-full min-h-0 w-full flex-col overflow-hidden font-sans text-[#0b1a2d]">
@@ -134,13 +158,19 @@ export function documentPageShell(mainColumnHtml) {
     `;
 }
 
-// Attach the document page drag scroll
+/**
+ * Attach the document page drag scroll
+ * @param {*} rootEl The root Element where scrolling is added
+ */
 export function attachDocumentPageDragScroll(rootEl) {
   const scrollBox = rootEl.querySelector("#document-scroll-container");
   if (scrollBox) addDragScrolling(scrollBox);
 }
 
-// Fetch the legal content
+/**
+ * Fetch the legal content
+ * @returns the json contents of the fetched resource
+ */
 export async function fetchLegalContent() {
   try {
     const res = await fetch(LEGAL_JSON_URL);

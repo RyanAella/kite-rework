@@ -12,7 +12,9 @@ export class SettingsHandler {
     this.settings = loadAppSettings();
   }
 
-  // Attach event listeners to the settings UI
+  /**
+   * Attach event listeners to the settings UI
+   */
   attachListeners() {
     const { refs } = this;
 
@@ -71,23 +73,31 @@ export class SettingsHandler {
     });
   }
 
-  // Show the settings popup
+  /**
+   * Show the settings popup
+   */
   showPopup() {
     showPinnedModal(this.refs.popupContainer, this.refs.popup);
   }
 
-  // Hide the settings popup
+  /**
+   * Hide the settings popup
+   */
   hidePopup() {
     hidePinnedModal(this.refs.popupContainer, this.refs.popup);
   }
 
-  // Persist the settings and refresh the UI
+  /**
+   * Persist the settings and refresh the UI
+   */
   persistAndRefresh() {
     saveAppSettings(this.settings);
     this.applyControlChrome();
   }
 
-  // Apply the control chrome to the UI
+  /**
+   * Apply the control chrome to the UI
+   */
   applyControlChrome() {
     const { refs } = this;
     refs.voiceOutputSwitch.src = `assets/Images/IconsAndLogos/Icon_Settings_${this.settings.voiceOutput ? "Active" : "Inactive"}.png`;
@@ -104,7 +114,9 @@ export class SettingsHandler {
     }
   }
 
-  // Sync the example font from the slider
+  /**
+   * Sync the example font from the slider
+   */
   syncExampleFontFromSlider() {
     const { refs } = this;
     refs.exampleTextEl.style = `font-size: ${fontSizeToCqw(refs.fontSizeSlider.value)}cqw`;

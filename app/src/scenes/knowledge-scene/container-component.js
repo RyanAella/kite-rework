@@ -1,76 +1,78 @@
-import { addDragScrolling } from "../../shared-services/drag-scrolling.js";
+import { addDragScrolling } from "../../shared-services/drag-scrolling-service.js";
 
 export class ContainerComponent extends HTMLElement {
 
-    constructor() {
-        super();
-    }
+  connectedCallback() {
+    this.className = "flex flex-col w-full h-full bg-bright font-sans overflow-hidden relative";
 
-    connectedCallback() {
-        this.className = "flex flex-col w-full h-full bg-bright font-sans overflow-hidden relative";
+    // 1. The Main-Header
+    const header = document.createElement("back-header");
+    header.addEventListener('sm-back', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-        // 1. Der Main-Header
-        const header = document.createElement("back-header");
-        header.addEventListener('sm-back', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
+      if (this.querySelector('card-overlay-component')) {
+        this.closeKnowledgeCardOverlay();
+        return;
+      }
 
-            if (this.querySelector('card-overlay-component')) {
-                this.closeKnowledgeCardOverlay();
-                return;
-            }
+      this.dispatchEvent(new CustomEvent("sm-switch-scene", {
+        detail: { scene: "novel-selector-scene" },
+        bubbles: true,
+      }));
+    });
+    this.appendChild(header);
 
-            this.dispatchEvent(new CustomEvent("sm-switch-scene", {
-                detail: { scene: "novel-selector" },
-                bubbles: true,
-            }));
-        });
-        this.appendChild(header);
-
-        // 2. Der Haupt-Scrollbereich (Master-View)
-        this.mainScrollContainer = document.createElement('div');
-        this.mainScrollContainer.id = "main-scroll-container";
-        this.mainScrollContainer.className = "relative flex-1 overflow-y-auto overflow-x-hidden flex flex-col items-center w-full pb-[10cqw] px-[6cqw] no-scrollbar";
-        addDragScrolling(this.mainScrollContainer);
+    // 2. Der Haupt-Scrollbereich (Master-View)
+    this.mainScrollContainer = document.createElement('div');
+    this.mainScrollContainer.id = "main-scroll-container";
+    this.mainScrollContainer.className = "relative flex-1 overflow-y-auto overflow-x-hidden flex flex-col items-center w-full pb-[10cqw] px-[6cqw] no-scrollbar";
+    addDragScrolling(this.mainScrollContainer);
 
 
-        this.buildTopSection();
+    this.buildTopSection();
 
-        this.appendChild(this.mainScrollContainer);
+    this.appendChild(this.mainScrollContainer);
 
-        const footer = document.createElement("main-footer");
-        footer.setAttribute("active-scene", "knowledge-scene");
-        this.appendChild(footer);
-    }
+    const footer = document.createElement("main-footer");
+    footer.setAttribute("active-scene", "knowledge-scene");
+    this.appendChild(footer);
+  }
 
-    closeKnowledgeCardOverlay() {
-        const activeOverlay = this.querySelector('card-overlay-component');
-        const accordion = this.querySelector('accordion-element');
-        if (!activeOverlay || !accordion) return;
+  /**
+   * Removes the currently active overlay and displays all other components again
+   */
+  closeKnowledgeCardOverlay() {
+    const activeOverlay = this.querySelector('card-overlay-component');
+    const accordion = this.querySelector('accordion-element');
+    if (!activeOverlay || !accordion) return;
 
-        activeOverlay.remove();
-        accordion.classList.remove('hidden');
-        this.querySelector('searchbar-component')?.classList.remove('hidden');
-        document.getElementById('intro-text')?.classList.remove('hidden');
-        document.getElementById('sub-intro')?.classList.remove('hidden');
-    }
+    activeOverlay.remove();
+    accordion.classList.remove('hidden');
+    this.querySelector('searchbar-component')?.classList.remove('hidden');
+    document.getElementById('intro-text')?.classList.remove('hidden');
+    document.getElementById('sub-intro')?.classList.remove('hidden');
+  }
 
-    buildTopSection() {
-        const topSection = document.createElement('div');
-        topSection.className = "flex flex-col items-center justify-center mt-[8cqw] w-full";
+  /**
+   * Create the Top Section Element
+   */
+  buildTopSection() {
+    const topSection = document.createElement('div');
+    topSection.className = "flex flex-col items-center justify-center mt-[8cqw] w-full";
 
-        const bulbIcon = document.createElement('img');
-        bulbIcon.src = "assets/Images/IconsAndLogos/Icon_Knowledge.png"; 
-        bulbIcon.className = "w-[25cqw] max-w-[140px] mb-[2cqw] object-contain";
+    const bulbIcon = document.createElement('img');
+    bulbIcon.src = "assets/Images/IconsAndLogos/Icon_Knowledge.png"; 
+    bulbIcon.className = "w-[25cqw] max-w-[140px] mb-[2cqw] object-contain";
 
-        const mainTitle = document.createElement('h1');
-        mainTitle.innerText = "WISSEN";
-        mainTitle.className = "text-[#14305d] text-[5cqw] font-bold tracking-wide text-center uppercase mb-[5cqw]";
+    const mainTitle = document.createElement('h1');
+    mainTitle.innerText = "WISSEN";
+    mainTitle.className = "text-[#14305d] text-[5cqw] font-bold tracking-wide text-center uppercase mb-[5cqw]";
 
-        topSection.appendChild(bulbIcon);
-        topSection.appendChild(mainTitle);
-        this.mainScrollContainer.appendChild(topSection);
-    }
+    topSection.appendChild(bulbIcon);
+    topSection.appendChild(mainTitle);
+    this.mainScrollContainer.appendChild(topSection);
+  }
 
 }
 

@@ -84,8 +84,7 @@ function navigateToNovel(bookmarksScene, novel) {
   bookmarksScene.dispatchEvent(
     new CustomEvent("sm-switch-scene", {
       detail: { scene: "novel-scene", args: { novel } },
-      bubbles: true,
-      composed: true,
+      bubbles: true
     }),
   );
 }

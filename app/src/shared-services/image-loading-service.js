@@ -15,15 +15,13 @@ export class ImageLoadingService {
    * even on `onerror` events, it ensures that the main application lifecycle is not halted 
    * by individual 404 (Not Found) network errors. The execution thread will strictly yield 
    * until the entire asset pipeline has finished processing.
-   * * @returns {Promise<void>} Resolves when all asset requests have been either successfully cached or safely caught.
+   * @returns {Promise<void>} Resolves when all asset requests have been either successfully cached or safely caught.
    * @throws {Error} Throws if the asset is malformed, unreachable, or fails structural validation.
    */
   static async loadImages(progressTracker) {
     try {
       const imagePaths = await fetchFromJson("assets/json/image-paths.json");
-      console.log(imagePaths.length);
       progressTracker.totalImageCount = imagePaths.length;
-      console.log(imagePaths);
 
       if (!Array.isArray(imagePaths)) {
         throw new Error("No valid array.");

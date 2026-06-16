@@ -1,4 +1,4 @@
-import { BaseHeader } from './base-header.js';
+import { BaseHeader } from './base-header-component.js';
 
 export class BackHeader extends BaseHeader {
   // Back arrow with "Zurück" label
@@ -18,7 +18,7 @@ export class BackHeader extends BaseHeader {
     if(b) {
       // Trigger the custom "sm-back" event for the SceneManager
       b.onclick = () => this.dispatchEvent(new CustomEvent("sm-back", {
-        bubbles: true, composed: true
+        bubbles: true
       }));
     }
   }
