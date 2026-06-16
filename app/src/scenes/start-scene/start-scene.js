@@ -1,14 +1,9 @@
-import { fetchFromJson } from "../shared-services/fetch-service.js";
+import { fetchFromJson } from "../../shared-services/fetch-service.js";
 
 class StartScene extends HTMLElement {
-  constructor() {
-    super();
-  }
 
   connectedCallback() {
-    console.log("Starting Scene loaded");
 
-    // html body
     this.innerHTML = `
           <div class="flex flex-col items-center justify-center h-full w-full bg-blue-ud bg-cover">
             
@@ -22,9 +17,8 @@ class StartScene extends HTMLElement {
           </div>
         `;
 
-
-    // event listener for the button
-    const btn = this.querySelector('#start-btn'); // selecting button
+    // add event listener for the button
+    const btn = this.querySelector('#start-btn');
     btn.addEventListener('click', async () => {
       
       try {

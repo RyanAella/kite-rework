@@ -1,12 +1,15 @@
-export function animationQuestioning(styles, characterInfo) {
-  console.log("Starting animation Questioning");
+/**
+ * Plays the Questioning Animation.
+ * @param {*} styles References to the styles of all parts of the character
+ */
+export function animationQuestioning(styles) {
+
   const maxRotate = 5;
   const speedFactor = 0.15;
   let frame = 0;
 
   const animate = () => {
     styles.forEach(style => {
-      console.log("Questioning animation frame " + frame);
       style.rotate = `${maxRotate - Math.abs(maxRotate - frame*speedFactor)}deg`;
     });
     if((++frame) <= 2*maxRotate/speedFactor) {

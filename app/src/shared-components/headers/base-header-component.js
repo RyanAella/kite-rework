@@ -1,10 +1,7 @@
 export class BaseHeader extends HTMLElement {
-  constructor() {
-    super();
-    // Shared Tailwind classes for buttons and images
-    this.btnClass = "bg-transparent flex outline-none transition-opacity active:opacity-70";
-    this.imgClass = "w-[6cqw] h-[6cqw] object-contain pointer-events-none";
-  }
+  
+  btnClass = "bg-transparent flex outline-none transition-opacity active:opacity-70";
+  imgClass = "w-[6cqw] h-[6cqw] object-contain pointer-events-none";
 
   connectedCallback() {
     this.render();
@@ -14,6 +11,9 @@ export class BaseHeader extends HTMLElement {
   // Placeholder for specific content (to be overridden by subclasses)
   getLeftContent() { return `<div class="w-0"></div>`; }
 
+  /**
+   * Adds all contents to the Header Element in the DOM
+   */
   render() {
     this.classList.add("w-full", "h-[20cqw]");
     this.innerHTML = `
@@ -37,6 +37,9 @@ export class BaseHeader extends HTMLElement {
       </header>`;
   }
 
+  /**
+   * Add all required Event Listeners to the Header Elements
+   */
   setupEvents() {
     const header = this.querySelector('header');
     const l = this.querySelector('#btn-legal');
@@ -53,8 +56,7 @@ export class BaseHeader extends HTMLElement {
         e.stopPropagation();
         this.dispatchEvent(new CustomEvent("sm-switch-scene", {
           detail: { scene: "legal-information-scene" },
-          bubbles: true,
-          composed: true,
+          bubbles: true
         }));
       };
     }
@@ -63,7 +65,7 @@ export class BaseHeader extends HTMLElement {
       e.stopPropagation();
       this.dispatchEvent(new CustomEvent('sm-switch-scene', { 
         detail: { scene: "settings-scene" }, 
-        bubbles: true,  
+        bubbles: true
       }));
     };
   }

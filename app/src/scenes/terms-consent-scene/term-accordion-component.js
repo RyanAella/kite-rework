@@ -2,7 +2,7 @@ import {
   escapeHtml,
   fetchLegalContent,
   renderDocumentSections,
-} from "../../shared-components/document-page-shared.js";
+} from "../../shared-services/shared-document-page-service.js";
 
 // Accordion configuration for the terms consent scene
 const ACCORDION_CONFIG = [

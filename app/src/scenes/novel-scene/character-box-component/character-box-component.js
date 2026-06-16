@@ -11,8 +11,14 @@ export class CharacterBox extends HTMLElement {
   animationHandler;
   characterObjectSync;
 
+  /**
+   * Creates a new character box.
+   * @param {string} novelName the name of the novel that is currently active
+   * @param {number} characterId the ID of this character
+   * @param {Object} characterObjectSync An object that matches interactiveObjects to the Characters they are synced with
+   * @returns the new CharacterBox
+   */
   static async create(novelName, characterId, characterObjectSync) {
-    console.log("Creating CharacterBox");
     const newCharacterBox = document.createElement('character-box');
     newCharacterBox.novelName = novelName;
     newCharacterBox.characterId = characterId;
@@ -25,24 +31,31 @@ export class CharacterBox extends HTMLElement {
     this.animationHandler.setBlinkingState(false);
   }
 
+  /**
+   * Loads in all contents of this component.
+   */
   async load() {
-    console.log("Load");
     this.classList = "grid grid-cols-1 grid-rows-1 origin-[50%_20%]";
     this.id = `character-${this.characterId}`
     this.characterInfo = await characterInfoLoader(this.novelName, this.characterId);
-    console.log(this.characterInfo);
 
     await addElements(this, this.characterInfo);
 
     this.animationHandler = new AnimationHandler(this);
-    console.log("Loaded");
   }
 
-  
+  /**
+   * Changes the Expression of this character
+   * @param {number} expressionId the ID of the expression changed to
+   */
   updateCharacterExpression(expressionId) {
     this.animationHandler.updateCharacterExpression(expressionId);
   }
 
+  /**
+   * Start / Stop the speaking animation of this character.
+   * @param {boolean} value 
+   */
   setSpeakingState(value) {
     this.animationHandler.setSpeakingState(value);
   }

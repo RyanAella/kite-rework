@@ -1,6 +1,6 @@
 // Datenschutz (privacy) page: JSON content; drag scroll + shared information popup.
-import "../../shared-components/headers/back-header.js";
-import "../../shared-components/footer.js";
+import "../../shared-components/headers/back-header-component.js";
+import "../../shared-components/footer-component.js";
 import { hideSwapModal, showSwapModal, createInformationPopup, setInformationText } from "../../shared-services/information-popup-service.js";
 import {
   attachDocumentPageDragScroll,
@@ -8,7 +8,7 @@ import {
   escapeHtml,
   renderDocumentSections,
   renderPrivacyToolbar,
-} from "../../shared-components/document-page-shared.js";
+} from "../../shared-services/shared-document-page-service.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
 import { PersonPopUp } from "../../shared-components/person-popup-component.js";
 
@@ -16,10 +16,10 @@ const DATAPRIVACY_INFO_TEXT = "Mit diesem Button kannst du deine App zurücksetz
 const RESET_INFO_TEXT = "Die App wurde erfolgreich zurückgesetzt";
 
 class DataprivacyScene extends HTMLElement {
+
   async connectedCallback() {
     // Fallback HTML if fetch fails or block missing
-    let mainHtml =
-      '<h1 class="mb-[4.8cqw] text-center text-[4.8cqw] font-bold tracking-tight text-[#0b1a2d]">Datenschutz</h1><p class="text-[3cqw] leading-[1.55] text-[#0b1a2d]">Content could not be loaded.</p>';
+    let mainHtml = '<h1 class="mb-[4.8cqw] text-center text-[4.8cqw] font-bold tracking-tight text-[#0b1a2d]">Datenschutz</h1><p class="text-[3cqw] leading-[1.55] text-[#0b1a2d]">Content could not be loaded.</p>';
 
     let toolbar = null;
     // data.datenschutz: title, toolbar (reset + info), sections[]
@@ -49,17 +49,15 @@ class DataprivacyScene extends HTMLElement {
       descriptions: [],
       buttons: [
           { text: "ABBRECHEN", isPrimary: true, onClick: () => {
-              console.log("ABBRECHEN");
               this.personPopUp.toggle(false)
           }},
           { text: "DATEN LÖSCHEN", isPrimary: false, onClick: () => {
-              console.log("DATEN LÖSCHEN");
             this.personPopUp.toggle(false);
-              const popupContainer = this.querySelector('#document-popup-container');
-              localStorage.clear();
-              sessionStorage.clear();
-              setInformationText(this.infoPopup, RESET_INFO_TEXT);
-              showSwapModal(popupContainer, this.infoPopup);
+            const popupContainer = this.querySelector('#document-popup-container');
+            localStorage.clear();
+            sessionStorage.clear();
+            setInformationText(this.infoPopup, RESET_INFO_TEXT);
+            showSwapModal(popupContainer, this.infoPopup);
           }}
       ],
       overlayClass: "absolute inset-0 bg-black/50 z-[100] hidden p-[4cqw] transition-opacity duration-300",
@@ -72,8 +70,10 @@ class DataprivacyScene extends HTMLElement {
 
   }
 
-  attachToolbarInfoPopup(toolbar) {
-    if (!toolbar) return;
+  /**
+   * Creates an Information Pop-Up and attaches it to its container.
+   */
+  attachToolbarInfoPopup() {
 
     this.infoPopup = createInformationPopup();
 

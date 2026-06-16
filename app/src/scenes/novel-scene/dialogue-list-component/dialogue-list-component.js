@@ -1,4 +1,4 @@
-import { addDragScrolling } from "../../../shared-services/drag-scrolling.js";
+import { addDragScrolling } from "../../../shared-services/drag-scrolling-service.js";
 import "./message-container-component.js";
 import "./choice-container-component.js";
 import { playAudio } from "../../../shared-services/audio-playing-service.js";
@@ -39,6 +39,10 @@ export class DialogueList extends HTMLElement {
     return this.renderQueue;
   }
 
+  /**
+   * Adds a number of choives to the choice container.
+   * @param {*} arrayOfChoices An Array of all characterChoiceEvents that should be shown
+   */
   showChoices(arrayOfChoices) {
     playAudio("SFX_SelectionLoad");
     this.renderQueue = this.renderQueue.then(() => {
@@ -47,10 +51,14 @@ export class DialogueList extends HTMLElement {
     return this.renderQueue;
   }
 
+  /**
+   * Adds message from a user choice to the message container and sends the user-confirmation event.
+   * @param {*} index the index of the selected choice
+   * @param {*} text the text of the selected choice
+   */
   async handleChoiceSelection(index, text) {
     this.choiceContainer.innerHTML = '';
     await this.showMessage(text, true);
-    // Maybe change the information which is passed to the event listener 
     const event = new CustomEvent('user-confirmation', {
       detail: { choiceIndex: index },
       bubbles: true,
@@ -91,6 +99,9 @@ export class DialogueList extends HTMLElement {
     bubble.remove();
   }
 
+  /**
+   * Scrolls to the bottom of the scroll container.
+   */
   scrollToBottom() {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {

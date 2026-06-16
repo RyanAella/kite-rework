@@ -13,12 +13,17 @@ const CONTINUE_OVERLAY_CLASS =
 const CONTINUE_BUTTON_CLASS =
   "py-[2.4cqw] px-[0.8cqw] rounded-[0.6cqw] font-bold text-[2.8cqw] text-center border-[0.3cqw] border-white bg-white";
 
-// Check if the novel is an intro novel
+
+/**
+ * Check if the novel is an intro novel
+ */
 export function isIntroNovel(novel) {
   return novel["disablePauseMenu"] === true;
 }
 
-// Create the pause pop-up
+/**
+ * Create the pause pop-up.
+ */
 export function createPausePopUp(novel, { onLeaveNovel, onResume, onPause, onFinish }) {
   const popUp = PersonPopUp.create();
   const intro = isIntroNovel(novel);
@@ -34,7 +39,9 @@ export function createPausePopUp(novel, { onLeaveNovel, onResume, onPause, onFin
   return popUp;
 }
 
-// Build the descriptions for the pause pop-up
+/**
+ * Build the descriptions for the pause pop-up.
+ */
 function buildPauseDescriptions(intro) {
   const items = [{ label: "Weiterspielen:", text: " Die Story fortsetzen." }];
 
@@ -51,7 +58,9 @@ function buildPauseDescriptions(intro) {
   return items;
 }
 
-// Build the buttons for the pause pop-up
+/**
+ * Build the buttons for the pause pop-up.
+ */
 function buildPauseButtons(popUp, intro, { onLeaveNovel, onResume, onPause, onFinish }) {
   const buttons = [
     { 
@@ -79,7 +88,9 @@ function buildPauseButtons(popUp, intro, { onLeaveNovel, onResume, onPause, onFi
   return buttons;
 }
 
-// Create the continue pop-up
+/**
+ * Create the continue pop-up.
+ */
 export function createContinuePopUp(novel, { onContinue, onRestart }) {
   const popUp = PersonPopUp.create();
 

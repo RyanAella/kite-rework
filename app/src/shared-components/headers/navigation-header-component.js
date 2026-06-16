@@ -1,4 +1,4 @@
-import { BaseHeader } from './base-header.js';
+import { BaseHeader } from './base-header-component.js';
 
 export class NavigationHeader extends BaseHeader {
   // Hamburger menu icon
@@ -15,7 +15,7 @@ export class NavigationHeader extends BaseHeader {
     if(n) {
       n.onclick = (event) => {
         this.dispatchEvent(new CustomEvent('sm-switch-scene', { 
-          detail: { scene: "novel-selector-sidebar" }, bubbles: true, composed: true 
+          detail: { scene: "novel-selector-sidebar-scene" }, bubbles: true
         }));
         event.stopPropagation();
       };

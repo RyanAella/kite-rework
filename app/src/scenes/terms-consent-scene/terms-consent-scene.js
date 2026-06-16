@@ -1,6 +1,7 @@
 import { mountTermsAccordion } from "./term-accordion-component.js";
 import { buildConsentCheckbox } from "./consent-checkbox-component.js";
-import { addDragScrolling } from "../../shared-services/drag-scrolling.js";
+import { addDragScrolling } from "../../shared-services/drag-scrolling-service.js";
+import { fetchFromJson } from "../../shared-services/fetch-service.js";
 
 // Storage key for the legal consent
 const LEGAL_CONSENT_STORAGE_KEY = "kite-legal-consent";
@@ -133,11 +134,11 @@ export class TermsConsentScene extends HTMLElement {
 
   // Navigate to the intro novel
   async navigateToIntroNovel() {
-    const sm = document.querySelector("scene-manager");
-    if (!sm) return;
     const einstiegNovel = await this.loadEinstiegNovel();
-    if (!einstiegNovel) return;
-    sm.dispatchEvent(
+    if (!einstiegNovel) {
+      throw "Intro Novel not Found"
+    };
+    this.dispatchEvent(
       new CustomEvent("sm-switch-scene", {
         detail: {
           scene: "novel-scene",
@@ -151,8 +152,7 @@ export class TermsConsentScene extends HTMLElement {
   // Load the einstieg novel
   async loadEinstiegNovel() {
     try {
-      const response = await fetch("assets/json/novels.json");
-      const data = await response.json();
+      const data = await fetchFromJson("assets/json/novels.json");
       return data.visualNovels.find((novel) => novel.name === "Einstieg") ?? null;
     } catch {
       return null;

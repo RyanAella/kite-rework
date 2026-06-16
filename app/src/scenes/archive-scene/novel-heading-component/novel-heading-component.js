@@ -4,9 +4,13 @@ const heading_size = 4.5;
 
 export class NovelHeading extends HTMLElement {
 
+  /**
+   * Creates a new NovelHeading.
+   * @param {Object} novelData the data of the associated novel
+   * @param {Object} instanceData the data of the corrisponding Archive Storage Entry
+   * @returns the created NovelHEading
+   */
   static create(novelData, instanceData) {
-    console.log(novelData);
-    console.log(instanceData);
     const element = document.createElement("novel-heading");
     element.novelData = novelData;
     element.instanceData = instanceData;
@@ -14,10 +18,10 @@ export class NovelHeading extends HTMLElement {
     return element;
   }
 
-  connectedCallback() {
-    console.log("DEBUG: Heading Connected");
-  }
 
+  /**
+   * Generate all subcontents of this element
+   */
   load() {
     this.classList = "flex flex-col w-full mt-[1cqw]";
     this.innerHTML = `

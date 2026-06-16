@@ -2,8 +2,8 @@
 import { DialogueList } from "./dialogue-list-component/dialogue-list-component.js";
 import { CharacterBox } from "./character-box-component/character-box-component.js";
 import { InteractiveObjects } from "./interactive-objects-component.js";
-import "../../shared-components/headers/back-header.js";
-import "../../shared-components/headers/base-header.js";
+import "../../shared-components/headers/back-header-component.js";
+import "../../shared-components/headers/base-header-component.js";
 import {
   createContinuePopUp,
   createPausePopUp,
@@ -41,14 +41,12 @@ class NovelScene extends HTMLElement {
   pendingUndo = null;
   characterObjectSync = {};
 
-  /** Sets up the scene: session, listeners, child components and start/continue flow. */
   connectedCallback() {
     this.novel = this.args['novel']
     let needBaseHeader = this.args['needBaseHeader'];
 
     // Mark novel session active so Settings/Legal can disable footer nav while playing.
     markNovelSessionStarted();
-
 
     //Adding Styling
     this.classList.add("flex", "flex-col", "items-center", "justify-center", "w-full", "h-full", "bg-blue-50/30", "font-sans", "overflow-hidden", "relative");
@@ -86,11 +84,10 @@ class NovelScene extends HTMLElement {
           this.switchToNovelSelector();
       },
       onFinish: () => {
-        console.log("Finishing event entered.");
         if(this.eventResolver.tracking) setCompletedFlag(this.eventResolver.storageKey, this.eventResolver.getCurrentEventId(), true);
         this.dispatchEvent(new CustomEvent("sm-switch-scene", {
           detail: {
-            scene : `${this.eventResolver.tracking ? "completion-scene" : "novel-selector"}`,
+            scene : `${this.eventResolver.tracking ? "completion-scene" : "novel-selector-scene"}`,
             args: {
               novelName: this.novel.name
             } 
@@ -121,7 +118,6 @@ class NovelScene extends HTMLElement {
         e.stopPropagation();
         this.eventResolver.pause();
         this.pausePopUp.toggle(true);
-        console.log("Back button was clicked!");
       });
     }
 
@@ -191,7 +187,7 @@ class NovelScene extends HTMLElement {
   switchToNovelSelector() {
     this.dispatchEvent(
       new CustomEvent("sm-switch-scene", {
-        detail: { scene: "novel-selector" },
+        detail: { scene: "novel-selector-scene" },
         bubbles: true,
       }),
     );
@@ -254,7 +250,6 @@ class NovelScene extends HTMLElement {
    * @returns {Promise<void>}
    */
   async restoreVisualState(history) {
-    console.log("History " + history);
     if (!history || history.length === 0) return;
 
     for (const oldEvent of history) {
@@ -273,14 +268,15 @@ class NovelScene extends HTMLElement {
     }
   }
 
-  /** Saves the current resolver state to the store so the novel can be resumed later. */
+  /**
+   * Saves the current resolver state to the store so the novel can be resumed later
+   */
   saveSnapshot() {
     const snapShot = this.eventResolver.getSnapshot();
     if (snapShot) {
       this.args.snapshot = snapShot
       novelStateStore.save(this.novel.name, snapShot);
     }
-    console.log(this.args);
   }
 
   /**

@@ -1,4 +1,4 @@
-import { BaseHeader } from './base-header.js';
+import { BaseHeader } from './base-header-component.js';
 
 export class ClosingHeader extends BaseHeader {
   // Close / X icon
@@ -15,7 +15,7 @@ export class ClosingHeader extends BaseHeader {
     if(c) {
       c.onclick = (event) => {
         this.dispatchEvent(new CustomEvent('sm-switch-scene', { 
-          detail: { scene: "novel-selector" }, bubbles: true, composed: true 
+          detail: { scene: "novel-selector-scene" }, bubbles: true,
         }));
         event.stopPropagation();
       }

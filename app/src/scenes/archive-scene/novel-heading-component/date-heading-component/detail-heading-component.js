@@ -2,6 +2,14 @@ const heading_size = 4.5;
 
 export class DetailHeading extends HTMLElement {
 
+  /**
+   * Generates a new DetailHeading
+   * @param {Object} novelData the data of the novel this heading referes to
+   * @param {String} title the title of the heading
+   * @param {String} extendedHTML the HTML code that is shown if the header is expanded
+   * @param {String} copyPopupText The String on the Pop-Up that is shown upon copying the text
+   * @returns the created element
+   */
   static create(novelData, title, extendedHTML, copyPopupText) {
     const element = document.createElement("detail-heading");
     element.novelData = novelData;
@@ -12,10 +20,9 @@ export class DetailHeading extends HTMLElement {
     return element;
   }
 
-  connectedCallback() {
-    console.log("DEBUG: Detail Heading Connected");
-  }
-
+  /**
+   * Generate all subcontents of this element
+   */
   load() {
     this.hex = this.novelData['novelColor'];
     this.classList = "flex flex-col w-full mt-[1cqw]";
@@ -56,7 +63,6 @@ export class DetailHeading extends HTMLElement {
       copyText = copyText.replaceAll("<p>", "");
       copyText = copyText.replaceAll("</p>", "\n\n");
       navigator.clipboard.writeText(copyText);
-      console.log("Emitting Event")
       this.dispatchEvent(new CustomEvent("show-popup", {
         detail: { 
           text: this.copyPopupText
@@ -70,10 +76,7 @@ export class DetailHeading extends HTMLElement {
     this.heading = this.querySelector('#detail-heading')
 
     this.heading.addEventListener("click", () => {
-      console.log("click");
-      console.log(this.arrowImg);
       if(this.contentContainer.childNodes.length === 0) {
-        console.log("1");
         this.arrowImg.style.maskImage = "url('assets/Images/DropDown/Arrow_Down.png')"
         this.arrowImg.style.webkitMaskImage = "url('assets/Images/DropDown/Arrow_Down.png')"
         const content = document.createElement('div');
@@ -81,7 +84,6 @@ export class DetailHeading extends HTMLElement {
         content.innerHTML = this.extendedHTML;
         this.contentContainer.replaceChildren(content, copyButton);
       } else {
-        console.log("2");
         this.arrowImg.style.maskImage = "url('assets/Images/DropDown/Arrow_Left.png')";
         this.arrowImg.style.webkitMaskImage = "url('assets/Images/DropDown/Arrow_Left.png')";
         this.contentContainer.replaceChildren();

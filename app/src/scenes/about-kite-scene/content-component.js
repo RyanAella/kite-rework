@@ -1,7 +1,7 @@
 import {
   escapeHtml,
   renderDocumentSections,
-} from "../../shared-components/document-page-shared.js";
+} from "../../shared-services/shared-document-page-service.js";
 
 // The sections for the About Kite content component
 const ABOUT_KITE_SECTIONS = [
@@ -61,7 +61,11 @@ const ABOUT_KITE_SECTIONS = [
   },
 ];
 
-// Build the HTML for the hexagon
+/**
+ * Build the HTML for the hexagon
+ * @param {Object} novel The novel which defines the Hexes colour sceme
+ * @returns The HTML Element
+ */
 function buildAboutKiteHexHtml(novel) {
   const fill = novel.novelColor ?? "#aa1c02";
   const stroke = novel.novelFrameColor ?? "#d04c03";
@@ -82,19 +86,22 @@ function buildAboutKiteHexHtml(novel) {
     </div>
   `;
 }
-
-// Build the HTML for the content component
-export function buildAboutKiteContentComponent(einstiegNovel) {
+/**
+ * Build the HTML for the content component
+ * @param {Object} introNovel The Specification of the Intro Novel
+ * @returns The HTML Element
+ */
+export function buildAboutKiteContentComponent(introNovel) {
   return `
     <div class="flex w-full justify-center pb-[4cqw] pt-[4cqw]">
-      ${buildAboutKiteHexHtml(einstiegNovel)}
+      ${buildAboutKiteHexHtml(introNovel)}
     </div>
     <p class="user-font mb-[3.2cqw] font-semibold text-[#0b1a2d]">
       KITE - kurz erklärt
     </p>
     ${renderDocumentSections(ABOUT_KITE_SECTIONS, { variant: "documentUserScalable" })}
     <div class="mt-[8cqw] flex w-full max-w-full flex-col items-center gap-[3.2cqw]">
-      <button type="button" data-about-nav="novel-selector"
+      <button type="button" data-about-nav="novel-selector-scene"
         class="w-[62cqw] max-w-full rounded border-[0.1cqw] border-transparent bg-[#0B1A2D] px-[1.8cqw] py-[3.2cqw] text-center text-[3.2cqw] font-bold uppercase tracking-wider text-white transition-opacity active:opacity-80">
         ZUR NOVEL-AUSWAHL
       </button>
@@ -110,22 +117,27 @@ export function buildAboutKiteContentComponent(einstiegNovel) {
   `;
 }
 
-// Wire the about kite content navigation
-export function wireAboutKiteContentNavigation(hostEl, einstiegNovel) {
-  hostEl.querySelector('[data-about-nav="novel-selector"]')?.addEventListener(
+/**
+ * Connect functionalities to the buttons
+ * @param {HTMLElement} hostEl the Element that contains the buttons
+ * @param {Object} introNovel The Specification of the Intro Novel
+ */
+export function wireAboutKiteContentNavigation(hostEl, introNovel) {
+  
+  // Wire the novel selector button
+  hostEl.querySelector('[data-about-nav="novel-selector-scene"]')?.addEventListener(
     "click",
     () => {
       hostEl.dispatchEvent(
         new CustomEvent("sm-switch-scene", {
-          detail: { scene: "novel-selector" },
-          bubbles: true,
-          composed: true,
+          detail: { scene: "novel-selector-scene" },
+          bubbles: true
         }),
       );
     },
   );
 
-  // Wire the einstieg button
+  // Wire the intro novel button
   hostEl.querySelector('[data-about-nav="einstieg"]')?.addEventListener(
     "click",
     () => {
@@ -133,10 +145,9 @@ export function wireAboutKiteContentNavigation(hostEl, einstiegNovel) {
         new CustomEvent("sm-switch-scene", {
           detail: {
             scene: "novel-scene",
-            args: { novel: einstiegNovel, needBaseHeader: false},
+            args: { novel: introNovel, needBaseHeader: false},
           },
-          bubbles: true,
-          composed: true,
+          bubbles: true
         }),
       );
     },
@@ -149,8 +160,7 @@ export function wireAboutKiteContentNavigation(hostEl, einstiegNovel) {
       hostEl.dispatchEvent(
         new CustomEvent("sm-switch-scene", {
           detail: { scene: "knowledge-scene" },
-          bubbles: true,
-          composed: true,
+          bubbles: true
         }),
       );
     },

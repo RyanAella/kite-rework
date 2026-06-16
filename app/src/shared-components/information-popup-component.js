@@ -1,6 +1,8 @@
-// Information popup component for showing and hiding the information popup component
+/**
+ * Information popup component for showing and hiding the information popup component
+ */
 class InformationPopupComponent extends HTMLElement {
-  // Build the information popup component
+  
   connectedCallback() {
     if (this.dataset.built === "1") return;
     this.dataset.built = "1";
@@ -34,7 +36,10 @@ class InformationPopupComponent extends HTMLElement {
     }
   }
 
-  // Set the information text
+  /**
+   * Set the information text
+   * @param {*} message 
+   */
   setInformationText(message) {
     const html = String(message);
     this._pendingInformationMessage = html;

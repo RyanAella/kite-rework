@@ -1,7 +1,11 @@
 import { pathFinding } from "./path-finding-service.js";
 
+/**
+ * Creates the pieces of the Character.
+ * @param {*} CharacterBox the Container, where the pieces of the Character are added into
+ * @param {*} characterInfo the Information of about the Character created by the CharacterInfoLoader
+ */
 export async function addElements(CharacterBox, characterInfo) {
-  console.log("addElements");
   let paths = []
   paths.push(['ImgHead', pathFinding(characterInfo, "Head"), "z-30"]);
   paths.push(['ImgHair', pathFinding(characterInfo, "Hair"), "z-30"]);

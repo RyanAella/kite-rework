@@ -1,10 +1,12 @@
-import "../../shared-components/headers/back-header.js";
-import "../../shared-components/footer.js";
+import "../../shared-components/headers/back-header-component.js";
+import "../../shared-components/footer-component.js";
 import { isNovelSessionActive } from "../../shared-services/novel-session-service.js";
 
-// Legal hub: entry point with links to Impressum, Datenschutz, Nutzungsbedingungen; footer inside z-10 column like settings.
-
+/**
+ * Legal hub: entry point with links to Impressum, Datenschutz, Nutzungsbedingungen; footer inside z-10 column like settings.
+ */
 class LegalInformationScene extends HTMLElement {
+  
   connectedCallback() {
     // Disable footer nav if arriving from a running novel.
     const footerAttrs = isNovelSessionActive() ? "disabled" : "";
@@ -68,8 +70,10 @@ class LegalInformationScene extends HTMLElement {
     this.setupEvents();
   }
 
+  /**
+   * Setup all relevant events for this scene
+   */
   setupEvents() {
-    // Bubble composed sm-switch-scene so the app shell can change the active scene
     const btnImpressum = this.querySelector("#btn-impressum");
     const btnDatenschutz = this.querySelector("#btn-datenschutz");
     const btnNutzung = this.querySelector("#btn-nutzung");
@@ -78,8 +82,7 @@ class LegalInformationScene extends HTMLElement {
       this.dispatchEvent(
         new CustomEvent("sm-switch-scene", {
           detail: { scene: sceneName },
-          bubbles: true,
-          composed: true,
+          bubbles: true
         })
       );
     };

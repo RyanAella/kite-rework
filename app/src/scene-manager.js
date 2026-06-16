@@ -1,20 +1,20 @@
-import "../scenes/loading-scene.js";
-import "../scenes/start-scene.js";
-import "../scenes/settings-scene/settings-scene.js";
-import "../scenes/novel-scene/novel-scene.js";
-import "../scenes/novel-selector/novel-selector.js";
-import "../scenes/links-scene/links-scene.js";
-import "../scenes/novel-selector-sidebar.js";
-import "../scenes/bookmarks-scene/bookmarks-scene.js";
-import { TermsConsentScene } from "../scenes/terms-consent-scene/terms-consent-scene.js";
-import "../scenes/legal_information/legal-information-scene.js";
-import "../scenes/legal_information/dataprivacy-scene.js";
-import "../scenes/legal_information/imprint-scene.js";
-import "../scenes/legal_information/tos-scene.js";
-import "../scenes/about-kite-scene/about-kite-scene.js";
-import "../scenes/completion-scene/completion-scene.js";
-import "../scenes/knowledge-scene/knowledge-scene.js";
-import "../scenes/archive-scene/archive-scene.js";
+import "./scenes/loading-scene/loading-scene.js";
+import "./scenes/start-scene/start-scene.js";
+import "./scenes/settings-scene/settings-scene.js";
+import "./scenes/novel-scene/novel-scene.js";
+import "./scenes/novel-selector-scene/novel-selector-scene.js";
+import "./scenes/links-scene/links-scene.js";
+import "./scenes/novel-selector-sidebar-scene/novel-selector-sidebar-scene.js";
+import "./scenes/bookmarks-scene/bookmarks-scene.js";
+import { TermsConsentScene } from "./scenes/terms-consent-scene/terms-consent-scene.js";
+import "./scenes/legal-information-scene/legal-information-scene.js";
+import "./scenes/legal-information-scene/dataprivacy-scene.js";
+import "./scenes/legal-information-scene/imprint-scene.js";
+import "./scenes/legal-information-scene/tos-scene.js";
+import "./scenes/about-kite-scene/about-kite-scene.js";
+import "./scenes/completion-scene/completion-scene.js";
+import "./scenes/knowledge-scene/knowledge-scene.js";
+import "./scenes/archive-scene/archive-scene.js";
 
 class SceneManager extends HTMLElement {
   
@@ -25,8 +25,7 @@ class SceneManager extends HTMLElement {
   }
 
   connectedCallback() {
-    console.log("Added New Scene Manager");
-
+    
     this.addEventListener("sm-switch-scene", (event) => { this.switchScene(event.detail.scene, event.detail.args)});
     this.addEventListener("sm-clear-scene", (event) => { this.clearScene()});
     this.addEventListener("sm-back", () => { this.switchToLastScene() });
@@ -34,6 +33,10 @@ class SceneManager extends HTMLElement {
     this.switchScene("loading-scene");
   }
 
+  /**
+   * Gets the currently active scene out of the DOM
+   * @returns a reference to the current scene
+   */
   getCurrentScene() {
     if (this.childNodes.length === 0) {
       return false;
@@ -66,7 +69,7 @@ class SceneManager extends HTMLElement {
   }
   
   /**
-   * Removes the current Scene and Clears the Scene History
+   * Removes the current Scene and Clears the Scene History.
    */
   clearScene() {
     console.log("Registered clearScene event");
@@ -75,6 +78,9 @@ class SceneManager extends HTMLElement {
     this.sceneHistory = []; 
   }
 
+  /**
+   * Switched to the Last scene that was saved in the scene History.
+   */
   switchToLastScene() {
     if (this.sceneHistory.length > 0) {
       // Remove current scene from the stack
@@ -86,7 +92,7 @@ class SceneManager extends HTMLElement {
       this.replaceChildren(newScene);
       
     } else {
-      console.log("No previous scenes to switch to.");
+      console.warn("No previous scenes to switch to.");
     }
   }
 }
