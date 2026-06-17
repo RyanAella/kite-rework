@@ -1,4 +1,5 @@
 import { DetailHeading } from "./detail-heading-component.js";
+import { escapeHtml } from "../../../../shared-services/shared-document-page-service.js";
 
 const heading_size = 4.5;
 
@@ -42,7 +43,7 @@ export class DateHeading extends HTMLElement {
         this.arrowImg.src = "assets/Images/DropDown/Arrow_Down.png";
         this.contentContainer.replaceChildren(
             DetailHeading.create(this.novelData, "Dialog", this.createDialog(), "Der Dialog wurde in die Zwischenablage kopiert"), 
-            DetailHeading.create(this.novelData, "KI-Feedback", "KI-Feedback", "Das Feedback wurde in die Zwischenablage kopiert")
+            DetailHeading.create(this.novelData, "KI-Feedback", this.createFeedback(), "Das Feedback wurde in die Zwischenablage kopiert")
         );
       } else {
         this.arrowImg.src = "assets/Images/DropDown/Arrow_Left.png";
@@ -157,6 +158,25 @@ export class DateHeading extends HTMLElement {
       }
     }
     return htmlElement;
+  }
+
+  /**
+   * Builds the HTML for the saved KI-Feedback of this archive entry.
+   * @returns The feedback rendered as paragraphs, or a fallback notice as a string
+   */
+  createFeedback() {
+    const feedback = this.instanceData.kifeedback;
+
+    if (!feedback) {
+      return `<p>Für diesen Eintrag ist kein KI-Feedback verfügbar.</p>`;
+    }
+
+    return String(feedback)
+      .split(/\n+/)
+      .map((paragraph) => paragraph.trim())
+      .filter((paragraph) => paragraph.length > 0)
+      .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+      .join("");
   }
 }
 customElements.define("date-heading", DateHeading);

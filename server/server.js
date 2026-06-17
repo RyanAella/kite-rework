@@ -19,7 +19,7 @@ function sendJson(res, statusCode, data) {
   res.writeHead(statusCode, {
     "Content-Type": "application/json; charset=utf-8",
     "Content-Length": Buffer.byteLength(body),
-    "Access-Control-Allow-Origin": "*", // Allow all origins to access the resource. For GitLab Pages.
+    "Access-Control-Allow-Origin": "https://team-04-d7efe7.pages.it.hs-heilbronn.de", // Allow origin to send resources
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS", // Allow the following methods to access the resource.
     "Access-Control-Allow-Headers": "Content-Type", // Allow the following headers to be sent with the request.
   });
@@ -39,7 +39,29 @@ async function generateGeminiFeedback(dialogueText) {
     contents: [{
       parts: [{
         // Prompt for Gemini
-        text: `Du bist ein Experte für Kommunikation. Analysiere diesen Dialog und gib professionelles Feedback:\n\n${dialogueText}`
+        text: `Du bist eine Geschlechterforscherin. 
+
+              Deine Aufgabe ist es, den folgenden Dialog auf Diskriminierung hin zu untersuchen. 
+
+              ${dialogueText}
+
+              Schreibe einen Analysetext. Stelle die Biases und Verzerrungen dar, auf die du dich beziehst (unten eine Liste mit Geschlechterbiases im Gründungsprozess). 
+
+              Im Dialog findest Du auch Hinweise auf Biases, die an der jeweiligen Stelle des Dialogs zum Tragen kommen. Nutze diese Hinweise zur Analyse des Dialogs. 
+
+              Analysiere auch das Verhalten der Spielerin und ihre Reaktionen auf diese Biases. Erläutere die jeweiligen Biases mit konkreten Beispielen aus dem Dialog. 
+
+              Stelle die Vorteile des Verhaltens der Spielerin dar und deute vorsichtig an, welche Nachteile ihre Reaktion haben könnte.
+
+              Führe das Nicht-Ansprechen geschlechterstereotyper Annahmen nicht bei den Nachteilen auf.
+
+              Sei vorsichtig mit dem Hinweis, Biases und Stereotype direkt anzusprechen, weil dies zwar generell sinnvoll sein kann, die Spielerin aber in erster Linie darauf achten muss, dass sie das Gespräch so führt, dass sie im Gespräch erfolgreich ist.
+
+              Nutze geschlechtergerechte Sprache (z.B. Gründer*innen, weibliche Gründerinnen).
+
+              Richte den Text in der Du-Form an die Spielerin. Sei wohlwollend und ermunternd. Sprich die Spielerin nicht mit ihrem Namen an. Formuliere den Text aus einer unbestimmten Ich-Perspektive. 
+
+              Bitte sende kein markdown Format zurück, und markiere keinen Text oder Überschrift als fett und übergebe einen normalen Fließtext mit Abschnitten falls sinnvoll.`
       }]
     }],
     generationConfig: {
@@ -76,7 +98,7 @@ function handleRequest(req, res) {
   // Handling CORS preflight requests.
   if (method === "OPTIONS") {
     res.writeHead(204, {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": "https://team-04-d7efe7.pages.it.hs-heilbronn.de",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
     });

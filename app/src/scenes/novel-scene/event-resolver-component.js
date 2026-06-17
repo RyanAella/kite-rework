@@ -77,13 +77,14 @@ export class EventResolver extends HTMLElement {
         return;
 
       case 10: //Gpt Promt Event
-        await new Promise(r => setTimeout(r, 4000));
         if(this.tracking) setCompletedFlag(this.storageKey, this.currentEvent['id'], false);
         this.dispatchEvent(new CustomEvent("sm-switch-scene", {
           detail: {
             scene : `${this.tracking ? "completion-scene" : "novel-selector-scene"}`,
             args: {
-              novelName: this.novelName
+              novelName: this.novelName,
+              dialogueText: this.getDialogueTranscript(),
+              storageKey: this.storageKey
             } 
           },
           bubbles : true
@@ -260,6 +261,13 @@ export class EventResolver extends HTMLElement {
    */
   getCurrentEventId() {
     return this.currentEvent ? this.currentEvent['id'] : null;
+  }
+
+  getDialogueTranscript() {
+    return this.eventHistory
+      .filter((e) => e.eventType === 4 && e.text)
+      .map((e) => (e.character === 1 ? `Du: ${e.text}` : e.text))
+      .join("\n");
   }
 
   /**
