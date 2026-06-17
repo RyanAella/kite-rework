@@ -55,6 +55,18 @@ export function truncateDialogChoices(UUID, length) {
 }
 
 /**
+ * Saves the AI feedback text to an entry in the Archive Storage Object.
+ * @param {UUID} UUID The ID of the entry
+ * @param {string} feedback The AI generated feedback text
+ */
+export function setAiFeedback(UUID, feedback) {
+  let archive = readJson(storeKey);
+  if (!archive?.[UUID]) return;
+  archive[UUID].kifeedback = feedback;
+  writeJson(storeKey, archive);
+}
+
+/**
  * Gets an Archive Storage Entry.
  * @param {UUID} UUID The ID of the Entry
  * @returns The Object stored for the given ID

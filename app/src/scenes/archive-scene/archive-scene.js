@@ -2,6 +2,7 @@ import { addDragScrolling } from "../../shared-services/drag-scrolling-service.j
 import { NovelHeading } from "./novel-heading-component/novel-heading-component.js";
 import { getArchiveData } from "../../shared-services/archive-data-service.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
+import { CopyToast } from "../../shared-components/copy-toast-component.js";
 
 class ArchiveScene extends HTMLElement {
 
@@ -9,7 +10,7 @@ class ArchiveScene extends HTMLElement {
 
     this.novelData = await fetchFromJson("assets/json/novels.json");
 
-    this.classList = "h-full w-full grid grid-cols-1 grid-rows-1";
+    this.classList = "relative h-full w-full grid grid-cols-1 grid-rows-1";
     this.innerHTML = `
       <div class="row-start-1 col-start-1 flex h-full w-full flex-col font-sans text-[#0b1a2d]">
         <back-header class="w-full shrink-0"></back-header>
@@ -33,12 +34,9 @@ class ArchiveScene extends HTMLElement {
         </div>
         <main-footer active-scene="archive-scene"></main-footer>
       </div>
-      <div id="popup-container" class="hidden row-start-1 col-start-1 h-full w-full flex items-center justify-center z-10"></div>
     `;
 
     this.addEmptyinfoText();
-
-    this.createPopUp();
 
     addDragScrolling(this.querySelector('#scroll-container'));
     this.novelContainer = this.querySelector("#novel-container");
@@ -46,9 +44,7 @@ class ArchiveScene extends HTMLElement {
     this.addHeadings();
 
     this.addEventListener("show-popup", (event) => {
-      this.popUpText.innerHTML = event.detail.text
-      this.popupContainer.classList.remove("hidden");
-      setTimeout(() => this.popupContainer.classList.add("hidden"), 1000);
+      CopyToast.show(this, event.detail.text);
     });
   }
 
@@ -61,18 +57,6 @@ class ArchiveScene extends HTMLElement {
       const heading = NovelHeading.create(this.novelData.visualNovels.find((element) => element.name == key), value);
       this.novelContainer.appendChild(heading);
     });
-  }
-
-  /**
-   * Creates the PopUp element.
-   */
-  createPopUp() {
-    this.popupContainer = this.querySelector('#popup-container');
-    let popUp = document.createElement('div');
-    popUp.classList = "flex h-[23cqw] w-[55cqw] mt-[15cqw] flex-col items-center justify-center rounded-[4cqw] bg-[#132034] text-white text-center"
-    this.popUpText = document.createElement("p");
-    popUp.replaceChildren(this.popUpText);
-    this.popupContainer.appendChild(popUp);
   }
 
   /**

@@ -89,7 +89,9 @@ class NovelScene extends HTMLElement {
           detail: {
             scene : `${this.eventResolver.tracking ? "completion-scene" : "novel-selector-scene"}`,
             args: {
-              novelName: this.novel.name
+              novelName: this.novel.name,
+              dialogueText: this.eventResolver.getDialogueTranscript(),
+              storageKey: this.eventResolver.storageKey
             } 
           },
           bubbles : true

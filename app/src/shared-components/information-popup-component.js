@@ -11,7 +11,7 @@ class InformationPopupComponent extends HTMLElement {
 
     this.innerHTML = `
       <div class="flex min-h-[43cqw] w-[85cqw] flex-col items-center rounded-[2cqw] bg-[#132034]">
-        <div class="mb-[5cqw] w-[80cqw] border-b-[0.5cqw] p-[2cqw] text-center text-[5cqw] text-white">
+        <div id="popup-heading" class="mb-[5cqw] w-[80cqw] border-b-[0.5cqw] p-[2cqw] text-center text-[5cqw] text-white">
           INFORMATION
         </div>
         <p id="popup-information-text" class="user-font mb-[2cqw] w-[80cqw] text-white"></p>
@@ -34,6 +34,13 @@ class InformationPopupComponent extends HTMLElement {
       if (el) el.innerHTML = this._pendingInformationMessage;
       this._pendingInformationMessage = null;
     }
+
+    // Set the heading text
+    if (this._pendingHeading != null) {
+      const el = this.querySelector("#popup-heading");
+      if (el) el.innerText = this._pendingHeading;
+      this._pendingHeading = null;
+    }
   }
 
   /**
@@ -47,6 +54,20 @@ class InformationPopupComponent extends HTMLElement {
     if (el) {
       el.innerHTML = html;
       this._pendingInformationMessage = null;
+    }
+  }
+
+  /**
+   * Set the heading text shown at the top of the popup.
+   * @param {*} heading The new heading text
+   */
+  setHeading(heading) {
+    const text = String(heading);
+    this._pendingHeading = text;
+    const el = this.querySelector("#popup-heading");
+    if (el) {
+      el.innerText = text;
+      this._pendingHeading = null;
     }
   }
 }
