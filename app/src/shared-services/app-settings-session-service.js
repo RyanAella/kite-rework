@@ -1,4 +1,4 @@
-const SETTINGS_SESSION_KEY = "settings";
+const SETTINGS_STORAGE_KEY = "settings";
 
 export const DEFAULT_APP_SETTINGS = {
   voiceOutput: false,
@@ -6,24 +6,24 @@ export const DEFAULT_APP_SETTINGS = {
   soundVolume: 100,
   fontSize: 50,
 };
-
 /**
- * Creates Settings Entry, if it does not exist already
+ * Ensures the settings defaults are set in local storage
+ * @returns {void}
  */
 export function ensureSettingsDefaults() {
-  if (sessionStorage.getItem(SETTINGS_SESSION_KEY) != null) return;
-  sessionStorage.setItem(
-    SETTINGS_SESSION_KEY,
+  if (localStorage.getItem(SETTINGS_STORAGE_KEY) != null) return;
+  localStorage.setItem(
+    SETTINGS_STORAGE_KEY,
     JSON.stringify(DEFAULT_APP_SETTINGS),
   );
 }
 
 /**
- * Loads the app settings from the session storage
- * @returns the value of the settings entry out of the storage
+ * Loads the app settings from local storage
+ * @returns {Object} The app settings
  */
 export function loadAppSettings() {
-  const raw = sessionStorage.getItem(SETTINGS_SESSION_KEY);
+  const raw = localStorage.getItem(SETTINGS_STORAGE_KEY);
   if (raw == null) return { ...DEFAULT_APP_SETTINGS };
   try {
     return { ...DEFAULT_APP_SETTINGS, ...JSON.parse(raw) };
@@ -33,9 +33,10 @@ export function loadAppSettings() {
 }
 
 /**
- * Saves the app settings to the session storage
- * @param {*} settings The new settings object that will be saved
+ * Saves the app settings to local storage
+ * @param {Object} settings - The app settings
+ * @returns {void}
  */
 export function saveAppSettings(settings) {
-  sessionStorage.setItem(SETTINGS_SESSION_KEY, JSON.stringify(settings));
+  localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
 }

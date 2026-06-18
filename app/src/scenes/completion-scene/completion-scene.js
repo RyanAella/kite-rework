@@ -181,10 +181,13 @@ class CompletionScene extends HTMLElement {
   }
 
   createSpinner() {
-    const spinner = document.createElement("div");
-    spinner.className =
-      "w-[10cqw] h-[10cqw] rounded-full border-[1cqw] border-[#14305d]/20 border-t-[#14305d] animate-spin mt-[4cqw]";
-    return spinner;
+    const img = document.createElement("img");
+    img.src = "assets/Images/LoadingScreen/Icon_Load.png";
+    img.alt = "";
+    img.className =
+      "pointer-events-none w-[10cqw] h-[10cqw] object-contain mt-[4cqw]";
+    img.style.animation = "spin 12s steps(12) infinite";
+    return img;
   }
 
   createCopyButton() {

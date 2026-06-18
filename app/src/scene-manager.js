@@ -55,17 +55,24 @@ class SceneManager extends HTMLElement {
   switchScene(scene, args) {
     console.log(`Registered switchScene event: Switching to "${scene}"`);
 
-    if (scene) {
-      const newScene = document.createElement(scene);
-      newScene.args = args;
+    if (!scene) return;
 
-      // Push the current scene to the history stack
-      if (this.getCurrentScene() && !this.getCurrentScene().preventHistoryPush) {
-        this.sceneHistory.push({ scene: this.getCurrentScene().tagName.toLowerCase(), args: this.getCurrentScene().args });
-      }
-
-      this.replaceChildren(newScene);
+    const current = this.getCurrentScene();
+    // Do not reopen the scene that is already active, so we don't stack
+    // duplicate history entries (e.g. tapping settings/legal repeatedly).
+    if (current && current.tagName.toLowerCase() === scene.toLowerCase()) {
+      return;
     }
+
+    const newScene = document.createElement(scene);
+    newScene.args = args;
+
+    // Push the current scene to the history stack
+    if (current && !current.preventHistoryPush) {
+      this.sceneHistory.push({ scene: current.tagName.toLowerCase(), args: current.args });
+    }
+
+    this.replaceChildren(newScene);
   }
   
   /**

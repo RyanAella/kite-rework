@@ -108,14 +108,7 @@ export class Footer extends HTMLElement {
         if (this.isDisabled()) return;
 
         const targetScene = btn.getAttribute('data-scene');
-        const currentActiveScene = this.getAttribute('active-scene');
 
-        // Check if the target scene is already the current scene
-        if (targetScene === currentActiveScene) {
-          console.log(`Already in scene: ${targetScene}. Action canceled.`);
-          return; // Stop execution if we are already there
-        }
-        
         // Trigger the SceneManager switch event
         if (targetScene) {
             this.dispatchEvent(new CustomEvent('sm-switch-scene', { 
