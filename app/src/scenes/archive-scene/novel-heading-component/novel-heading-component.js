@@ -27,7 +27,7 @@ export class NovelHeading extends HTMLElement {
     this.innerHTML = `
       <div 
         id="novel-heading"
-        class="w-full h-[${2*heading_size}cqw] flex flex-row items-center justify-center p-4 text-center text-white text-[3.5cqw]"
+        class="w-full h-[${2*heading_size}cqw] flex flex-row items-center justify-center p-[4cqw] text-center text-white text-[3.5cqw]"
         style="
           background-color: ${this.novelData['novelColor']};
           clip-path: polygon(0cqw ${heading_size}cqw, ${heading_size}cqw 0cqw, ${90 - heading_size}cqw 0cqw, 90cqw ${heading_size}cqw, ${90 - heading_size}cqw ${2*heading_size}cqw, ${heading_size}cqw ${2* heading_size}cqw);

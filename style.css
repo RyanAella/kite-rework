@@ -115,19 +115,20 @@
 }
 
 @utility slider {
-  @apply [&::-webkit-slider-runnable-track]:h-[1.5cqw];
+  @apply [&::-webkit-slider-runnable-track]:h-[3cqw];
   @apply [&::-webkit-slider-runnable-track]:bg-[#0a1622];
+  @apply [&::-webkit-slider-runnable-track]:mx-[6cqw];
   @apply [&::-webkit-slider-thumb]:appearance-none;
-  @apply [&::-webkit-slider-thumb]:w-[5cqw];
-  @apply [&::-webkit-slider-thumb]:h-[5cqw];
+  @apply [&::-webkit-slider-thumb]:w-[12cqw];
+  @apply [&::-webkit-slider-thumb]:h-[12cqw];
   @apply [&::-webkit-slider-thumb]:bg-[#0a1622];
   @apply [&::-webkit-slider-thumb]:rounded-full;
-  @apply [&::-webkit-slider-thumb]:mt-[-1.5cqw];
+  @apply [&::-webkit-slider-thumb]:mt-[-4.5cqw];
 
-  @apply [&::-moz-range-track]:h-[1.5cqw];
+  @apply [&::-moz-range-track]:h-[4cqw];
   @apply [&::-moz-range-track]:bg-[#0a1622];
-  @apply [&::-moz-range-thumb]:w-[5cqw];
-  @apply [&::-moz-range-thumb]:h-[5cqw];
+  @apply [&::-moz-range-thumb]:w-[12cqw];
+  @apply [&::-moz-range-thumb]:h-[12cqw];
   @apply [&::-moz-range-thumb]:bg-[#0a1622];
   @apply [&::-moz-range-thumb]:border-none;
   @apply [&::-moz-range-thumb]:rounded-full;

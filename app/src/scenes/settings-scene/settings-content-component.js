@@ -28,7 +28,7 @@ class SettingsContentComponent extends HTMLElement {
           <img draggable="false" id="sound-switch" class="mr-[5%] ml-auto h-full object-cover" src="assets/Images/IconsAndLogos/Icon_Settings_Inactive.png" alt="" />
         </div>
         <p class="user-font w-full font-medium tracking-wide text-[#14305d]">
-          Hier kannst du Soundeffekte der gesammten App aktivieren und ihre Laudstärke steuern, unabhängig von der Vorleselautstärke
+          Hier kannst du Soundeffekte der gesammten App aktivieren und ihre Laudstärke steuern, unabhängig von der Vorleselautstärke.
         </p>
         <p class="user-font w-full font-medium tracking-wide text-[#14305d]">
           Hinweis: Ist die Systemlautstärke auf 0 gestellt, oder der Stumm-Modus von iOS-Geräten aktiv, sind die Soundeffekte nicht hörbar.
@@ -75,7 +75,7 @@ class SettingsContentComponent extends HTMLElement {
         </div>
       </div>
 
-      <div class="pb-[3cqw] text-center text-[#14305d] text-[3cqw] text-[2cqw]">Version: 1.5.1</div>
+      <div class="pb-[3cqw] text-center text-[#14305d] text-[3cqw] text-[2cqw]">Version: 1.6.2</div>
     `;
   }
 }

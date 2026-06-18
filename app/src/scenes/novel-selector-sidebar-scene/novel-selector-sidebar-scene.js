@@ -11,8 +11,16 @@ class NovelSelectorSidebarScene extends HTMLElement {
     this.novels = data['visualNovels'].filter(novel => novel.name != "Einstieg");
 
     // HTML for the list
-    const novelItemsHtml = this.novels.map(novel => `
-      <div data-id="${novel.name}" class="novel-item w-full text-center py-[3.2cqw] transition-colors border-b-[0.5cqw] border-[#0b1a2d]">
+    const novelItemsHtml = this.novels.sort((a, b) => {
+      if(a.title < b.title) {
+        return -1
+      }
+      if(b.title < a.title) {
+        return 1;
+      }
+      return 0;
+    }).map(novel => `
+      <div data-id="${novel.name}" class="novel-item w-full text-center py-[1.3cqw] transition-colors border-b-[0.5cqw] border-[#0b1a2d]">
         <span class="text-[4.8cqw] font-semibold text-gray-900 tracking-tight">
           ${novel.title}
         </span>

@@ -25,8 +25,8 @@ export class SettingsHandler {
       this.persistAndRefresh();
       refs.popup.setInformationText(
         this.settings.voiceOutput
-          ? "Text wird dir nun Vorgelesen"
-          : "Text wird dir nun nicht länger Vorgelesen",
+          ? "Text wird dir nun vorgelesen."
+          : "Text wird dir nun nicht länger vorgelesen.",
       );
       this.showPopup();
     });

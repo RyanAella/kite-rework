@@ -101,8 +101,7 @@ export class TermsConsentScene extends HTMLElement {
           id="terms-continue-btn"
           type="button"
           disabled
-          class="flex h-[10cqw] w-[40%] max-w-[200px] shrink-0 items-center justify-center rounded-[0.6cqw] border-[0.5cqw] border-white bg-transparent text-[3cqw] font-normal uppercase tracking-wide text-white opacity-40 pointer-events-none cursor-not-allowed transition-opacity enabled:active:opacity-70"
-        >
+          class="flex h-[10cqw] w-[40%] max-w-[200px] shrink-0 items-center justify-center rounded-[0.6cqw] border-[0.5cqw] border-white bg-transparent text-[3cqw] font-normal uppercase tracking-wide text-white opacity-40 pointer-events-none cursor-not-allowed transition-opacity enabled:active:opacity-70">
           WEITER
         </button>
       </div>
@@ -111,9 +110,10 @@ export class TermsConsentScene extends HTMLElement {
 
   // Wire the consent form to the continue button
   wireConsentForm() {
-    this.checkboxes.forEach((cb) =>
-      cb.addEventListener("change", () => this.syncContinueButton()),
-    );
+    this.checkboxes.forEach((cb) =>{
+      cb.addEventListener("change", () => this.syncContinueButton());
+      console.log(cb);
+    });
     this.btn.addEventListener("click", () => this.handleContinueClick());
     this.syncContinueButton();
   }
@@ -149,7 +149,7 @@ export class TermsConsentScene extends HTMLElement {
     );
   }
 
-  // Load the einstieg novel
+  // Load the intro novel
   async loadEinstiegNovel() {
     try {
       const data = await fetchFromJson("assets/json/novels.json");
