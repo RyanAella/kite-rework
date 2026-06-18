@@ -55,7 +55,6 @@ class DataprivacyScene extends HTMLElement {
             this.personPopUp.toggle(false);
             const popupContainer = this.querySelector('#document-popup-container');
             localStorage.clear();
-            sessionStorage.clear();
             setInformationText(this.infoPopup, RESET_INFO_TEXT);
             showSwapModal(popupContainer, this.infoPopup);
           }}
