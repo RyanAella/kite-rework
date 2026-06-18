@@ -2,6 +2,8 @@ import "../../shared-components/headers/back-header-component.js";
 import "../../shared-components/footer-component.js";
 import { isNovelSessionActive } from "../../shared-services/novel-session-service.js";
 
+const buttonClasses = "user-font w-full select-none border-0 bg-[#142b52] py-[2cqw] rounded-[0.5cqw] text-center font-semibold uppercase tracking-wide text-white shadow-sm transition-opacity active:opacity-70"
+
 /**
  * Legal hub: entry point with links to Impressum, Datenschutz, Nutzungsbedingungen; footer inside z-10 column like settings.
  */
@@ -44,13 +46,13 @@ class LegalInformationScene extends HTMLElement {
               </div>
 
               <div class="flex w-full flex-col gap-[4cqw]">
-                <button id="btn-impressum" type="button" class="user-font w-fullselect-none border-0 bg-[#142b52] py-[3.2cqw] text-center font-bold uppercase tracking-wide text-white shadow-sm transition-opacity active:opacity-70">
+                <button id="btn-impressum" type="button" class="${buttonClasses}">
                   Impressum
                 </button>
-                <button id="btn-datenschutz" type="button" class="user-font w-full select-none border-0 bg-[#142b52] py-[3.2cqw] text-center font-bold uppercase tracking-wide text-white shadow-sm transition-opacity active:opacity-70">
+                <button id="btn-datenschutz" type="button" class="${buttonClasses}">
                   Datenschutz
                 </button>
-                <button id="btn-nutzung" type="button" class="user-font w-full select-none border-0 bg-[#142b52] py-[3.2cqw] text-center font-bold uppercase tracking-wide text-white shadow-sm transition-opacity active:opacity-70">
+                <button id="btn-nutzung" type="button" class="${buttonClasses}">
                   Nutzungsbedingungen
                 </button>
               </div>

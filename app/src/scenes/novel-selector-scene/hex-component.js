@@ -30,7 +30,7 @@ export function createHex(posX, posY, novel, isInfo = false, isBookmarked, archi
 
   const counterBubble = (value != null) ?
     `
-        <div class="absolute bottom-[2.5cqw] left-1/2 -translate-x-1/2 flex justify-center items-center w-[5cqw] h-[5cqw] bg-[#fe5d03] rounded-full text-white font-mono z-20">
+        <div class="absolute bottom-[2.5cqw] left-1/2 -translate-x-1/2 flex justify-center items-center w-[5cqw] h-[5cqw] bg-[#fe5d03] rounded-full text-white font-mono z-20 text-[3.4cqw]">
           <span class="bubble-number" data-new-value="${numberOfPlayedDiaogues}">${displayCount}</span>
         </div>
     ` : '';
@@ -50,7 +50,7 @@ export function createHex(posX, posY, novel, isInfo = false, isBookmarked, archi
         />
       </svg>
       ${bookmarkMarker}
-      <div class="relative z-10 w-[80%] text-center text-white text-[3.6cqw] font-semibold select-none pointer-events-none">
+      <div class="relative z-10 w-[80%] text-center text-white text-[3.6cqw] font-normal select-none pointer-events-none">
         ${novel.title}
       </div>
       ${counterBubble}

@@ -31,16 +31,16 @@ export function createBubble(novel) {
 
       <!-- Hauptbox -->
       <div id="bubble-box"
-        class="text-white p-[5cqw] rounded-[1.6cqw] w-full"
+        class="text-white rounded-[1.6cqw] w-full"
         style = "background-color: ${novel.novelColor}"
       >
         <!-- Text-Inhalt -->
-        <p class="user-font p-[3.2cqw] font-semibold leading-normal mb-[3.2cqw] text-center">
+        <p class="user-font p-[3.2cqw] font-normal leading-normal mb-[1.2cqw]">
           ${novel.description}
         </p>
 
         <!-- Button-Leiste -->
-        <div class="flex gap-[2.5cqw] justify-center mb-[2cqw]">
+        <div class="flex gap-[2.5cqw] justify-center mb-[5cqw]">
           
           <div id="play-button" class="button-play bg-contain bg-no-repeat object-contain h-[6cqw] w-[24cqw] font-bold text-[2.4cqw] pl-[6.4cqw] flex items-center"
             style="color:${novel.novelColor}"
