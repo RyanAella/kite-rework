@@ -1,10 +1,11 @@
 # IDE Specific files/directories
 .vscode
+.idea/
 
 # Automatically Generated Files
 node_modules/
 AGENT.md
-docs/
+public/
 
 # Environment variables (secrets)
 .env

@@ -5,13 +5,16 @@ import { playAudio } from "../../../shared-services/audio-playing-service.js";
 
 export class DialogueList extends HTMLElement {
   
+  novelName = null;
+
   constructor() {
     super();
     this.renderQueue = Promise.resolve();
   }
 
-  static create() {
+  static create(novelName = null) {
     const newDialogueList = document.createElement('dialogue-list');
+    newDialogueList.novelName = novelName;
     return newDialogueList;
   }
 
@@ -34,7 +37,7 @@ export class DialogueList extends HTMLElement {
   async showMessage(text, isUser = false, characterId, isInstant = false) {
     playAudio("SFX_Textpopup_1");
     this.renderQueue = this.renderQueue.then(() => {
-      return this.messageContainer.addMessage(text, isUser, characterId, isInstant);
+      return this.messageContainer.addMessage(text, isUser, characterId, isInstant, this.novelName);
     });
     return this.renderQueue;
   }
@@ -58,7 +61,7 @@ export class DialogueList extends HTMLElement {
    */
   async handleChoiceSelection(index, text) {
     this.choiceContainer.innerHTML = '';
-    await this.showMessage(text, true);
+    await this.showMessage(text, true, 1);  // Player is character 1
     const event = new CustomEvent('user-confirmation', {
       detail: { choiceIndex: index },
       bubbles: true,

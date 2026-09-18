@@ -12,23 +12,27 @@ export class MessageContainer extends HTMLElement {
    * @param {*} isUser Whether this message is the result of a user choice
    * @param {*} characterId The ID of the Character that speaks this message
    * @param {*} isInstant Whether the message is added without an animation
+   * @param {*} novelName Optional: The name of the current novel for special cases
    * @returns a promise for the created messageBox
    */
-  addMessage(text, isUser = false, characterId, isInstant = false) {
+  addMessage(text, isUser = false, characterId, isInstant = false, novelName = null) {
     return new Promise((resolve) => {
       const messageBox = document.createElement('div');
       const baseClasses = "user-font leading-relaxed text-white p-[2cqw] rounded-[1.6cqw] text-left grid origin-bottom animate-pop-in break-words";
 
       const isChoiceBubble = isUser || characterId == 1;
-      if(isChoiceBubble) {
+      if (isChoiceBubble) {
         messageBox.className = `${baseClasses} w-[90%] self-end bg-[#0c447f]`;
-      } else if(characterId >= 5 && characterId <= 12) {
-        messageBox.className = `${baseClasses} w-[90%] self-start bg-[#393a39]`;
-      } else {
+      } else if (characterId == 4 || (characterId == 2 && novelName === "Einstieg")) {
+        // Info character - centered with info color
+        // Character 2 in Einstieg novel also gets info styling
         messageBox.className = `${baseClasses} w-full self-center bg-[#0e7f90]`;
+      } else {
+        // All NPCs - left-aligned with NPC color
+        messageBox.className = `${baseClasses} w-[90%] self-start bg-[#393a39]`;
       }
 
-      // Only the user's own choices are undoable; characterId == 1 lines merely share the styling.
+      // Only the user's own choices are undoable.
       if (isUser) {
         messageBox.classList.add("js-choice-bubble", "cursor-pointer");
         messageBox.addEventListener("click", () => {

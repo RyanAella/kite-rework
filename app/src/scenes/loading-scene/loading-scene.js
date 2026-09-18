@@ -2,6 +2,9 @@ import { fetchFromJson } from "../../shared-services/fetch-service.js";
 import { ImageLoadingService } from "../../shared-services/image-loading-service.js";
 import { TermsConsentScene } from "../terms-consent-scene/terms-consent-scene.js";
 
+// Global cache für novels data
+window.novelsCache = null;
+
 class LoadingScene extends HTMLElement {
 
   async connectedCallback() {
@@ -43,6 +46,9 @@ class LoadingScene extends HTMLElement {
         return true;
       }
     });
+    
+    // Preload novels.json parallel to images to cache it for novel-selector-scene
+    fetch("assets/json/novels.json").catch(() => {});
     
     await ImageLoadingService.loadImages(proxy);
 

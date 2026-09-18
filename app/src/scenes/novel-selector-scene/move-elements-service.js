@@ -11,19 +11,25 @@ const velocityDragFactor = 5;
  */
 export function moveElements(hexScrollingFactor, viewportSize, hexSizeX) {
   
-  document.getElementById('bg-1').style = `background-position: ${bg1Scrolling + this.bgPos * bg1ScrollingFactor}% 0%;`;
-  document.getElementById('bg-2').style = `background-position: ${bg2Scrolling + this.bgPos * bg2ScrollingFactor}% 0%;`;
+  const bg1 = document.getElementById('bg-1');
+  const bg2 = document.getElementById('bg-2');
+  if (bg1) bg1.style = `background-position: ${bg1Scrolling + this.bgPos * bg1ScrollingFactor}% 0%;`;
+  if (bg2) bg2.style = `background-position: ${bg2Scrolling + this.bgPos * bg2ScrollingFactor}% 0%;`;
 
   let novelHexes = this.querySelector('#novel-hexes');
-  novelHexes.style.transform = `translateX(${this.bgPos * -hexScrollingFactor / 10}cqw)`;
+  if (novelHexes) {
+    novelHexes.style.transform = `translateX(${this.bgPos * -hexScrollingFactor / 10}cqw)`;
+  }
 
   const scaledFirstHexPos = (this.firstHexPos - (viewportSize-hexSizeX)/2) / hexScrollingFactor;
   const scaledLastHexPos = (this.lastHexPos - (viewportSize-hexSizeX)/2) / hexScrollingFactor;
 
-  if(this.bgPos < scaledFirstHexPos) {
-    this.scrollingVelocity = 30 + Math.abs(scaledFirstHexPos - this.bgPos)/30;
-  } else if(this.bgPos > scaledLastHexPos) {
-    this.scrollingVelocity = -(30 + Math.abs(scaledLastHexPos - this.bgPos)/30);
+  if(this.firstHexPos !== undefined && this.lastHexPos !== undefined) {
+    if(this.bgPos < scaledFirstHexPos) {
+      this.scrollingVelocity = 30 + Math.abs(scaledFirstHexPos - this.bgPos)/30;
+    } else if(this.bgPos > scaledLastHexPos) {
+      this.scrollingVelocity = -(30 + Math.abs(scaledLastHexPos - this.bgPos)/30);
+    }
   }
 
   if(this.scrollingVelocity != 0 && !this.isDown) {

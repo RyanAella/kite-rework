@@ -1,0 +1,15 @@
+{
+  "folderName": "Hilfeplanung",
+  "idNumberOfNovel": 2,
+  "titleOfNovel": "Hilfeplanung mit Tochter",
+  "descriptionOfNovel": "Es ist ein vorbereitendes Einzelgespräch einer Fachkraft des Jugendamts mit der 15-jährigen Lina.",
+  "contextForPrompt": "Es ist ein vorbereitendes Einzelgespräch einer Fachkraft des Jugendamts mit der 15-jährigen Lina. Anwesend sind ausschließlich Lina und die Fachkraft. Für Linas Familie besteht bereits eine Familienhilfe; in zwei Wochen findet ein Hilfeplangespräch statt. Die Fachkraft möchte erfahren, wie Lina ihre aktuelle Situation erlebt und welche Themen aus ihrer Sicht für die weitere Hilfeplanung wichtig sind.",
+  "startTalkingPartnerExpression": "NeutralRelaxed",
+  "talkingPartner01" : "Tochter",
+  "talkingPartner02" : "",
+  "talkingPartner03" : "",
+  "disablePauseMenu": false,
+  "isKiteNovel": true,
+  "novelColor": "#25650E",
+  "novelFrameColor": "#4C9A30"
+}

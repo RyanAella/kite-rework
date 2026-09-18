@@ -64,7 +64,7 @@ class NovelScene extends HTMLElement {
 
     //Create Child Elements
     this.createBackground();
-    this.dialogueList = DialogueList.create();
+    this.dialogueList = DialogueList.create(this.novel["name"]);
     this.eventResolver = EventResolver.create(this.novel["name"], this.novel['novelEvents'], this.dialogueList, !!!this.novel['disablePauseMenu']);
 
     // on resume triggert den event resolver normal mit dem nächsten Event weiterzumachen

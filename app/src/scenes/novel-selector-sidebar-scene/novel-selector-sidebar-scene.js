@@ -4,11 +4,27 @@ import '../../shared-components/headers/closing-header-component.js';
 class NovelSelectorSidebarScene extends HTMLElement {
 
   preventHistoryPush = true;
+  
+  // Static cache für novels data - wird einmal geladen und wiederverwendet
+  static novelsDataCache = null;
 
   async connectedCallback() {
 
-    let data = await fetchFromJson("assets/json/novels.json");
-    this.novels = data['visualNovels'].filter(novel => novel.name != "Einstieg");
+    // 1. Prüfe globalen Cache (von loading-scene pregeladen)
+    if (window.novelsCache) {
+      this.novels = window.novelsCache.visualNovels.filter(novel => novel.name != "Einstieg");
+    }
+    // 2. Prüfe statischen Cache
+    else if (NovelSelectorSidebarScene.novelsDataCache) {
+      this.novels = NovelSelectorSidebarScene.novelsDataCache.filter(novel => novel.name != "Einstieg");
+    }
+    // 3. Lade neu und speichere in beide Caches
+    else {
+      let data = await fetchFromJson("assets/json/novels.json");
+      window.novelsCache = data;
+      NovelSelectorSidebarScene.novelsDataCache = data['visualNovels'];
+      this.novels = NovelSelectorSidebarScene.novelsDataCache.filter(novel => novel.name != "Einstieg");
+    }
 
     // HTML for the list
     const novelItemsHtml = this.novels.sort((a, b) => {

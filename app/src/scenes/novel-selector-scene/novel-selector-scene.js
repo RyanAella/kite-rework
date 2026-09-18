@@ -23,6 +23,9 @@ const hexSizeX = 306; // This Variable does not influence the size of Hexagons, 
 
 class NovelSelectorScene extends HTMLElement {
   
+  // Static cache für novels data - wird einmal geladen und wiederverwendet
+  static novelsDataCache = null;
+  
   bgPos = 0;
   isDown = false;
   startX; scrollLeft;
@@ -64,12 +67,30 @@ class NovelSelectorScene extends HTMLElement {
   
   /**
    * Loads in the details about all novels.
+   * Uses global cache from loading-scene, then static cache, then falls back to fetching.
    */
   async loadNovels() {
+    // 1. Prüfe globalen Cache (von loading-scene pregeladen)
+    if (window.novelsCache) {
+      this.introNovel = window.novelsCache.visualNovels.find(novel => novel.name === "Einstieg");
+      this.novels = window.novelsCache.visualNovels.filter(novel => novel.name !== "Einstieg");
+      return;
+    }
+    
+    // 2. Prüfe statischen Cache
+    if (NovelSelectorScene.novelsDataCache) {
+      const allNovels = NovelSelectorScene.novelsDataCache;
+      this.introNovel = allNovels.find(novel => novel.name === "Einstieg");
+      this.novels = allNovels.filter(novel => novel.name !== "Einstieg");
+      return;
+    }
+    
+    // 3. Lade neu und speichere in beide Caches
     let data = await fetchFromJson("assets/json/novels.json");
-    const allNovels = data['visualNovels'];
-    this.introNovel = allNovels.find(novel => novel.name === "Einstieg");
-    this.novels = allNovels.filter(novel => novel.name !== "Einstieg");
+    window.novelsCache = data;
+    NovelSelectorScene.novelsDataCache = data['visualNovels'];
+    this.introNovel = NovelSelectorScene.novelsDataCache.find(novel => novel.name === "Einstieg");
+    this.novels = NovelSelectorScene.novelsDataCache.filter(novel => novel.name !== "Einstieg");
   }
 
   /**

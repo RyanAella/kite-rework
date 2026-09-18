@@ -32,8 +32,8 @@
           "currentState": "off",
           "interaction": "toggle",
           "states": {
-            "off": "assets/Images/EventAnimations/ElternInformieren/BG_parents_light_off.png",
-            "on": "assets/Images/EventAnimations/ElternInformieren/BG_parents_light_on.png"
+            "off": "assets/Images/EventAnimations/Eltern/BG_parents_light_off.png",
+            "on": "assets/Images/EventAnimations/Eltern/BG_parents_light_on.png"
           },
           "sounds": {
             "off": "LightSwitch_off",
@@ -50,7 +50,7 @@
           "classes": "object-fill pointer-events-none",
           "currentState": "default",
           "states": {
-            "default": "assets/Images/EventAnimations/ElternInformieren/Eltern_Table.png"
+            "default": "assets/Images/EventAnimations/Eltern/Eltern_Table.png"
           }
         },
         {
@@ -64,10 +64,10 @@
           "currentState": "idle",
           "interaction": "sequence",
           "states": {
-            "idle": "assets/Images/EventAnimations/ElternInformieren/Jug_1.png",
-            "steaming_1": "assets/Images/EventAnimations/ElternInformieren/Jug_2.png",
-            "steaming_2": "assets/Images/EventAnimations/ElternInformieren/Jug_3.png", 
-            "steaming_3": "assets/Images/EventAnimations/ElternInformieren/Jug_4.png"  
+            "idle": "assets/Images/EventAnimations/Eltern/Jug_1.png",
+            "steaming_1": "assets/Images/EventAnimations/Eltern/Jug_2.png",
+            "steaming_2": "assets/Images/EventAnimations/Eltern/Jug_3.png", 
+            "steaming_3": "assets/Images/EventAnimations/Eltern/Jug_4.png"  
           },
           "sound": "BoilingWater"
         },
@@ -82,10 +82,10 @@
           "currentState": "idle",
           "interaction": "sequence",
           "states": {
-            "idle": "assets/Images/EventAnimations/ElternInformieren/Mug_G1.png",
-            "steaming_1": "assets/Images/EventAnimations/ElternInformieren/Mug_G2.png",
-            "steaming_2": "assets/Images/EventAnimations/ElternInformieren/Mug_G3.png",
-            "steaming_3": "assets/Images/EventAnimations/ElternInformieren/Mug_G4.png" 
+            "idle": "assets/Images/EventAnimations/Eltern/Mug_G1.png",
+            "steaming_1": "assets/Images/EventAnimations/Eltern/Mug_G2.png",
+            "steaming_2": "assets/Images/EventAnimations/Eltern/Mug_G3.png",
+            "steaming_3": "assets/Images/EventAnimations/Eltern/Mug_G4.png" 
 
           },
           "sound": "BoilingWater"
@@ -101,10 +101,10 @@
           "currentState": "idle",
           "interaction": "sequence",
           "states": {
-            "idle": "assets/Images/EventAnimations/ElternInformieren/Mug_V1.png",
-            "steaming_1": "assets/Images/EventAnimations/ElternInformieren/Mug_V2.png",
-            "steaming_2": "assets/Images/EventAnimations/ElternInformieren/Mug_V3.png",
-            "steaming_3": "assets/Images/EventAnimations/ElternInformieren/Mug_V4.png" 
+            "idle": "assets/Images/EventAnimations/Eltern/Mug_V1.png",
+            "steaming_1": "assets/Images/EventAnimations/Eltern/Mug_V2.png",
+            "steaming_2": "assets/Images/EventAnimations/Eltern/Mug_V3.png",
+            "steaming_3": "assets/Images/EventAnimations/Eltern/Mug_V4.png" 
           },
           "sound": "BoilingWater",
           "syncToCharacter": 8
@@ -124,7 +124,7 @@
           "currentState": "default",
           "classes": "object-fill bottom-0",
           "states": {
-            "default": "assets/Images/EventAnimations/HonorarVerhandeln/Table_FG.png"
+            "default": "assets/Images/EventAnimations/Honorar/Table_FG.png"
           }
         },
         {
@@ -137,7 +137,7 @@
           "currentState": "default",
           "classes": "object-fill",
           "states": {
-            "default": "assets/Images/EventAnimations/HonorarVerhandeln/DrawerCabinet.png"
+            "default": "assets/Images/EventAnimations/Honorar/DrawerCabinet.png"
           }
         },
         {
@@ -151,9 +151,9 @@
           "currentState": "frame_1",
           "classes": "pointer-events-auto",
           "states": {
-            "frame_1": "assets/Images/EventAnimations/HonorarVerhandeln/Vase_1@4x.png",
-            "frame_2": "assets/Images/EventAnimations/HonorarVerhandeln/Vase_2@4x.png",
-            "frame_3": "assets/Images/EventAnimations/HonorarVerhandeln/Vase_3@4x.png"
+            "frame_1": "assets/Images/EventAnimations/Honorar/Vase_1@4x.png",
+            "frame_2": "assets/Images/EventAnimations/Honorar/Vase_2@4x.png",
+            "frame_3": "assets/Images/EventAnimations/Honorar/Vase_3@4x.png"
           },
           "sound": "VaseSound"
         }
@@ -195,9 +195,9 @@
           "currentState": "frame_1",
           "classes": "pointer-events-auto",
           "states": {
-            "frame_1": "assets/Images/EventAnimations/KreditBeantragen/Plant_1@4x.png",
-            "frame_2": "assets/Images/EventAnimations/KreditBeantragen/Plant_2@4x.png",
-            "frame_3": "assets/Images/EventAnimations/KreditBeantragen/Plant_3@4x.png"
+            "frame_1": "assets/Images/EventAnimations/Bank/Plant_1@4x.png",
+            "frame_2": "assets/Images/EventAnimations/Bank/Plant_2@4x.png",
+            "frame_3": "assets/Images/EventAnimations/Bank/Plant_3@4x.png"
           },
           "sound": "PlantSound"
         },
@@ -211,7 +211,7 @@
           "currentState": "default",
           "classes": "object-fill bottom-0",
           "states": {
-            "default": "assets/Images/EventAnimations/KreditBeantragen/Desk.png"
+            "default": "assets/Images/EventAnimations/Bank/Desk.png"
           }
         },
         {
@@ -225,13 +225,13 @@
           "currentState": "frame_1",
           "classes": "pointer-events-auto",
           "states": {
-            "frame_1": "assets/Images/EventAnimations/KreditBeantragen/Glass_1.png",
-            "frame_2": "assets/Images/EventAnimations/KreditBeantragen/Glass_2.png",
-            "frame_3": "assets/Images/EventAnimations/KreditBeantragen/Glass_3.png",
-            "frame_4": "assets/Images/EventAnimations/KreditBeantragen/Glass_4.png",
-            "frame_5": "assets/Images/EventAnimations/KreditBeantragen/Glass_5.png",
-            "frame_6": "assets/Images/EventAnimations/KreditBeantragen/Glass_6.png",
-            "frame_7": "assets/Images/EventAnimations/KreditBeantragen/Glass_7.png"
+            "frame_1": "assets/Images/EventAnimations/Bank/Glass_1.png",
+            "frame_2": "assets/Images/EventAnimations/Bank/Glass_2.png",
+            "frame_3": "assets/Images/EventAnimations/Bank/Glass_3.png",
+            "frame_4": "assets/Images/EventAnimations/Bank/Glass_4.png",
+            "frame_5": "assets/Images/EventAnimations/Bank/Glass_5.png",
+            "frame_6": "assets/Images/EventAnimations/Bank/Glass_6.png",
+            "frame_7": "assets/Images/EventAnimations/Bank/Glass_7.png"
           },
           "sound": "WaterGlass"
         }
@@ -251,9 +251,9 @@
           "currentState": "frame_1",
           "classes": "pointer-events-auto",
           "states": {
-            "frame_1": "assets/Images/EventAnimations/MitNotarinTelefonieren/Plant_1@4x.png",
-            "frame_2": "assets/Images/EventAnimations/MitNotarinTelefonieren/Plant_2@4x.png",
-            "frame_3": "assets/Images/EventAnimations/MitNotarinTelefonieren/Plant_3@4x.png"
+            "frame_1": "assets/Images/EventAnimations/Notarin/Plant_1@4x.png",
+            "frame_2": "assets/Images/EventAnimations/Notarin/Plant_2@4x.png",
+            "frame_3": "assets/Images/EventAnimations/Notarin/Plant_3@4x.png"
           },
           "sound": "PlantSound"
         },
@@ -267,7 +267,7 @@
           "currentState": "default",
           "classes": "object-fill bottom-0",
           "states": {
-            "default": "assets/Images/EventAnimations/MitNotarinTelefonieren/Desk.png"
+            "default": "assets/Images/EventAnimations/Notarin/Desk.png"
           }
         },
         {
@@ -280,7 +280,7 @@
           "currentState": "default",
           "classes": "object-fill",
           "states": {
-            "default": "assets/Images/EventAnimations/MitNotarinTelefonieren/Notarin_Cabinet.png"
+            "default": "assets/Images/EventAnimations/Notarin/Notarin_Cabinet.png"
           }
         },
         {
@@ -294,13 +294,13 @@
           "currentState": "frame_1",
           "classes": "pointer-events-auto",
           "states": {
-            "frame_1": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_1.png",
-            "frame_2": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_2.png",
-            "frame_3": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_3.png",
-            "frame_4": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_4.png",
-            "frame_5": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_5.png",
-            "frame_6": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_6.png",
-            "frame_7": "assets/Images/EventAnimations/MitNotarinTelefonieren/Glass_7.png"
+            "frame_1": "assets/Images/EventAnimations/Notarin/Glass_1.png",
+            "frame_2": "assets/Images/EventAnimations/Notarin/Glass_2.png",
+            "frame_3": "assets/Images/EventAnimations/Notarin/Glass_3.png",
+            "frame_4": "assets/Images/EventAnimations/Notarin/Glass_4.png",
+            "frame_5": "assets/Images/EventAnimations/Notarin/Glass_5.png",
+            "frame_6": "assets/Images/EventAnimations/Notarin/Glass_6.png",
+            "frame_7": "assets/Images/EventAnimations/Notarin/Glass_7.png"
           },
           "sound": "WaterGlass"
         }
@@ -319,7 +319,7 @@
           "currentState": "default",
           "classes": "max-w-none",
           "states": {
-          "default": "assets/Images/EventAnimations/InterviewAbklären/Presse_Desk.png"
+          "default": "assets/Images/EventAnimations/Presse/Presse_Desk.png"
           }
         },  
         {
@@ -333,13 +333,13 @@
           "currentState": "frame_1",
           "classes": "pointer-events-auto",
           "states": {
-            "frame_1": "assets/Images/EventAnimations/InterviewAbklären/Glass_1.png",
-            "frame_2": "assets/Images/EventAnimations/InterviewAbklären/Glass_2.png",
-            "frame_3": "assets/Images/EventAnimations/InterviewAbklären/Glass_3.png",
-            "frame_4": "assets/Images/EventAnimations/InterviewAbklären/Glass_4.png",
-            "frame_5": "assets/Images/EventAnimations/InterviewAbklären/Glass_5.png",
-            "frame_6": "assets/Images/EventAnimations/InterviewAbklären/Glass_6.png",
-            "frame_7": "assets/Images/EventAnimations/InterviewAbklären/Glass_7.png"
+            "frame_1": "assets/Images/EventAnimations/Presse/Glass_1.png",
+            "frame_2": "assets/Images/EventAnimations/Presse/Glass_2.png",
+            "frame_3": "assets/Images/EventAnimations/Presse/Glass_3.png",
+            "frame_4": "assets/Images/EventAnimations/Presse/Glass_4.png",
+            "frame_5": "assets/Images/EventAnimations/Presse/Glass_5.png",
+            "frame_6": "assets/Images/EventAnimations/Presse/Glass_6.png",
+            "frame_7": "assets/Images/EventAnimations/Presse/Glass_7.png"
           },
           "sound": "WaterGlass"
         },
@@ -354,9 +354,9 @@
           "currentState": "frame_1",
           "classes": "pointer-events-auto",
           "states": {
-            "frame_1": "assets/Images/EventAnimations/InterviewAbklären/Vase_1@4x.png",
-            "frame_2": "assets/Images/EventAnimations/InterviewAbklären/Vase_2@4x.png",
-            "frame_3": "assets/Images/EventAnimations/InterviewAbklären/Vase_3@4x.png"
+            "frame_1": "assets/Images/EventAnimations/Presse/Vase_1@4x.png",
+            "frame_2": "assets/Images/EventAnimations/Presse/Vase_2@4x.png",
+            "frame_3": "assets/Images/EventAnimations/Presse/Vase_3@4x.png"
           },
           "sound": "VaseSound"
         }
@@ -381,6 +381,62 @@
             "frame_3": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_3@4x.png"
           },
           "sound": "PlantSound"
+        }
+      ]
+    },
+    {
+      "name":"Hilfeplanung",
+      "interactiveObjects": [
+        {
+          "id": "wohnzimmer_lampe",
+          "x": 0,
+          "y": -370,
+          "width": 1000,
+          "height": 2000,
+          "zIndex": 10,
+          "classes": "object-cover pointer-events-auto",
+          "currentState": "off",
+          "interaction": "toggle",
+          "states": {
+            "off": "assets/Images/EventAnimations/Eltern/BG_parents_light_off.png",
+            "on": "assets/Images/EventAnimations/Eltern/BG_parents_light_on.png"
+          },
+          "sounds": {
+            "off": "LightSwitch_off",
+            "on": "LightSwitch_on"
+          }
+        },
+        {
+          "id": "tisch_vordergrund",
+          "x": 0,
+          "y": 1550,
+          "width": 1000,
+          "height": 600,
+          "zIndex": 40,
+          "classes": "object-fill pointer-events-none",
+          "currentState": "default",
+          "states": {
+            "default": "assets/Images/EventAnimations/Eltern/Eltern_Table.png"
+          }
+        },
+        {
+          "id": "tasse_gruen",
+          "x": 620,
+          "y": 1300,
+          "width": 380,
+          "height": 440,
+          "zIndex": 45,
+          "classes": "pointer-events-auto",
+          "currentState": "idle",
+          "interaction": "sequence",
+          "states": {
+            "idle": "assets/Images/EventAnimations/Eltern/Mug_G1.png",
+            "steaming_1": "assets/Images/EventAnimations/Eltern/Mug_G2.png",
+            "steaming_2": "assets/Images/EventAnimations/Eltern/Mug_G3.png",
+            "steaming_3": "assets/Images/EventAnimations/Eltern/Mug_G4.png"
+
+          },
+          "sound": "BoilingWater"
         }
       ]
     }

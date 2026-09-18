@@ -63,6 +63,7 @@ export class EventResolver extends HTMLElement {
         if(character) character.setSpeakingState(true);
         TTSRead(this.currentEvent['text']);
         await this.dialogueList.showMessage(this.currentEvent['text'], false, this.currentEvent['character']);
+        this.currentChoices = [];
         break;
 
       case 5: //Add Choice Event
