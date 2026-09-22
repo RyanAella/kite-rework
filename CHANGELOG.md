@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.1.1] - 2026-09-22
+### Changed
+
+- **Hilfeplanung Character Adjustments**: Updated Tochter character (ID 13) appearance and positioning
+  - Set fixed head to `Einstieg_Head_1.png` for Hilfeplanung novel in `path-finding-service.js`
+  - Set eyebrow type to "Strong" for consistent facial expressions in `character-info-loader-service.js`
+  - Adjusted vertical position from 85 to 60 for proper alignment with lamp in `character-info.json`
+
+---
+
 ## [1.1.0] - 2026-09-18
 ### Added
 

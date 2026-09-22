@@ -56,7 +56,12 @@ export async function characterInfoLoader(novelName, characterId) {
 
   characterInfo["skinSpriteId"] = skinSprites[Math.floor(Math.random() * skinSprites.length)];
   characterInfo["headSpriteId"] = Math.floor(Math.random() * headSpriteCount) + 1;
-  characterInfo["eyebrowType"] = Math.random() > 0.5 ? "Fine" : "Strong";
+  // Fester Augenbrauen-Typ für Einstieg und Hilfeplanung/Tochter
+  if (novelName === "Einstieg" || novelName === "Hilfeplanung" || characterId === 13) {
+    characterInfo["eyebrowType"] = "Strong";
+  } else {
+    characterInfo["eyebrowType"] = Math.random() > 0.5 ? "Fine" : "Strong";
+  }
 
   return characterInfo;
 }

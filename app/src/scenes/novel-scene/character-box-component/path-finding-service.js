@@ -63,6 +63,6 @@ export function pathFinding(characterInfo, imageType, id, speaking) {
     case "Hands":
       return `${baseImagePath}/HandsImages/${folderName}/${filePrefix}_Hands_${characterInfo.skinSpriteId}.png`;
     case "Head":
-      return `${baseImagePath}/HeadImages/${characterInfo.novelName === "Einstieg" ? "Einstieg_Head_1" : `Head_${characterInfo.headSpriteId}/Head_${characterInfo.headSpriteId}_${characterInfo.skinSpriteId}`}.png`;
+      return `${baseImagePath}/HeadImages/${(characterInfo.novelName === "Einstieg" || characterInfo.novelName === "Hilfeplanung") ? "Einstieg_Head_1" : `Head_${characterInfo.headSpriteId}/Head_${characterInfo.headSpriteId}_${characterInfo.skinSpriteId}`}.png`;
   }
 }
