@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.1.2] - 2026-09-23
+### Added
+
+- **Lato Web Font Integration**: Added Lato font files (Regular 400 & Bold 700) in WOFF2 format under `app/assets/Fonts/` for consistent cross-browser text rendering
+
+### Changed
+
+- **Unity to Tailwind Text Style Migration**: Updated text styling in dialogue components to match original Unity settings (Font Size 35, Line Spacing 1.3, Lato Regular)
+  - Updated `choice-container-component.js` with `user-font` and improved button styling
+  - Updated `message-container-component.js` with `leading-neutral` and `user-font` classes
+  - Updated `information-popup-component.js` for consistent text display
+  - Updated `person-popup-component.js` for consistent text display
+- **Tailwind CSS Configuration**: Added Lato as the primary sans-serif font in both `tailwind.css` and `style.css` via `@font-face` rules and `--font-sans` variable
+
+---
+
 ## [1.1.1] - 2026-09-22
 ### Changed
 

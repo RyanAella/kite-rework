@@ -18,7 +18,7 @@ export class MessageContainer extends HTMLElement {
   addMessage(text, isUser = false, characterId, isInstant = false, novelName = null) {
     return new Promise((resolve) => {
       const messageBox = document.createElement('div');
-      const baseClasses = "user-font leading-relaxed text-white p-[2cqw] rounded-[1.6cqw] text-left grid origin-bottom animate-pop-in break-words";
+      const baseClasses = "user-font leading-neutral text-white p-[2cqw] rounded-[1.6cqw] text-left grid origin-bottom animate-pop-in break-words";
 
       const isChoiceBubble = isUser || characterId == 1;
       if (isChoiceBubble) {

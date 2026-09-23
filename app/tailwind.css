@@ -1,10 +1,9 @@
-/*! tailwindcss v4.2.2 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.3.3 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
-    --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-red-500: oklch(63.7% 0.237 25.331);
@@ -33,7 +32,6 @@
     --leading-normal: 1.5;
     --leading-relaxed: 1.625;
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
-    --animate-spin: spin 1s linear infinite;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -231,13 +229,7 @@
     position: static;
   }
   .inset-0 {
-    inset: calc(var(--spacing) * 0);
-  }
-  .start {
-    inset-inline-start: var(--spacing);
-  }
-  .end {
-    inset-inline-end: var(--spacing);
+    inset: 0px;
   }
   .top-\[45\%\] {
     top: 45%;
@@ -249,7 +241,7 @@
     right: 4cqw;
   }
   .bottom-0 {
-    bottom: calc(var(--spacing) * 0);
+    bottom: 0px;
   }
   .bottom-\[2\.5cqw\] {
     bottom: 2.5cqw;
@@ -308,56 +300,30 @@
       max-width: 96rem;
     }
   }
-  .slider {
-    &::-webkit-slider-runnable-track {
-      height: 3cqw;
-    }
-    &::-webkit-slider-runnable-track {
-      background-color: #0a1622;
-    }
-    &::-webkit-slider-runnable-track {
-      margin-inline: 6cqw;
-    }
-    &::-webkit-slider-thumb {
-      appearance: none;
-    }
-    &::-webkit-slider-thumb {
-      width: 12cqw;
-    }
-    &::-webkit-slider-thumb {
-      height: 12cqw;
-    }
-    &::-webkit-slider-thumb {
-      background-color: #0a1622;
-    }
-    &::-webkit-slider-thumb {
-      border-radius: calc(infinity * 1px);
-    }
-    &::-webkit-slider-thumb {
-      margin-top: -4.5cqw;
-    }
-    &::-moz-range-track {
-      height: 4cqw;
-    }
-    &::-moz-range-track {
-      background-color: #0a1622;
-    }
-    &::-moz-range-thumb {
-      width: 12cqw;
-    }
-    &::-moz-range-thumb {
-      height: 12cqw;
-    }
-    &::-moz-range-thumb {
-      background-color: #0a1622;
-    }
-    &::-moz-range-thumb {
-      --tw-border-style: none;
-      border-style: none;
-    }
-    &::-moz-range-thumb {
-      border-radius: calc(infinity * 1px);
-    }
+  .slider::-webkit-slider-runnable-track {
+    height: 3cqw;
+    background-color: #0a1622;
+    margin-inline: 6cqw;
+  }
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 12cqw;
+    height: 12cqw;
+    background-color: #0a1622;
+    border-radius: calc(infinity * 1px);
+    margin-top: -4.5cqw;
+  }
+  .slider::-moz-range-track {
+    height: 4cqw;
+    background-color: #0a1622;
+  }
+  .slider::-moz-range-thumb {
+    width: 12cqw;
+    height: 12cqw;
+    background-color: #0a1622;
+    --tw-border-style: none;
+    border-style: none;
+    border-radius: calc(infinity * 1px);
   }
   .mx-\[5cqw\] {
     margin-inline: 5cqw;
@@ -369,7 +335,7 @@
     margin-inline: auto;
   }
   .my-0 {
-    margin-block: calc(var(--spacing) * 0);
+    margin-block: 0px;
   }
   .mt-\[0\.5cqw\] {
     margin-top: 0.5cqw;
@@ -504,7 +470,7 @@
     aspect-ratio: 1 / 1;
   }
   .h-0 {
-    height: calc(var(--spacing) * 0);
+    height: 0px;
   }
   .h-\[3\.4cqw\] {
     height: 3.4cqw;
@@ -570,7 +536,7 @@
     max-height: 48cqw;
   }
   .min-h-0 {
-    min-height: calc(var(--spacing) * 0);
+    min-height: 0px;
   }
   .min-h-\[20cqw\] {
     min-height: 20cqw;
@@ -585,7 +551,7 @@
     min-height: 70cqw;
   }
   .w-0 {
-    width: calc(var(--spacing) * 0);
+    width: 0px;
   }
   .w-\[3\.4cqw\] {
     width: 3.4cqw;
@@ -777,7 +743,7 @@
     justify-content: flex-start;
   }
   .gap-0 {
-    gap: calc(var(--spacing) * 0);
+    gap: 0px;
   }
   .gap-\[1\.2cqw\] {
     gap: 1.2cqw;
@@ -1246,9 +1212,6 @@
   .text-\[2\.4cqw\] {
     font-size: 2.4cqw;
   }
-  .text-\[2\.6cqw\] {
-    font-size: 2.6cqw;
-  }
   .text-\[2\.7cqw\] {
     font-size: 2.7cqw;
   }
@@ -1282,6 +1245,9 @@
   .text-\[4\.5cqw\] {
     font-size: 4.5cqw;
   }
+  .text-\[4\.6cqw\] {
+    font-size: 4.6cqw;
+  }
   .text-\[4\.8cqw\] {
     font-size: 4.8cqw;
   }
@@ -1299,6 +1265,10 @@
   }
   .user-font {
     font-size: var(--user-font-size, 3cqw);
+  }
+  .leading-\[1\.4\] {
+    --tw-leading: 1.4;
+    line-height: 1.4;
   }
   .leading-\[1\.55\] {
     --tw-leading: 1.55;
@@ -1323,10 +1293,6 @@
   .leading-normal {
     --tw-leading: var(--leading-normal);
     line-height: var(--leading-normal);
-  }
-  .leading-relaxed {
-    --tw-leading: var(--leading-relaxed);
-    line-height: var(--leading-relaxed);
   }
   .leading-snug {
     --tw-leading: var(--leading-snug);
@@ -1386,6 +1352,9 @@
   .text-\[\#0b1a2d\]\/70 {
     color: color-mix(in oklab, #0b1a2d 70%, transparent);
   }
+  .text-\[\#101B2D\] {
+    color: #101B2D;
+  }
   .text-\[\#213a60\] {
     color: #213a60;
   }
@@ -1431,10 +1400,8 @@
   .underline {
     text-decoration-line: underline;
   }
-  .placeholder-gray-400 {
-    &::placeholder {
-      color: var(--color-gray-400);
-    }
+  .placeholder-gray-400::placeholder {
+    color: var(--color-gray-400);
   }
   .opacity-0 {
     opacity: 0%;
@@ -1508,82 +1475,64 @@
     -webkit-user-select: none;
     user-select: none;
   }
-  .group-open\:block {
-    &:is(:where(.group):is([open], :popover-open, :open) *) {
-      display: block;
+  .group-open\:block:is(:where(.group):is([open], :popover-open, :open) *) {
+    display: block;
+  }
+  .group-open\:hidden:is(:where(.group):is([open], :popover-open, :open) *) {
+    display: none;
+  }
+  .empty\:hidden:empty {
+    display: none;
+  }
+  @media (hover: hover) {
+    .hover\:bg-gray-100:hover {
+      background-color: var(--color-gray-100);
+    }
+    .hover\:bg-gray-200:hover {
+      background-color: var(--color-gray-200);
     }
   }
-  .group-open\:hidden {
-    &:is(:where(.group):is([open], :popover-open, :open) *) {
-      display: none;
-    }
+  .active\:scale-95:active {
+    --tw-scale-x: 95%;
+    --tw-scale-y: 95%;
+    --tw-scale-z: 95%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
   }
-  .empty\:hidden {
-    &:empty {
-      display: none;
-    }
+  .active\:bg-gray-50:active {
+    background-color: var(--color-gray-50);
   }
-  .hover\:bg-gray-100 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-gray-100);
-      }
-    }
+  .active\:opacity-40:active {
+    opacity: 40%;
   }
-  .hover\:bg-gray-200 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-gray-200);
-      }
-    }
+  .active\:opacity-70:active {
+    opacity: 70%;
   }
-  .active\:scale-95 {
-    &:active {
-      --tw-scale-x: 95%;
-      --tw-scale-y: 95%;
-      --tw-scale-z: 95%;
-      scale: var(--tw-scale-x) var(--tw-scale-y);
-    }
+  .active\:opacity-80:active {
+    opacity: 80%;
   }
-  .active\:bg-gray-50 {
-    &:active {
-      background-color: var(--color-gray-50);
-    }
+  .enabled\:active\:opacity-70:enabled:active {
+    opacity: 70%;
   }
-  .active\:opacity-40 {
-    &:active {
-      opacity: 40%;
-    }
+  .peer-checked\:\[\&_img\]\:opacity-100:is(:where(.peer):checked ~ *) img {
+    opacity: 100%;
   }
-  .active\:opacity-70 {
-    &:active {
-      opacity: 70%;
-    }
+  .\[\&\:\:-webkit-details-marker\]\:hidden::-webkit-details-marker {
+    display: none;
   }
-  .active\:opacity-80 {
-    &:active {
-      opacity: 80%;
-    }
-  }
-  .enabled\:active\:opacity-70 {
-    &:enabled {
-      &:active {
-        opacity: 70%;
-      }
-    }
-  }
-  .peer-checked\:\[\&_img\]\:opacity-100 {
-    &:is(:where(.peer):checked ~ *) {
-      & img {
-        opacity: 100%;
-      }
-    }
-  }
-  .\[\&\:\:-webkit-details-marker\]\:hidden {
-    &::-webkit-details-marker {
-      display: none;
-    }
-  }
+}
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/Fonts/lato-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/Fonts/lato-latin-700-normal.woff2") format("woff2");
 }
 @layer utilities {
   .spa-main-style {
@@ -1931,11 +1880,6 @@
   syntax: "*";
   inherits: false;
   initial-value: solid;
-}
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {

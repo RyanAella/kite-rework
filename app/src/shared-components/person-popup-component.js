@@ -8,10 +8,10 @@ const DEFAULT_OVERLAY_CLASS =
   "absolute inset-0 bg-black/50 z-[100] hidden transition-opacity duration-300";
 
 const PRIMARY_BUTTON_CLASS =
-  "py-[1.6cqw] px-[0.8cqw] rounded-[0.6cqw] font-bold text-[2.6cqw] text-center border-[0.3cqw] border-white bg-white";
+  "py-[1.6cqw] px-[0.8cqw] rounded-[0.6cqw] font-bold text-[2.8cqw] text-center border-[0.3cqw] border-white bg-white";
 
 const SECONDARY_BUTTON_CLASS =
-  "py-[1.6cqw] px-[0.8cqw] rounded-[0.6cqw] font-bold text-[2.6cqw] text-center border-[0.3cqw] text-white border-white bg-transparent";
+  "py-[1.6cqw] px-[0.8cqw] rounded-[0.6cqw] font-bold text-[2.8cqw] text-center border-[0.3cqw] text-white border-white bg-transparent";
 
 
 /**
@@ -97,7 +97,7 @@ export class PersonPopUp extends HTMLElement {
     // Add the info text if it is provided
     if (infoText) {
       const infoEl = document.createElement("p");
-      infoEl.className = "user-font leading-relaxed mb-[8cqw]";
+      infoEl.className = "user-font leading-normal mb-[8cqw]";
       infoEl.innerText = infoText;
       modal.appendChild(infoEl);
     }
@@ -105,7 +105,7 @@ export class PersonPopUp extends HTMLElement {
     // Add the descriptions if they are provided
     if (descriptions.length > 0) {
       const list = document.createElement("div");
-      list.className = "user-font flex flex-col gap-[1.5cqw] leading-snug";
+      list.className = "user-font flex flex-col gap-[2cqw] leading-[1.4]";
       for (const { label, text } of descriptions) {
         const line = document.createElement("p");
         line.className = "my-0";

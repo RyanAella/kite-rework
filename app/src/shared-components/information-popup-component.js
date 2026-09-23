@@ -11,11 +11,11 @@ class InformationPopupComponent extends HTMLElement {
 
     this.innerHTML = `
       <div class="flex min-h-[43cqw] w-[85cqw] flex-col items-center rounded-[2cqw] bg-[#132034]">
-        <div id="popup-heading" class="mb-[5cqw] w-[80cqw] border-b-[0.5cqw] p-[2cqw] text-center text-[5cqw] text-white">
+        <div id="popup-heading" class="mb-[5cqw] w-[80cqw] border-b-[0.5cqw] p-[2cqw] text-center text-[4.6cqw] font-bold text-white">
           INFORMATION
         </div>
         <p id="popup-information-text" class="user-font mb-[2cqw] w-[80cqw] text-white"></p>
-        <div id="popup-button" class="mt-auto mb-[5cqw] flex h-[7.5cqw] w-[30cqw] items-center justify-center border-[0.2cqw] text-[3cqw] text-white">
+        <div id="popup-button" class="mt-auto mb-[5cqw] flex h-[7.5cqw] w-[30cqw] items-center justify-center border-[0.2cqw] text-[2.8cqw] font-bold text-white">
           OK
         </div>
       </div>

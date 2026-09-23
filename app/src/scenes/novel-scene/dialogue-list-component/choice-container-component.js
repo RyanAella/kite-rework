@@ -18,7 +18,7 @@ export class ChoiceContainer extends HTMLElement {
         const choiceButton = document.createElement('button');
 
         choiceButton.className = "user-font grid grid-cols-1 grid-rows-1 scale-95 animate-pop-in bg-white rounded-[1.6cqw] hover:bg-gray-100 text-left";
-        choiceButton.innerHTML = `<span class="z-10 p-[2cqw] transition-colors duration-300 col-start-1 row-start-1">${choiceObj.text}</span>`;
+        choiceButton.innerHTML = `<span class="z-10 p-[2cqw] transition-colors duration-300 col-start-1 row-start-1 text-[#101B2D]">${choiceObj.text}</span>`;
 
         choiceButton.addEventListener('animationend', (e) => {
           if (e.animationName === 'popInBounce') {

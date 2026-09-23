@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/Fonts/lato-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/Fonts/lato-latin-700-normal.woff2") format("woff2");
+}
+
+@theme {
+  --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
+}
+
 /* Discover utility classes used in markup and vanilla JS templates */
 @source "./app/index.html";
 @source "./app/src/**/*.js";
