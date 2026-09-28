@@ -1,5 +1,6 @@
 import { playAudio, TTSRead } from "../../shared-services/audio-playing-service.js";
 import { addDialogChoice, newNovelInfo, setCompletedFlag, truncateDialogChoices } from "../../shared-services/progress-tracking-service.js";
+import { EVENT_TYPES } from "../../shared-services/mapping-service.js";
 
 export class EventResolver extends HTMLElement {
 
@@ -42,42 +43,42 @@ export class EventResolver extends HTMLElement {
 
     let allCharacters = Array.from(this.parentNode.querySelectorAll('character-box'));
     let character = this.parentNode.querySelector(`#character-${this.currentEvent['character']}`)
-    allCharacters.filter(c => c != character || this.currentEvent['eventType'] != 4).forEach(c => c.setSpeakingState(false));
+    allCharacters.filter(c => c != character || this.currentEvent['eventType'] != EVENT_TYPES.showMessage).forEach(c => c.setSpeakingState(false));
     if(character) character.updateCharacterExpression(this.currentEvent['expressionType']);
 
     // Speichern der messages und characters in den storage um diese beim weiterspielen wieder anzuzeigen
-    if (this.currentEvent['eventType'] === 4 || this.currentEvent['eventType'] === 2) {
+    if (this.currentEvent['eventType'] === EVENT_TYPES.showMessage || this.currentEvent['eventType'] === EVENT_TYPES.characterJoin) {
         this.eventHistory.push(this.currentEvent);
     }
 
     switch(this.currentEvent['eventType']) {
 
-      case 2: //Character Join Event
+      case EVENT_TYPES.characterJoin:
         await this.addCharacter();
         return;
 
-      case 3: //Character Exit Event
+      case EVENT_TYPES.characterExit:
         break;
 
-      case 4: //Show Message Event
+      case EVENT_TYPES.showMessage:
         if(character) character.setSpeakingState(true);
         TTSRead(this.currentEvent['text']);
         await this.dialogueList.showMessage(this.currentEvent['text'], false, this.currentEvent['character']);
         this.currentChoices = [];
         break;
 
-      case 5: //Add Choice Event
+      case EVENT_TYPES.addChoice:
         this.currentChoices.push(this.currentEvent);
         break;
 
-      case 6: //Show Choices Event
+      case EVENT_TYPES.showChoices:
         TTSRead("Folgende Antwortmöglichkeiten stehen dir zur Auswahl: " + this.currentChoices.map((element, index) => {
           return `${index+1}. Option: ${element['text']} `
         }).join(""));
         await this.dialogueList.showChoices(this.currentChoices);
         return;
 
-      case 10: //Gpt Promt Event
+      case EVENT_TYPES.endNovel:
         if(this.tracking) setCompletedFlag(this.storageKey, this.currentEvent['id'], false);
         this.dispatchEvent(new CustomEvent("sm-switch-scene", {
           detail: {
@@ -86,32 +87,25 @@ export class EventResolver extends HTMLElement {
               novelName: this.novelName,
               dialogueText: this.getDialogueTranscript(),
               storageKey: this.storageKey
-            } 
+            }
           },
           bubbles : true
         }));
 
         // Event zum löschen des storage nachdem das novel vorbei ist
         this.dispatchEvent(new CustomEvent("novel-finished", {
-          bubbles : true
+          bubbles : true,
         }));
 
         return;
 
-      case 11: //Play Sound Event
+      case EVENT_TYPES.playSound:
         playAudio(this.currentEvent.audioClipToPlay);
         break;
 
-      case 16: //Bias Event
+      case EVENT_TYPES.markBias:
         break;
-        
-      case 1: //Set Background Event (This case does not exist)
-      case 7: //End Novel Event (This case does not exist)
-      case 8: //Save Persistent Event (This case does not exist)
-      case 9: //Play Animation Event (This case does not exist)
-      case 12: //Mark Bias Event (This case does not exist)
-      case 13: //Save Variable Event (This case does not exist)
-      case 14: //Add Feedback Event (This case does not exist)
+
       default:
         console.warn(`Unknown event with Id ${this.currentEvent['id']}`);
     }

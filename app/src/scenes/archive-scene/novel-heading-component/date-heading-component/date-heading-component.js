@@ -1,5 +1,6 @@
 import { DetailHeading } from "./detail-heading-component.js";
 import { escapeHtml } from "../../../../shared-services/shared-document-page-service.js";
+import { EVENT_TYPES } from "../../../../shared-services/mapping-service.js";
 
 const heading_size = 4.5;
 
@@ -109,10 +110,10 @@ export class DateHeading extends HTMLElement {
 
       // Managing the case, that the playing of the novel has been aborted at this point
       if (this.instanceData.isPremature && currentEvent.id === this.instanceData.lastEventId) {
-        
-        if (currentEvent.eventType === 4) {
+
+        if (currentEvent.eventType === EVENT_TYPES.showMessage) {
             htmlElement += `<p><b>${this.nameMap[currentEvent["character"]]}:</b> ${currentEvent["text"]}</p>`;
-        } else if (currentEvent.eventType === 16) {
+        } else if (currentEvent.eventType === EVENT_TYPES.markBias) {
             htmlElement += `<p><i><b>Hinweis:</b> ${currentEvent["relevantBias"]}</i></p>`;
         }
         htmlElement += `<p>Das Gespräch wurde vorzeitig beendet.</p>`;
@@ -121,19 +122,19 @@ export class DateHeading extends HTMLElement {
       }
 
       switch (currentEvent.eventType){
-        case 2:
-        case 11:
+        case EVENT_TYPES.characterJoin:
+        case EVENT_TYPES.playSound:
           currentEvent = this.novelData.novelEvents.find((element) => element.id == currentEvent.nextId);
           break;
-        case 4:
+        case EVENT_TYPES.showMessage:
           htmlElement += `<p><b>${this.nameMap[currentEvent["character"]]}:</b> ${currentEvent["text"]}</p>`
           currentEvent = this.novelData.novelEvents.find((element) => element.id == currentEvent.nextId);
           break;
-        case 5:
+        case EVENT_TYPES.addChoice:
           currentChoices.push(currentEvent);
           currentEvent = this.novelData.novelEvents.find((element) => element.id == currentEvent.nextId);
           break;
-        case 6:
+        case EVENT_TYPES.showChoices:
           let choice = currentChoices[playerChoices.shift()];
 
           // If the user has exited the novel early, “choice” is undefined here.
@@ -148,7 +149,7 @@ export class DateHeading extends HTMLElement {
           currentEvent = this.novelData.novelEvents.find((element) => element.id == choice.onChoice);
           currentChoices = [];
           break;
-        case 16:
+        case EVENT_TYPES.markBias:
           htmlElement += `<p><i><b>Hinweis:</b> ${currentEvent["relevantBias"]}</i></p>`
           currentEvent = this.novelData.novelEvents.find((element) => element.id == currentEvent.nextId);
           break;

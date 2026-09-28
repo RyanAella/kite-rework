@@ -11,7 +11,7 @@ import {
   isIntroNovel,
   shouldShowContinuePopUp,
 } from "./person-popup-setup-service.js";
-import { EventResolver } from "./event-resolver-component.js";
+import { EventResolver } from "../../scenes/novel-scene/event-resolver-component.js";
 import { attachDialogueSkipOnOutsideClick } from "./dialogue-list-component/dialogue-skip-service.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
 import { novelStateStore } from "../../shared-services/store-service.js";
@@ -21,6 +21,7 @@ import {
 } from "../../shared-services/novel-session-service.js";
 import { playAudio } from "../../shared-services/audio-playing-service.js";
 import { setCompletedFlag } from "../../shared-services/progress-tracking-service.js";
+import { EVENT_TYPES } from "../../shared-services/mapping-service.js";
 
 class NovelScene extends HTMLElement {
 
@@ -256,14 +257,14 @@ class NovelScene extends HTMLElement {
 
     for (const oldEvent of history) {
       switch (oldEvent.eventType) {
-        case 2:
+        case EVENT_TYPES.characterJoin:
           let characterBox = await CharacterBox.create(this.novel['name'], oldEvent.character, this.characterObjectSync[oldEvent.character] ?? []);
           if (oldEvent.expressionType) {
             characterBox.updateCharacterExpression(oldEvent.expressionType);
           }
           this.background.appendChild(characterBox);
           break;
-        case 4:
+        case EVENT_TYPES.showMessage:
           await this.dialogueList.showMessage(oldEvent.text, false, oldEvent.character, true);
           break;
       }
@@ -293,7 +294,7 @@ class NovelScene extends HTMLElement {
       await this.restoreVisualState(snapShot.history);
 
       const type = this.eventResolver.currentEvent['eventType'];
-      if ([2, 4].includes(type)) {
+      if ([EVENT_TYPES.characterJoin, EVENT_TYPES.showMessage].includes(type)) {
         this.eventResolver.switchToNext();
       }
     }
