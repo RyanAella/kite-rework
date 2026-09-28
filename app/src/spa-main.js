@@ -1,5 +1,5 @@
 import "./scene-manager.js";
-import { diasableImageDragging } from "./shared-services/disable-image-drag-service.js";
+import { disableImageDragging } from "./shared-services/disable-image-drag-service.js";
 import { ensureSettingsDefaults } from "./shared-services/app-settings-session-service.js";
 import { applyUserFontSize } from "./shared-services/user-font-size-service.js";
 
@@ -14,7 +14,7 @@ class SpaMain extends HTMLElement {
     const sceneManager = document.createElement("scene-manager");
     this.appendChild(sceneManager);
 
-    diasableImageDragging();
+    disableImageDragging();
   }
 }
 

@@ -9,3 +9,6 @@ public/
 
 # Environment variables (secrets)
 .env
+
+# Python bytecode cache
+__pycache__/

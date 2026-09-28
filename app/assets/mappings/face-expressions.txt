@@ -1,0 +1,13 @@
+Scared:0
+Defeated:1
+Dissatisfied:2
+Rejecting:3
+Amazed:4
+Questioning:5
+Critical:6
+SmilingBig:7
+Laughing:8
+Smiling:9
+NeutralRelaxed:10
+Neutral:11
+Proud:12

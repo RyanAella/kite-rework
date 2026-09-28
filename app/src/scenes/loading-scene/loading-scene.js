@@ -1,6 +1,7 @@
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
 import { ImageLoadingService } from "../../shared-services/image-loading-service.js";
 import { TermsConsentScene } from "../terms-consent-scene/terms-consent-scene.js";
+import { loadMappings } from "../../shared-services/mapping-service.js";
 
 // Global cache für novels data
 window.novelsCache = null;
@@ -37,7 +38,6 @@ class LoadingScene extends HTMLElement {
     const proxy = new Proxy(progressTracker, {
       set: (target, property, value) => {
         target[property] = value;
-        console.debug(`Preloading Progress: ${target["loadedCount"]} / ${target["totalImageCount"]}`);
         if(target["loadedCount"] === target["totalImageCount"]) {
           this.proceedToNextScene();
         } else {
@@ -49,6 +49,9 @@ class LoadingScene extends HTMLElement {
     
     // Preload novels.json parallel to images to cache it for novel-selector-scene
     fetch("assets/json/novels.json").catch(() => {});
+
+    // Preload mappings parallel to images so pathFinding stays synchronous
+    loadMappings().catch(() => {});
     
     await ImageLoadingService.loadImages(proxy);
 
@@ -57,7 +60,8 @@ class LoadingScene extends HTMLElement {
   /**
    * Proceeds to either the start-scene or terms-content-scene depending on weather the TOS has already been accepted
    */
-  proceedToNextScene() {
+  async proceedToNextScene() {
+    await loadMappings().catch(() => {});
     this.dispatchEvent(
       new CustomEvent("sm-switch-scene", {
         detail: { scene: TermsConsentScene.hasLegalConsentCached() ? "start-scene" : "terms-consent-scene"},
