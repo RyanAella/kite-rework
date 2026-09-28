@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.1.3] - 2026-09-28
+
+### Added
+- **Mapping Files**: Added `app/assets/mappings/` with `event-types.json` and
+  `face-expressions.txt` as single source of truth, shared between the JS app
+  and the Python novel importer
+- **Mapping Service**: Added `mapping-service.js` which loads and caches the
+  mapping files at app start
+
+### Changed
+- **Magic Numbers Removed**: Replaced hardcoded event type and expression IDs
+  with named constants in `event-resolver-component.js`, `novel-scene.js`,
+  `date-heading-component.js` and `path-finding-service.js`
+- **Character Path Resolution**: `path-finding-service.js` now resolves image
+  folders via `folderName` from `character-info.json` instead of a hardcoded
+  if/else chain — adding a new character no longer requires code changes
+- **Novel Importer**: `import_novel.py` reads the shared `face-expressions.txt`
+  instead of maintaining a duplicate expression map
+
+### Removed
+- **Debug Logging**: Removed leftover `console.log`/`console.debug` statements
+- **Tests**: Removed non-functional `app/tests/` directory
+
+---
+
 ## [1.1.2] - 2026-09-23
 ### Added
 
