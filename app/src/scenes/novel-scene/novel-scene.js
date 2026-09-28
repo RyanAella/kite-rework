@@ -11,7 +11,7 @@ import {
   isIntroNovel,
   shouldShowContinuePopUp,
 } from "./person-popup-setup-service.js";
-import { EventResolver } from "../../scenes/novel-scene/event-resolver-component.js";
+import { EventResolver } from "./event-resolver-component.js";
 import { attachDialogueSkipOnOutsideClick } from "./dialogue-list-component/dialogue-skip-service.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
 import { novelStateStore } from "../../shared-services/store-service.js";
