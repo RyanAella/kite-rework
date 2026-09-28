@@ -53,8 +53,6 @@ class SceneManager extends HTMLElement {
    * @param {Object} args 
    */
   switchScene(scene, args) {
-    console.log(`Registered switchScene event: Switching to "${scene}"`);
-
     if (!scene) return;
 
     const current = this.getCurrentScene();
@@ -79,7 +77,6 @@ class SceneManager extends HTMLElement {
    * Removes the current Scene and Clears the Scene History.
    */
   clearScene() {
-    console.log("Registered clearScene event");
     // Remove all current scenes and reset history
     this.replaceChildren();
     this.sceneHistory = []; 

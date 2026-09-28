@@ -112,7 +112,6 @@ export class TermsConsentScene extends HTMLElement {
   wireConsentForm() {
     this.checkboxes.forEach((cb) =>{
       cb.addEventListener("change", () => this.syncContinueButton());
-      console.log(cb);
     });
     this.btn.addEventListener("click", () => this.handleContinueClick());
     this.syncContinueButton();

@@ -37,7 +37,6 @@ class LoadingScene extends HTMLElement {
     const proxy = new Proxy(progressTracker, {
       set: (target, property, value) => {
         target[property] = value;
-        console.debug(`Preloading Progress: ${target["loadedCount"]} / ${target["totalImageCount"]}`);
         if(target["loadedCount"] === target["totalImageCount"]) {
           this.proceedToNextScene();
         } else {
