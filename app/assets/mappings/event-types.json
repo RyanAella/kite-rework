@@ -1,0 +1,10 @@
+{
+  "characterJoin": 2,
+  "characterExit": 3,
+  "showMessage": 4,
+  "addChoice": 5,
+  "showChoices": 6,
+  "endNovel": 10,
+  "playSound": 11,
+  "markBias": 16
+}
