@@ -35,11 +35,28 @@ def load_character_info(character_info_path=None):
         return {}
 
 
-EXPRESSION_MAP = {
-    'Scared': 0, 'Defeated': 1, 'Dissatisfied': 2, 'Rejecting': 3,
-    'Amazed': 4, 'Questioning': 5, 'Critical': 6, 'SmilingBig': 7,
-    'Laughing': 8, 'Smiling': 9, 'NeutralRelaxed': 10, 'Neutral': 11, 'Proud': 12,
-}
+def load_expression_map(mapping_path=None):
+    """Lädt face-expressions.txt (Name:Id) — dieselbe Datei, die auch die JS-App nutzt."""
+    if mapping_path is None:
+        mapping_path = os.path.join(os.path.dirname(__file__), 'app', 'assets', 'mappings', 'face-expressions.txt')
+        if not os.path.exists(mapping_path):
+            mapping_path = os.path.join(os.path.dirname(__file__), '..', 'app', 'assets', 'mappings', 'face-expressions.txt')
+    expression_map = {}
+    try:
+        with open(mapping_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                name, _, value = line.rpartition(':')
+                expression_map[name] = int(value)
+        return expression_map
+    except (FileNotFoundError, ValueError) as e:
+        print(f"Warnung: face-expressions.txt nicht geladen: {e}")
+        return {}
+
+
+EXPRESSION_MAP = load_expression_map()
 
 BIAS_MAP = {
     'PerformanceAttributionBias': 'Verzerrung der Leistungszuordnung',
