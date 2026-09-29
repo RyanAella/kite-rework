@@ -1,0 +1,19 @@
+AccessToFinancing: Zugang zu Finanzierung
+GenderPayGap: Geschlechterlohngefälle
+UndervaluationFemaleManagedCompany: Unterbewertung weiblich geführter Unternehmen
+RiskAversionBias: Risikovermeidungs-Bias
+ConfirmationBias: Bestätigungsbias
+Tokenism: Tokenismus
+BiasInThePerceptionOfLeadershipSkills: Verzerrung in der Wahrnehmung von Führungsfähigkeiten
+BenevolentSexism: Wohlwollender Sexismus
+AgeAndGenerationsBiases: Alters- und Generationenbias
+StereotypesAboutWomenInNonTraditionalIndustries: Stereotypen über Frauen in nicht traditionellen Branchen
+Heteronormativity: Heteronormativität
+BiasesAgainstWomenWithChildren: Verzerrungen gegenüber Frauen mit Kindern
+ExpectationsRegardingFamilyPlanning: Erwartungen bezüglich Familienplanung
+WorkLifeBalanceExpectations: Work-Life-Balance-Erwartungen
+GenderSpecificStereotypes: Geschlechtsspezifische Stereotypen
+TightropeBias: Tightrope Bias
+Microaggression: Mikroaggression
+PerformanceAttributionBias: Verzerrung der Leistungszuordnung
+UnconsciousBiasInCommunication: Unbewusste Verzerrung in der Kommunikation
