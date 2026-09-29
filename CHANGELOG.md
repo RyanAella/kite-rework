@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.2.0] - 2026-09-29
+
+### Added
+- **AI Feedback via Kite2 Server**: The completion scene now requests AI feedback
+  from the shared Kite2 backend (kite2.site), using the same protocol as the
+  Unity original: HMAC-signed session auth with a temporary bearer token
+- **Prompt Service**: New `prompt-service.js` assembles the feedback prompt from
+  the shared template (`prompt.txt`), the novel context and the bias list
+- **Novel Context**: Novels now carry a `context` field (sourced from
+  `contextForPrompt` in the novel metadata) that frames the AI analysis;
+  the importer emits it automatically for future imports
+- **Deployment**: GitHub Pages workflow injects the HMAC passphrase into
+  `index.html` from the `KITE_HMAC_SECRET` repository secret
+
+### Changed
+- **Dialogue Transcript**: The transcript now includes character names and
+  inline bias hints from the novel events, giving the AI the full context
+  the prompt template announces
+
+### Removed
+- **Local Gemini Server**: Removed the unused `server/` directory (localhost
+  feedback proxy); all feedback requests go to the Kite2 server
+
+---
+
 ## [1.1.3] - 2026-09-28
 
 ### Added
