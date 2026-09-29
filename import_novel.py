@@ -398,7 +398,7 @@ def convert_passage_to_kite_events(passage, passage_map, all_events, start_passa
         option_counter['next_label'] += 1
     
     # End-Event
-    if passage_has_end and not passage_links:
+    if passage_has_end:
         end_event_id = generate_event_id(f"{passage_name}_End", all_events)
         all_events.append({
             'id': end_event_id,
@@ -512,11 +512,6 @@ def convert_novel(source_dir, append=False):
             passage, {}, all_events, start_passage,
             character_map, option_counter
         )
-    
-    # Konvertiere letztes End-Event zu Typ 10
-    end_events = [e for e in all_events if e.get('eventType') == 6]
-    if end_events:
-        end_events[-1]['eventType'] = 10
     
     # Erstelle Novel-Objekt
     novel = {

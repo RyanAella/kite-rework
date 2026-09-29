@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.2.5] - 2026-09-29
+
+### Fixed
+- **Novel Importer**: Novel-end events are now derived from the `>>End<<` macro
+  in the twee source instead of rewriting the last choices event in the array,
+  which could mark the wrong passage as the novel's end
+
+---
+
 ## [1.2.4] - 2026-09-29
 
 ### Fixed
