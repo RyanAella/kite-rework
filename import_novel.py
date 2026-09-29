@@ -58,16 +58,6 @@ def load_expression_map(mapping_path=None):
 
 EXPRESSION_MAP = load_expression_map()
 
-BIAS_MAP = {
-    'PerformanceAttributionBias': 'Verzerrung der Leistungszuordnung',
-    'UnconsciousBiasInCommunication': 'Unbewusste Verzerrung in der Kommunikation',
-    'ConfirmationBias': 'Bestätigungsfehler',
-    'AccessToFinancing': 'Zugang zu Finanzierung',
-    'UndervaluationFemaleManagedCompany': 'Unterbewertung frauengeführter Unternehmen',
-    'BiasInThePerceptionOfLeadershipSkills': 'Verzerrung in der Wahrnehmung von Führungsfähigkeiten',
-    'TightropeBias': 'Tightrope-Bias',
-}
-
 UMLAUT_CORRECTIONS = {
     'õ': 'ö', 'Õ': 'Ö', '³': 'ü', '÷': 'ö', '▀': 'ä', 'Æ': 'Ä',
     'f³r': 'für', 'F³r': 'Für', 'Gr³ndung': 'Gründung', 'Gr³nder': 'Gründer',

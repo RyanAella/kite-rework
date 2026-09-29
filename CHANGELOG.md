@@ -9,6 +9,10 @@ All notable changes to this project will be documented in this file. The format 
 ### Fixed
 - **Settings Footer**: Removed a duplicated `text-[3cqw]` class that was overridden by `text-[2cqw]` in the version footer
 
+### Removed
+- **Novel Importer**: Removed the unused `BIAS_MAP` constant (dead code since the
+  bias list moved to `biases.txt`)
+
 ---
 
 ## [1.2.3] - 2026-09-29
