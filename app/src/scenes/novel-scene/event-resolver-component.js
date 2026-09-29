@@ -1,6 +1,7 @@
 import { playAudio, TTSRead } from "../../shared-services/audio-playing-service.js";
 import { addDialogChoice, newNovelInfo, setCompletedFlag, truncateDialogChoices } from "../../shared-services/progress-tracking-service.js";
 import { EVENT_TYPES } from "../../shared-services/mapping-service.js";
+import { fetchFromJson } from "../../shared-services/fetch-service.js";
 
 export class EventResolver extends HTMLElement {
 
@@ -47,8 +48,8 @@ export class EventResolver extends HTMLElement {
     if(character) character.updateCharacterExpression(this.currentEvent['expressionType']);
 
     // Speichern der messages und characters in den storage um diese beim weiterspielen wieder anzuzeigen
-    if (this.currentEvent['eventType'] === EVENT_TYPES.showMessage || this.currentEvent['eventType'] === EVENT_TYPES.characterJoin) {
-        this.eventHistory.push(this.currentEvent);
+    if ([EVENT_TYPES.showMessage, EVENT_TYPES.characterJoin, EVENT_TYPES.markBias].includes(this.currentEvent['eventType'])) {
+      this.eventHistory.push(this.currentEvent);
     }
 
     switch(this.currentEvent['eventType']) {
@@ -85,7 +86,7 @@ export class EventResolver extends HTMLElement {
             scene : `${this.tracking ? "completion-scene" : "novel-selector-scene"}`,
             args: {
               novelName: this.novelName,
-              dialogueText: this.getDialogueTranscript(),
+              dialogueText: await this.getDialogueTranscript(),
               storageKey: this.storageKey
             }
           },
@@ -258,11 +259,16 @@ export class EventResolver extends HTMLElement {
     return this.currentEvent ? this.currentEvent['id'] : null;
   }
 
-  getDialogueTranscript() {
+  async getDialogueTranscript() {
+    const data = await fetchFromJson("assets/json/character-info.json");
+    const nameById = Object.fromEntries(data["characters"].map((c) => [c.id, c.name]));
     return this.eventHistory
-      .filter((e) => e.eventType === 4 && e.text)
-      .map((e) => (e.character === 1 ? `Du: ${e.text}` : e.text))
-      .join("\n");
+        .filter((e) => [EVENT_TYPES.showMessage, EVENT_TYPES.markBias].includes(e.eventType) && (e.text || e.relevantBias))
+        .map((e) => {
+          if (e.eventType === EVENT_TYPES.markBias) return `(Hinweis: Bias ${e.relevantBias})`;
+          return e.character === 1 ? `Du: ${e.text}` : `${nameById[e.character] || "Unbekannt"}: ${e.text}`;
+        })
+        .join("\n");
   }
 
   /**

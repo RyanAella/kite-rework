@@ -533,6 +533,7 @@ def convert_novel(source_dir, append=False):
         'name': novel_name,
         'title': metadata.get('titleOfNovel', 'Unbekannte Novel'),
         'description': metadata.get('descriptionOfNovel', ''),
+        'context': metadata.get('contextForPrompt', ''),
         'novelColor': metadata.get('novelColor', '#000000').lower(),
         'novelFrameColor': metadata.get('novelFrameColor', '#000000').lower(),
         'novelEvents': all_events

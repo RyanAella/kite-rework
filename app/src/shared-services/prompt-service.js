@@ -40,11 +40,15 @@ function loadBiasList() {
 
 /**
  * Builds the complete prompt for the AI feedback request.
+ * @param novelContext
  * @param {string} dialogueText the transcript of the played dialogue
  * @returns {Promise<string>} the prompt with the context filled in
  */
-export async function buildFeedbackPrompt(dialogueText) {
+export async function buildFeedbackPrompt(novelContext, dialogueText) {
     const [template, biasList] = await Promise.all([loadPromptTemplate(), loadBiasList()]);
-    const context = `Dialog:\n${dialogueText}\n\n${biasList}`;
-    return template.replace("{{Context}}", context);
+    const contextParts = [];
+    if (novelContext) contextParts.push(novelContext);
+    contextParts.push(`Dialog:\n${dialogueText}`);
+    contextParts.push(biasList);
+    return template.replace("{{Context}}", contextParts.join("\n\n"));
 }
