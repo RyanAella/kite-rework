@@ -46,10 +46,10 @@ export class ContainerComponent extends HTMLElement {
     const activeOverlay = this.querySelector('card-overlay-component');
     const accordion = this.querySelector('accordion-element');
     if (!activeOverlay || !accordion) return;
-
     activeOverlay.remove();
     accordion.classList.remove('hidden');
     this.querySelector('searchbar-component')?.classList.remove('hidden');
+    this.querySelector('searchbar-component')?.reset();
     document.getElementById('intro-text')?.classList.remove('hidden');
     document.getElementById('sub-intro')?.classList.remove('hidden');
   }

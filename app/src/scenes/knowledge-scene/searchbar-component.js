@@ -79,6 +79,16 @@ class SearchbarComponent extends HTMLElement {
       });
     }
   }
+
+  /**
+   * Clears the search input and restores the default (unfiltered) view.
+   * Used when leaving a card overlay that was opened from search results.
+   */
+  reset() {
+    this.searchInput.value = "";
+    this.clearBtn.classList.add("hidden");
+    this.handleSearch("");
+  }
 }
 
 customElements.define("searchbar-component", SearchbarComponent);

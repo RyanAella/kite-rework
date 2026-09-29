@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.2.2] - 2026-09-29
+
+### Fixed
+- **Knowledge Search**: Closing a knowledge card that was opened from search results now restores the full knowledge view — the search bar reappears and the search state resets; previously the search bar stayed hidden and the category view was not rebuilt
+
+---
+
 ## [1.2.1] - 2026-09-29
 
 ### Fixed
