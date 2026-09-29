@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.2.1] - 2026-09-29
+
+### Fixed
+- **Archive Sorting**: Archive entries are now sorted newest-first (by play
+  date), matching the Unity original; previously the order depended on when
+  a novel was first started, not last played
+
+---
+
 ## [1.2.0] - 2026-09-29
 
 ### Added
