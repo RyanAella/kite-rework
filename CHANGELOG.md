@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.2.4] - 2026-09-29
+
+### Fixed
+- **Settings Footer**: Removed a duplicated `text-[3cqw]` class that was overridden by `text-[2cqw]` in the version footer
+
+---
+
 ## [1.2.3] - 2026-09-29
 
 ### Fixed
