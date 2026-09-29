@@ -84,14 +84,14 @@ class NovelScene extends HTMLElement {
           markNovelSessionEnded();
           this.switchToNovelSelector();
       },
-      onFinish: () => {
+      onFinish: async () => {
         if(this.eventResolver.tracking) setCompletedFlag(this.eventResolver.storageKey, this.eventResolver.getCurrentEventId(), true);
         this.dispatchEvent(new CustomEvent("sm-switch-scene", {
           detail: {
             scene : `${this.eventResolver.tracking ? "completion-scene" : "novel-selector-scene"}`,
             args: {
               novelName: this.novel.name,
-              dialogueText: this.eventResolver.getDialogueTranscript(),
+              dialogueText: await this.eventResolver.getDialogueTranscript(),
               storageKey: this.eventResolver.storageKey
             } 
           },

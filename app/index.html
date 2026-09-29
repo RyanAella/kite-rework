@@ -6,6 +6,12 @@
     <link rel="icon" type="image/png" sizes="885x745" href="assets/Images/IconsAndLogos/Logo_Kite.png">
   </head>
   <body class="flex items-center justify-center h-screen w-screen bg-blue-ud bg-size-[500]">
+    <!-- Passphrase-Platzhalter: wird beim Deploy durch das GitHub Secret ersetzt -->
+    <script>
+      window.KITE_CONFIG = {
+        passphrase: "KITE_PASSPHRASE_PLACEHOLDER"
+      };
+    </script>
     <spa-main></spa-main>
   </body>
 </html>

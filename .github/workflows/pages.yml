@@ -22,6 +22,14 @@ jobs:
         with:
           lfs: true
 
+      - name: Inject Passphrase into app/index.html
+        run: |
+          if [ -z "${{ secrets.KITE_HMAC_SECRET }}" ]; then
+            echo "::warning::KITE_HMAC_SECRET ist nicht gesetzt - Deploy erfolgt ohne Passphrase"
+          else
+            sed -i 's/KITE_PASSPHRASE_PLACEHOLDER/${{ secrets.KITE_HMAC_SECRET }}/g' app/index.html
+          fi
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

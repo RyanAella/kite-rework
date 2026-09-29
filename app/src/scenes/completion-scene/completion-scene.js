@@ -9,6 +9,8 @@ import {
   hidePinnedModal,
 } from "../../shared-services/information-popup-service.js";
 import { CopyToast } from "../../shared-components/copy-toast-component.js";
+import { buildFeedbackPrompt } from "../../shared-services/prompt-service.js";
+import { fetchFromJson } from "../../shared-services/fetch-service.js";
 
 const COPY_TOAST_TEXT = "Das Feedback wurde in die Zwischenablage kopiert.";
 
@@ -82,10 +84,15 @@ class CompletionScene extends HTMLElement {
   }
 
   async loadFeedback() {
-    const { dialogueText } = this.args || {};
+    const { dialogueText, novelName } = this.args || {};
     this.renderState("loading");
 
-    const { ok, feedback } = await fetchAiFeedback(dialogueText || "");
+    // Novel-Context aus novels.json laden
+    const novelsData = await fetchFromJson("assets/json/novels.json");
+    const novel = novelsData["visualNovels"].find((n) => n.name === novelName);
+    const prompt = await buildFeedbackPrompt(novel?.context, dialogueText || "");
+
+    const { ok, feedback } = await fetchAiFeedback(prompt);
 
     if (ok) {
       this.saveFeedbackToArchive(feedback);

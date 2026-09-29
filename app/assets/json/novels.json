@@ -4,6 +4,7 @@
       "name": "Einstieg",
       "title": "Mehr zu KITE",
       "description": "Hier kannst du den Einstiegs-Dialog erneut spielen.",
+      "context": "",
       "novelColor": "#aa1c02",
       "novelFrameColor": "#d04c03",
       "disablePauseMenu": true,
@@ -911,6 +912,7 @@
       "name": "Eltern",
       "title": "Eltern informieren",
       "description": "Du hast dich entschieden, ein Unternehmen zu gründen, und teilst das nun deinen Eltern mit.",
+      "context": "Es ist das Gespräch einer Gründerin, mit ihrer Mutter. Sie hat sich gründlich informiert und hat sich entschlossen, ein Unternehmen zu gründen. Sie ruft nun ihre Eltern an, um ihnen von dem Gründungsvorhaben zu berichten.",
       "novelColor": "#25650e",
       "novelFrameColor": "#4c9a30",
       "novelEvents": [
@@ -2465,6 +2467,7 @@
       "name": "Honorar",
       "title": "Honorar verhandeln",
       "description": "Du bist in Kontakt mit einer Kundin gekommen. Nachdem geklärt wurde, dass deine angebotenen Leistungen zu den Anforderungen deines Gegenübers passen, geht es nun um die Honorarverhandlung.",
+      "context": "Es ist das Gespräch einer Gründerin mit einer Kundin. Es geht um die Verhandlung eines Preises. Die Gründerin ist bereit mit ihrem Unternehmen die gewünschte Leistung zu erbringen und hofft auf die Einigung auf eine angemessene Entlohnung.",
       "novelColor": "#11454a",
       "novelFrameColor": "#27727f",
       "novelEvents": [
@@ -5919,6 +5922,7 @@
       "name": "Investor",
       "title": "Investor überzeugen",
       "description": "Du triffst dich mit einem Angel Investor, der auf einer Pitch Night Interesse an deiner Innovation gezeigt hat und nun mehr erfahren möchte.",
+      "context": "Es ist das Gespräch einer Gründerin mit einem Angel Investor. Es geht um die Investition in das Unternehmen der Gründerin. Der Investor ist an der Innovation interessiert. Die Gründerin hofft, dass der Investor in ihre Innovation investieren wird.",
       "novelColor": "#35481a",
       "novelFrameColor": "#3d8229",
       "novelEvents": [
@@ -7189,6 +7193,7 @@
       "name": "Bank",
       "title": "Kredit beantragen",
       "description": "Du hast heute einen Banktermin, um einen Kredit zu beantragen.",
+      "context": "Es ist das Gespräch einer Gründerin mit einem Bankmitarbeiter. Es geht um einen Kredit. Die Gründerin hat sich gut vorbereitet und hofft Informationen über den Kredit zu erhalten.",
       "novelColor": "#0e1a2d",
       "novelFrameColor": "#234169",
       "novelEvents": [
@@ -10991,6 +10996,7 @@
       "name": "Notarin",
       "title": "Mit Notarin telefonieren",
       "description": "Du rufst bei einer Notarin an, um einen Termin für deine Gründung auszumachen.",
+      "context": "Es ist das Gespräch einer Gründerin mit einer Notarin. Es geht um die Eintragung des Unternehmens der Gründerin ins Handelsregister. Die Gründerin hat sich gut vorbereitet und hofft einen Termin für eine Eintragung zu erhalten.",
       "novelColor": "#2c144d",
       "novelFrameColor": "#63458d",
       "novelEvents": [
@@ -11801,6 +11807,7 @@
       "name": "Presse",
       "title": "Interview abklären",
       "description": "Auf einer Veranstaltung stellst du deine Geschäftsidee vor und wirst danach von einer Journalistin angesprochen.",
+      "context": "Es ist das Gespräch einer Gründerin mit einer Journalistin. Die Journalistin hat die Gründerin angesprochen und möchte einen Artikel über sie und ihr Unternehmen schreiben. Die Gründerin freut sich über diese Gelegenheit und hofft auf einen schönen Artikel.",
       "novelColor": "#4e2350",
       "novelFrameColor": "#7e3b81",
       "novelEvents": [
@@ -13781,6 +13788,7 @@
       "name": "Vermieter",
       "title": "Büro anmieten",
       "description": "Du hast heute einen Termin für die Besichtigung von Büro-Räumen.",
+      "context": "Es ist das Gespräch einer Gründerin mit einem Vermieter. Es geht um die Anmietung von Büro-Räumen. Die Gründerin hat sich gut vorbereitet und hofft, dass sie die Büroräume für ihr Unternehmen bekommt.",
       "novelColor": "#640342",
       "novelFrameColor": "#a52779",
       "novelEvents": [
@@ -15863,6 +15871,7 @@
       "name": "Hilfeplanung",
       "title": "Hilfeplanung mit Tochter",
       "description": "Es ist ein vorbereitendes Einzelgespräch einer Fachkraft des Jugendamts mit der 15-jährigen Lina.",
+      "context": "Es ist ein vorbereitendes Einzelgespräch einer Fachkraft des Jugendamts mit der 15-jährigen Lina. Anwesend sind ausschließlich Lina und die Fachkraft. Für Linas Familie besteht bereits eine Familienhilfe; in zwei Wochen findet ein Hilfeplangespräch statt. Die Fachkraft möchte erfahren, wie Lina ihre aktuelle Situation erlebt und welche Themen aus ihrer Sicht für die weitere Hilfeplanung wichtig sind.",
       "novelColor": "#25650e",
       "novelFrameColor": "#4c9a30",
       "novelEvents": [
