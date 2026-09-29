@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.2.3] - 2026-09-29
+
+### Fixed
+- **Version Display**: Settings and Legal Information now show the actual app version from a central `APP_VERSION` constant that is kept in sync with CHANGELOG.md; previously both screens showed leftover version numbers from the Unity development (1.5.1 / 1.6.2) that never existed in this app's changelog
+
+---
+
 ## [1.2.2] - 2026-09-29
 
 ### Fixed

@@ -1,6 +1,7 @@
 import "../../shared-components/headers/back-header-component.js";
 import "../../shared-components/footer-component.js";
 import { isNovelSessionActive } from "../../shared-services/novel-session-service.js";
+import { APP_VERSION } from "../../shared-services/app-version.js";
 
 const buttonClasses = "user-font w-full select-none border-0 bg-[#142b52] py-[2cqw] rounded-[0.5cqw] text-center font-semibold uppercase tracking-wide text-white shadow-sm transition-opacity active:opacity-70"
 
@@ -58,7 +59,7 @@ class LegalInformationScene extends HTMLElement {
               </div>
 
               <div class="w-full select-none pb-[0.8cqw] text-center text-[3cqw] font-medium text-[#0b1a2d]/70">
-                Version: 1.5.1
+                Version: ${APP_VERSION}
               </div>
 
             </div>

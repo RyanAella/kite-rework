@@ -1,3 +1,5 @@
+import { APP_VERSION } from "../../shared-services/app-version.js";
+
 // Settings content component: audio + typography blocks (single component to keep scene wiring simple)
 class SettingsContentComponent extends HTMLElement {
   connectedCallback() {
@@ -75,7 +77,7 @@ class SettingsContentComponent extends HTMLElement {
         </div>
       </div>
 
-      <div class="pb-[3cqw] text-center text-[#14305d] text-[3cqw] text-[2cqw]">Version: 1.6.2</div>
+      <div class="pb-[3cqw] text-center text-[#14305d] text-[3cqw] text-[2cqw]">Version: ${APP_VERSION}</div>
     `;
   }
 }
