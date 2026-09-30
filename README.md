@@ -1,14 +1,78 @@
-# team-04
+# KITE Rework
 
-## Getting started
+KITE Rework ist eine webbasierte Visual-Novel-Anwendung, mit der interaktive
+Lern-Dialoge („Novels") ohne JavaScript-Kenntnisse erstellt und gespielt werden
+können. Novels werden im einfachen **Twee-Textformat** geschrieben und mit einem
+Python-Skript in die App importiert — die App selbst läuft ohne Frameworks in
+jedem Browser, auch auf dem Smartphone.
 
-*Important:* you have to push your first commit if your branch is new because your environment will first then be created automatically
+## Features
 
-1. Download Node.js and install Tailwind in your project locally. After installing run *npx @tailwindcss/cli -i ./style.css -o ./app/tailwind.css* in the terminal from the repository root.
+- **Novels spielen**: Dialoge mit Charakterbildern, Mimik, Animationen und Sound
+- **Novels erstellen**: Twee-Textdateien schreiben, Bilder ablegen, `python import_novel.py` — fertig
+- **Archive & Lesezeichen**: Fortschritt speichern, Novels jederzeit fortsetzen
+- **Wissensbereich**: Nachschlagewerk mit Suche
+- **KI-Feedback**: Analyse des gespielten Dialogs über den Kite2-Server
 
-   Classes are collected from `./app/index.html` and `./app/src/**/*.js` via Tailwind `@source` (see root `style.css`). Custom wrappers (animations, panorama, buttons, etc.) stay in `@layer utilities` there.
+## Schnellstart (lokal testen)
 
-2. Open the team-04 project on Gitlab.
+Voraussetzungen: [Node.js](https://nodejs.org) und Python 3.x.
 
-3. Go to Operate/Environments. On your test environment named review/*your branch name you want to test* you have to select on the right side the *Open* button. If you become an 404 Error, you can redeploy the envrironment by clicking on the three buttons icon next to the *Open* button.
+```bash
+# 1. Abhängigkeiten installieren (nur Tailwind CSS)
+npm install
 
+# 2. CSS bauen
+npx @tailwindcss/cli -i ./style.css -o ./app/tailwind.css
+
+# 3. App starten (beliebiger statischer Server, z. B. VS Code "Live Server")
+#    und app/index.html im Browser öffnen
+```
+
+## Ein eigenes Novel erstellen (Kurzfassung)
+
+1. Twee-Dateien `visual_novel_meta_data.txt` und `visual_novel_event_list.txt` anlegen
+2. Bilder unter `app/assets/Images/` ablegen
+3. Bildpfade in `app/assets/json/image-paths.json` und Charakter in `app/assets/json/character-info.json` eintragen
+4. `python import_novel.py <quellordner> --append` ausführen
+5. App im Browser testen
+
+Die ausführliche Anleitung für Autoren findet sich im **[Studenten-Guide](docs/student-guide.md)**,
+technische Details im **[Import-Guide](docs/import-guide.md)** und der
+[Architektur-Doku](docs/architecture.md).
+
+## Projektstruktur (Überblick)
+
+```
+kite-rework/
+├── app/
+│   ├── index.html            # Einstiegspunkt der App
+│   ├── tailwind.css          # Generiertes CSS (nicht manuell editieren)
+│   ├── src/
+│   │   ├── spa-main.js       # Root-Element der App
+│   │   ├── scene-manager.js  # Navigation zwischen den Szenen
+│   │   ├── scenes/           # Eine App-Seite = ein Ordner (Scene)
+│   │   └── shared-services/  # Übergreifende Services (Laden, Speichern, Audio …)
+│   └── assets/               # Bilder, Audio, Novel-Daten (JSON), Twee-Quellen
+├── docs/                     # Dokumentation
+├── import_novel.py           # Twee → KITE-Importer
+├── style.css                 # Tailwind-Quelle (@layer utilities)
+└── CHANGELOG.md              # Versionierung
+```
+
+## Deployment
+
+Die App wird automatisch über GitHub Pages deployt (`.github/workflows/pages.yml`)
+— bei jedem Push auf `main`. Die Workflow-Datei injiziert die Version aus der
+`CHANGELOG.md` und die HMAC-Passphrase aus dem Repository-Secret `KITE_HMAC_SECRET`.
+
+## Mitwirken
+
+- Nur **vanilla JavaScript** mit Standard Custom Elements (`customElements.define`) — keine Frameworks oder externen Bibliotheken
+- Styling ausschließlich über **Tailwind CSS**-Klassen; nach neuen Klassen `npx @tailwindcss/cli -i ./style.css -o ./app/tailwind.css` ausführen
+- Ordner-/Namenskonventionen für Scenes, Services, Components und Handler siehe [Architektur](docs/architecture.md) bzw. `AGENT.md`
+- Alle Änderungen mit einem Eintrag in der `CHANGELOG.md` dokumentieren
+
+## Versionsgeschichte
+
+Siehe [CHANGELOG.md](CHANGELOG.md).
