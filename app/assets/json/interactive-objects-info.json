@@ -173,9 +173,9 @@
           "currentState": "frame_1",
           "classes": "pointer-events-auto",
           "states": {
-            "frame_1": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_1@4x.png",
-            "frame_2": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_2@4x.png",
-            "frame_3": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_3@4x.png"
+            "frame_1": "assets/Images/EventAnimations/Investor/Plant_1@4x.png",
+            "frame_2": "assets/Images/EventAnimations/Investor/Plant_2@4x.png",
+            "frame_3": "assets/Images/EventAnimations/Investor/Plant_3@4x.png"
           },
           "sound": "PlantSound"
         }
@@ -376,9 +376,9 @@
           "currentState": "frame_1",
           "classes": "pointer-events-auto",
           "states": {
-            "frame_1": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_1@4x.png",
-            "frame_2": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_2@4x.png",
-            "frame_3": "assets/Images/EventAnimations/InvestorÜberzeugen/Plant_3@4x.png"
+            "frame_1": "assets/Images/EventAnimations/Investor/Plant_1@4x.png",
+            "frame_2": "assets/Images/EventAnimations/Investor/Plant_2@4x.png",
+            "frame_3": "assets/Images/EventAnimations/Investor/Plant_3@4x.png"
           },
           "sound": "PlantSound"
         }

@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.3.0] - 2026-09-30
+
+### Added
+- **Automatic image registration**: The import script now regenerates
+  `app/assets/json/image-paths.json` on every run by scanning
+  `app/assets/Images/` recursively; new flag `--generate-image-paths`
+  regenerates the file without importing a novel
+
+### Changed
+- **Documentation**: `image-paths.json` removed from all manual import steps
+  (README, import guide, student guide, architecture)
+
+### Fixed
+- **Interactive Objects**: Repointed the remaining `InvestorÜberzeugen` frame
+  paths in `interactive-objects-info.json` to the `Investor` folder they were
+  moved to in 1.1.0
+
+### Removed
+- **Legacy assets**: Deleted seven leftover pre-1.1.0 `EventAnimations` folders
+  (`BüroAnmieten`, `ElternInformieren`, `InterviewAbklären`,
+  `InvestorÜberzeugen`, `MitNotarinTelefonieren`, `HonorarVerhandeln`,
+  `KreditBeantragen`) whose contents already exist in the renamed folders
+
+---
+
 ## [1.2.5] - 2026-09-29
 
 ### Fixed
