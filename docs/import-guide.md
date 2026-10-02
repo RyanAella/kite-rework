@@ -38,7 +38,8 @@ kite-rework/
     ├── assets/
     │   ├── json/
     │   │   ├── character-info.json   # Manuell anpassen
-    │   │   └── image-paths.json      # Manuell anpassen
+    │   │   ├── image-paths.json      # Wird automatisch generiert
+    │   │   └── novels.json           # Wird automatisch generiert
     │   └── Images/Character/         # Bilder hier ablegen
     └── assets/json/novels.json    # Wird automatisch generiert
 ```
@@ -75,18 +76,13 @@ kite-rework/
 
 ## 4. Bilder registrieren (für Preloading)
 
-**Datei:** `/app/assets/json/image-paths.json`
+**Nichts manuell zu tun:** Die Datei `app/assets/json/image-paths.json` wird
+**automatisch** vom Import-Skript erzeugt, indem `app/assets/Images/` rekursiv
+nach Bilddateien durchsucht wird.
 
-- **Format:** JSON-Array mit allen Bildpfaden (relativ zu `/app/assets/`)
-- **Jedes Bild muss genau einmal eingetragen sein**
-
-### Beispiel
-```json
-[
-  "assets/Images/Character/HairImages/Einstieg/Einstieg_Hair_1.png",
-  "assets/Images/Character/ClothesImages/Einstieg/Einstieg_Clothes_1.png"
-]
-```
+- Das passiert bei jedem `python import_novel.py …`-Aufruf automatisch
+- Manuell neu erzeugen (ohne Novel-Import): `python import_novel.py --generate-image-paths`
+- **Format:** JSON-Array mit allen Bildpfaden (relativ zu `/app/`), deterministisch sortiert
 
 ---
 
@@ -246,7 +242,7 @@ Um eine **neue Novel "Test"** hinzuzufügen:
 ## 8. Import abschließen
 
 ### Prüfliste
-- [ ] Alle Bilder existieren und sind in `image-paths.json` eingetragen
+- [ ] Alle Bilder existieren (Pfade werden automatisch registriert)
 - [ ] Charakter-Einträge in `character-info.json` sind korrekt
 - [ ] Python-Skript wurde ohne Fehler ausgeführt
 - [ ] `novels.json` wurde generiert/aktualisiert
@@ -266,7 +262,7 @@ Um eine **neue Novel "Test"** hinzuzufügen:
 | Fehler | Ursache | Lösung |
 |--------|---------|--------|
 | **404 für `_0.png`** | `maxHair`/`maxClothes` = 0 | `character-info.json` prüfen, `+1` in Code (Zeile 54-55) |
-| **404 für Bild** | Pfad in `image-paths.json` falsch | Pfad korrigieren |
+| **404 für Bild** | Bild fehlt oder falsch benannt (Pfade werden automatisch registriert) | Dateiname/Ordner prüfen, dann Import erneut ausführen |
 | **Import fehlt** | Python nicht installiert | Python 3.x installieren |
 | **Skript nicht gefunden** | Falsches Arbeitsverzeichnis | `cd` in Projekt-Root |
 | **Twee-Syntaxfehler** | Falsches Format | Syntax in Event-Datei prüfen |
@@ -282,10 +278,10 @@ Um eine **neue Novel "Test"** hinzuzufügen:
 | **Python-Skript** | `/import_novel.py` | ❌ (vorhanden) |
 | **Quelldaten (Twee)** | Quellverzeichnis | ✅ |
 | **Bilder** | `/app/assets/Images/Character/...` | ✅ |
-| **Bildpfade** | `/app/assets/json/image-paths.json` | ✅ |
+| **Bildpfade** | `/app/assets/json/image-paths.json` | ❌ (automatisch) |
 | **Charaktere** | `/app/assets/json/character-info.json` | ✅ |
 | **novels.json** | `/app/assets/json/novels.json` | ❌ (automatisch via Python) |
 
 ---
 
-**✅ Fertig!** Der Import ist abgeschlossen, sobald das Python-Skript erfolgreich durchgelaufen ist und alle manuellen Anpassungen (Bilder, image-paths.json, character-info.json) durchgeführt wurden.
+**✅ Fertig!** Der Import ist abgeschlossen, sobald das Python-Skript erfolgreich durchgelaufen ist und alle manuellen Anpassungen (Bilder, character-info.json) durchgeführt wurden.

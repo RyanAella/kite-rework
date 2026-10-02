@@ -24,7 +24,7 @@ Alle technischen Details findest du zusätzlich im [Import-Guide](import-guide.m
 Schritt 1: Novel-Ordner anlegen
 Schritt 2: Twee-Dateien schreiben (Metadaten + Dialog)
 Schritt 3: Bilder ablegen
-Schritt 4: Bilder + Charaktere registrieren (2 JSON-Dateien)
+Schritt 4: Charakter in character-info.json eintragen
 Schritt 5: python import_novel.py ... --append  → App öffnen → testen
 ```
 
@@ -119,11 +119,10 @@ Regeln:
 Existiert dein Charakter bereits (weil ein anderer ihn schon benutzt), kannst
 du diesen Schritt komplett überspringen.
 
-## Schritt 4: Registrieren (die zwei JSON-Dateien)
+## Schritt 4: Charakter registrieren
 
-Zwei Dateien in `app/assets/json/` müssen deine neuen Dinge kennen:
-
-1. **`character-info.json`** — Charakter eintragen (nur falls er neu ist):
+Nur falls dein Charakter noch nicht existiert, trag ihn in
+`app/assets/json/character-info.json` ein:
 
    ```json
    {
@@ -144,14 +143,8 @@ Zwei Dateien in `app/assets/json/` müssen deine neuen Dinge kennen:
    - `folderName` = dein Bildordner-Name
    - `maxHair`/`maxClothes` = Anzahl deiner Hair-/Clothes-Bilder (mind. 1)
 
-2. **`image-paths.json`** — alle neuen Bildpfade als Array-Einträge ergänzen:
-
-   ```json
-   "assets/Images/Character/HairImages/MeineNovel/MeineNovel_Hair_1.png"
-   ```
-
-   Der Pfad ist relativ zu `app/assets/` und muss stimmen — sonst wird das
-   Bild nicht vorab geladen (404 in der Konsole).
+Die Bildpfade (`image-paths.json`) werden **automatisch** vom Import-Skript
+erzeugt — du musst da nichts eintragen.
 
 ## Schritt 5: Import ausführen und testen
 
@@ -187,7 +180,7 @@ Danach:
 |---|---|---|
 | Novel erscheint nicht in der App | `--append` vergessen oder Import fehlergeschlagen | Befehl mit `--append` erneut ausführen, Konsolenausgabe lesen |
 | 404 für Bild (`…_0.png`) | `maxHair`/`maxClothes` = 0 oder Bild fehlt | Wert auf mind. 1 setzen bzw. Bild ergänzen |
-| Bild wird schwarz/nicht angezeigt | Pfad fehlt in `image-paths.json` oder Schreibweise weicht ab | Pfad exakt so eintragen, wie die Datei heißt |
+| Bild wird schwarz/nicht angezeigt | Bild fehlt oder Schreibweise weicht ab | Datei so benennen wie im Guide beschrieben, Import erneut ausführen |
 | Wahl klickt ins Leere | Ziel-Passage existiert nicht | Passage anlegen oder Ziel korrigieren |
 | App startet gar nicht | Novel-Daten kaputt (JSON-Fehler) | JSON mit einem Validator prüfen (Kommas!) |
 | `python` unbekannt | Python nicht installiert oder heißt `python3` | Python 3 installieren bzw. `python3 import_novel.py …` |
@@ -202,9 +195,5 @@ Danach:
 - [ ] Mindestens ein `>>End<<` existiert
 - [ ] Alle Bilder vorhanden und korrekt benannt (ab `_1`)
 - [ ] Charakter in `character-info.json` eingetragen (falls neu)
-- [ ] Bildpfade in `image-paths.json` eingetragen
 - [ ] Import lief ohne Fehler durch
 - [ ] Novel einmal komplett durchgespielt
-
-Noch offene Ideen, wie dieser Prozess für Studenten einfacher werden kann
-(z. B. automatische Bildpfad-Generierung), sind in der Projektdoku notiert.

@@ -568,12 +568,50 @@ def convert_novel(source_dir, append=False):
     return novel, all_events
 
 
+def generate_image_paths(images_dir=None, output_path=None):
+    """Erzeugt image-paths.json automatisch, indem app/assets/Images rekursiv
+    nach Bilddateien durchsucht wird. Gibt die Anzahl der gefundenen Pfade zurück."""
+    base_dir = os.path.dirname(__file__)
+    if images_dir is None:
+        images_dir = os.path.join(base_dir, 'app', 'assets', 'Images')
+    if output_path is None:
+        output_path = os.path.join(base_dir, 'app', 'assets', 'json', 'image-paths.json')
+    
+    image_extensions = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'}
+    
+    if not os.path.isdir(images_dir):
+        print(f"Fehler: Bildverzeichnis nicht gefunden: {images_dir}")
+        return None
+    
+    paths = []
+    for root, dirs, files in os.walk(images_dir):
+        dirs.sort()
+        for filename in sorted(files):
+            if os.path.splitext(filename)[1].lower() in image_extensions:
+                rel_path = os.path.relpath(os.path.join(root, filename), os.path.dirname(os.path.dirname(images_dir)))
+                paths.append(rel_path.replace(os.sep, '/'))
+    
+    with open(output_path, 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(paths, f, indent=2, ensure_ascii=False)
+    
+    print(f"image-paths.json erzeugt: {len(paths)} Bilder in {output_path}")
+    return len(paths)
+
+
 def main():
     parser = argparse.ArgumentParser(description='Importiert eine Novel aus Twee-Format')
-    parser.add_argument('source_dir', help='Verzeichnis mit visual_novel_meta_data.txt und visual_novel_event_list.txt')
+    parser.add_argument('source_dir', nargs='?', default=None, help='Verzeichnis mit visual_novel_meta_data.txt und visual_novel_event_list.txt')
     parser.add_argument('--append', '-a', action='store_true', help='Füge zur bestehenden novels.json hinzu')
+    parser.add_argument('--generate-image-paths', '-g', action='store_true', help='Erzeuge image-paths.json neu (scannt app/assets/Images) und beende das Skript')
     
     args = parser.parse_args()
+    
+    if args.generate_image_paths:
+        count = generate_image_paths()
+        sys.exit(0 if count is not None else 1)
+    
+    if not args.source_dir:
+        parser.error('source_dir ist erforderlich (außer bei --generate-image-paths)')
     
     if not os.path.exists(args.source_dir):
         print(f"Fehler: Verzeichnis nicht gefunden: {args.source_dir}")
@@ -581,6 +619,7 @@ def main():
     
     try:
         convert_novel(args.source_dir, append=args.append)
+        generate_image_paths()
     except Exception as e:
         print(f"Fehler: {e}")
         import traceback

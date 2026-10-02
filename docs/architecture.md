@@ -85,7 +85,7 @@ Unterordner sind erlaubt und üblich, wenn eine Szene viele Bausteine hat
 |---|---|
 | `app/assets/json/novels.json` | Alle Novels als Event-Listen (generiert vom Importer) |
 | `app/assets/json/character-info.json` | Charaktere: ID, Ordnername, Position, glasses/headset, `maxHair`/`maxClothes` |
-| `app/assets/json/image-paths.json` | Pfadliste aller vorab zu ladenden Bilder (wird manuell gepflegt) |
+| `app/assets/json/image-paths.json` | Pfadliste aller vorab zu ladenden Bilder (wird vom Import-Skript automatisch aus `app/assets/Images/` erzeugt) |
 | `app/assets/json/knowledge.json`, `interactive-objects-info.json`, `links-scene-content.json`, `legal-content.json` | Inhalte der jeweiligen Szenen |
 | `app/assets/mappings/` | `event-types.json`, `face-expressions.txt`, `biases.txt`, `prompt.txt` — gemeinsame Quelle für App **und** Python-Importer |
 | `app/assets/novels_twee/` | Twee-Quelltexte der importierten Novels |

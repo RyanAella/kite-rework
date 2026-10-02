@@ -33,7 +33,7 @@ npx @tailwindcss/cli -i ./style.css -o ./app/tailwind.css
 
 1. Twee-Dateien `visual_novel_meta_data.txt` und `visual_novel_event_list.txt` anlegen
 2. Bilder unter `app/assets/Images/` ablegen
-3. Bildpfade in `app/assets/json/image-paths.json` und Charakter in `app/assets/json/character-info.json` eintragen
+3. Charakter in `app/assets/json/character-info.json` eintragen (Bildpfade werden automatisch registriert)
 4. `python import_novel.py <quellordner> --append` ausführen
 5. App im Browser testen
 
