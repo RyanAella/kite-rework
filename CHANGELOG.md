@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.2.6] - 2026-09-30
+
+### Fixed
+- **Settings Footer**: Unified the version display in Settings with the one on
+  the Legal Information screen (now `text-[3cqw]`, `font-medium` and
+  `text-[#0b1a2d]/70` instead of the smaller `text-[2cqw]`)
+---
+
 ## [1.2.5] - 2026-09-29
 
 ### Fixed
