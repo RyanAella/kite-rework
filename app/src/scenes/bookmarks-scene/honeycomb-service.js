@@ -1,8 +1,9 @@
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 // Hexagon tile sizes and the shared hex shape image.
 const HEX_W_CQW = 29.6;
 const HEX_H_CQW = 26.6;
 const HEX_GAP_CQW = 1.2;
-const HEX_SHAPE_SRC = "assets/Images/FoundersBubble/Novel_Shape.png";
+const HEX_SHAPE_SRC = uiAsset('shape.novel');
 
 const COLUMNS = 3;
 const COLUMN_FILL_ORDER = [0, 2, 1];

@@ -3,6 +3,7 @@
 // Used by legal sub-scenes and terms-consent-scene (accordion bodies).
 
 import { addDragScrolling } from "./drag-scrolling-service.js";
+import { uiAsset } from "./ui-asset-service.js";
 
 const LEGAL_JSON_URL = "assets/json/legal-content.json";
 
@@ -131,7 +132,7 @@ export function renderPrivacyToolbar(toolbar) {
       </button>
 
       <button type="button" data-info-open aria-label="Info" class="flex shrink-0 items-center justify-center transition-opacity active:opacity-70">
-        <img src="assets/Images/Buttons/Info_Circle.png" alt="" class="h-[6cqw] w-[6cqw] object-contain pointer-events-none select-none" />
+        <img src="${uiAsset('button.info')}" alt="" class="h-[6cqw] w-[6cqw] object-contain pointer-events-none select-none" />
       </button>
     </div>
   `;

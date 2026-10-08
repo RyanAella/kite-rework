@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.4.0] - 2026-10-08
+
+### Changed
+- **UI Assets**: All ~60 hardcoded image paths in components were replaced by
+  logical keys (`button.home`, `icon.settings`, `arrow.left`, ...) that are
+  resolved by a central `ui-asset-service.js`; the service file is generated
+  and validated by `import_novel.py --generate-image-paths` (fails with a
+  clear error list if a referenced asset file is missing)
+---
+
 ## [1.3.1] - 2026-09-30
 
 ### Fixed

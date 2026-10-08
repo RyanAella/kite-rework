@@ -1,3 +1,4 @@
+import { uiAsset } from "../../../../shared-services/ui-asset-service.js";
 const heading_size = 4.5;
 
 export class DetailHeading extends HTMLElement {
@@ -35,11 +36,11 @@ export class DetailHeading extends HTMLElement {
             class="w-[6cqw] h-[6cqw]"
             style="
               background-color: ${this.hex}; 
-              mask-image: url('assets/Images/DropDown/Arrow_Left.png'); 
+              mask-image: url('${uiAsset('arrow.left')}'); 
               mask-size: contain; 
               mask-repeat: no-repeat; 
               mask-position: center;
-              -webkit-mask-image: url('assets/Images/DropDown/Arrow_Left.png'); 
+              -webkit-mask-image: url('${uiAsset('arrow.left')}'); 
               -webkit-mask-size: contain; 
               -webkit-mask-repeat: no-repeat;
               -webkit-mask-position: center;
@@ -52,7 +53,7 @@ export class DetailHeading extends HTMLElement {
     const copyButton = document.createElement('div');
     copyButton.classList = "flex flex-row h-[5cqw] items-center justify-center text-[4cqw] mt-[6cqw] mb-[6cqw]"
     copyButton.innerHTML =
-      `<img src="assets/Images/Buttons/copy.png" class="h-full"></img>
+      `<img src="${uiAsset('button.copy')}" class="h-full"></img>
        <p class="font-bold ml-[2cqw]">Kopieren</p>`
     copyButton.addEventListener("click", () => {
       let copyText = this.extendedHTML;
@@ -77,15 +78,15 @@ export class DetailHeading extends HTMLElement {
 
     this.heading.addEventListener("click", () => {
       if(this.contentContainer.childNodes.length === 0) {
-        this.arrowImg.style.maskImage = "url('assets/Images/DropDown/Arrow_Down.png')"
-        this.arrowImg.style.webkitMaskImage = "url('assets/Images/DropDown/Arrow_Down.png')"
+        this.arrowImg.style.maskImage = "url('${uiAsset('arrow.down')}')"
+        this.arrowImg.style.webkitMaskImage = "url('${uiAsset('arrow.down')}')"
         const content = document.createElement('div');
         content.classList = "user-font flex flex-col gap-[2cqw]"
         content.innerHTML = this.extendedHTML;
         this.contentContainer.replaceChildren(content, copyButton);
       } else {
-        this.arrowImg.style.maskImage = "url('assets/Images/DropDown/Arrow_Left.png')";
-        this.arrowImg.style.webkitMaskImage = "url('assets/Images/DropDown/Arrow_Left.png')";
+        this.arrowImg.style.maskImage = "url('${uiAsset('arrow.left')}')";
+        this.arrowImg.style.webkitMaskImage = "url('${uiAsset('arrow.left')}')";
         this.contentContainer.replaceChildren();
       }
     });

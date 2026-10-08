@@ -2,6 +2,7 @@ import { fetchFromJson } from "../../shared-services/fetch-service.js";
 import { ImageLoadingService } from "../../shared-services/image-loading-service.js";
 import { TermsConsentScene } from "../terms-consent-scene/terms-consent-scene.js";
 import { loadMappings } from "../../shared-services/mapping-service.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 // Global cache für novels data
 window.novelsCache = null;
@@ -14,9 +15,9 @@ class LoadingScene extends HTMLElement {
     this.innerHTML = `
           <div class="flex flex-col items-center justify-center h-full w-full bg-blue-ud bg-cover">
             
-            <img src="assets/Images/LoadingScreen/Kite_Logo_im_Kreis.png" alt="Kite Emblem" class="pointer-events-none object-contain w-[64%] aspect-square mb-[6%]">
+            <img src="${uiAsset('logo.kite.circle')}" alt="Kite Emblem" class="pointer-events-none object-contain w-[64%] aspect-square mb-[6%]">
 
-            <img src="assets/Images/IconsAndLogos/Logo_Kite_Lettering_White.png" alt="Kite Text" class="pointer-events-none object-contain w-[68%] h-[17%] mb-[12%]">
+            <img src="${uiAsset('logo.kite.white')}" alt="Kite Text" class="pointer-events-none object-contain w-[68%] h-[17%] mb-[12%]">
 
             <!-- White progress track -->
             <div class="w-[80cqw] h-[3cqw] bg-white rounded-full overflow-hidden">

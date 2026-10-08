@@ -1,11 +1,12 @@
 import { BaseHeader } from './base-header-component.js';
+import { uiAsset } from "../ui-asset-service.js";
 
 export class ClosingHeader extends BaseHeader {
   // Close / X icon
   getLeftContent() {
     return `
       <button id="btn-close" class="${this.btnClass}">
-        <img src="assets/Images/Buttons/Close_2x.png" class="${this.imgClass}" />
+        <img src="${uiAsset('button.close')}" class="${this.imgClass}" />
       </button>`;
   }
 

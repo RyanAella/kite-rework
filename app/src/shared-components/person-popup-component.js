@@ -1,4 +1,5 @@
-const PERSON_IMAGE_PATH = "assets/Images/PopUp/Person_PopUp.png";
+import { uiAsset } from "./ui-asset-service.js";
+const PERSON_IMAGE_PATH = uiAsset('popup.person');
 
 // Styling classes for the person image, overlay, buttons and modal
 const PERSON_IMAGE_CLASS =

@@ -1,3 +1,4 @@
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 // Styling classes for the consent checkbox box
 const BOX_CLASSES =
   "mt-[0.25cqw] flex h-[5.8cqw] w-[5.8cqw] shrink-0 items-center justify-center " +
@@ -16,7 +17,7 @@ export function buildConsentCheckbox({ id, label }) {
       
       <label for="${id}" class="${BOX_CLASSES}" aria-hidden="true">
         <img
-          src="assets/Images/Buttons/Checkmark.png"
+          src="${uiAsset('button.checkmark')}"
           alt=""
           class="${CHECK_IMG_CLASSES}"
         />

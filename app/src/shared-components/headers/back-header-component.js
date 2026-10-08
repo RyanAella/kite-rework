@@ -1,11 +1,12 @@
 import { BaseHeader } from './base-header-component.js';
+import { uiAsset } from "../ui-asset-service.js";
 
 export class BackHeader extends BaseHeader {
   // Back arrow with "Zurück" label
   getLeftContent() {
     return `
       <button id="btn-back" class="${this.btnClass} gap-[1.5cqw] items-center text-white">
-        <img src="assets/Images/DropDown/Arrow_Left.png" class="${this.imgClass}" />
+        <img src="${uiAsset('arrow.left')}" class="${this.imgClass}" />
         <span class="text-[3.2cqw] font-sans tracking-tight mt-[0.5cqw]">
           Zurück
         </span>

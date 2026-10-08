@@ -1,4 +1,5 @@
 import { addDragScrolling } from "../../shared-services/drag-scrolling-service.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 export class ContainerComponent extends HTMLElement {
 
@@ -62,7 +63,7 @@ export class ContainerComponent extends HTMLElement {
     topSection.className = "flex flex-col items-center justify-center mt-[8cqw] w-full";
 
     const bulbIcon = document.createElement('img');
-    bulbIcon.src = "assets/Images/IconsAndLogos/Icon_Knowledge.png"; 
+    bulbIcon.src = uiAsset('icon.knowledge'); 
     bulbIcon.className = "w-[25cqw] max-w-[140px] mb-[2cqw] object-contain";
 
     const mainTitle = document.createElement('h1');

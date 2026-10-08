@@ -1,6 +1,7 @@
 import { DetailHeading } from "./detail-heading-component.js";
 import { escapeHtml } from "../../../../shared-services/shared-document-page-service.js";
 import { EVENT_TYPES } from "../../../../shared-services/mapping-service.js";
+import { uiAsset } from "../../../../shared-services/ui-asset-service.js";
 
 const heading_size = 4.5;
 
@@ -31,7 +32,7 @@ export class DateHeading extends HTMLElement {
         "
       >
         <span class="ml-[3cqw]">${this.formattedDate}</span>
-        <img id="arrow-img" src="assets/Images/DropDown/Arrow_Left.png" class="w-[6cqw] h-[6cqw] mr-[4cqw] ml-auto"/>
+        <img id="arrow-img" src="${uiAsset('arrow.left')}" class="w-[6cqw] h-[6cqw] mr-[4cqw] ml-auto"/>
       </div>
       <div id="content-container" class="flex flex-col"></div>
     `;
@@ -41,13 +42,13 @@ export class DateHeading extends HTMLElement {
 
     this.dateHeading.addEventListener("click", () => {
       if(this.contentContainer.childNodes.length === 0) {
-        this.arrowImg.src = "assets/Images/DropDown/Arrow_Down.png";
+        this.arrowImg.src = uiAsset('arrow.down');
         this.contentContainer.replaceChildren(
             DetailHeading.create(this.novelData, "Dialog", this.createDialog(), "Der Dialog wurde in die Zwischenablage kopiert"), 
             DetailHeading.create(this.novelData, "KI-Feedback", this.createFeedback(), "Das Feedback wurde in die Zwischenablage kopiert")
         );
       } else {
-        this.arrowImg.src = "assets/Images/DropDown/Arrow_Left.png";
+        this.arrowImg.src = uiAsset('arrow.left');
         this.contentContainer.replaceChildren();
       }
     });
