@@ -1,4 +1,4 @@
-import { uiAsset } from "./ui-asset-service.js";
+import { uiAsset } from "../shared-services/ui-asset-service.js";
 const PERSON_IMAGE_PATH = uiAsset('popup.person');
 
 // Styling classes for the person image, overlay, buttons and modal

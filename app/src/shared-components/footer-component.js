@@ -1,4 +1,4 @@
-import { uiAsset } from "./ui-asset-service.js";
+import { uiAsset } from "../shared-services/ui-asset-service.js";
 // Shared Tailwind classes for buttons and icons
 const enabledBtnClass = "bg-transparent flex flex-col items-center gap-[1.2cqw] outline-none transition-all duration-200 opacity-70";
 // Disabled-mode press feedback: rests at 70%, dims to 40% while held.
