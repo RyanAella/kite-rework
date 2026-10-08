@@ -1,0 +1,65 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Asset-Validierung (image-paths + ui-asset-service)
+        run: |
+          python import_novel.py --generate-image-paths
+          git diff --exit-code app/ || {
+            echo "::error::Generierte Dateien sind nicht aktuell, oder es fehlen referenzierte Assets. Bitte 'python import_novel.py --generate-image-paths' ausführen und committen."
+            exit 1
+          }
+
+      - name: JS-Syntax-Check
+        run: |
+          find app/src -name "*.js" -print0 | xargs -0 -n1 node --check
+
+      - name: Import-Pfad-Check
+        run: |
+          node --input-type=module -e "
+          import { readFileSync, readdirSync, statSync, existsSync } from 'fs';
+          import { join, dirname, resolve } from 'path';
+          const files = [];
+          (function walk(d) {
+            for (const f of readdirSync(d)) {
+              const p = join(d, f);
+              statSync(p).isDirectory() ? walk(p) : f.endsWith('.js') && files.push(p);
+            }
+          })('app/src');
+          let bad = 0;
+          for (const f of files) {
+            const src = readFileSync(f, 'utf8');
+            for (const m of src.matchAll(/from\s+[\"'](\.[^\"']+)[\"']/g)) {
+              if (!existsSync(resolve(dirname(f), m[1]))) {
+                console.log('BROKEN:', f, '->', m[1]);
+                bad++;
+              }
+            }
+          }
+          if (bad > 0) {
+            console.log('::error::' + bad + ' kaputte Import-Pfade gefunden');
+            process.exit(1);
+          }
+          console.log('Import-Pfade OK (' + files.length + ' Module geprueft)');
+          "

@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## [1.4.1] - 2026-10-08
+
+### Added
+- **CI**: New `Validate` GitHub Actions workflow that runs on every push to
+  `main` (and on pull requests): regenerates and validates the asset
+  manifests, checks all JS modules for syntax errors, and verifies that every
+  relative import points to an existing file
+
+---
+
 ## [1.4.0] - 2026-10-08
 
 ### Changed
