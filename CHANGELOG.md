@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
-## [1.2.6] - 2026-09-30
+## [1.3.1] - 2026-09-30
 
 ### Fixed
 - **Settings Footer**: Unified the version display in Settings with the one on
