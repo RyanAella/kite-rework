@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
-## [1.4.1] - 2026-10-08
+## [Unreleased]
 
 ### Added
 - **CI**: New `Validate` GitHub Actions workflow that runs on every push to
