@@ -1,5 +1,5 @@
 import { BaseHeader } from './base-header-component.js';
-import { uiAsset } from "../ui-asset-service.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 export class ClosingHeader extends BaseHeader {
   // Close / X icon

@@ -1,4 +1,4 @@
-import { uiAsset } from "../ui-asset-service.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 export class BaseHeader extends HTMLElement {
   
   btnClass = "bg-transparent flex outline-none transition-opacity active:opacity-70";
