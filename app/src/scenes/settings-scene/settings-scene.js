@@ -5,6 +5,7 @@ import { ensureSettingsDefaults } from "../../shared-services/app-settings-sessi
 import { isNovelSessionActive } from "../../shared-services/novel-session-service.js";
 import { SettingsHandler } from "./settings-handler.js";
 import "./settings-content-component.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 class SettingsScene extends HTMLElement {
   connectedCallback() {
@@ -18,7 +19,7 @@ class SettingsScene extends HTMLElement {
         <div class="col-start-1 row-start-1 flex h-full w-full flex-col items-center justify-center bg-bright bg-cover">
           <back-header></back-header>
           <div id="scroll-container" class="no-scrollbar flex h-[80%] w-full flex-col items-center overflow-x-hidden overflow-y-scroll px-[5%]">
-            <img draggable="false" class="h-[30cqw] object-cover" src="assets/Images/IconsAndLogos/Icon_Settings.png" alt="" />
+            <img draggable="false" class="h-[30cqw] object-cover" src="${uiAsset('icon.settings')}" alt="" />
             <p class="mb-[5%] w-full text-center text-[5cqw] font-semibold tracking-semibold text-[#14305d]">
               EINSTELLUNGEN
             </p>

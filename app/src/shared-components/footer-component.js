@@ -1,3 +1,4 @@
+import { uiAsset } from "./ui-asset-service.js";
 // Shared Tailwind classes for buttons and icons
 const enabledBtnClass = "bg-transparent flex flex-col items-center gap-[1.2cqw] outline-none transition-all duration-200 opacity-70";
 // Disabled-mode press feedback: rests at 70%, dims to 40% while held.
@@ -64,27 +65,27 @@ export class Footer extends HTMLElement {
         <div class="flex justify-between items-center w-full px-[6cqw]">
           
           <button id="foot-start" data-scene="novel-selector-scene" class="${btnClass}">
-            <img src="assets/Images/Buttons/home.png" class="${imgClass}" />
+            <img src="${uiAsset('button.home')}" class="${imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Start</span>
           </button>
 
           <button id="foot-archive" data-scene="archive-scene" class="${btnClass}">
-            <img src="assets/Images/Buttons/archive.png" class="${imgClass}" />
+            <img src="${uiAsset('button.archive')}" class="${imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Archiv</span>
           </button>
 
           <button id="foot-bookmark" data-scene="bookmarks-scene" class="${btnClass}">
-            <img src="assets/Images/Buttons/bookmark.png" class="${imgClass}" />
+            <img src="${uiAsset('button.bookmark')}" class="${imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Gemerkt</span>
           </button>
 
           <button id="foot-links" data-scene="links-scene" class="${btnClass}">
-            <img src="assets/Images/Buttons/weblinks.png" class="${imgClass}" />
+            <img src="${uiAsset('button.weblinks')}" class="${imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Links</span>
           </button>
 
           <button id="foot-knowledge" data-scene="knowledge-scene" class="${btnClass}">
-            <img src="assets/Images/Buttons/knowledge.png" class="${imgClass}" />
+            <img src="${uiAsset('button.knowledge')}" class="${imgClass}" />
             <span class="text-white text-[2cqw] font-sans">Wissen</span>
           </button>
 

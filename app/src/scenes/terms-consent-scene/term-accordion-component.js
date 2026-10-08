@@ -3,6 +3,7 @@ import {
   fetchLegalContent,
   renderDocumentSections,
 } from "../../shared-services/shared-document-page-service.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 // Accordion configuration for the terms consent scene
 const ACCORDION_CONFIG = [
@@ -31,13 +32,13 @@ function buildAccordionItem(label, bodyHtml) {
       >
         <span>${escapeHtml(label)}</span>
         <img
-          src="assets/Images/DropDown/Arrow_Right.png"
+          src="${uiAsset('arrow.right')}"
           alt=""
           aria-hidden="true"
           class="pointer-events-none h-[6cqw] w-[6cqw] shrink-0 object-contain group-open:hidden"
         />
         <img
-          src="assets/Images/DropDown/Arrow_Down.png"
+          src="${uiAsset('arrow.down')}"
           alt=""
           aria-hidden="true"
           class="pointer-events-none hidden h-[6cqw] w-[6cqw] shrink-0 object-contain group-open:block"

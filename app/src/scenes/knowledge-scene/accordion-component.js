@@ -1,6 +1,7 @@
 import "./card-overlay-component.js";
 import { addOpenOnTapOnly } from "../../shared-services/tap-service.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 class Accordion extends HTMLElement {
 
@@ -38,7 +39,7 @@ class Accordion extends HTMLElement {
       // Chevron Icon (Pfeil)
       const chevron = document.createElement('img');
       chevron.className = "w-[5cqw] h-[5cqw] object-contain";
-      chevron.src = "assets/Images/DropDown/Arrow_Left.png"
+      chevron.src = uiAsset('arrow.left')
 
       catBtn.appendChild(catTitle);
       catBtn.appendChild(chevron);
@@ -53,11 +54,11 @@ class Accordion extends HTMLElement {
         if (isHidden) {
           cardsWrapper.classList.remove('hidden');
           cardsWrapper.classList.add('flex');
-          chevron.src = "assets/Images/DropDown/Arrow_Down.png"
+          chevron.src = uiAsset('arrow.down')
         } else {
           cardsWrapper.classList.add('hidden');
           cardsWrapper.classList.remove('flex');
-          chevron.src = "assets/Images/DropDown/Arrow_Left.png"
+          chevron.src = uiAsset('arrow.left')
         }
       });
 

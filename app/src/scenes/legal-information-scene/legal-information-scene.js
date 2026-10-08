@@ -2,6 +2,7 @@ import "../../shared-components/headers/back-header-component.js";
 import "../../shared-components/footer-component.js";
 import { isNovelSessionActive } from "../../shared-services/novel-session-service.js";
 import { APP_VERSION } from "../../shared-services/app-version.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 const buttonClasses = "user-font w-full select-none border-0 bg-[#142b52] py-[2cqw] rounded-[0.5cqw] text-center font-semibold uppercase tracking-wide text-white shadow-sm transition-opacity active:opacity-70"
 
@@ -28,7 +29,7 @@ class LegalInformationScene extends HTMLElement {
 
               <div class="flex w-full flex-col items-center gap-[1.6cqw]">
                 <img
-                  src="assets/Images/IconsAndLogos/Icon_Legal_Big.png"
+                  src="${uiAsset('icon.legal.big')}"
                   alt=""
                   class="w-[25.6cqw] aspect-square object-contain pointer-events-none select-none"
                 />
@@ -40,7 +41,7 @@ class LegalInformationScene extends HTMLElement {
               <div class="flex w-full flex-col gap-[1.6cqw] rounded-[1.6cqw] border-[0.1cqw] border-gray-100 bg-white p-[3.2cqw] shadow-sm mb-[8cqw] mt-[8cqw]">
                 <div class="flex min-h-[20cqw] w-full items-center justify-center overflow-hidden rounded-[1.2cqw] bg-white">
                   <img
-                    src="assets/Images/IconsAndLogos/Logo_Sponsor.png"
+                    src="${uiAsset('logo.sponsor')}"
                     class="max-h-[48cqw] w-full object-contain pointer-events-none select-none"
                   />
                 </div>

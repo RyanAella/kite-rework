@@ -1,11 +1,12 @@
 import { BaseHeader } from './base-header-component.js';
+import { uiAsset } from "../ui-asset-service.js";
 
 export class NavigationHeader extends BaseHeader {
   // Hamburger menu icon
   getLeftContent() {
     return `
       <button id="btn-nav" class="${this.btnClass}">
-        <img src="assets/Images/Buttons/Burger_Menu_4x.png" class="${this.imgClass}"/>
+        <img src="${uiAsset('button.burgerMenu')}" class="${this.imgClass}"/>
       </button>`;
   }
 

@@ -8,6 +8,7 @@ import {
   showPinnedModal,
   hidePinnedModal,
 } from "../../shared-services/information-popup-service.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 import { CopyToast } from "../../shared-components/copy-toast-component.js";
 import { buildFeedbackPrompt } from "../../shared-services/prompt-service.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
@@ -189,7 +190,7 @@ class CompletionScene extends HTMLElement {
 
   createSpinner() {
     const img = document.createElement("img");
-    img.src = "assets/Images/LoadingScreen/Icon_Load.png";
+    img.src = uiAsset('icon.load');
     img.alt = "";
     img.className =
       "pointer-events-none w-[10cqw] h-[10cqw] object-contain mt-[4cqw]";
@@ -204,7 +205,7 @@ class CompletionScene extends HTMLElement {
       "flex flex-row h-[5cqw] items-center justify-center text-[4cqw] mt-[2cqw] mb-[2cqw] bg-transparent outline-none";
 
     const img = document.createElement("img");
-    img.src = "assets/Images/Buttons/copy.png";
+    img.src = uiAsset('button.copy');
     img.className = "h-full pointer-events-none";
     img.alt = "";
 

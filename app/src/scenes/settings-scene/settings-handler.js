@@ -2,6 +2,7 @@ import { loadAppSettings, saveAppSettings } from "../../shared-services/app-sett
 import { playAudio } from "../../shared-services/audio-playing-service.js";
 import { hidePinnedModal, showPinnedModal } from "../../shared-services/information-popup-service.js";
 import { applyUserFontSize, fontSizeToCqw } from "../../shared-services/user-font-size-service.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 // Settings handler class to manage the settings UI and persistence
 export class SettingsHandler {
@@ -100,8 +101,8 @@ export class SettingsHandler {
    */
   applyControlChrome() {
     const { refs } = this;
-    refs.voiceOutputSwitch.src = `assets/Images/IconsAndLogos/Icon_Settings_${this.settings.voiceOutput ? "Active" : "Inactive"}.png`;
-    refs.soundsSwitch.src = `assets/Images/IconsAndLogos/Icon_Settings_${this.settings.soundsActive ? "Active" : "Inactive"}.png`;
+    refs.voiceOutputSwitch.src = uiAsset(this.settings.voiceOutput ? "icon.settings.active" : "icon.settings.inactive");
+    refs.soundsSwitch.src = uiAsset(this.settings.soundsActive ? "icon.settings.active" : "icon.settings.inactive");
     refs.fontSizeSlider.value = String(this.settings.fontSize);
     if (this.settings.soundsActive) {
       refs.slidebarCover.classList.remove("bg-white/50");

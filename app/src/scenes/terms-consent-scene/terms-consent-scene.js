@@ -2,6 +2,7 @@ import { mountTermsAccordion } from "./term-accordion-component.js";
 import { buildConsentCheckbox } from "./consent-checkbox-component.js";
 import { addDragScrolling } from "../../shared-services/drag-scrolling-service.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 // Storage key for the legal consent
 const LEGAL_CONSENT_STORAGE_KEY = "kite-legal-consent";
@@ -76,7 +77,7 @@ export class TermsConsentScene extends HTMLElement {
     return `
       <div class="flex w-full shrink-0 justify-center pt-[18cqw] pb-[6cqw]">
         <img
-          src="assets/Images/IconsAndLogos/Logo_Kite_Lettering_White.png"
+          src="${uiAsset('logo.kite.white')}"
           alt="kite"
           class="pointer-events-none w-[24%] max-w-[100px] object-contain select-none"
         />

@@ -3,6 +3,7 @@ import { NovelHeading } from "./novel-heading-component/novel-heading-component.
 import { getArchiveData } from "../../shared-services/archive-data-service.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
 import { CopyToast } from "../../shared-components/copy-toast-component.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 class ArchiveScene extends HTMLElement {
 
@@ -19,7 +20,7 @@ class ArchiveScene extends HTMLElement {
         <div id="scroll-container" class="z-10 flex w-full h-[160cqw] flex-1 flex-col bg-bright bg-cover px-[5cqw] overflow-x-hidden overflow-y-scroll no-scrollbar">
           <div class="flex w-full flex-col items-center pt-[9cqw]">
             <img
-              src="assets/Images/IconsAndLogos/Icon_GameArchive.png"
+              src="${uiAsset('icon.gameArchive')}"
               alt="Icon_GameArchive"
               class="w-[28cqw] aspect-square object-contain"
             />

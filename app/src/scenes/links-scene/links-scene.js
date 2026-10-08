@@ -2,6 +2,7 @@ import "../../shared-components/headers/back-header-component.js";
 import "../../shared-components/footer-component.js";
 import { addDragScrolling } from "../../shared-services/drag-scrolling-service.js";
 import "./list-component.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 class LinksScene extends HTMLElement {
 
@@ -21,7 +22,7 @@ class LinksScene extends HTMLElement {
     topSection.className = "flex flex-col items-center justify-center mt-[8cqw] mb-[10cqw] px-[6cqw]";
 
     const globeIcon = document.createElement('img');
-    globeIcon.src = "assets/Images/IconsAndLogos/Icon_Linklist.png";
+    globeIcon.src = uiAsset('icon.linklist');
     globeIcon.className = "w-[25cqw] max-w-[120px] mb-[4cqw] object-contain";
 
     const mainTitle = document.createElement('h1');

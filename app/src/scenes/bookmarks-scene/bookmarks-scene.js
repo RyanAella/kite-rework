@@ -3,6 +3,7 @@ import "../../shared-components/footer-component.js";
 import { bookmarkedNovelStore } from "../../shared-services/store-service.js";
 import { initHoneycombComponent } from "./honeycomb-service.js";
 import { fetchFromJson } from "../../shared-services/fetch-service.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 class BookmarksScene extends HTMLElement {
 
@@ -19,7 +20,7 @@ class BookmarksScene extends HTMLElement {
 
               <div class="flex w-full flex-col items-center gap-[1.6cqw]">
                 <img
-                  src="assets/Images/IconsAndLogos/Icon_Favorites.png"
+                  src="${uiAsset('icon.favorites')}"
                   alt=""
                   class="w-[25.6cqw] aspect-square object-contain pointer-events-none select-none"
                 />

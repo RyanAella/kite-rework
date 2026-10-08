@@ -1,3 +1,4 @@
+import { uiAsset } from "../ui-asset-service.js";
 export class BaseHeader extends HTMLElement {
   
   btnClass = "bg-transparent flex outline-none transition-opacity active:opacity-70";
@@ -26,10 +27,10 @@ export class BaseHeader extends HTMLElement {
 
           <div class="flex items-end gap-[6cqw] ml-auto">
             <button id="btn-legal" class="${this.btnClass}">
-              <img src="assets/Images/IconsAndLogos/Icon_Legal_Small.png" class="${this.imgClass}" />
+              <img src="${uiAsset('icon.legal.small')}" class="${this.imgClass}" />
             </button>
             <button id="btn-settings" class="${this.btnClass}">
-              <img src="assets/Images/Buttons/settings.png" class="${this.imgClass}" />
+              <img src="${uiAsset('button.settings')}" class="${this.imgClass}" />
             </button>
           </div>
 

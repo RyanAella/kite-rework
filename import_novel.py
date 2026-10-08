@@ -598,6 +598,83 @@ def generate_image_paths(images_dir=None, output_path=None):
     return len(paths)
 
 
+def generate_ui_assets(output_path=None):
+    """Erzeugt ui-asset-service.js: logische Keys -> Dateipfade, validiert
+    gegen den tatsaechlichen Bestand unter app/assets/Images."""
+    base_dir = os.path.dirname(__file__)
+    if output_path is None:
+        output_path = os.path.join(base_dir, 'app', 'src', 'shared-services', 'ui-asset-service.js')
+    images_dir = os.path.join(base_dir, 'app', 'assets', 'Images')
+
+    logical_keys = {
+        'button.home': 'Buttons/home.png',
+        'button.archive': 'Buttons/archive.png',
+        'button.bookmark': 'Buttons/bookmark.png',
+        'button.weblinks': 'Buttons/weblinks.png',
+        'button.knowledge': 'Buttons/knowledge.png',
+        'button.settings': 'Buttons/settings.png',
+        'button.close': 'Buttons/Close_2x.png',
+        'button.burgerMenu': 'Buttons/Burger_Menu_4x.png',
+        'button.checkmark': 'Buttons/Checkmark.png',
+        'button.copy': 'Buttons/copy.png',
+        'button.info': 'Buttons/Info_Circle.png',
+        'arrow.left': 'DropDown/Arrow_Left.png',
+        'arrow.down': 'DropDown/Arrow_Down.png',
+        'arrow.right': 'DropDown/Arrow_Right.png',
+        'icon.settings': 'IconsAndLogos/Icon_Settings.png',
+        'icon.settings.active': 'IconsAndLogos/Icon_Settings_Active.png',
+        'icon.settings.inactive': 'IconsAndLogos/Icon_Settings_Inactive.png',
+        'icon.dialogue': 'IconsAndLogos/Icon_Dialogue.png',
+        'icon.soundeffect': 'IconsAndLogos/Icon_Soundeffect.png',
+        'icon.typesize': 'IconsAndLogos/Icon_Typesize.png',
+        'icon.favorites': 'IconsAndLogos/Icon_Favorites.png',
+        'icon.gameArchive': 'IconsAndLogos/Icon_GameArchive.png',
+        'icon.knowledge': 'IconsAndLogos/Icon_Knowledge.png',
+        'icon.linklist': 'IconsAndLogos/Icon_Linklist.png',
+        'icon.legal.big': 'IconsAndLogos/Icon_Legal_Big.png',
+        'icon.legal.small': 'IconsAndLogos/Icon_Legal_Small.png',
+        'logo.kite.white': 'IconsAndLogos/Logo_Kite_Lettering_White.png',
+        'logo.sponsor': 'IconsAndLogos/Logo_Sponsor.png',
+        'logo.kite.circle': 'LoadingScreen/Kite_Logo_im_Kreis.png',
+        'icon.load': 'LoadingScreen/Icon_Load.png',
+        'popup.person': 'PopUp/Person_PopUp.png',
+        'shape.novel': 'FoundersBubble/Novel_Shape.png',
+    }
+
+    missing = [k for k, rel in logical_keys.items() if not os.path.isfile(os.path.join(images_dir, rel))]
+    if missing:
+        print('Fehler: folgende UI-Assets fehlen unter app/assets/Images:')
+        for key in missing:
+            print(f"  - {key} -> {logical_keys[key]}")
+        return None
+
+    lines = [
+        '// Managed by import_novel.py (--generate-image-paths). Do not edit by hand;',
+        '// run "python import_novel.py --generate-image-paths" to regenerate.',
+        '// Maps logical asset keys to their file paths under app/assets/Images.',
+        'export const UI_ASSETS = {',
+    ]
+    for key in sorted(logical_keys):
+        rel = logical_keys[key]
+        lines.append(f'  "{key}": "assets/Images/{rel}",')
+    lines.append('};')
+    lines.append('')
+    lines.append('export function uiAsset(key) {')
+    lines.append('  const path = UI_ASSETS[key];')
+    lines.append('  if (!path) {')
+    lines.append('    console.error(`Unknown UI asset key: ${key}`);')
+    lines.append('    return "";')
+    lines.append('  }')
+    lines.append('  return path;')
+    lines.append('}')
+    lines.append('')
+
+    with open(output_path, 'w', encoding='utf-8', newline='\n') as f:
+        f.write('\n'.join(lines))
+    print(f'ui-asset-service.js erzeugt: {len(logical_keys)} Eintraege in {output_path}')
+    return len(logical_keys)
+
+
 def main():
     parser = argparse.ArgumentParser(description='Importiert eine Novel aus Twee-Format')
     parser.add_argument('source_dir', nargs='?', default=None, help='Verzeichnis mit visual_novel_meta_data.txt und visual_novel_event_list.txt')
@@ -608,7 +685,8 @@ def main():
     
     if args.generate_image_paths:
         count = generate_image_paths()
-        sys.exit(0 if count is not None else 1)
+        ui_count = generate_ui_assets()
+        sys.exit(0 if count is not None and ui_count is not None else 1)
     
     if not args.source_dir:
         parser.error('source_dir ist erforderlich (außer bei --generate-image-paths)')
@@ -620,6 +698,7 @@ def main():
     try:
         convert_novel(args.source_dir, append=args.append)
         generate_image_paths()
+        generate_ui_assets()
     except Exception as e:
         print(f"Fehler: {e}")
         import traceback

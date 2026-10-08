@@ -1,4 +1,5 @@
 import { DateHeading } from "./date-heading-component/date-heading-component.js";
+import { uiAsset } from "../../../shared-services/ui-asset-service.js";
 
 const heading_size = 4.5;
 
@@ -37,7 +38,7 @@ export class NovelHeading extends HTMLElement {
         <div class="w-[5cqw] h-[5cqw] bg-[#fe5d03] rounded-full ml-auto mr-[3cqw] font-mono">
           ${this.instanceData.length}
         </div>
-        <img id="arrow-img" src="assets/Images/DropDown/Arrow_Left.png" class="w-[6cqw] h-[6cqw] mr-[4cqw]"/>
+        <img id="arrow-img" src="${uiAsset('arrow.left')}" class="w-[6cqw] h-[6cqw] mr-[4cqw]"/>
       </div>
       <div id="date-heading-container"></div>
     `;
@@ -47,12 +48,12 @@ export class NovelHeading extends HTMLElement {
 
     this.novelHeading.addEventListener("click", () => {
       if(this.dateHeadingContainer.childNodes.length === 0) {
-        this.arrowImg.src = "assets/Images/DropDown/Arrow_Down.png"
+        this.arrowImg.src = uiAsset('arrow.down')
         this.instanceData.forEach(element => {
           this.dateHeadingContainer.appendChild(DateHeading.create(this.novelData, element));
         });
       } else {
-        this.arrowImg.src = "assets/Images/DropDown/Arrow_Left.png";
+        this.arrowImg.src = uiAsset('arrow.left');
         this.dateHeadingContainer.replaceChildren();
       }
     });

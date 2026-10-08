@@ -1,4 +1,5 @@
 import { APP_VERSION } from "../../shared-services/app-version.js";
+import { uiAsset } from "../../shared-services/ui-asset-service.js";
 
 // Settings content component: audio + typography blocks (single component to keep scene wiring simple)
 class SettingsContentComponent extends HTMLElement {
@@ -14,9 +15,9 @@ class SettingsContentComponent extends HTMLElement {
 
       <div class="mb-[3cqw] min-h-[40cqw] w-full rounded-[2cqw] bg-white p-[2cqw] font-semibold">
         <div class="flex h-[12cqw] w-full flex-row">
-          <img draggable="false" class="h-full scale-50 object-cover" src="assets/Images/IconsAndLogos/Icon_Dialogue.png" alt="" />
+          <img draggable="false" class="h-full scale-50 object-cover" src="${uiAsset('icon.dialogue')}" alt="" />
           <p class="flex h-full items-center text-[5cqw] text-[#14305d]">Dialoge Vorlesen</p>
-          <img draggable="false" id="voice-output-switch" class="mr-[5%] ml-auto h-full object-cover" src="assets/Images/IconsAndLogos/Icon_Settings_Inactive.png" alt="" />
+          <img draggable="false" id="voice-output-switch" class="mr-[5%] ml-auto h-full object-cover" src="${uiAsset('icon.settings.inactive')}" alt="" />
         </div>
         <p class="user-font w-full font-medium tracking-wide text-[#14305d]">
           Dieser Button schaltet die Sprachausgabe in den Visual Novels an bzw. aus. Ist die Sprachausgabe aktiviert, werden die Dialoge vertont und der Text, auf welchen du drückst, wird dir vorgelesen.
@@ -25,9 +26,9 @@ class SettingsContentComponent extends HTMLElement {
 
       <div class="mb-[5cqw] min-h-[70cqw] w-full rounded-[2cqw] bg-white p-[2cqw] font-semibold">
         <div class="flex h-[12cqw] w-full flex-row">
-          <img draggable="false" class="h-full scale-50 object-cover" src="assets/Images/IconsAndLogos/Icon_Soundeffect.png" alt="" />
+          <img draggable="false" class="h-full scale-50 object-cover" src="${uiAsset('icon.soundeffect')}" alt="" />
           <p class="flex h-full items-center text-[5cqw] text-[#14305d]">Sounds aktivieren</p>
-          <img draggable="false" id="sound-switch" class="mr-[5%] ml-auto h-full object-cover" src="assets/Images/IconsAndLogos/Icon_Settings_Inactive.png" alt="" />
+          <img draggable="false" id="sound-switch" class="mr-[5%] ml-auto h-full object-cover" src="${uiAsset('icon.settings.inactive')}" alt="" />
         </div>
         <p class="user-font w-full font-medium tracking-wide text-[#14305d]">
           Hier kannst du Soundeffekte der gesammten App aktivieren und ihre Laudstärke steuern, unabhängig von der Vorleselautstärke.
@@ -38,11 +39,11 @@ class SettingsContentComponent extends HTMLElement {
 
         <div class="grid h-[15cqw] w-full grid-cols-1 grid-rows-1">
           <div class="col-start-1 row-start-1 flex h-full w-full items-center">
-            <img draggable="false" src="assets/Images/IconsAndLogos/Icon_Soundeffect.png" alt="Leise" class="mx-[10cqw] h-[5cqw] object-contain" />
+            <img draggable="false" src="${uiAsset('icon.soundeffect')}" alt="Leise" class="mx-[10cqw] h-[5cqw] object-contain" />
             <div class="[container-type:inline-size] h-[5cqw] w-full">
               <input type="range" min="0" max="100" value="80" id="volume-slider" class="slider h-full w-full appearance-none" />
             </div>
-            <img draggable="false" src="assets/Images/IconsAndLogos/Icon_Soundeffect.png" alt="Laut" class="mx-[10cqw] h-[10cqw] object-contain" />
+            <img draggable="false" src="${uiAsset('icon.soundeffect')}" alt="Laut" class="mx-[10cqw] h-[10cqw] object-contain" />
           </div>
           <div id="slidebar-cover" class="pointer-events-none col-start-1 row-start-1 z-10 h-full w-full bg-white/50"></div>
         </div>
@@ -54,7 +55,7 @@ class SettingsContentComponent extends HTMLElement {
 
       <div class="mb-[5cqw] min-h-[70cqw] w-full rounded-[2cqw] bg-white p-[2cqw] font-semibold">
         <div class="flex h-[12cqw] w-full flex-row">
-          <img draggable="false" class="h-full scale-50 object-cover" src="assets/Images/IconsAndLogos/Icon_Typesize.png" alt="" />
+          <img draggable="false" class="h-full scale-50 object-cover" src="${uiAsset('icon.typesize')}" alt="" />
           <p class="flex h-full items-center text-[5cqw] text-[#14305d]">Schriftgröße anpassen</p>
         </div>
 
