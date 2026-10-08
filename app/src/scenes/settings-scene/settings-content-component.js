@@ -77,7 +77,7 @@ class SettingsContentComponent extends HTMLElement {
         </div>
       </div>
 
-      <div class="pb-[3cqw] text-center text-[#14305d] text-[2cqw]">Version: ${APP_VERSION}</div>
+      <div class="pb-[3cqw] select-none text-center text-[#0b1a2d]/70 text-[3cqw] font-medium">Version: ${APP_VERSION}</div>
     `;
   }
 }
