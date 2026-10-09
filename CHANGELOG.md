@@ -11,6 +11,9 @@ All notable changes to this project will be documented in this file. The format 
   `main` (and on pull requests): regenerates and validates the asset
   manifests, checks all JS modules for syntax errors, and verifies that every
   relative import points to an existing file
+- **Completion Scene**: The "KIT thinks" loop sound (`SFX_KIThinksLoop`) now
+  plays while the AI feedback is being generated and stops once the result or
+  error is shown
 
 ---
 

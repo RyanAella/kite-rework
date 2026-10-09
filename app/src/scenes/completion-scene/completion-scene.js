@@ -1,5 +1,5 @@
 import "../../shared-components/headers/back-header-component.js";
-import { playAudio } from "../../shared-services/audio-playing-service.js";
+import { playAudio, playAudioLoop, stopAudioLoop } from "../../shared-services/audio-playing-service.js";
 import { addDragScrolling } from "../../shared-services/drag-scrolling-service.js";
 import { fetchAiFeedback } from "../../shared-services/ai-feedback-service.js";
 import { setAiFeedback } from "../../shared-services/progress-tracking-service.js";
@@ -87,20 +87,25 @@ class CompletionScene extends HTMLElement {
   async loadFeedback() {
     const { dialogueText, novelName } = this.args || {};
     this.renderState("loading");
+    const thinksSound = playAudioLoop("SFX_KIThinksLoop");
 
-    // Novel-Context aus novels.json laden
-    const novelsData = await fetchFromJson("assets/json/novels.json");
-    const novel = novelsData["visualNovels"].find((n) => n.name === novelName);
-    const prompt = await buildFeedbackPrompt(novel?.context, dialogueText || "");
+    try {
+      // Novel-Context aus novels.json laden
+      const novelsData = await fetchFromJson("assets/json/novels.json");
+      const novel = novelsData["visualNovels"].find((n) => n.name === novelName);
+      const prompt = await buildFeedbackPrompt(novel?.context, dialogueText || "");
 
-    const { ok, feedback } = await fetchAiFeedback(prompt);
+      const { ok, feedback } = await fetchAiFeedback(prompt);
 
-    if (ok) {
-      this.saveFeedbackToArchive(feedback);
-      this.renderState("result", feedback);
-    } else {
-      this.renderState("error");
-      showPinnedModal(this.popupContainer, this.popup);
+      if (ok) {
+        this.saveFeedbackToArchive(feedback);
+        this.renderState("result", feedback);
+      } else {
+        this.renderState("error");
+        showPinnedModal(this.popupContainer, this.popup);
+      }
+    } finally {
+      stopAudioLoop(thinksSound);
     }
   }
 
