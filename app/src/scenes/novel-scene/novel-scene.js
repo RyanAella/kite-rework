@@ -113,7 +113,7 @@ class NovelScene extends HTMLElement {
         this.eventResolver.undoChoice(index);
       }
     });
-    
+
     const header = document.createElement(needBaseHeader ? "base-header" : "back-header");
     if(!needBaseHeader) {
       header.addEventListener('sm-back', (e) => {
@@ -265,7 +265,14 @@ class NovelScene extends HTMLElement {
           this.background.appendChild(characterBox);
           break;
         case EVENT_TYPES.showMessage:
-          await this.dialogueList.showMessage(oldEvent.text, false, oldEvent.character, true);
+          if (oldEvent.isUserChoice) {
+            // Player answers are rebuilt as clickable choice bubbles so they
+            // remain undoable after continuing a paused session. Their order in
+            // the message container matches the resolver's choicePoints order.
+            await this.dialogueList.showMessage(oldEvent.text, true, 1, true);
+          } else {
+            await this.dialogueList.showMessage(oldEvent.text, false, oldEvent.character, true);
+          }
           break;
       }
     }
@@ -277,8 +284,14 @@ class NovelScene extends HTMLElement {
   saveSnapshot() {
     const snapShot = this.eventResolver.getSnapshot();
     if (snapShot) {
-      this.args.snapshot = snapShot
-      novelStateStore.save(this.novel.name, snapShot);
+      // Store copies instead of live references: the resolver keeps mutating
+      // its arrays (history/choices/choice points) while the player continues.
+      // With live references, a later pause would silently overwrite the state
+      // saved by an earlier pause, so continuing would restart at the first
+      // interruption point.
+      const snapShotCopy = JSON.parse(JSON.stringify(snapShot));
+      this.args.snapshot = snapShotCopy;
+      novelStateStore.save(this.novel.name, snapShotCopy);
     }
   }
 

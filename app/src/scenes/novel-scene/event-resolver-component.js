@@ -19,6 +19,19 @@ export class EventResolver extends HTMLElement {
 
   isPaused = false;
 
+  // True while an event chain (see resolveCurrentEvent/eventLoop) is running.
+  // Prevents a second chain from being started while the first one is still
+  // awaiting an animation - such a parallel chain would duplicate messages.
+  chainRunning = false;
+
+  // Promise of the currently running chain, used by undoChoice to restart the
+  // dialogue after the previous chain has unwound.
+  activeChain = null;
+
+  // Incremented whenever the resolver state is rewound (undo) or replaced
+  // (snapshot load), so chains still in flight can detect they are stale.
+  runId = 0;
+
   static create(novelName, events, dialogueList, tracking) {
     const eventResolver = document.createElement('event-resolver');
     eventResolver.events = events;
@@ -41,6 +54,28 @@ export class EventResolver extends HTMLElement {
       console.warn("Dialogue is in paused state.");
       return;
     }
+    if (this.chainRunning) {
+      // A chain is already running; it will continue the dialogue on its own.
+      return;
+    }
+    this.chainRunning = true;
+    const promise = (async () => {
+      try {
+        await this.eventLoop();
+      } finally {
+        this.chainRunning = false;
+      }
+    })();
+    this.activeChain = promise;
+    return promise;
+  }
+
+  /**
+   * Processes the current event, then the next one, until the chain reaches a
+   * stopping point (choices shown, character added, novel ended, pause).
+   */
+  async eventLoop() {
+    const runId = this.runId;
 
     let allCharacters = Array.from(this.parentNode.querySelectorAll('character-box'));
     let character = this.parentNode.querySelector(`#character-${this.currentEvent['character']}`)
@@ -65,6 +100,11 @@ export class EventResolver extends HTMLElement {
         if(character) character.setSpeakingState(true);
         TTSRead(this.currentEvent['text']);
         await this.dialogueList.showMessage(this.currentEvent['text'], false, this.currentEvent['character']);
+        // A stale chain (undo/snapshot while the message was showing) must not
+        // clear the choices that were restored in the meantime.
+        if (runId !== this.runId) {
+          return;
+        }
         this.currentChoices = [];
         break;
 
@@ -111,12 +151,23 @@ export class EventResolver extends HTMLElement {
         console.warn(`Unknown event with Id ${this.currentEvent['id']}`);
     }
 
-    if(this.isPaused) {
+    if (runId !== this.runId) {
+      return;
+    }
+
+    // Pause gate: hold the chain here while the pause popup is open. The chain
+    // resumes on its own once unpause()d, instead of a second chain being
+    // started in parallel (which would duplicate messages).
+    while (this.isPaused && runId === this.runId) {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    }
+
+    if (runId !== this.runId) {
       return;
     }
 
     this.switchToNext();
-    await this.resolveCurrentEvent();
+    await this.eventLoop();
   }
 
   /**
@@ -130,6 +181,12 @@ export class EventResolver extends HTMLElement {
       return;
     }
 
+    if (this.isPaused) {
+      console.warn("Ignoring user confirmation while paused.");
+      return;
+    }
+
+    const runId = this.runId;
     const choiceIndex = choice['detail']['choiceIndex'];
 
     // Save the current state of the event history and choices
@@ -145,7 +202,10 @@ export class EventResolver extends HTMLElement {
       this.eventHistory.push({
         eventType: 4,     
         text: selectedChoiceText,
-        character: 1
+        character: 1,
+        // Marks this history entry as a player answer, so a restored session
+        // can rebuild it as a clickable (undoable) choice bubble.
+        isUserChoice: true
       });
     }
 
@@ -153,7 +213,18 @@ export class EventResolver extends HTMLElement {
     this.switchTo(this.currentChoices[choice['detail']['choiceIndex']]['onChoice']);
     this.currentChoices = [];
 
-    if (this.isPaused) return;
+    if (runId !== this.runId) {
+      return;
+    }
+
+    while (this.isPaused && runId === this.runId) {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    }
+
+    if (runId !== this.runId) {
+      return;
+    }
+
     await this.resolveCurrentEvent();
 
   }
@@ -181,8 +252,24 @@ export class EventResolver extends HTMLElement {
       truncateDialogChoices(this.storageKey, index);
     }
 
+    // Stop a message animation that may still be running (the chain awaiting it
+    // must unwind before the restored choices can be shown).
+    this.dialogueList.cancelActiveMessage?.();
+
+    // Invalidate chains still in flight: the runId change makes them stop at
+    // their next checkpoint instead of advancing past the restored state.
+    this.runId++;
     this.isPaused = false;
-    this.resolveCurrentEvent(); // eventType 6 will show choices again
+
+    // Restart at the restored choice point once the previous chain has
+    // fully unwound (eventType 6 will show the choices again).
+    const previous = this.activeChain;
+    const start = () => this.resolveCurrentEvent();
+    if (previous) {
+      previous.then(start, start);
+    } else {
+      start();
+    }
     return cp;
   }
 
@@ -246,8 +333,11 @@ export class EventResolver extends HTMLElement {
   resume() {
     if (this.isPaused) {
       this.isPaused = false;
-      // Startet die Schleife wieder exakt dort, wo sie gestoppt hat
-      this.resolveCurrentEvent(); 
+      // If a chain is still running (paused mid-message), it continues on its
+      // own at its pause gate. Only restart explicitly if none is running.
+      if (!this.chainRunning) {
+        this.resolveCurrentEvent();
+      }
     }
   }
 
@@ -277,15 +367,23 @@ export class EventResolver extends HTMLElement {
    */
   loadSnapshot(snapShot) {
     if (snapShot && snapShot.eventId) {
-      this.eventHistory = snapShot.history || [];
-      this.currentChoices = snapShot.currentChoices || [];
-      this.choicePoints = snapShot.choicePoints || [];
+      // Copies (not live references): the resolver mutates these arrays while
+      // playing (choices, undo); sharing identity with the stored snapshot
+      // object would silently rewrite the saved state.
+      this.eventHistory = (snapShot.history || []).map((e) => ({ ...e }));
+      this.currentChoices = (snapShot.currentChoices || []).map((c) => ({ ...c }));
+      this.choicePoints = (snapShot.choicePoints || []).map((cp) => ({
+        ...cp,
+        choices: (cp.choices || []).map((c) => ({ ...c })),
+      }));
 
       if (snapShot.storageKey) {
           this.storageKey = snapShot.storageKey;
       }
 
       this.switchTo(snapShot.eventId);
+      // Any chain started before the snapshot load is now stale.
+      this.runId++;
     }
   }
 
