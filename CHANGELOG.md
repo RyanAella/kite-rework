@@ -6,6 +6,24 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+### Fixed
+
+- **Novel-Scene (Undo)**: Antworten lassen sich wieder zuverlässig rückgängig
+  machen. Bisher blieb die Dialog-Kette nach dem Undo in einer "Zombie"-Kette
+  hängen (z. B. beim Undo während noch eine Nachricht getippt wurde) und
+  löschte die wiederhergestellten Antwortoptionen — die Auswahl erschien nicht
+  mehr oder reagierte nicht. Der EventResolver invalidiert jetzt laufende
+  Ketten beim Undo/Pausieren/Snapshot-Laden und startet sauber am Wahlpunkt
+  neu
+- **Novel-Scene (Pausieren/Fortsetzen)**: Nach dem Fortsetzen einer pausierten
+  Novel startete eine zweite Unterbrechung wieder am Speicherpunkt der ersten.
+  Ursache waren Live-Referenzen auf die Resolver-Arrays im gespeicherten
+  Snapshot (spätere Änderungen überschrieben den alten Stand) sowie
+  Spieler-Antworten, die beim Wiederaufbau als normale Nachrichten ohne
+  Undo-Bubble wiederhergestellt wurden. Snapshots werden jetzt als Kopie
+  gespeichert und geladen, und Spieler-Antworten werden nach dem Fortsetzen
+  wieder als klickbare (rückgängig machbare) Choice-Bubbles aufgebaut
+
 ### Added
 - **CI**: New `Validate` GitHub Actions workflow that runs on every push to
   `main` (and on pull requests): regenerates and validates the asset

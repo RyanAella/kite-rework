@@ -2,6 +2,7 @@ import { addDragScrolling } from "../../../shared-services/drag-scrolling-servic
 import "./message-container-component.js";
 import "./choice-container-component.js";
 import { playAudio } from "../../../shared-services/audio-playing-service.js";
+import { skipActiveAnimation } from "./dialogue-skip-service.js";
 
 export class DialogueList extends HTMLElement {
   
@@ -100,6 +101,14 @@ export class DialogueList extends HTMLElement {
       node = next;
     }
     bubble.remove();
+  }
+
+  /**
+   * Finishes the currently running typewriter animation immediately, so an
+   * awaiting dialogue chain can unwind instead of lingering in the background.
+   */
+  cancelActiveMessage() {
+    skipActiveAnimation(this.messageContainer);
   }
 
   /**
